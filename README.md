@@ -30,7 +30,7 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 📺tvOS support.
 
 
-## How do items per row work? 
+## How do items per row work?
 
 If you specify how many items per row that you want to appear in a vertical layout, the width of the layout attribute will be calculated for you taking the section inset, item spacing into account to make sure that all views fit your design. For example, if you set that you want two items per row, then two views will appear on the same row side by side. If you want to create a table view layout, you would simply set the items per row value to be one. You can use this variable for horizontal layouts as well, but instead of creating a new row, the value is used to create a width to cover the desired area. If you want the width to span across the entire container then simply set it to one, if you want to create a carousel layout with hinting, setting a value like 1.1 will render at least one complete item and give a visual hint to the user that another view is available if the scroll horizontally.
 

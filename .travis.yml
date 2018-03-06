@@ -1,0 +1,16 @@
+osx_image: xcode9
+language: objective-c
+
+script:
+- set -o pipefail && xcodebuild -project Flow.xcodeproj -scheme "Flow-macOS" -sdk macosx clean build
+- set -o pipefail && xcodebuild -project Flow.xcodeproj -scheme "Flow-macOS" -sdk macosx -enableCodeCoverage YES test
+- set -o pipefail && xcodebuild -project Flow.xcodeproj -scheme "Flow-iOS" -sdk iphonesimulator -destination name="iPhone 8" clean build
+- set -o pipefail && xcodebuild -project Flow.xcodeproj -scheme "Flow-iOS" -sdk iphonesimulator -destination name="iPhone 8" -enableCodeCoverage YES test
+- set -o pipefail && xcodebuild -project Flow.xcodeproj -scheme "Flow-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=11.0' clean build
+- set -o pipefail && xcodebuild -project Flow.xcodeproj -scheme "Flow-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=11.0' -enableCodeCoverage YES test
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+
+notifications:
+email: false

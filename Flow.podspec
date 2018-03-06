@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Flow"
-  s.summary          = "A short description of Flow."
+  s.summary          = "A collection of flow layouts that is meant to make your life easier."
   s.version          = "0.1.0"
   s.homepage         = "https://github.com/zenangst/Flow"
   s.license          = 'MIT'

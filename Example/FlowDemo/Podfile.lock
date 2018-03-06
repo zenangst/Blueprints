@@ -1,0 +1,16 @@
+PODS:
+  - Flow (0.1.0)
+
+DEPENDENCIES:
+  - Flow (from `../../`)
+
+EXTERNAL SOURCES:
+  Flow:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  Flow: 7061ae376a7d6c33d8f2c19f2a1d8ab743509c90
+
+PODFILE CHECKSUM: a5819d877875dbf781c685e0138210c0a42e9159
+
+COCOAPODS: 1.4.0

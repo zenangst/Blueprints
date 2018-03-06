@@ -34,9 +34,11 @@ class VerticalFlowLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 250))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
 
+    #if !os(macOS)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .zero, size: .init(width: 50, height: 50)))?.count, 1)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 25), size: .init(width: 50, height: 50)))?.count, 2)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .zero, size: .init(width: 200, height: 200)))?.count, 10)
+    #endif
   }
 
   func testVerticalLayoutAttributesWithSpanOne() {

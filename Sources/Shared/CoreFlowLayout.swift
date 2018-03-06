@@ -80,20 +80,20 @@ open class CoreFlowLayout : CollectionViewFlowLayout {
   }
 
   func calculateItemWidth(_ itemsPerRow: CGFloat, containerWidth: CGFloat) -> CGFloat {
-    var spanWidth = containerWidth - sectionInset.left - sectionInset.right
+    var width = containerWidth - sectionInset.left - sectionInset.right
 
     if itemsPerRow > 1 {
-      spanWidth -= minimumInteritemSpacing * (itemsPerRow - 1)
+      width -= minimumInteritemSpacing * (itemsPerRow - 1)
     }
 
-    return floor(spanWidth / itemsPerRow)
+    return floor(width / itemsPerRow)
   }
 
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
     if let collectionView = collectionView, let span = itemsPerRow, span > 0 {
       let containerWidth: CGFloat
       #if os(macOS)
-        containerWidth = collectionView.enclosingScrollView?.frame.width ?? 0
+        containerWidth = collectionView.enclosingScrollView?.frame.width ?? collectionView.frame.size.width
       #else
         containerWidth = collectionView.frame.size.width
       #endif

@@ -35,10 +35,12 @@ class HorizontalFlowLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 690, height: 70))
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
 
+    #if !os(macOS)
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 50, y: 0), size: .init(width: 50, height: 50)))?.count, 1)
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 75, y: 0), size: .init(width: 50, height: 50)))?.count, 2)
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 100, y: 0), size: .init(width: 50, height: 50)))?.count, 1)
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .zero, size: .init(width: 640, height: 50)))?.count, 10)
+    #endif
   }
 
   func testHorizontalLayoutAttributesWithItemsPerRow() {

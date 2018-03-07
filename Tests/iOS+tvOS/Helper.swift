@@ -1,4 +1,4 @@
-import Blueprint
+import Blueprints
 import UIKit
 
 class Helper {

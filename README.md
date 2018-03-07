@@ -1,24 +1,24 @@
-![Flow logo](https://github.com/zenangst/Flow/blob/master/Images/Flow-header.png?raw=true)
+![Blueprints logo](https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-header.png?raw=true)
 
 <div align="center">
 
-[![CI Status](https://travis-ci.org/zenangst/Flow.svg?branch=master)](https://travis-ci.org/zenangst/Flow)
-[![Version](https://img.shields.io/cocoapods/v/Flow.svg?style=flat)](http://cocoadocs.org/docsets/Flow)
+[![CI Status](https://travis-ci.org/zenangst/Blueprints.svg?branch=master)](https://travis-ci.org/zenangst/Blueprints)
+[![Version](https://img.shields.io/cocoapods/v/Blueprints.svg?style=flat)](http://cocoadocs.org/docsets/Blueprints)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![Code Coverage](https://codecov.io/github/zenangst/Flow/coverage.svg?branch=master)
-[![License](https://img.shields.io/cocoapods/l/Flow.svg?style=flat)](http://cocoadocs.org/docsets/Flow)
-[![Platform](https://img.shields.io/cocoapods/p/Flow.svg?style=flat)](http://cocoadocs.org/docsets/Flow)
+![Code Coverage](https://codecov.io/github/zenangst/Blueprints/coverage.svg?branch=master)
+[![License](https://img.shields.io/cocoapods/l/Blueprints.svg?style=flat)](http://cocoadocs.org/docsets/Blueprints)
+[![Platform](https://img.shields.io/cocoapods/p/Blueprints.svg?style=flat)](http://cocoadocs.org/docsets/Blueprints)
 ![Swift](https://img.shields.io/badge/%20in-swift%204.0-orange.svg)
 
 </div>
 
 ## Description
 
-<img src="https://github.com/zenangst/Flow/blob/master/Images/Flow-icon.png?raw=true" alt="Flow Icon" align="right" />
+<img src="https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-icon.png?raw=true" alt="Blueprints Icon" align="right" />
 
-Flow is a collection of flow layouts that is meant to make your life easier when working with collection view flow layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
+Blueprints is a collection of Blueprints layouts that is meant to make your life easier when working with collection view Blueprints layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
 
-The framework also provides a good base for your custom implementations. By extending the core flow layout, you get built-in support for animations and layout attribute caching. The bundled default animator supports animations that look very similar to what you get from a vanilla table view. If you want to provide your collection view animator, no problem; you can inject an animator of your choosing when initializing the layout.
+The framework also provides a good base for your custom implementations. By extending the core Blueprints layout, you get built-in support for animations and layout attribute caching. The bundled default animator supports animations that look very similar to what you get from a vanilla table view. If you want to provide your collection view animator, no problem; you can inject an animator of your choosing when initializing the layout.
 
 ## Features
 
@@ -40,26 +40,26 @@ Items per column are explicitly for horizontal layouts and are used to decide ho
 
 ## How does item sizes work?
 
-It works just like a regular flow layout, but with a twist. If you want to provide a static size using the regular item size, you are free to do so. As mentioned above, you can also provide the number of views that you want visible on the screen based on the container views width.
-To provide dynamic sizing, you can make your collection view delegate conform to UICollectionViewDelegateFlowLayout or NSCollectionViewDelegateFlowLayout. That way to can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
+It works just like a regular Blueprints layout, but with a twist. If you want to provide a static size using the regular item size, you are free to do so. As mentioned above, you can also provide the number of views that you want visible on the screen based on the container views width.
+To provide dynamic sizing, you can make your collection view delegate conform to UICollectionViewDelegateBlueprintsLayout or NSCollectionViewDelegateBlueprintsLayout. That way to can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
 
 ## Usage
 
 ### Vertical layout
 ```swift
-let flowLayout = VerticalFlowLayout(
+let blueprintLayout = VerticalBlueprintLayout(
   itemsPerRow: 1.0,
   itemSize: CGSize(width: 200, height: 60),
   minimumInteritemSpacing: 10,
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 )
 let collectionView = UICollectionView(frame: .zero,
-                                      collectionViewLayout: flowLayout)
+                                      collectionViewLayout: blueprintLayout)
 ```
 
 ### Horizontal layout
 ```swift
-let flowLayout = HorizontalFlowLayout(
+let blueprintLayout = HorizontalBlueprintLayout(
   itemsPerRow: 1.0,
   itemsPerColumn: 2,
   itemSize: CGSize(width: 200, height: 200),
@@ -67,26 +67,26 @@ let flowLayout = HorizontalFlowLayout(
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 )
 let collectionView = UICollectionView(frame: .zero,
-                                      collectionViewLayout: flowLayout)
+                                      collectionViewLayout: blueprintLayout)
 ```
 
 ## Installation
 
-**Flow** is available through [CocoaPods](http://cocoapods.org). To install
+**Blueprints** is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Flow'
+pod 'Blueprints'
 ```
 
-**Flow** is also available through [Carthage](https://github.com/Carthage/Carthage).
+**Blueprints** is also available through [Carthage](https://github.com/Carthage/Carthage).
 To install just write into your Cartfile:
 
 ```ruby
-github "zenangst/Flow"
+github "zenangst/Blueprints"
 ```
 
-**Flow** can also be installed manually. Just download and drop `Sources` folders in your project.
+**Blueprints** can also be installed manually. Just download and drop `Sources` folders in your project.
 
 ## Author
 
@@ -94,8 +94,8 @@ Christoffer Winterkvist, christoffer@winterkvist.com
 
 ## Contributing
 
-We would love you to contribute to **Flow**, check the [CONTRIBUTING](https://github.com/zenangst/Flow/blob/master/CONTRIBUTING.md) file for more info.
+We would love you to contribute to **Blueprints**, check the [CONTRIBUTING](https://github.com/zenangst/Blueprints/blob/master/CONTRIBUTING.md) file for more info.
 
 ## License
 
-**Flow** is available under the MIT license. See the [LICENSE](https://github.com/zenangst/Flow/blob/master/LICENSE.md) file for more info.
+**Blueprints** is available under the MIT license. See the [LICENSE](https://github.com/zenangst/Blueprints/blob/master/LICENSE.md) file for more info.

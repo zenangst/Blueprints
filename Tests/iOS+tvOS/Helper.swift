@@ -33,10 +33,10 @@ class Helper {
     return (collectionView: collectionView, layout: layout)
   }
 
-  static func createAnimator(dataSource: UICollectionViewDataSource) -> DefaultAnimator {
+  static func createAnimator(dataSource: UICollectionViewDataSource) -> DefaultLayoutAnimator {
     let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
-    let animator = DefaultAnimator()
-    let layout = CoreBlueprintLayout(animator: animator)
+    let animator = DefaultLayoutAnimator()
+    let layout = BlueprintLayout(animator: animator)
     animator.CollectionViewFlowLayout = layout
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     collectionView.dataSource = dataSource

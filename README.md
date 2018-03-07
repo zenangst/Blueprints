@@ -16,9 +16,9 @@
 
 <img src="https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-icon.png?raw=true" width="256" height="256" alt="Blueprints Icon" align="right" />
 
-Blueprints is a collection of Blueprints layouts that is meant to make your life easier when working with collection view Blueprints layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
+Blueprints is a collection of flow layouts that is meant to make your life easier when working with collection view flow layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
 
-The framework also provides a good base for your custom implementations. By extending the core Blueprints layout, you get built-in support for animations and layout attribute caching. The bundled default animator supports animations that look very similar to what you get from a vanilla table view. If you want to provide your collection view animator, no problem; you can inject an animator of your choosing when initializing the layout.
+The framework also provides a good base for your custom implementations. By extending the core blueprint layout, you get built-in support for animations and layout attribute caching. The bundled default animator supports animations that look very similar to what you get from a vanilla table view. If you want to provide your collection view animator, no problem; you can inject an animator of your choosing when initializing the layout.
 
 ## Features
 
@@ -40,8 +40,8 @@ Items per column are explicitly for horizontal layouts and are used to decide ho
 
 ## How does item sizes work?
 
-It works just like a regular Blueprints layout, but with a twist. If you want to provide a static size using the regular item size, you are free to do so. As mentioned above, you can also provide the number of views that you want visible on the screen based on the container views width.
-To provide dynamic sizing, you can make your collection view delegate conform to UICollectionViewDelegateBlueprintsLayout or NSCollectionViewDelegateBlueprintsLayout. That way to can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
+It works just like a regular flow layout, but with a twist. If you want to provide a static size using the regular item size, you are free to do so. As mentioned above, you can also provide the number of views that you want visible on the screen based on the container views width.
+To provide dynamic sizing, you can make your collection view delegate conform to UICollectionViewDelegateFlowLayout or NSCollectionViewDelegateFlowLayout. That way to can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
 
 ## Usage
 

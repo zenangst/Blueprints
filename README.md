@@ -41,7 +41,7 @@ Items per column are explicitly for horizontal layouts and are used to decide ho
 ## How does item sizes work?
 
 It works just like a regular flow layout, but with a twist. If you want to provide a static size using the regular item size, you are free to do so. As mentioned above, you can also provide the number of views that you want visible on the screen based on the container views width.
-To provide dynamic sizing, you can make your collection view delegate conform to UICollectionViewDelegateFlowLayout or NSCollectionViewDelegateFlowLayout. That way to can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
+To provide dynamic sizing, you can make your collection view delegate conform to `UICollectionViewDelegateFlowLayout` or `NSCollectionViewDelegateFlowLayout`. That way you can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
 
 ## Usage
 

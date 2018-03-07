@@ -1,0 +1,16 @@
+#if os(macOS)
+  import Cocoa
+#else
+  import UIKit
+#endif
+
+public protocol BlueprintLayoutAnimator: class {
+  var animation: BlueprintLayoutAnimation? { get set }
+  var indexPathsToAnimate: [IndexPath] { get set }
+  var indexPathsToMove: [IndexPath] { get set }
+  var CollectionViewFlowLayout: CollectionViewFlowLayout? { get set }
+
+  func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath, with attributes: LayoutAttributes) -> LayoutAttributes?
+  func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath, with attributes: LayoutAttributes) -> LayoutAttributes?
+  func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem])
+}

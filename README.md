@@ -14,7 +14,7 @@
 
 ## Description
 
-<img src="https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-icon.png?raw=true" alt="Blueprints Icon" align="right" />
+<img src="https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-icon.png?raw=true" width="256" height="256" alt="Blueprints Icon" align="right" />
 
 Blueprints is a collection of Blueprints layouts that is meant to make your life easier when working with collection view Blueprints layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
 

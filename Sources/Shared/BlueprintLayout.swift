@@ -7,7 +7,7 @@
 open class BlueprintLayout : CollectionViewFlowLayout {
   override open var collectionViewContentSize: CGSize { return contentSize }
   public var itemsPerRow: CGFloat?
-  public var layoutAttributes: [[Int: LayoutAttributes]]?
+  public var layoutAttributes = [[LayoutAttributes]]()
   public var contentSize: CGSize = CGSize(width: 50, height: 50)
   var numberOfSections: Int { return resolveCollectionView({ $0.dataSource?.numberOfSections?(in: $0) },
                                                            defaultValue: 1) }
@@ -34,19 +34,53 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     fatalError("init(coder:) has not been implemented")
   }
 
+
+
+  open override func prepare() {
+    self.contentSize = .zero
+    self.layoutAttributes = []
+  }
+
+  func createHeader(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
+    let layoutAttribute = LayoutAttributes(
+      forSupplementaryViewOfKind: CollectionView.collectionViewHeaderType,
+      with: indexPath
+    )
+    layoutAttribute.zIndex = indexPath.section
+    layoutAttribute.size.height = headerReferenceSize.height
+    layoutAttribute.frame.origin.x = x
+    layoutAttribute.frame.origin.y = y
+
+    return layoutAttribute
+  }
+
+  func createFooter(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
+    let layoutAttribute = LayoutAttributes(
+      forSupplementaryViewOfKind: CollectionView.collectionViewFooterType,
+      with: indexPath
+    )
+    layoutAttribute.zIndex = indexPath.section
+    layoutAttribute.size.height = footerReferenceSize.height
+    layoutAttribute.frame.origin.x = x
+    layoutAttribute.frame.origin.y = y + sectionInset.bottom
+
+    return layoutAttribute
+  }
+
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    if layoutAttributes == nil {
-      let layoutAttribute = super.layoutAttributesForItem(at: indexPath)
-      layoutAttribute?.frame.size = resolveSizeForItem(at: indexPath)
-      return layoutAttribute
+    guard indexPath.section < layoutAttributes.count else {
+      return nil
     }
 
-    return layoutAttributes?[indexPath.section][indexPath.item] ?? nil
+    guard indexPath.item < layoutAttributes[indexPath.section].count else {
+      return nil
+    }
+
+    return layoutAttributes[indexPath.section][indexPath.item]
   }
 
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    let result = layoutAttributes?.flatMap({ $0.values }).filter({ $0.frame.intersects(rect) }) ?? []
-    return result
+    return layoutAttributes.flatMap { $0 }.filter { $0.frame.intersects(rect) }
   }
 
   override open func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> LayoutAttributes? {
@@ -90,7 +124,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   }
 
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
-    if let collectionView = collectionView, let span = itemsPerRow, span > 0 {
+    if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
       let containerWidth: CGFloat
       #if os(macOS)
         containerWidth = collectionView.enclosingScrollView?.frame.width ?? collectionView.frame.size.width
@@ -99,7 +133,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       #endif
 
       let size = CGSize(
-        width: calculateItemWidth(span, containerWidth: containerWidth),
+        width: calculateItemWidth(itemsPerRow, containerWidth: containerWidth),
         height: itemSize.height
       )
 

@@ -18,7 +18,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 50, height: 50)
 
-    XCTAssertEqual(verticalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributes[0].count, 10)
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 10), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 70, y: 10), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 130, y: 10), size: expectedSize))
@@ -45,7 +45,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     verticalLayout.itemsPerRow = 1
     verticalLayout.prepare()
 
-    XCTAssertEqual(verticalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributes[0].count, 10)
 
     let expectedSize: CGSize = .init(width: 180, height: 50)
 
@@ -72,7 +72,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 85, height: 50)
 
-    XCTAssertEqual(verticalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributes[0].count, 10)
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 10), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 105, y: 10), size: expectedSize))
@@ -101,7 +101,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 53, height: 50)
 
-    XCTAssertEqual(verticalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributes[0].count, 10)
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 10), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 73, y: 10), size: expectedSize))
@@ -129,7 +129,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 37, height: 50)
 
-    XCTAssertEqual(verticalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributes[0].count, 10)
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 10), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 57, y: 10), size: expectedSize))

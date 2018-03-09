@@ -18,7 +18,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 50, height: 50)
 
-    XCTAssertEqual(horizontalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 10)
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 110, y: 10), size: expectedSize))
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 170, y: 10), size: expectedSize))
@@ -49,7 +49,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 50, height: 50)
 
-    XCTAssertEqual(horizontalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 10)
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 70), size: expectedSize))
 
@@ -67,7 +67,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 390, height: 140))
+    XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 390, height: 130))
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
@@ -75,7 +75,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     horizontalLayout.itemsPerRow = 1
     horizontalLayout.prepare()
 
-    XCTAssertEqual(horizontalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 10)
 
     let expectedSize: CGSize = .init(width: 100, height: 50)
 
@@ -102,7 +102,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 45, height: 50)
 
-    XCTAssertEqual(horizontalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 10)
 
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 105, y: 10), size: expectedSize))
@@ -127,7 +127,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 26, height: 50)
 
-    XCTAssertEqual(horizontalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 10)
 
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 86, y: 10), size: expectedSize))
@@ -152,7 +152,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
     let expectedSize: CGSize = .init(width: 17, height: 50)
 
-    XCTAssertEqual(horizontalLayout.layoutAttributes?[0].count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 10)
 
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 77, y: 10), size: expectedSize))

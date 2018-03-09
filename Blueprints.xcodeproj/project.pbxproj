@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */; };
+		BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
+		BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
+		BD975E7D2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E7C2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift */; };
+		BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E7E2053072F00324B9A /* UICollectionView+Extensions.swift */; };
+		BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E7E2053072F00324B9A /* UICollectionView+Extensions.swift */; };
 		BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */; };
 		BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */; };
 		BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */; };
@@ -95,6 +101,10 @@
 /* Begin PBXFileReference section */
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+macOS.swift"; sourceTree = "<group>"; };
+		BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+iOS+tvOS.swift"; sourceTree = "<group>"; };
+		BD975E7C2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionViewLayoutAttributes+Extensions.swift"; sourceTree = "<group>"; };
+		BD975E7E2053072F00324B9A /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDB38700204D45B50080C93B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		BDB38703204D46400080C93B /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
@@ -192,6 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				BDB4B6C6204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift */,
+				BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */,
+				BD975E7E2053072F00324B9A /* UICollectionView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -201,6 +213,8 @@
 			children = (
 				BDB4B6CA204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift */,
 				BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */,
+				BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */,
+				BD975E7C2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -619,6 +633,8 @@
 				BDD5F8CF204C7D6D00A6BFD5 /* BlueprintLayout.swift in Sources */,
 				D284B1491F790CA200D94AF3 /* TypeAlias.swift in Sources */,
 				BDD5F8CE204C7D6A00A6BFD5 /* HorizontalBlueprintLayout.swift in Sources */,
+				BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
+				BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDB4B6C4204CB17800971F64 /* BlueprintLayoutAnimationType.swift in Sources */,
 			);
@@ -663,6 +679,8 @@
 				D5C629831C3A892A007F7B7C /* HorizontalBlueprintLayout.swift in Sources */,
 				D5C629871C3A89A8007F7B7C /* TypeAlias.swift in Sources */,
 				BDB4B6B5204CB04900971F64 /* BlueprintLayoutAnimator.swift in Sources */,
+				BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
+				BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDB4B6C7204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
 				BDD5F8CC204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 			);
@@ -690,7 +708,9 @@
 				BDB4B6CB204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift in Sources */,
 				BDB4B6BF204CB11100971F64 /* BlueprintLayoutAnimator+Extensions.swift in Sources */,
 				BDD5F8D0204C7E6700A6BFD5 /* HorizontalBlueprintLayout.swift in Sources */,
+				BD975E7D2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift in Sources */,
 				D5C629881C3A89A8007F7B7C /* TypeAlias.swift in Sources */,
+				BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */,
 				BDD5F8D1204C7EA300A6BFD5 /* BlueprintLayout.swift in Sources */,
 				BDD5F8D4204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */,

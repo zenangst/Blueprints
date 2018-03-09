@@ -57,7 +57,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
         }
 
         let indexPath = IndexPath(item: item, section: section)
-        let layoutAttribute = LayoutAttributes(forItemWith: indexPath)
+        let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
 
         defer { previousItem = layoutAttribute }
 

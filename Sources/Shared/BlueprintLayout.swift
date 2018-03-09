@@ -41,7 +41,31 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     self.layoutAttributes = []
   }
 
-  
+  func createHeader(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
+    let layoutAttribute = LayoutAttributes(
+      forSupplementaryViewOfKind: CollectionView.collectionViewHeaderType,
+      with: indexPath
+    )
+    layoutAttribute.zIndex = indexPath.section
+    layoutAttribute.size.height = headerReferenceSize.height
+    layoutAttribute.frame.origin.x = x
+    layoutAttribute.frame.origin.y = y
+
+    return layoutAttribute
+  }
+
+  func createFooter(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
+    let layoutAttribute = LayoutAttributes(
+      forSupplementaryViewOfKind: CollectionView.collectionViewFooterType,
+      with: indexPath
+    )
+    layoutAttribute.zIndex = indexPath.section
+    layoutAttribute.size.height = footerReferenceSize.height
+    layoutAttribute.frame.origin.x = x
+    layoutAttribute.frame.origin.y = y + sectionInset.bottom
+
+    return layoutAttribute
+  }
 
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
     guard indexPath.section < layoutAttributes.count else {

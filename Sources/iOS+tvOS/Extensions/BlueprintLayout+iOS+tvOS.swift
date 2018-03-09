@@ -1,23 +1,19 @@
 import UIKit
 
 extension BlueprintLayout {
-  func createHeader(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
-    let layoutAttribute = LayoutAttributes.init(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: indexPath)
-    layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.size.height = headerReferenceSize.height
-    layoutAttribute.frame.origin.x = x
-    layoutAttribute.frame.origin.y = y
+  open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
+    let sectionAttributes = layoutAttributes[indexPath.section]
+    var layoutAttributesResult: LayoutAttributes? = nil
 
-    return layoutAttribute
-  }
+    switch elementKind {
+    case CollectionView.collectionViewHeaderType:
+      layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first
+    case CollectionView.collectionViewFooterType:
+      layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
+    default:
+      return nil
+    }
 
-  func createFooter(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
-    let layoutAttribute = LayoutAttributes.init(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
-    layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.size.height = footerReferenceSize.height
-    layoutAttribute.frame.origin.x = x
-    layoutAttribute.frame.origin.y = y + sectionInset.bottom
-
-    return layoutAttribute
+    return layoutAttributesResult
   }
 }

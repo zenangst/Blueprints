@@ -1,6 +1,7 @@
 #if os(macOS)
   import Cocoa
   public typealias CollectionView = NSCollectionView
+  public typealias CollectionViewElementKind = NSCollectionView.SupplementaryElementKind
   public typealias CollectionViewFlowLayout = NSCollectionViewFlowLayout
   public typealias CollectionViewFlowLayoutDelegate = NSCollectionViewDelegateFlowLayout
   public typealias CollectionViewUpdateItem = NSCollectionViewUpdateItem
@@ -11,6 +12,7 @@
 #else
   import UIKit
   public typealias CollectionView = UICollectionView
+  public typealias CollectionViewElementKind = String
   public typealias CollectionViewFlowLayout = UICollectionViewFlowLayout
   public typealias CollectionViewFlowLayoutDelegate = UICollectionViewDelegateFlowLayout
   public typealias CollectionViewUpdateItem = UICollectionViewUpdateItem

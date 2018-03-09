@@ -29,51 +29,78 @@ open class VerticalBlueprintLayout: BlueprintLayout {
   }
 
   override open func prepare() {
-    self.contentSize = .zero
-    self.layoutAttributes = nil
-    var layoutAttributes = [[Int: LayoutAttributes]]()
+    super.prepare()
+    var layoutAttributes = self.layoutAttributes
     var threshold: CGFloat = 0.0
 
     if let collectionViewWidth = collectionView?.frame.size.width {
       threshold = collectionViewWidth
     }
 
+    var nextY: CGFloat = 0
+
     for section in 0..<numberOfSections {
+      guard numberOfItemsInSection(section) > 0 else {
+        continue
+      }
+
       var previousItem: LayoutAttributes? = nil
+      let sectionIndexPath = IndexPath(item: 0, section: section)
+
+      if headerReferenceSize.height > 0 {
+        let layoutAttribute = createHeader(sectionIndexPath, atY: nextY)
+        layoutAttribute.frame.size.width = collectionView?.frame.size.width ?? headerReferenceSize.width
+        layoutAttributes.append([layoutAttribute])
+        nextY = layoutAttribute.frame.maxY
+      }
+
+      nextY += sectionInset.top
+
       for item in 0..<numberOfItemsInSection(section) {
         let indexPath = IndexPath(item: item, section: section)
-        if let layoutAttribute = super.layoutAttributesForItem(at: IndexPath(item: item, section: section))?.copy() as? LayoutAttributes {
-          defer { previousItem = layoutAttribute }
+        let layoutAttribute = LayoutAttributes(forItemWith: indexPath)
 
-          layoutAttribute.size = resolveSizeForItem(at: indexPath)
+        defer { previousItem = layoutAttribute }
 
-          if let previousItem = previousItem {
-            layoutAttribute.frame.origin.x = previousItem.frame.maxX + minimumInteritemSpacing
-            layoutAttribute.frame.origin.y = previousItem.frame.origin.y
+        layoutAttribute.size = resolveSizeForItem(at: indexPath)
 
-            if layoutAttribute.frame.maxX > threshold {
-              layoutAttribute.frame.origin.x = sectionInset.left
-              layoutAttribute.frame.origin.y = previousItem.frame.maxY + minimumLineSpacing
-              contentSize.height += layoutAttribute.size.height + minimumLineSpacing
-            }
-          } else {
+        if let previousItem = previousItem {
+          layoutAttribute.frame.origin.x = previousItem.frame.maxX + minimumInteritemSpacing
+          layoutAttribute.frame.origin.y = previousItem.frame.origin.y
+
+          if layoutAttribute.frame.maxX > threshold {
             layoutAttribute.frame.origin.x = sectionInset.left
-            layoutAttribute.frame.origin.y = sectionInset.top
-            contentSize.height += layoutAttribute.size.height
+            layoutAttribute.frame.origin.y = previousItem.frame.maxY + minimumLineSpacing
           }
+        } else {
+          layoutAttribute.frame.origin.x = sectionInset.left
+          layoutAttribute.frame.origin.y = nextY
+        }
 
-          if layoutAttributes.isEmpty {
-            layoutAttributes.append([item: layoutAttribute])
-          } else {
-            layoutAttributes[section][item] = layoutAttribute
-          }
+        if section == layoutAttributes.count {
+          layoutAttributes.append([layoutAttribute])
+        } else {
+          layoutAttributes[section].append(layoutAttribute)
         }
       }
+
+      if let previousItem = previousItem {
+        nextY = previousItem.frame.maxY
+        if footerReferenceSize.height > 0 {
+          let layoutAttribute = createFooter(sectionIndexPath, atY: nextY)
+          layoutAttribute.frame.size.width = collectionView?.frame.size.width ?? footerReferenceSize.width
+          layoutAttributes[section].append(layoutAttribute)
+          nextY = layoutAttribute.frame.maxY
+        }
+
+        contentSize.height = previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom
+      }
+
       previousItem = nil
     }
 
     contentSize.width = collectionView?.frame.width ?? 0
-    contentSize.height += sectionInset.top + sectionInset.bottom
+    contentSize.height += headerReferenceSize.height + footerReferenceSize.height
 
     self.layoutAttributes = layoutAttributes
     self.contentSize = contentSize

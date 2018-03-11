@@ -111,12 +111,6 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
             atX: nextX
           )
 
-          if numberOfSections == 1 {
-            layoutAttribute.frame.size.width = resolveCollectionView({ return $0.window?.frame.size.width }, defaultValue: 0)
-          } else {
-            layoutAttribute.frame.size.width = widthOfSection
-          }
-
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
@@ -137,8 +131,6 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
             footerAttribute?.frame.origin.x = headerFooterX
             footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
           }
-        } else {
-          headerAttribute?.frame.size.width = widthOfSection
         }
 
         nextX += widthOfSection

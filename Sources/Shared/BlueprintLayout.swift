@@ -113,8 +113,10 @@ open class BlueprintLayout : CollectionViewFlowLayout {
 
     switch kind {
     case .header:
+      layoutAttribute.size.width = collectionView?.frame.size.width ?? headerReferenceSize.width
       layoutAttribute.size.height = headerReferenceSize.height
     case .footer:
+      layoutAttribute.size.width = collectionView?.frame.size.width ?? footerReferenceSize.width
       layoutAttribute.size.height = footerReferenceSize.height
     }
 

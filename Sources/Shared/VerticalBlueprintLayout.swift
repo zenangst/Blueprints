@@ -101,7 +101,6 @@ open class VerticalBlueprintLayout: BlueprintLayout {
             indexPath: sectionIndexPath,
             atY: nextY + sectionInset.bottom
           )
-          layoutAttribute.frame.size.width = collectionView?.frame.size.width ?? footerReferenceSize.width
           layoutAttributes[section].append(layoutAttribute)
           nextY = layoutAttribute.frame.maxY
         }

@@ -71,7 +71,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
-  func testhorizontalLayoutAttributesWithSpanOne() {
+  func testHorizontalLayoutAttributesWithSpanOne() {
     horizontalLayout.itemsPerRow = 1
     horizontalLayout.prepare()
 
@@ -96,7 +96,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
-  func testhorizontalLayoutAttributesWithSpanTwo() {
+  func testHorizontalLayoutAttributesWithSpanTwo() {
     horizontalLayout.itemsPerRow = 2
     horizontalLayout.prepare()
 
@@ -121,7 +121,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
-  func testhorizontalLayoutAttributesWithSpanThree() {
+  func testHorizontalLayoutAttributesWithSpanThree() {
     horizontalLayout.itemsPerRow = 3
     horizontalLayout.prepare()
 
@@ -146,7 +146,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
-  func testhorizontalLayoutAttributesWithSpanFour() {
+  func testHorizontalLayoutAttributesWithSpanFour() {
     horizontalLayout.itemsPerRow = 4
     horizontalLayout.prepare()
 
@@ -168,6 +168,34 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertNil(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
     XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 360, height: 70))
+    XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
+  }
+
+  func testHorizontalLayoutAttributesWithHeaderAndFooter() {
+    horizontalLayout.headerReferenceSize = CGSize(width: 100, height: 100)
+    horizontalLayout.footerReferenceSize = CGSize(width: 100, height: 100)
+    horizontalLayout.prepare()
+
+    let expectedSize: CGSize = .init(width: 50, height: 50)
+    let expectedHeaderFooterSize: CGSize = .init(width: 200, height: 100)
+
+    XCTAssertEqual(horizontalLayout.layoutAttributes[0].count, 12)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderFooterSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 110, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame, CGRect(origin: .init(x: 170, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))?.frame, CGRect(origin: .init(x: 230, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))?.frame, CGRect(origin: .init(x: 290, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame, CGRect(origin: .init(x: 350, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 410, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 470, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 530, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0))?.frame, CGRect(origin: .init(x: 590, y: 110), size: expectedSize))
+    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 11, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 170), size: expectedHeaderFooterSize))
+
+    XCTAssertNil(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 12, section: 0)))
+
+    XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 690, height: 270))
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 }

@@ -25,6 +25,7 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 🍭Animation support.
 - [x] 🤳🏻Optimized for performance
 - [x] 📏Built-in vertical and horizontal layouts.
+- [x] 📰 Supports header and footers.
 - [x] 📱iOS support.
 - [x] 💻macOS support.
 - [x] 📺tvOS support.

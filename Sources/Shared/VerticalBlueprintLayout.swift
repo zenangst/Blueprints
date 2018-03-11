@@ -44,13 +44,21 @@ open class VerticalBlueprintLayout: BlueprintLayout {
         continue
       }
 
+      var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
+      var headerAttribute: LayoutAttributes? = nil
+      var footerAttribute: LayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {
-        let layoutAttribute = createHeader(sectionIndexPath, atY: nextY)
+        let layoutAttribute = createSupplementaryLayoutAttribute(
+          ofKind: .header,
+          indexPath: sectionIndexPath,
+          atY: nextY
+        )
         layoutAttribute.frame.size.width = collectionView?.frame.size.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
+        headerAttribute = layoutAttribute
         nextY = layoutAttribute.frame.maxY
       }
 
@@ -73,6 +81,7 @@ open class VerticalBlueprintLayout: BlueprintLayout {
             layoutAttribute.frame.origin.y = previousItem.frame.maxY + minimumLineSpacing
           }
         } else {
+          firstItem = layoutAttribute
           layoutAttribute.frame.origin.x = sectionInset.left
           layoutAttribute.frame.origin.y = nextY
         }
@@ -84,19 +93,51 @@ open class VerticalBlueprintLayout: BlueprintLayout {
         }
       }
 
-      if let previousItem = previousItem {
+      if let previousItem = previousItem, let firstItem = firstItem {
         nextY = previousItem.frame.maxY
         if footerReferenceSize.height > 0 {
-          let layoutAttribute = createFooter(sectionIndexPath, atY: nextY)
+          let layoutAttribute = createSupplementaryLayoutAttribute(
+            ofKind: .footer,
+            indexPath: sectionIndexPath,
+            atY: nextY + sectionInset.bottom
+          )
           layoutAttribute.frame.size.width = collectionView?.frame.size.width ?? footerReferenceSize.width
           layoutAttributes[section].append(layoutAttribute)
           nextY = layoutAttribute.frame.maxY
+        }
+
+        if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
+          var contentInsetTop: CGFloat = 0
+          #if os(macOS)
+            contentInsetTop = (collectionView.enclosingScrollView?.enclosingScrollView?.contentInsets.top ?? 0)
+            if section == 0 && collectionView.contentOffset.y == 0 {
+              contentInsetTop = 0
+            }
+          #endif
+
+          let headerFooterY = min(
+            max(collectionView.contentOffset.y + contentInsetTop, firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
+            previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom
+          )
+
+          if stickyHeaders {
+            headerAttribute?.frame.origin.y = headerFooterY
+            headerAttribute?.frame.size.width = headerFooterWidth
+          }
+
+          if stickyFooters {
+            footerAttribute?.frame.origin.y = headerFooterY
+            footerAttribute?.frame.size.width = headerFooterWidth
+          }
         }
 
         contentSize.height = previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom
       }
 
       previousItem = nil
+      headerAttribute = nil
+      footerAttribute = nil
+      firstItem = nil
     }
 
     contentSize.width = collectionView?.frame.width ?? 0

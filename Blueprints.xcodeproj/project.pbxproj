@@ -53,6 +53,9 @@
 		BDD5F8D3204C7F4800A6BFD5 /* BlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */; };
 		BDD5F8D4204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */; };
 		BDD5F8D5204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */; };
+		BDFB454820559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */; };
+		BDFB454920559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */; };
+		BDFB454A20559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */; };
 		BDFB637B204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */; };
 		BDFB637C204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */; };
 		BDFB637D204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */; };
@@ -119,6 +122,7 @@
 		BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLayoutAnimator.swift; sourceTree = "<group>"; };
 		BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintLayout.swift; sourceTree = "<group>"; };
 		BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBlueprintLayout.swift; sourceTree = "<group>"; };
+		BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintSupplementaryKind.swift; sourceTree = "<group>"; };
 		BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BDFB6381204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintLayoutAnimatorTests.swift; sourceTree = "<group>"; };
 		D284B0FC1F79038B00D94AF3 /* Blueprints.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blueprints.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,11 +320,12 @@
 			isa = PBXGroup;
 			children = (
 				BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */,
-				BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */,
 				BDB4B6B6204CB07400971F64 /* BlueprintLayoutAnimation.swift */,
 				BDB4B6C1204CB17800971F64 /* BlueprintLayoutAnimationType.swift */,
 				BDB4B6B4204CB04900971F64 /* BlueprintLayoutAnimator.swift */,
 				BDB4B6BD204CB11100971F64 /* BlueprintLayoutAnimator+Extensions.swift */,
+				BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */,
+				BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */,
 				D5C629821C3A892A007F7B7C /* HorizontalBlueprintLayout.swift */,
 				D5C629861C3A89A8007F7B7C /* TypeAlias.swift */,
 				BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */,
@@ -636,6 +641,7 @@
 				BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
+				BDFB454A20559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
 				BDB4B6C4204CB17800971F64 /* BlueprintLayoutAnimationType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -682,6 +688,7 @@
 				BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDB4B6C7204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
+				BDFB454820559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
 				BDD5F8CC204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +719,7 @@
 				D5C629881C3A89A8007F7B7C /* TypeAlias.swift in Sources */,
 				BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */,
 				BDD5F8D1204C7EA300A6BFD5 /* BlueprintLayout.swift in Sources */,
+				BDFB454920559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
 				BDD5F8D4204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */,
 				BDB4B6C3204CB17800971F64 /* BlueprintLayoutAnimationType.swift in Sources */,

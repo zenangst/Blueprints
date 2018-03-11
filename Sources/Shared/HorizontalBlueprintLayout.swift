@@ -45,13 +45,20 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
         continue
       }
 
+      var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
       var headerAttribute: LayoutAttributes? = nil
+      var footerAttribute: LayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       for item in 0..<numberOfItemsInSection(section) {
         if headerReferenceSize.height > 0 {
-          let layoutAttribute = createHeader(sectionIndexPath, atX: nextX)
+          let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
+            ofKind: .header,
+            indexPath: sectionIndexPath,
+            atX: nextX
+          )
+
           headerAttribute = layoutAttribute
           layoutAttributes.append([layoutAttribute])
         }
@@ -74,6 +81,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
             widthOfSection += layoutAttribute.size.width + minimumInteritemSpacing
           }
         } else {
+          firstItem = layoutAttribute
           contentSize.height = sectionInset.top + sectionInset.bottom + layoutAttribute.size.height
 
           if itemsPerColumn > 1 {
@@ -92,21 +100,54 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
         }
       }
 
-      if let previousItem = previousItem {
+      if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
         headerAttribute?.frame.size.width = widthOfSection
 
         if footerReferenceSize.height > 0 {
-          let layoutAttribute = createFooter(sectionIndexPath, atX: nextX)
-          layoutAttribute.frame.size.width = widthOfSection
+          let layoutAttribute = createSupplementaryLayoutAttribute(
+            ofKind: .footer,
+            indexPath: sectionIndexPath,
+            atX: nextX
+          )
+
+          if numberOfSections == 1 {
+            layoutAttribute.frame.size.width = resolveCollectionView({ return $0.window?.frame.size.width }, defaultValue: 0)
+          } else {
+            layoutAttribute.frame.size.width = widthOfSection
+          }
+
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
+          footerAttribute = layoutAttribute
+        }
+
+        if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
+          let headerFooterX = max(
+            min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth),
+            firstItem.frame.origin.x - sectionInset.left
+          )
+
+          if stickyHeaders {
+            headerAttribute?.frame.origin.x = headerFooterX
+            headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          }
+
+          if stickyFooters {
+            footerAttribute?.frame.origin.x = headerFooterX
+            footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          }
+        } else {
+          headerAttribute?.frame.size.width = widthOfSection
         }
 
         nextX += widthOfSection
       }
 
       previousItem = nil
+      headerAttribute = nil
+      footerAttribute = nil
+      firstItem = nil
     }
 
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height

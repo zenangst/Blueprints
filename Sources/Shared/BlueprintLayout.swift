@@ -22,6 +22,10 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// A layout animator object, defaults to `DefaultLayoutAnimator`.
   var animator: BlueprintLayoutAnimator
 
+  public var stickyHeaders: Bool = false
+  public var stickyFooters: Bool = false
+  var headerFooterWidth: CGFloat?
+
   /// An initialized collection view layout object.
   ///
   /// - Parameters:
@@ -46,16 +50,52 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     self.minimumInteritemSpacing = minimumInteritemSpacing
     self.minimumLineSpacing = minimumLineSpacing
     self.sectionInset = sectionInset
+
+    #if os(macOS)
+      NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(contentViewBoundsDidChange(_:)),
+        name: NSView.boundsDidChangeNotification,
+        object: nil
+      )
+    #endif
   }
 
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  #if os(macOS)
+  private func configureHeaderFooterWidth(_ clipView: NSClipView) {
+    if let collectionView = collectionView, (numberOfSections == 1 || stickyHeaders) {
+      headerFooterWidth = clipView.frame.width
+    }
+  }
+
+  @objc func contentViewBoundsDidChange(_ notification: NSNotification) {
+    guard let clipView = notification.object as? NSClipView,
+      clipView == collectionView?.enclosingScrollView?.contentView else {
+      return
+    }
+
+    configureHeaderFooterWidth(clipView)
+  }
+  #endif
+
   /// Tells the layout object to update the current layout.
   open override func prepare() {
     self.contentSize = .zero
     self.layoutAttributes = []
+
+    #if os(macOS)
+      if let clipView = collectionView?.enclosingScrollView?.contentView {
+        configureHeaderFooterWidth(clipView)
+      }
+    #endif
   }
 
   /// Creates layout attributes for a header.
@@ -65,35 +105,22 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   ///   - x: The x coordinate of the header layout attributes.
   ///   - y: The y coordinate of the header layout attributes.
   /// - Returns: A `LayoutAttributes` object of supplementary kind header.
-  func createHeader(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
+  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind, indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
     let layoutAttribute = LayoutAttributes(
-      forSupplementaryViewOfKind: CollectionView.collectionViewHeaderType,
+      forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
       with: indexPath
     )
+
+    switch kind {
+    case .header:
+      layoutAttribute.size.height = headerReferenceSize.height
+    case .footer:
+      layoutAttribute.size.height = footerReferenceSize.height
+    }
+
     layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.size.height = headerReferenceSize.height
     layoutAttribute.frame.origin.x = x
     layoutAttribute.frame.origin.y = y
-
-    return layoutAttribute
-  }
-
-  /// Creates layout attributes for a footer.
-  ///
-  /// - Parameters:
-  ///   - indexPath: The index path of the section that the footer belongs to.
-  ///   - x: The x coordinate of the footer layout attributes.
-  ///   - y: The y coordinate of the footer layout attributes.
-  /// - Returns: A `LayoutAttributes` object of supplementary kind footer.
-  func createFooter(_ indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
-    let layoutAttribute = LayoutAttributes(
-      forSupplementaryViewOfKind: CollectionView.collectionViewFooterType,
-      with: indexPath
-    )
-    layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.size.height = footerReferenceSize.height
-    layoutAttribute.frame.origin.x = x
-    layoutAttribute.frame.origin.y = y + sectionInset.bottom
 
     return layoutAttribute
   }
@@ -220,7 +247,9 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     }
   }
 
-  // MARK: - Private methods
+  open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    return true
+  }
 
   /// Resolve collection collection view from layout and return
   /// property or default value if collection view cannot be resolved.
@@ -232,7 +261,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   ///                   resolved, it also infers type.
   /// - Returns: A property from the closure or the default value if the
   ///            closure returns `nil`.
-  private func resolveCollectionView<T>(_ closure: (CollectionView) -> T?, defaultValue: T) -> T {
+  func resolveCollectionView<T>(_ closure: (CollectionView) -> T?, defaultValue: T) -> T {
     if let collectionView = collectionView {
       return closure(collectionView) ?? defaultValue
     } else {

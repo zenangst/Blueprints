@@ -176,4 +176,33 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 450))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
+
+  func testVerticalLayoutAttributesWithStickyHeaderAndFooter() {
+    verticalLayout.stickyHeaders = true
+    verticalLayout.stickyFooters = true
+    verticalLayout.headerReferenceSize = CGSize(width: 100, height: 100)
+    verticalLayout.footerReferenceSize = CGSize(width: 100, height: 100)
+    verticalLayout.prepare()
+
+    let expectedSize: CGSize = .init(width: 50, height: 50)
+    let expectedHeaderFooterSize: CGSize = .init(width: 200, height: 100)
+
+    XCTAssertEqual(verticalLayout.layoutAttributes[0].count, 12)
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderFooterSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 110), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 70, y: 110), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame, CGRect(origin: .init(x: 130, y: 110), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 170), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))?.frame, CGRect(origin: .init(x: 70, y: 170), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame, CGRect(origin: .init(x: 130, y: 170), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 230), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 70, y: 230), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 130, y: 230), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 290), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 11, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 350), size: expectedHeaderFooterSize))
+    XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 12, section: 0)))
+
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 450))
+    XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
+  }
 }

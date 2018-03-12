@@ -105,7 +105,8 @@ open class VerticalBlueprintLayout: BlueprintLayout {
           nextY = layoutAttribute.frame.maxY
         }
 
-        if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
+        if let collectionView = collectionView,
+          let headerFooterWidth = headerFooterWidth {
           var contentInsetTop: CGFloat = 0
           #if os(macOS)
             contentInsetTop = (collectionView.enclosingScrollView?.enclosingScrollView?.contentInsets.top ?? 0)

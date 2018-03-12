@@ -70,9 +70,9 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   }
 
   #if os(macOS)
-  private func configureHeaderFooterWidth(_ clipView: NSClipView) {
-    if let collectionView = collectionView, (numberOfSections == 1 || stickyHeaders) {
-      headerFooterWidth = clipView.frame.width
+  private func configureHeaderFooterWidth(_ view: NSView) {
+    if numberOfSections == 1 || stickyHeaders {
+      headerFooterWidth = view.frame.width
     }
   }
 

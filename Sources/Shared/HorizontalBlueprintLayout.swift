@@ -5,10 +5,12 @@
 #endif
 
 open class HorizontalBlueprintLayout: BlueprintLayout {
+  /// A Integer value indicating how many items that should be visible per column.
   public var itemsPerColumn: Int
-  public var stickyHeaders: Bool = true
-  public var stickyFooters: Bool = true
-
+  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
+  public var stickyHeaders: Bool = false
+  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
+  public var stickyFooters: Bool = false
   required public init(
     itemsPerRow: CGFloat? = nil,
     itemsPerColumn: Int = 1,
@@ -16,8 +18,12 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = true,
+    stickyFooters: Bool = true,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()
     ) {
+    self.stickyHeaders = stickyHeaders
+    self.stickyFooters = stickyFooters
     self.itemsPerColumn = itemsPerColumn
     super.init(
       itemsPerRow: itemsPerRow,

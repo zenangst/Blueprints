@@ -5,7 +5,9 @@
 #endif
 
 open class VerticalBlueprintLayout: BlueprintLayout {
+  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
   public var stickyHeaders: Bool = false
+  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   public var stickyFooters: Bool = false
 
   required public override init(
@@ -14,8 +16,12 @@ open class VerticalBlueprintLayout: BlueprintLayout {
     minimumInteritemSpacing: CGFloat = 0,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = false,
+    stickyFooters: Bool = false,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()
     ) {
+    self.stickyHeaders = stickyHeaders
+    self.stickyFooters = stickyFooters
     super.init(
       itemsPerRow: itemsPerRow,
       itemSize: itemSize,

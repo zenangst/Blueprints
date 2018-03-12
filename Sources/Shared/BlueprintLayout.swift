@@ -69,23 +69,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     NotificationCenter.default.removeObserver(self)
   }
 
-  #if os(macOS)
-  private func configureHeaderFooterWidth(_ view: NSView) {
-    if numberOfSections == 1 || stickyHeaders {
-      headerFooterWidth = view.frame.width
-    }
-  }
-
-  @objc func contentViewBoundsDidChange(_ notification: NSNotification) {
-    guard let clipView = notification.object as? NSClipView,
-      clipView == collectionView?.enclosingScrollView?.contentView else {
-      return
-    }
-
-    configureHeaderFooterWidth(clipView)
-  }
-  #endif
-
   /// Tells the layout object to update the current layout.
   open override func prepare() {
     self.contentSize = .zero

@@ -42,6 +42,12 @@
 		BDB4B6CD204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
 		BDB4B6CE204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
 		BDB4B6CF204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
+		BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01120570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift */; };
+		BDD0C01420570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */; };
+		BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */; };
+		BDD0C01820570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */; };
+		BDD0C01920570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01620570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift */; };
+		BDD0C01A20570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01620570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift */; };
 		BDD5F8CA204C7CD500A6BFD5 /* BlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */; };
 		BDD5F8CC204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */; };
 		BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */; };
@@ -120,6 +126,10 @@
 		BDB4B6C6204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayoutAnimator+iOS+tvOS.swift"; sourceTree = "<group>"; };
 		BDB4B6CA204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayoutAnimator+macOS.swift"; sourceTree = "<group>"; };
 		BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLayoutAnimator.swift; sourceTree = "<group>"; };
+		BDD0C01120570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VerticalBlueprintLayoutTests+macOS.swift"; sourceTree = "<group>"; };
+		BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HorizontalBlueprintLayoutTests+macOS.swift"; sourceTree = "<group>"; };
+		BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HorizontalBlueprintLayoutTests+iOS+tvOS.swift"; sourceTree = "<group>"; };
+		BDD0C01620570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VerticalBlueprintLayoutTests+iOS+tvOS.swift"; sourceTree = "<group>"; };
 		BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintLayout.swift; sourceTree = "<group>"; };
 		BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBlueprintLayout.swift; sourceTree = "<group>"; };
 		BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintSupplementaryKind.swift; sourceTree = "<group>"; };
@@ -235,7 +245,9 @@
 			isa = PBXGroup;
 			children = (
 				BDB38706204D46960080C93B /* Helper.swift */,
+				BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */,
 				BDB38708204D46BB0080C93B /* Mocks.swift */,
+				BDD0C01120570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -254,7 +266,9 @@
 			isa = PBXGroup;
 			children = (
 				BDB38700204D45B50080C93B /* Helper.swift */,
+				BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */,
 				BDB38703204D46400080C93B /* Mocks.swift */,
+				BDD0C01620570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift */,
 			);
 			path = "iOS+tvOS";
 			sourceTree = "<group>";
@@ -651,6 +665,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDFB637D204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
+				BDD0C01820570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
+				BDD0C01A20570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB38702204D45B50080C93B /* Helper.swift in Sources */,
 				BDB38705204D46400080C93B /* Mocks.swift in Sources */,
 				BDB3870A204D46CC0080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
@@ -698,6 +714,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB38701204D45B50080C93B /* Helper.swift in Sources */,
+				BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
+				BDD0C01920570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
 				BDFB6382204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift in Sources */,
 				BDB38704204D46400080C93B /* Mocks.swift in Sources */,
@@ -731,9 +749,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
+				BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */,
 				BDB38707204D46960080C93B /* Helper.swift in Sources */,
 				BDB38709204D46BB0080C93B /* Mocks.swift in Sources */,
 				BDFB637C204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
+				BDD0C01420570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

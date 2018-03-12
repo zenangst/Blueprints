@@ -16,4 +16,17 @@ extension BlueprintLayout {
 
     return layoutAttributesResult
   }
+
+  func configureHeaderFooterWidth(_ view: NSView) {
+    headerFooterWidth = view.frame.width
+  }
+
+  @objc func contentViewBoundsDidChange(_ notification: NSNotification) {
+    guard let clipView = notification.object as? NSClipView,
+      clipView == collectionView?.enclosingScrollView?.contentView else {
+        return
+    }
+
+    configureHeaderFooterWidth(clipView)
+  }
 }

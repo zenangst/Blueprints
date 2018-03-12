@@ -5,8 +5,25 @@
 #endif
 
 open class HorizontalBlueprintLayout: BlueprintLayout {
+  /// A Integer value indicating how many items that should be visible per column.
   public var itemsPerColumn: Int
+  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
+  public var stickyHeaders: Bool = false
+  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
+  public var stickyFooters: Bool = false
 
+  /// An initialized vertical collection view layout object.
+  ///
+  /// - Parameters:
+  ///   - itemsPerRow: The amount of items that should appear on each row.
+  ///   - itemsPerColumn: The amount of items that should appear per column.
+  ///   - itemSize: The default size to use for cells.
+  ///   - minimumInteritemSpacing: The minimum spacing to use between items in the same row.
+  ///   - minimumLineSpacing: The minimum spacing to use between lines of items in the grid.
+  ///   - sectionInset: The margins used to lay out content in a section
+  ///   - stickyHeaders: A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
+  ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
+  ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
   required public init(
     itemsPerRow: CGFloat? = nil,
     itemsPerColumn: Int = 1,
@@ -14,8 +31,12 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = true,
+    stickyFooters: Bool = true,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()
     ) {
+    self.stickyHeaders = stickyHeaders
+    self.stickyFooters = stickyFooters
     self.itemsPerColumn = itemsPerColumn
     super.init(
       itemsPerRow: itemsPerRow,
@@ -45,13 +66,20 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
         continue
       }
 
+      var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
       var headerAttribute: LayoutAttributes? = nil
+      var footerAttribute: LayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       for item in 0..<numberOfItemsInSection(section) {
         if headerReferenceSize.height > 0 {
-          let layoutAttribute = createHeader(sectionIndexPath, atX: nextX)
+          let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
+            ofKind: .header,
+            indexPath: sectionIndexPath,
+            atX: nextX
+          )
+
           headerAttribute = layoutAttribute
           layoutAttributes.append([layoutAttribute])
         }
@@ -74,6 +102,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
             widthOfSection += layoutAttribute.size.width + minimumInteritemSpacing
           }
         } else {
+          firstItem = layoutAttribute
           contentSize.height = sectionInset.top + sectionInset.bottom + layoutAttribute.size.height
 
           if itemsPerColumn > 1 {
@@ -92,21 +121,46 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
         }
       }
 
-      if let previousItem = previousItem {
+      if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
         headerAttribute?.frame.size.width = widthOfSection
 
         if footerReferenceSize.height > 0 {
-          let layoutAttribute = createFooter(sectionIndexPath, atX: nextX)
-          layoutAttribute.frame.size.width = widthOfSection
+          let layoutAttribute = createSupplementaryLayoutAttribute(
+            ofKind: .footer,
+            indexPath: sectionIndexPath,
+            atX: nextX
+          )
+
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
+          footerAttribute = layoutAttribute
+        }
+
+        if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
+          let headerFooterX = max(
+            min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth),
+            firstItem.frame.origin.x - sectionInset.left
+          )
+
+          if stickyHeaders {
+            headerAttribute?.frame.origin.x = headerFooterX
+            headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          }
+
+          if stickyFooters {
+            footerAttribute?.frame.origin.x = headerFooterX
+            footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          }
         }
 
         nextX += widthOfSection
       }
 
       previousItem = nil
+      headerAttribute = nil
+      footerAttribute = nil
+      firstItem = nil
     }
 
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height

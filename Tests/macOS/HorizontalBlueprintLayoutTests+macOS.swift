@@ -29,7 +29,8 @@ class HorizontalBlueprintLayoutTests_macOS: XCTestCase {
     collectionView.contentOffset = .init(x: 100, y: 0)
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: .zero).count, 1)
 
-    collectionView.enclosingScrollView?.frame = collectionView.frame
+    collectionView.enclosingScrollView?.frame.size = CGSize(width: 500, height: 500)
+    collectionView.contentOffset = .init(x: 0, y: 0)
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: .zero).count, 10)
   }
 }

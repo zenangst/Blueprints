@@ -29,7 +29,8 @@ class VerticalBlueprintLayoutTests_macOS: XCTestCase {
     collectionView.contentOffset = .init(x: 0, y: 50)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero).count, 1)
 
-    collectionView.enclosingScrollView?.frame.size.height = 500
+    collectionView.enclosingScrollView?.frame.size = CGSize(width: 500, height: 500)
+    collectionView.contentOffset = .init(x: 0, y: 0)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero).count, 10)
   }
 }

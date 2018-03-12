@@ -78,13 +78,14 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     #endif
   }
 
-  /// Creates layout attributes for a header.
+  /// Create supplementary layout attributes.
   ///
   /// - Parameters:
-  ///   - indexPath: The index path of the section that the footer belongs to.
+  ///   - kind: The supplementary kind, either header or footer.
+  ///   - indexPath: The section index path for the supplementary view.
   ///   - x: The x coordinate of the header layout attributes.
   ///   - y: The y coordinate of the header layout attributes.
-  /// - Returns: A `LayoutAttributes` object of supplementary kind header.
+  /// - Returns: A `LayoutAttributes` object of supplementary kind.
   func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind, indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
     let layoutAttribute = LayoutAttributes(
       forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,

@@ -130,7 +130,16 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    return layoutAttributes.flatMap { $0 }.filter { $0.frame.intersects(rect) }
+    #if os(macOS)
+      /// On macOS, the collection view is the document view of a scroll view, to get proper dequeuing we need to resolve
+      /// the scroll views rectangle instead of the rectangle that is passed to the collection view layout.
+      /// This way we make sure that we never allocate more items than necessary.
+      guard let rect = collectionView?.enclosingScrollView?.documentVisibleRect else {
+        return []
+      }
+    #endif
+
+    return layoutAttributes.flatMap{ $0 }.filter { $0.frame.intersects(rect) }
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

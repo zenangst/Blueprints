@@ -22,13 +22,14 @@ The framework also provides a good base for your custom implementations. By exte
 
 ## Features
 
-- [x] 🍭Animation support.
-- [x] 🤳🏻Optimized for performance
-- [x] 📏Built-in vertical and horizontal layouts.
+- [x] 🍭 Animation support.
+- [x] 🤳🏻 Optimized for performance
+- [x] 📏 Built-in vertical and horizontal layouts.
 - [x] 📰 Supports header and footers.
-- [x] 📱iOS support.
-- [x] 💻macOS support.
-- [x] 📺tvOS support.
+- [x] 🖍 Supports sticky headers and footers.
+- [x] 📱 iOS support.
+- [x] 💻 macOS support.
+- [x] 📺 tvOS support.
 
 
 ## How do items per row work?
@@ -52,7 +53,10 @@ let blueprintLayout = VerticalBlueprintLayout(
   itemsPerRow: 1.0,
   itemSize: CGSize(width: 200, height: 60),
   minimumInteritemSpacing: 10,
-  sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+  minimumLineSpacing: 10,
+  sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+  stickyHeaders: true,
+  stickyFooters: false
 )
 let collectionView = UICollectionView(frame: .zero,
                                       collectionViewLayout: blueprintLayout)
@@ -65,7 +69,10 @@ let blueprintLayout = HorizontalBlueprintLayout(
   itemsPerColumn: 2,
   itemSize: CGSize(width: 200, height: 200),
   minimumInteritemSpacing: 10,
-  sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+  minimumLineSpacing: 10,
+  sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+  stickyHeaders: true,
+  stickyFooters: true
 )
 let collectionView = UICollectionView(frame: .zero,
                                       collectionViewLayout: blueprintLayout)

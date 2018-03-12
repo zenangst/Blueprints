@@ -6,6 +6,8 @@
 
 open class HorizontalBlueprintLayout: BlueprintLayout {
   public var itemsPerColumn: Int
+  public var stickyHeaders: Bool = true
+  public var stickyFooters: Bool = true
 
   required public init(
     itemsPerRow: CGFloat? = nil,

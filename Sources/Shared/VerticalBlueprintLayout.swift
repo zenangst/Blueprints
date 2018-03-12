@@ -5,6 +5,9 @@
 #endif
 
 open class VerticalBlueprintLayout: BlueprintLayout {
+  public var stickyHeaders: Bool = false
+  public var stickyFooters: Bool = false
+
   required public override init(
     itemsPerRow: CGFloat? = nil,
     itemSize: CGSize = CGSize(width: 50, height: 50),

@@ -215,9 +215,9 @@
 		BDB4B6C9204CB23E00971F64 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */,
 				BDB4B6CA204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift */,
 				BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */,
-				BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */,
 				BD975E7C2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift */,
 			);
 			path = Extensions;

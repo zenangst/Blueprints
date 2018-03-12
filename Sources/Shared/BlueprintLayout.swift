@@ -21,9 +21,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
                                                            defaultValue: 1) }
   /// A layout animator object, defaults to `DefaultLayoutAnimator`.
   var animator: BlueprintLayoutAnimator
-
-  public var stickyHeaders: Bool = false
-  public var stickyFooters: Bool = false
   var headerFooterWidth: CGFloat?
 
   /// An initialized collection view layout object.

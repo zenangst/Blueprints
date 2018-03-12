@@ -10,7 +10,18 @@ open class VerticalBlueprintLayout: BlueprintLayout {
   /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   public var stickyFooters: Bool = false
 
-  required public override init(
+  /// An initialized vertical collection view layout object.
+  ///
+  /// - Parameters:
+  ///   - itemsPerRow: The amount of items that should appear on each row.
+  ///   - itemSize: The default size to use for cells.
+  ///   - minimumInteritemSpacing: The minimum spacing to use between items in the same row.
+  ///   - minimumLineSpacing: The minimum spacing to use between lines of items in the grid.
+  ///   - sectionInset: The margins used to lay out content in a section
+  ///   - stickyHeaders: A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
+  ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
+  ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
+  required public init(
     itemsPerRow: CGFloat? = nil,
     itemSize: CGSize = CGSize(width: 50, height: 50),
     minimumInteritemSpacing: CGFloat = 0,

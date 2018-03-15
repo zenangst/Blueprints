@@ -2,6 +2,7 @@
   import Cocoa
   public typealias CollectionView = NSCollectionView
   public typealias CollectionViewElementKind = NSCollectionView.SupplementaryElementKind
+  public typealias CollectionViewLayout = NSCollectionViewLayout
   public typealias CollectionViewFlowLayout = NSCollectionViewFlowLayout
   public typealias CollectionViewFlowLayoutDelegate = NSCollectionViewDelegateFlowLayout
   public typealias CollectionViewUpdateItem = NSCollectionViewUpdateItem
@@ -13,6 +14,7 @@
   import UIKit
   public typealias CollectionView = UICollectionView
   public typealias CollectionViewElementKind = String
+  public typealias CollectionViewLayout = UICollectionViewLayout
   public typealias CollectionViewFlowLayout = UICollectionViewFlowLayout
   public typealias CollectionViewFlowLayoutDelegate = UICollectionViewDelegateFlowLayout
   public typealias CollectionViewUpdateItem = UICollectionViewUpdateItem

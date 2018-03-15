@@ -66,116 +66,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     NotificationCenter.default.removeObserver(self)
   }
 
-  /// Tells the layout object to update the current layout.
-  open override func prepare() {
-    self.contentSize = .zero
-    self.layoutAttributes = []
-
-    #if os(macOS)
-      if let clipView = collectionView?.enclosingScrollView?.contentView {
-        configureHeaderFooterWidth(clipView)
-      }
-    #endif
-  }
-
-  /// Create supplementary layout attributes.
-  ///
-  /// - Parameters:
-  ///   - kind: The supplementary kind, either header or footer.
-  ///   - indexPath: The section index path for the supplementary view.
-  ///   - x: The x coordinate of the header layout attributes.
-  ///   - y: The y coordinate of the header layout attributes.
-  /// - Returns: A `LayoutAttributes` object of supplementary kind.
-  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind, indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
-    let layoutAttribute = LayoutAttributes(
-      forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
-      with: indexPath
-    )
-
-    switch kind {
-    case .header:
-      layoutAttribute.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
-      layoutAttribute.size.height = headerReferenceSize.height
-    case .footer:
-      layoutAttribute.size.width = collectionView?.documentRect.width ?? footerReferenceSize.width
-      layoutAttribute.size.height = footerReferenceSize.height
-    }
-
-    layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.frame.origin.x = x
-    layoutAttribute.frame.origin.y = y
-
-    return layoutAttribute
-  }
-
-  /// Returns the layout attributes for the item at the specified index path.
-  ///
-  /// - Parameter indexPath: The index path of the item whose attributes are requested.
-  /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
-  override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    guard indexPath.section < layoutAttributes.count else {
-      return nil
-    }
-
-    guard indexPath.item < layoutAttributes[indexPath.section].count else {
-      return nil
-    }
-
-    return layoutAttributes[indexPath.section][indexPath.item]
-  }
-
-  /// Returns the layout attributes for all of the cells and views
-  /// in the specified rectangle.
-  ///
-  /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
-  /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
-  override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    #if os(macOS)
-      /// On macOS, the collection view is the document view of a scroll view, to get proper dequeuing we need to resolve
-      /// the scroll views rectangle instead of the rectangle that is passed to the collection view layout.
-      /// This way we make sure that we never allocate more items than necessary.
-      guard let rect = collectionView?.enclosingScrollView?.documentVisibleRect else {
-        return []
-      }
-    #endif
-
-    return layoutAttributes.flatMap{ $0 }.filter { $0.frame.intersects(rect) }
-  }
-
-  /// Returns the starting layout information for an item being inserted into the collection view.
-  ///
-  /// - Parameter itemIndexPath: The index path of the item being inserted.
-  override open func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> LayoutAttributes? {
-    guard let attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath) else {
-      return nil
-    }
-
-    return animator.initialLayoutAttributesForAppearingItem(at: itemIndexPath,
-                                                            with: attributes)
-  }
-
-  /// Returns the ending layout information for an item being removed from the collection view.
-  ///
-  /// - Parameter itemIndexPath: The index path of the item being removed.
-  /// - Returns: The layout attributes object that describes the item’s position
-  ///            and properties at the end of animations.
-  override open func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> LayoutAttributes? {
-    guard let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) else {
-      return nil
-    }
-
-    return animator.finalLayoutAttributesForDisappearingItem(at: itemIndexPath,
-                                                             with: attributes)
-  }
-
-  /// Notifies the layout object that the contents of the collection view are about to change.
-  ///
-  /// - Parameter updateItems: An array of CollectionViewUpdateItem objects
-  //                           that identify the changes being made.
-  override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
-    return animator.prepare(forCollectionViewUpdates: updateItems)
-  }
-
   // MARK: - Internal methods
 
   /// Queries the data source for the amount of items inside of a section.
@@ -239,8 +129,34 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     }
   }
 
-  open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return true
+  /// Create supplementary layout attributes.
+  ///
+  /// - Parameters:
+  ///   - kind: The supplementary kind, either header or footer.
+  ///   - indexPath: The section index path for the supplementary view.
+  ///   - x: The x coordinate of the header layout attributes.
+  ///   - y: The y coordinate of the header layout attributes.
+  /// - Returns: A `LayoutAttributes` object of supplementary kind.
+  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind, indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
+    let layoutAttribute = LayoutAttributes(
+      forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
+      with: indexPath
+    )
+
+    switch kind {
+    case .header:
+      layoutAttribute.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
+      layoutAttribute.size.height = headerReferenceSize.height
+    case .footer:
+      layoutAttribute.size.width = collectionView?.documentRect.width ?? footerReferenceSize.width
+      layoutAttribute.size.height = footerReferenceSize.height
+    }
+
+    layoutAttribute.zIndex = indexPath.section
+    layoutAttribute.frame.origin.x = x
+    layoutAttribute.frame.origin.y = y
+
+    return layoutAttribute
   }
 
   /// Resolve collection collection view from layout and return
@@ -259,5 +175,95 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     } else {
       return defaultValue
     }
+  }
+
+  // MARK: - Overrides
+
+  /// Tells the layout object to update the current layout.
+  open override func prepare() {
+    self.contentSize = .zero
+    self.layoutAttributes = []
+
+    #if os(macOS)
+      if let clipView = collectionView?.enclosingScrollView?.contentView {
+        configureHeaderFooterWidth(clipView)
+      }
+    #endif
+  }
+
+  open override func prepareForTransition(to newLayout: CollectionViewLayout) {
+    super.prepareForTransition(to: newLayout)
+    newLayout.prepare()
+    newLayout.collectionView?.frame.size = newLayout.collectionViewContentSize
+  }
+
+  /// Returns the layout attributes for the item at the specified index path.
+  ///
+  /// - Parameter indexPath: The index path of the item whose attributes are requested.
+  /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
+  override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
+    guard indexPath.section < layoutAttributes.count else {
+      return nil
+    }
+
+    guard indexPath.item < layoutAttributes[indexPath.section].count else {
+      return nil
+    }
+
+    return layoutAttributes[indexPath.section][indexPath.item]
+  }
+
+  /// Returns the layout attributes for all of the cells and views
+  /// in the specified rectangle.
+  ///
+  /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
+  /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
+  override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
+    #if os(macOS)
+      /// On macOS, the collection view is the document view of a scroll view, to get proper dequeuing we need to resolve
+      /// the scroll views rectangle instead of the rectangle that is passed to the collection view layout.
+      /// This way we make sure that we never allocate more items than necessary.
+      let rect = collectionView?.enclosingScrollView?.documentVisibleRect ?? rect
+    #endif
+
+    return layoutAttributes.flatMap{ $0 }.filter { $0.frame.intersects(rect) }
+  }
+
+  /// Returns the starting layout information for an item being inserted into the collection view.
+  ///
+  /// - Parameter itemIndexPath: The index path of the item being inserted.
+  override open func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> LayoutAttributes? {
+    guard let attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath) else {
+      return nil
+    }
+
+    return animator.initialLayoutAttributesForAppearingItem(at: itemIndexPath,
+                                                            with: attributes)
+  }
+
+  /// Returns the ending layout information for an item being removed from the collection view.
+  ///
+  /// - Parameter itemIndexPath: The index path of the item being removed.
+  /// - Returns: The layout attributes object that describes the item’s position
+  ///            and properties at the end of animations.
+  override open func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> LayoutAttributes? {
+    guard let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) else {
+      return nil
+    }
+
+    return animator.finalLayoutAttributesForDisappearingItem(at: itemIndexPath,
+                                                             with: attributes)
+  }
+
+  /// Notifies the layout object that the contents of the collection view are about to change.
+  ///
+  /// - Parameter updateItems: An array of CollectionViewUpdateItem objects
+  //                           that identify the changes being made.
+  override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
+    return animator.prepare(forCollectionViewUpdates: updateItems)
+  }
+
+  open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    return true
   }
 }

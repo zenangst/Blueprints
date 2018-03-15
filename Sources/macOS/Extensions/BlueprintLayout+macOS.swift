@@ -17,6 +17,11 @@ extension BlueprintLayout {
     return layoutAttributesResult
   }
 
+  open override func finalizeLayoutTransition() {
+    super.finalizeLayoutTransition()
+    collectionView?.enclosingScrollView?.layout()
+  }
+
   func configureHeaderFooterWidth(_ view: NSView) {
     headerFooterWidth = view.frame.width
   }
@@ -26,7 +31,7 @@ extension BlueprintLayout {
       clipView == collectionView?.enclosingScrollView?.contentView else {
         return
     }
-
+    collectionView?.enclosingScrollView?.layout()
     configureHeaderFooterWidth(clipView)
   }
 }

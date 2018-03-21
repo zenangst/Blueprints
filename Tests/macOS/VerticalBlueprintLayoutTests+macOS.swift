@@ -21,17 +21,17 @@ class VerticalBlueprintLayoutTests_macOS: XCTestCase {
 
     collectionView.enclosingScrollView?.frame.size = .init(width: 50, height: 50)
     collectionView.contentOffset = .init(x: 0, y: 0)
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero).count, 1)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 1)
 
     collectionView.contentOffset = .init(x: 0, y: 25)
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero).count, 2)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 2)
 
     collectionView.contentOffset = .init(x: 0, y: 50)
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero).count, 1)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 1)
 
     collectionView.enclosingScrollView?.frame.size = CGSize(width: 500, height: 500)
     collectionView.contentOffset = .init(x: 0, y: 0)
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero).count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 10)
   }
 }
 

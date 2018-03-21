@@ -24,6 +24,7 @@ open class VerticalBlueprintLayout: BlueprintLayout {
   required public init(
     itemsPerRow: CGFloat? = nil,
     itemSize: CGSize = CGSize(width: 50, height: 50),
+    estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 0,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
@@ -36,6 +37,7 @@ open class VerticalBlueprintLayout: BlueprintLayout {
     super.init(
       itemsPerRow: itemsPerRow,
       itemSize: itemSize,
+      estimatedItemSize: estimatedItemSize,
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,

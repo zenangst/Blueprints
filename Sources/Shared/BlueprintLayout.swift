@@ -35,6 +35,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public init(
     itemsPerRow: CGFloat? = nil,
     itemSize: CGSize = CGSize(width: 50, height: 50),
+    estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
@@ -44,6 +45,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     self.animator = animator
     super.init()
     self.itemSize = itemSize
+    self.estimatedItemSize = estimatedItemSize
     self.minimumInteritemSpacing = minimumInteritemSpacing
     self.minimumLineSpacing = minimumLineSpacing
     self.sectionInset = sectionInset
@@ -112,9 +114,15 @@ open class BlueprintLayout : CollectionViewFlowLayout {
         containerWidth = collectionView.frame.size.width
       #endif
 
+      let height = resolveCollectionView({ collectionView -> CGSize? in
+        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                               layout: self,
+                                                                                               sizeForItemAt: indexPath)
+      }, defaultValue: itemSize).height
+
       let size = CGSize(
         width: calculateItemWidth(itemsPerRow, containerWidth: containerWidth),
-        height: itemSize.height
+        height: height
       )
 
       return size

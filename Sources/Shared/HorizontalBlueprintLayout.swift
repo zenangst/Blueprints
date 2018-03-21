@@ -28,6 +28,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
     itemsPerRow: CGFloat? = nil,
     itemsPerColumn: Int = 1,
     itemSize: CGSize = CGSize(width: 50, height: 50),
+    estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
@@ -41,6 +42,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
     super.init(
       itemsPerRow: itemsPerRow,
       itemSize: itemSize,
+      estimatedItemSize: estimatedItemSize,
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,

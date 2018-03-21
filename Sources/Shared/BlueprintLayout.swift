@@ -263,8 +263,4 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
     return animator.prepare(forCollectionViewUpdates: updateItems)
   }
-
-  open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return true
-  }
 }

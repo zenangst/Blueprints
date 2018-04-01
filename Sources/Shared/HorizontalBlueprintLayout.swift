@@ -165,7 +165,9 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
       firstItem = nil
     }
 
-    contentSize.height += headerReferenceSize.height + footerReferenceSize.height
+    if contentSize.height > 0 {
+      contentSize.height += headerReferenceSize.height + footerReferenceSize.height
+    }
 
     self.layoutAttributes = layoutAttributes
     self.contentSize = contentSize

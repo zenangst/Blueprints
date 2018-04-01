@@ -170,4 +170,8 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
     self.layoutAttributes = layoutAttributes
     self.contentSize = contentSize
   }
+
+  open override func shouldInvalidateLayout(forBoundsChange newBounds: NSRect) -> Bool {
+    return stickyHeaders && headerReferenceSize.height > 0
+  }
 }

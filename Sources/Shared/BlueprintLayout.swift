@@ -218,7 +218,10 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       return nil
     }
 
-    return layoutAttributes[indexPath.section][indexPath.item]
+    let sections = layoutAttributes[indexPath.section]
+      .filter({ $0.representedElementCategory == .item })
+
+    return sections[indexPath.item]
   }
 
   /// Returns the layout attributes for all of the cells and views

@@ -23,7 +23,7 @@ extension BlueprintLayout {
   }
 
   func configureHeaderFooterWidth(_ view: NSView) {
-    headerFooterWidth = view.frame.width
+    headerFooterWidth = view.enclosingScrollView?.frame.size.width ?? view.frame.width
   }
 
   @objc func contentViewBoundsDidChange(_ notification: NSNotification) {

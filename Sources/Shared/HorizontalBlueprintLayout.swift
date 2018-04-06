@@ -75,6 +75,8 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       for item in 0..<numberOfItemsInSection(section) {
+        var item = item
+
         if headerReferenceSize.height > 0 {
           let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
             ofKind: .header,
@@ -125,7 +127,9 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
 
       if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
-        headerAttribute?.frame.size.width = widthOfSection
+        headerAttribute?.frame.size.width = numberOfSections == 1
+        ? collectionView?.enclosingScrollView?.frame.size.width ?? 0
+        : widthOfSection
 
         if footerReferenceSize.height > 0 {
           let layoutAttribute = createSupplementaryLayoutAttribute(

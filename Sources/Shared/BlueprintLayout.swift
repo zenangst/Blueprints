@@ -218,10 +218,19 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       return nil
     }
 
-    let sections = layoutAttributes[indexPath.section]
-      .filter({ $0.representedElementCategory == .item })
+    #if os(macOS)
+      let sections = layoutAttributes[indexPath.section]
+        .filter({ $0.representedElementCategory == .item })
+    #else
+      let sections = layoutAttributes[indexPath.section]
+        .filter({ $0.representedElementCategory == .cell })
+    #endif
 
-    return sections[indexPath.item]
+    if indexPath.item < sections.count {
+      return sections[indexPath.item]
+    } else {
+      return nil
+    }
   }
 
   /// Returns the layout attributes for all of the cells and views

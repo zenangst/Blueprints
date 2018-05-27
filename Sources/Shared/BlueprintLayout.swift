@@ -202,7 +202,12 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   open override func prepareForTransition(to newLayout: CollectionViewLayout) {
     super.prepareForTransition(to: newLayout)
     newLayout.prepare()
-    newLayout.collectionView?.frame.size = newLayout.collectionViewContentSize
+    if let superview = newLayout.collectionView?.superview {
+      newLayout.collectionView?.frame.size.width = superview.frame.size.width
+    } else {
+      newLayout.collectionView?.frame.size.width = newLayout.collectionViewContentSize.width
+    }
+    newLayout.collectionView?.frame.size.height = newLayout.collectionViewContentSize.height
   }
 
   /// Returns the layout attributes for the item at the specified index path.

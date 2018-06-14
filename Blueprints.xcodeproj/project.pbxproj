@@ -42,6 +42,9 @@
 		BDB4B6CD204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
 		BDB4B6CE204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
 		BDB4B6CF204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
+		BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */; };
+		BDC90AF420CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */; };
+		BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */; };
 		BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01120570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift */; };
 		BDD0C01420570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */; };
 		BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */; };
@@ -126,6 +129,7 @@
 		BDB4B6C6204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayoutAnimator+iOS+tvOS.swift"; sourceTree = "<group>"; };
 		BDB4B6CA204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayoutAnimator+macOS.swift"; sourceTree = "<group>"; };
 		BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLayoutAnimator.swift; sourceTree = "<group>"; };
+		BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMosaicBlueprintLayout.swift; sourceTree = "<group>"; };
 		BDD0C01120570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VerticalBlueprintLayoutTests+macOS.swift"; sourceTree = "<group>"; };
 		BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HorizontalBlueprintLayoutTests+macOS.swift"; sourceTree = "<group>"; };
 		BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HorizontalBlueprintLayoutTests+iOS+tvOS.swift"; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 				D5C629821C3A892A007F7B7C /* HorizontalBlueprintLayout.swift */,
 				D5C629861C3A89A8007F7B7C /* TypeAlias.swift */,
 				BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */,
+				BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -653,6 +658,7 @@
 				D284B1491F790CA200D94AF3 /* TypeAlias.swift in Sources */,
 				BDD5F8CE204C7D6A00A6BFD5 /* HorizontalBlueprintLayout.swift in Sources */,
 				BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
+				BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDFB454A20559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
@@ -702,6 +708,7 @@
 				D5C629871C3A89A8007F7B7C /* TypeAlias.swift in Sources */,
 				BDB4B6B5204CB04900971F64 /* BlueprintLayoutAnimator.swift in Sources */,
 				BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
+				BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDB4B6C7204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
 				BDFB454820559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
@@ -738,6 +745,7 @@
 				BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */,
 				BDD5F8D1204C7EA300A6BFD5 /* BlueprintLayout.swift in Sources */,
 				BDFB454920559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
+				BDC90AF420CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDD5F8D4204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */,
 				BDB4B6C3204CB17800971F64 /* BlueprintLayoutAnimationType.swift in Sources */,

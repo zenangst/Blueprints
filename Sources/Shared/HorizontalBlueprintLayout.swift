@@ -57,7 +57,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
 
   override open func prepare() {
     super.prepare()
-    var layoutAttributes = self.layoutAttributes
+    var layoutAttributes = self.cachedAttributes
     var contentSize: CGSize = .zero
     var nextX: CGFloat = 0
     var widthOfSection: CGFloat = 0
@@ -169,7 +169,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
       contentSize.height += headerReferenceSize.height + footerReferenceSize.height
     }
 
-    self.layoutAttributes = layoutAttributes
+    self.cachedAttributes = layoutAttributes
     self.contentSize = contentSize
   }
 }

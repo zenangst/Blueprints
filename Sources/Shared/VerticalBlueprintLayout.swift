@@ -52,7 +52,7 @@ open class VerticalBlueprintLayout: BlueprintLayout {
 
   override open func prepare() {
     super.prepare()
-    var layoutAttributes = self.layoutAttributes
+    var layoutAttributes = self.cachedAttributes
     var threshold: CGFloat = 0.0
 
     if let collectionViewWidth = collectionView?.documentRect.width {
@@ -165,7 +165,7 @@ open class VerticalBlueprintLayout: BlueprintLayout {
     contentSize.width = threshold
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height
 
-    self.layoutAttributes = layoutAttributes
+    self.cachedAttributes = layoutAttributes
     self.contentSize = contentSize
   }
 }

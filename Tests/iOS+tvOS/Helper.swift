@@ -44,4 +44,26 @@ class Helper {
 
     return animator
   }
+
+  static func createVerticalMosaicLayout(dataSource: UICollectionViewDataSource) -> (collectionView: CollectionView, layout: VerticalMosaicBlueprintLayout) {
+    let frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
+    let patterns = [
+      MosaicPattern(alignment: .left, direction: .vertical, amount: 2, multiplier: 0.5),
+      MosaicPattern(alignment: .left, direction: .horizontal, amount: 2, multiplier: 0.5),
+      MosaicPattern(alignment: .right, direction: .vertical, amount: 2, multiplier: 0.5)
+    ]
+
+    let layout = VerticalMosaicBlueprintLayout(
+      minimumInteritemSpacing: 2,
+      minimumLineSpacing: 2,
+      sectionInset: EdgeInsets(top: 2, left: 2, bottom: 2, right: 2),
+      patterns: patterns)
+    layout.itemSize = CGSize(width: 50, height: 50)
+    layout.estimatedItemSize = CGSize(width: 50, height: 50)
+    let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
+    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    collectionView.dataSource = dataSource
+
+    return (collectionView: collectionView, layout: layout)
+  }
 }

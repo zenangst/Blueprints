@@ -13,7 +13,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// The amount of items that should appear on each row.
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
-  public var layoutAttributes = [[LayoutAttributes]]()
+  public var cachedAttributes = [[LayoutAttributes]]()
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = CGSize(width: 50, height: 50)
   /// The number of sections in the collection view.
@@ -190,7 +190,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// Tells the layout object to update the current layout.
   open override func prepare() {
     self.contentSize = .zero
-    self.layoutAttributes = []
+    self.cachedAttributes = []
 
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView?.contentView {
@@ -215,19 +215,19 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    guard indexPath.section < layoutAttributes.count else {
+    guard indexPath.section < cachedAttributes.count else {
       return nil
     }
 
-    guard indexPath.item < layoutAttributes[indexPath.section].count else {
+    guard indexPath.item < cachedAttributes[indexPath.section].count else {
       return nil
     }
 
     #if os(macOS)
-      let sections = layoutAttributes[indexPath.section]
+      let sections = cachedAttributes[indexPath.section]
         .filter({ $0.representedElementCategory == .item })
     #else
-      let sections = layoutAttributes[indexPath.section]
+      let sections = cachedAttributes[indexPath.section]
         .filter({ $0.representedElementCategory == .cell })
     #endif
 
@@ -244,7 +244,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    return layoutAttributes.flatMap{ $0 }.filter { $0.frame.intersects(rect) }
+    return cachedAttributes.flatMap{ $0 }.filter { $0.frame.intersects(rect) }
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

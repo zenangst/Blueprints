@@ -8,7 +8,6 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
   private let controller: MosaicBlueprintPatternController
 
   public required init(
-    itemsPerRow: CGFloat? = nil,
     itemSize: CGSize = CGSize(width: 50, height: 50),
     estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 10,
@@ -19,7 +18,7 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
     ) {
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
     super.init(
-      itemsPerRow: itemsPerRow,
+      itemsPerRow: nil,
       itemSize: itemSize,
       estimatedItemSize: estimatedItemSize,
       minimumInteritemSpacing: minimumInteritemSpacing,

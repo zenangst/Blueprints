@@ -78,6 +78,23 @@ let collectionView = UICollectionView(frame: .zero,
                                       collectionViewLayout: blueprintLayout)
 ```
 
+### Mosaic layout
+```swift
+let mosaicLayout = VerticalMosaicBlueprintLayout(
+  itemSize: CGSize.init(width: 50, height: 400),
+  minimumInteritemSpacing: 2,
+  minimumLineSpacing: 2,
+  sectionInset: EdgeInsets(top: 2, left: 2, bottom: 2, right: 2),
+  patterns: [
+    MosaicPattern(alignment: .left, direction: .vertical, amount: 2, multiplier: 0.6),
+    MosaicPattern(alignment: .left, direction: .horizontal, amount: 2, multiplier: 0.33),
+    MosaicPattern(alignment: .left, direction: .vertical, amount: 1, multiplier: 0.5),
+    MosaicPattern(alignment: .left, direction: .vertical, amount: 1, multiplier: 0.5)
+  ])
+let collectionView = UICollectionView(frame: .zero,
+                                      collectionViewLayout: mosaicLayout)
+```
+
 ## Installation
 
 **Blueprints** is available through [CocoaPods](http://cocoapods.org). To install

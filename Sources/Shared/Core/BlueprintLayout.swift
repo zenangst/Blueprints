@@ -224,7 +224,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     }
 
     #if os(macOS)
-      let sections = layoutAttributes[indexPath.section]
+      let sections = cachedAttributes[indexPath.section]
         .filter({ $0.representedElementCategory == .item })
     #else
       let sections = cachedAttributes[indexPath.section]

@@ -4,62 +4,6 @@
   import UIKit
 #endif
 
-public class MosaicPattern {
-  public enum Direction {
-    case horizontal, vertical
-  }
-  public enum Alignment {
-    case left, right
-  }
-  let amount: Int
-  let alignment: MosaicPattern.Alignment
-  let multiplier: CGFloat
-  let direction: Direction
-
-  public init(alignment: MosaicPattern.Alignment = .left, direction: Direction = .vertical, amount: Int, multiplier: CGFloat) {
-    self.alignment = alignment
-    self.amount = amount
-    self.multiplier = multiplier
-    self.direction = direction
-  }
-}
-
-public class MosaicLayoutAttributes: LayoutAttributes {
-  var childAttributes = [LayoutAttributes]()
-  var amount: Int = 0
-  var remaining: Int = 0
-  var direction: MosaicPattern.Direction = .vertical
-  var alignment: MosaicPattern.Alignment = .left
-  var multiplier: CGFloat = 1.0
-
-  convenience init(_ indexPath: IndexPath, pattern: MosaicPattern) {
-    self.init(forCellWith: indexPath)
-    self.amount = pattern.amount
-    self.remaining = pattern.amount
-    self.alignment = pattern.alignment
-    self.multiplier = pattern.multiplier
-    self.direction = pattern.direction
-  }
-}
-
-public class MosaicBlueprintPatternController {
-  var patterns: [MosaicPattern]
-
-  init(patterns: MosaicPattern ...) {
-    self.patterns = patterns
-  }
-
-  init(patterns: [MosaicPattern]) {
-    self.patterns = patterns
-  }
-
-  func values(at indexPath: IndexPath) -> MosaicPattern {
-    let wrapped = patterns.count + (indexPath.item)
-    let adjustedIndex = wrapped % patterns.count
-    return patterns[adjustedIndex]
-  }
-}
-
 public class VerticalMosaicBlueprintLayout: BlueprintLayout {
   private let controller: MosaicBlueprintPatternController
 
@@ -83,21 +27,10 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
       sectionInset: sectionInset,
       animator: animator
     )
-
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(injected(_:)),
-      name: NSNotification.Name(rawValue: "INJECTION_BUNDLE_NOTIFICATION"),
-      object: nil
-    )
   }
 
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  @objc open func injected(_ notification: Notification) {
-    invalidateLayout()
   }
 
   override public func prepare() {
@@ -132,7 +65,7 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
 
           mosaicLayoutAttribute.frame.size.width = (threshold * pattern.multiplier) - minimumInteritemSpacing
 
-          if mosaicLayoutAttribute.multiplier == 1 {
+          if mosaicLayoutAttribute.pattern.multiplier == 1 {
             mosaicLayoutAttribute.frame.size.width -= minimumInteritemSpacing
           }
 
@@ -181,18 +114,18 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
   private func process(_ mosaic: MosaicLayoutAttributes, width: CGFloat) {
     let childCount = CGFloat(mosaic.childAttributes.count)
     for (offset, layoutAttribute) in mosaic.childAttributes.enumerated() {
-      switch mosaic.alignment {
+      switch mosaic.pattern.alignment {
       case .left:
         layoutAttribute.frame.origin.x = mosaic.frame.maxX + minimumInteritemSpacing
       case .right:
         layoutAttribute.frame.origin.x = sectionInset.left
       }
 
-      switch mosaic.direction {
+      switch mosaic.pattern.direction {
       case .horizontal:
         layoutAttribute.frame.origin.y = mosaic.frame.origin.y
 
-        switch mosaic.alignment {
+        switch mosaic.pattern.alignment {
         case .left:
           layoutAttribute.frame.size.width = (width - mosaic.frame.maxX - minimumInteritemSpacing - sectionInset.left - sectionInset.right) / childCount
         case .right:

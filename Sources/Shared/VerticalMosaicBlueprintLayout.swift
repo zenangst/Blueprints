@@ -5,17 +5,22 @@
 #endif
 
 public class MosaicPattern {
+  public enum Direction {
+    case horizontal, vertical
+  }
   public enum Alignment {
     case left, right
   }
-  var amount: Int
-  var alignment: MosaicPattern.Alignment
-  var multiplier: CGFloat
+  let amount: Int
+  let alignment: MosaicPattern.Alignment
+  let multiplier: CGFloat
+  let direction: Direction
 
-  public init(alignment: MosaicPattern.Alignment = .left, amount: Int, multiplier: CGFloat) {
+  public init(alignment: MosaicPattern.Alignment = .left, direction: Direction = .vertical, amount: Int, multiplier: CGFloat) {
     self.alignment = alignment
     self.amount = amount
     self.multiplier = multiplier
+    self.direction = direction
   }
 }
 
@@ -23,6 +28,7 @@ public class MosaicLayoutAttributes: LayoutAttributes {
   var childAttributes = [LayoutAttributes]()
   var amount: Int = 0
   var remaining: Int = 0
+  var direction: MosaicPattern.Direction = .vertical
   var alignment: MosaicPattern.Alignment = .left
   var multiplier: CGFloat = 1.0
 
@@ -32,6 +38,7 @@ public class MosaicLayoutAttributes: LayoutAttributes {
     self.remaining = pattern.amount
     self.alignment = pattern.alignment
     self.multiplier = pattern.multiplier
+    self.direction = pattern.direction
   }
 }
 
@@ -49,12 +56,6 @@ public class MosaicBlueprintPatternController {
   func values(at indexPath: IndexPath) -> MosaicPattern {
     let wrapped = patterns.count + (indexPath.item)
     let adjustedIndex = wrapped % patterns.count
-    var indexPath = indexPath
-
-    if indexPath.item >= patterns.count {
-      indexPath.section = 0
-    }
-
     return patterns[adjustedIndex]
   }
 }
@@ -108,14 +109,6 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
       threshold = collectionViewWidth
     }
 
-    let patterns = [
-      MosaicPattern(alignment: .left, amount: 1, multiplier: 0.5),
-      MosaicPattern(alignment: .left, amount: 2, multiplier: 0.6),
-      MosaicPattern(alignment: .right, amount: 3, multiplier: 0.7),
-      MosaicPattern(alignment: .left, amount: 1, multiplier: 0.5),
-      MosaicPattern(alignment: .left, amount: 0, multiplier: 1.0),
-      MosaicPattern(alignment: .left, amount: 3, multiplier: 0.7)
-    ]
     var mosaicCount: Int = 0
 
     for section in 0..<numberOfSections {
@@ -128,34 +121,29 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
 
         if let previousAttribute = previousAttribute, previousAttribute.remaining > 0 {
           let childLayoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
-
           previousAttribute.childAttributes.append(childLayoutAttribute)
           previousAttribute.remaining -= 1
-
-          if previousAttribute.remaining == 0 {
-            process(previousAttribute, width: threshold)
-          }
-
+          process(previousAttribute, width: threshold)
           layoutAttribute = childLayoutAttribute
         } else {
           let layoutIndexPath = IndexPath(item: mosaicCount, section: section)
           let pattern = controller.values(at: layoutIndexPath)
           let mosaicLayoutAttribute = MosaicLayoutAttributes.init(indexPath, pattern: pattern)
 
-          mosaicLayoutAttribute.frame.size.width = (threshold * pattern.multiplier) - sectionInset.right - minimumInteritemSpacing
-          mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - minimumLineSpacing
+          mosaicLayoutAttribute.frame.size.width = (threshold * pattern.multiplier) - minimumInteritemSpacing
 
-          switch pattern.alignment {
-          case .left:
-            mosaicLayoutAttribute.frame.origin.x = sectionInset.left
-          case .right:
-            mosaicLayoutAttribute.frame.origin.x = threshold - mosaicLayoutAttribute.frame.size.width - sectionInset.right
+          if mosaicLayoutAttribute.multiplier == 1 {
+            mosaicLayoutAttribute.frame.size.width -= minimumInteritemSpacing
           }
 
-          mosaicLayoutAttribute.frame.origin.y = previousAttribute?.frame.maxY ?? 0
+          mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - minimumLineSpacing
 
-          if previousAttribute != nil {
-            mosaicLayoutAttribute.frame.origin.y += minimumLineSpacing
+          apply(pattern, to: mosaicLayoutAttribute, with: threshold)
+
+          if let previousAttribute = previousAttribute {
+            mosaicLayoutAttribute.frame.origin.y = previousAttribute.frame.maxY + minimumLineSpacing
+          } else {
+            mosaicLayoutAttribute.frame.origin.y = sectionInset.top
           }
 
           previousAttribute = mosaicLayoutAttribute
@@ -171,7 +159,7 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
       }
 
       if let previousAttribute = previousAttribute {
-        contentSize.height = previousAttribute.frame.maxY
+        contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom
       }
     }
 
@@ -179,6 +167,15 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
 
     self.cachedAttributes = layoutAttributes
     self.contentSize = contentSize
+  }
+
+  private func apply(_ pattern: MosaicPattern, to mosaicLayoutAttribute: MosaicLayoutAttributes, with threshold: CGFloat) {
+    switch pattern.alignment {
+    case .left:
+      mosaicLayoutAttribute.frame.origin.x = sectionInset.left
+    case .right:
+      mosaicLayoutAttribute.frame.origin.x = threshold - mosaicLayoutAttribute.frame.size.width - sectionInset.right
+    }
   }
 
   private func process(_ mosaic: MosaicLayoutAttributes, width: CGFloat) {
@@ -191,16 +188,40 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
         layoutAttribute.frame.origin.x = sectionInset.left
       }
 
-      layoutAttribute.frame.origin.y = mosaic.frame.origin.y
-      layoutAttribute.frame.size.width = width - mosaic.frame.size.width - minimumInteritemSpacing - sectionInset.right - sectionInset.left
-      layoutAttribute.frame.size.height = mosaic.frame.size.height / childCount
+      switch mosaic.direction {
+      case .horizontal:
+        layoutAttribute.frame.origin.y = mosaic.frame.origin.y
 
-      if childCount > 1 {
-        layoutAttribute.frame.size.height -= (minimumLineSpacing * childCount) / minimumLineSpacing
-      }
+        switch mosaic.alignment {
+        case .left:
+          layoutAttribute.frame.size.width = (width - mosaic.frame.maxX - minimumInteritemSpacing - sectionInset.left - sectionInset.right) / childCount
+        case .right:
+          layoutAttribute.frame.size.width = (width - mosaic.frame.size.width - (minimumInteritemSpacing * childCount) - sectionInset.left - sectionInset.right) / childCount
+        }
 
-      if offset > 0 {
-        layoutAttribute.frame.origin.y += (layoutAttribute.frame.size.height + minimumLineSpacing) * CGFloat(offset)
+        layoutAttribute.frame.size.height = mosaic.frame.size.height
+
+        if childCount == 1 {
+          layoutAttribute.frame.size.width += minimumInteritemSpacing
+        }
+
+        if offset > 0 {
+          layoutAttribute.frame.origin.x += (layoutAttribute.frame.size.width + minimumLineSpacing) * CGFloat(offset)
+        }
+      case .vertical:
+        layoutAttribute.frame.origin.y = mosaic.frame.origin.y
+        layoutAttribute.frame.size.width = width - mosaic.frame.size.width - minimumInteritemSpacing - sectionInset.right - sectionInset.left
+        layoutAttribute.frame.size.height = (mosaic.frame.size.height - minimumLineSpacing) / childCount
+
+        if childCount > 1 {
+          layoutAttribute.frame.size.height = floor(mosaic.frame.size.height / childCount) - round(minimumLineSpacing / childCount)
+        } else if childCount == 1 {
+          layoutAttribute.frame.size.height = mosaic.frame.size.height
+        }
+
+        if offset > 0 {
+          layoutAttribute.frame.origin.y += (layoutAttribute.frame.size.height + minimumLineSpacing) * CGFloat(offset)
+        }
       }
     }
   }

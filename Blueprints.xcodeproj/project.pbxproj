@@ -22,6 +22,9 @@
 		BDA31B0820D41B5B001E4870 /* MosaicBlueprintPatternController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0720D41B5B001E4870 /* MosaicBlueprintPatternController.swift */; };
 		BDA31B0920D41B5B001E4870 /* MosaicBlueprintPatternController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0720D41B5B001E4870 /* MosaicBlueprintPatternController.swift */; };
 		BDA31B0A20D41B5B001E4870 /* MosaicBlueprintPatternController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0720D41B5B001E4870 /* MosaicBlueprintPatternController.swift */; };
+		BDA31B0C20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
+		BDA31B0D20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
+		BDA31B0E20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
 		BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */; };
 		BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */; };
 		BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */; };
@@ -129,6 +132,7 @@
 		BDA31AFF20D41AF8001E4870 /* MosaicPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicPattern.swift; sourceTree = "<group>"; };
 		BDA31B0320D41B12001E4870 /* MosaicLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicLayoutAttributes.swift; sourceTree = "<group>"; };
 		BDA31B0720D41B5B001E4870 /* MosaicBlueprintPatternController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicBlueprintPatternController.swift; sourceTree = "<group>"; };
+		BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMosaicBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDB38700204D45B50080C93B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		BDB38703204D46400080C93B /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
@@ -299,9 +303,10 @@
 		D284B1311F7906DA00D94AF3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				BDFB6381204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift */,
 				D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */,
 				BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */,
-				BDFB6381204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift */,
+				BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				BDB38705204D46400080C93B /* Mocks.swift in Sources */,
 				BDB3870A204D46CC0080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
 				BDFB6385204D823700D863E3 /* BlueprintLayoutAnimatorTests.swift in Sources */,
+				BDA31B0E20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +770,7 @@
 				BDFB6382204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift in Sources */,
 				BDB38704204D46400080C93B /* Mocks.swift in Sources */,
 				BDFB637B204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
+				BDA31B0C20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +807,7 @@
 				BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */,
 				BDB38707204D46960080C93B /* Helper.swift in Sources */,
 				BDB38709204D46BB0080C93B /* Mocks.swift in Sources */,
+				BDA31B0D20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
 				BDFB637C204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
 				BDD0C01420570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift in Sources */,
 			);

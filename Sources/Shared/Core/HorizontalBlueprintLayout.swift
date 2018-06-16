@@ -169,7 +169,7 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
       contentSize.height += headerReferenceSize.height + footerReferenceSize.height
     }
 
-    self.cachedAttributes = layoutAttributes
     self.contentSize = contentSize
+    createCache(with: layoutAttributes)
   }
 }

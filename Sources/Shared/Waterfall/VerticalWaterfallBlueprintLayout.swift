@@ -74,8 +74,7 @@ public class VerticalWaterfallBlueprintLayout: BlueprintLayout {
     }
 
     contentSize.width = threshold
-
-    self.cachedAttributes = layoutAttributes
     self.contentSize = contentSize
+    createCache(with: layoutAttributes)
   }
 }

@@ -165,7 +165,8 @@ open class VerticalBlueprintLayout: BlueprintLayout {
     contentSize.width = threshold
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height
 
-    self.cachedAttributes = layoutAttributes
+
     self.contentSize = contentSize
+    createCache(with: layoutAttributes)
   }
 }

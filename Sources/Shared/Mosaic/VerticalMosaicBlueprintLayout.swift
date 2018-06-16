@@ -96,9 +96,8 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
     }
 
     contentSize.width = threshold
-
-    self.cachedAttributes = layoutAttributes
     self.contentSize = contentSize
+    createCache(with: layoutAttributes)
   }
 
   private func apply(_ pattern: MosaicPattern, to mosaicLayoutAttribute: MosaicLayoutAttributes, with threshold: CGFloat) {

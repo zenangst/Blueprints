@@ -14,6 +14,10 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
   public var cachedAttributes = [[LayoutAttributes]]()
+  public var cachedHeaders = [LayoutAttributes]()
+  public var cachedCells = [LayoutAttributes]()
+  public var allCachedAttributes = [LayoutAttributes]()
+
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = CGSize(width: 50, height: 50)
   /// The number of sections in the collection view.
@@ -199,6 +203,23 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     #endif
   }
 
+  /// Create caches from the layout attributes produced by the layout algoritm.
+  /// This method is invoked in the `prepare` method for the collection view layout.
+  ///
+  /// - Parameter attributes: The attributes that were created in the collection view layout.
+  func createCache(with attributes: [[LayoutAttributes]]) {
+    self.cachedAttributes = attributes
+    self.allCachedAttributes = Array(attributes.joined())
+
+    #if os(macOS)
+      cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
+      cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .item })
+    #else
+      cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
+      cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .cell })
+    #endif
+  }
+
   open override func prepareForTransition(to newLayout: CollectionViewLayout) {
     super.prepareForTransition(to: newLayout)
     newLayout.prepare()
@@ -215,13 +236,8 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    guard indexPath.section < cachedAttributes.count else {
-      return nil
-    }
-
-    guard indexPath.item < cachedAttributes[indexPath.section].count else {
-      return nil
-    }
+    guard indexPath.section < cachedAttributes.count else { return nil }
+    guard indexPath.item < cachedAttributes[indexPath.section].count else { return nil }
 
     #if os(macOS)
       let sections = cachedAttributes[indexPath.section]
@@ -244,7 +260,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    return cachedAttributes.flatMap{ $0 }.filter { $0.frame.intersects(rect) }
+    return allCachedAttributes.filter { $0.frame.intersects(rect) }
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

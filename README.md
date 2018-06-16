@@ -27,6 +27,8 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 📏 Built-in vertical and horizontal layouts.
 - [x] 📰 Supports header and footers.
 - [x] 🖍 Supports sticky headers and footers.
+- [x] 🌈 Built-in mosiac layout
+- [x] 💦 Built-in waterfall layout
 - [x] 📱 iOS support.
 - [x] 💻 macOS support.
 - [x] 📺 tvOS support.
@@ -93,6 +95,18 @@ let mosaicLayout = VerticalMosaicBlueprintLayout(
   ])
 let collectionView = UICollectionView(frame: .zero,
                                       collectionViewLayout: mosaicLayout)
+```
+
+### Waterfall layout
+```swift
+let waterfallLayout = VerticalWaterfallBlueprintLayout(
+  itemsPerRow: 2,
+  itemSize: CGSize.init(width: 50, height: 400),
+  minimumInteritemSpacing: 2,
+  minimumLineSpacing: 2,
+  sectionInset: EdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
+let collectionView = UICollectionView(frame: .zero,
+                                      collectionViewLayout: waterfallLayout)
 ```
 
 ## Installation

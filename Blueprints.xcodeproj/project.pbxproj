@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
+		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
+		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */; };
 		BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
 		BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
@@ -25,6 +28,9 @@
 		BDA31B0C20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
 		BDA31B0D20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
 		BDA31B0E20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
+		BDA31B1120D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */; };
+		BDA31B1220D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */; };
+		BDA31B1320D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */; };
 		BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */; };
 		BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */; };
 		BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */; };
@@ -123,6 +129,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+macOS.swift"; sourceTree = "<group>"; };
@@ -133,6 +140,7 @@
 		BDA31B0320D41B12001E4870 /* MosaicLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicLayoutAttributes.swift; sourceTree = "<group>"; };
 		BDA31B0720D41B5B001E4870 /* MosaicBlueprintPatternController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicBlueprintPatternController.swift; sourceTree = "<group>"; };
 		BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMosaicBlueprintLayoutTests.swift; sourceTree = "<group>"; };
+		BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayout.swift; sourceTree = "<group>"; };
 		BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDB38700204D45B50080C93B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		BDB38703204D46400080C93B /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
@@ -260,6 +268,14 @@
 			path = Mosaic;
 			sourceTree = "<group>";
 		};
+		BDA31B0F20D42C7C001E4870 /* Waterfall */ = {
+			isa = PBXGroup;
+			children = (
+				BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */,
+			);
+			path = Waterfall;
+			sourceTree = "<group>";
+		};
 		BDB4B6C5204CB1FC00971F64 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +323,7 @@
 				D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */,
 				BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */,
 				BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */,
+				BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -382,6 +399,7 @@
 		D5C6296E1C3A809D007F7B7C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				BDA31B0F20D42C7C001E4870 /* Waterfall */,
 				BDA31AFE20D41AD6001E4870 /* Mosaic */,
 				BDA31AFD20D41AD0001E4870 /* Core */,
 			);
@@ -695,6 +713,7 @@
 				BDD5F8CF204C7D6D00A6BFD5 /* BlueprintLayout.swift in Sources */,
 				D284B1491F790CA200D94AF3 /* TypeAlias.swift in Sources */,
 				BDD5F8CE204C7D6A00A6BFD5 /* HorizontalBlueprintLayout.swift in Sources */,
+				BDA31B1320D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDA31B0220D41AF8001E4870 /* MosaicPattern.swift in Sources */,
@@ -710,6 +729,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDFB637D204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
+				BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01820570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01A20570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB38702204D45B50080C93B /* Helper.swift in Sources */,
@@ -749,6 +769,7 @@
 				D5C629831C3A892A007F7B7C /* HorizontalBlueprintLayout.swift in Sources */,
 				D5C629871C3A89A8007F7B7C /* TypeAlias.swift in Sources */,
 				BDB4B6B5204CB04900971F64 /* BlueprintLayoutAnimator.swift in Sources */,
+				BDA31B1120D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDA31B0020D41AF8001E4870 /* MosaicPattern.swift in Sources */,
@@ -764,6 +785,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB38701204D45B50080C93B /* Helper.swift in Sources */,
+				BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01920570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
@@ -792,6 +814,7 @@
 				BDD5F8D1204C7EA300A6BFD5 /* BlueprintLayout.swift in Sources */,
 				BDFB454920559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
 				BDC90AF420CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
+				BDA31B1220D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BDD5F8D4204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */,
 				BDA31B0520D41B12001E4870 /* MosaicLayoutAttributes.swift in Sources */,
@@ -804,6 +827,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
+				BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */,
 				BDB38707204D46960080C93B /* Helper.swift in Sources */,
 				BDB38709204D46BB0080C93B /* Mocks.swift in Sources */,

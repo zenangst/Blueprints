@@ -1,6 +1,13 @@
 import Blueprints
 import UIKit
 
+class MockDelegate: NSObject, UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let height = indexPath.item % 2 == 1 ? 200 : 275
+    return CGSize(width: 200, height: height)
+  }
+}
+
 class Helper {
   static func createHorizontalLayout(dataSource: UICollectionViewDataSource) -> (collectionView: CollectionView, layout: HorizontalBlueprintLayout) {
     let frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
@@ -58,6 +65,23 @@ class Helper {
       minimumLineSpacing: 2,
       sectionInset: EdgeInsets(top: 2, left: 2, bottom: 2, right: 2),
       patterns: patterns)
+    layout.itemSize = CGSize(width: 50, height: 50)
+    layout.estimatedItemSize = CGSize(width: 50, height: 50)
+    let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
+    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    collectionView.dataSource = dataSource
+
+    return (collectionView: collectionView, layout: layout)
+  }
+
+  static func createVerticalWaterfallLayout(dataSource: UICollectionViewDataSource) -> (collectionView: CollectionView, layout: VerticalWaterfallBlueprintLayout) {
+    let frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
+
+    let layout = VerticalWaterfallBlueprintLayout(
+      itemsPerRow: 2,
+      minimumInteritemSpacing: 2,
+      minimumLineSpacing: 2,
+      sectionInset: EdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
     layout.itemSize = CGSize(width: 50, height: 50)
     layout.estimatedItemSize = CGSize(width: 50, height: 50)
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)

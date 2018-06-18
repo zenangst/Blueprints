@@ -267,11 +267,11 @@ open class BlueprintLayout : CollectionViewFlowLayout {
 
     while lowerBound < upperBound {
       let midIndex = lowerBound + (upperBound - lowerBound) / 2
-      let (rectMax, rectMin, attributeMax, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
+      let (rectMax, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
 
-      if attributeMax >= rectMin {
+      if array[midIndex].frame.intersects(rect) {
         return midIndex
-      } else if attributeMin <= rectMax {
+      } else if attributeMin < rectMax {
         lowerBound = midIndex + 1
       } else {
         upperBound = midIndex
@@ -281,26 +281,20 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     return nil
   }
 
-  private func getMaxMinFrom(layoutAttributes: LayoutAttributes, rect: CGRect) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
+  private func getMaxMinFrom(layoutAttributes: LayoutAttributes, rect: CGRect) -> (CGFloat, CGFloat) {
     let rectMax: CGFloat
-    let rectMin: CGFloat
-    let attributeMax: CGFloat
     let attributeMin: CGFloat
 
     switch scrollDirection {
     case .horizontal:
-      attributeMax = layoutAttributes.frame.maxX
       attributeMin = layoutAttributes.frame.minX
       rectMax = rect.maxX
-      rectMin = rect.minX
     case .vertical:
-      attributeMax = layoutAttributes.frame.maxY
       attributeMin = layoutAttributes.frame.minY
       rectMax = rect.maxY
-      rectMin = rect.minY
     }
 
-    return (rectMax, rectMin, attributeMax, attributeMin)
+    return (rectMax, attributeMin)
   }
 
   /// Returns the layout attributes for all of the cells and views
@@ -311,23 +305,23 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
     var attributesArray = [LayoutAttributes]()
     guard let firstMatchIndex = binarySearch(allCachedAttributes, rect: rect) else {
-      return attributesArray
+      return allCachedAttributes.filter { $0.frame.intersects(rect) }
     }
 
-    for attributes in allCachedAttributes[..<firstMatchIndex] {
+    for attributes in allCachedAttributes[..<firstMatchIndex].reversed() {
       if scrollDirection == .horizontal {
-        guard attributes.frame.minX <= rect.maxX else { break }
+        guard attributes.frame.maxX >= rect.minY else { break }
       } else {
-        guard attributes.frame.minY <= rect.maxY else { break }
+        guard attributes.frame.maxY >= rect.minY else { break }
       }
       attributesArray.append(attributes)
     }
 
     for attributes in allCachedAttributes[firstMatchIndex...] {
       if scrollDirection == .horizontal {
-        guard attributes.frame.minX <= rect.minX else { break }
+        guard attributes.frame.minX <= rect.maxY else { break }
       } else {
-        guard attributes.frame.minY <= rect.minY else { break }
+        guard attributes.frame.minY <= rect.maxY else { break }
       }
       attributesArray.append(attributes)
     }

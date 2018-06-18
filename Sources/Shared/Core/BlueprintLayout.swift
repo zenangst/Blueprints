@@ -267,11 +267,11 @@ open class BlueprintLayout : CollectionViewFlowLayout {
 
     while lowerBound < upperBound {
       let midIndex = lowerBound + (upperBound - lowerBound) / 2
-      let (rectMax, rectMin, attributeMax, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
+      let (rectMax, _, _, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
 
-      if attributeMax >= rectMin {
+      if array[midIndex].frame.intersects(rect) {
         return midIndex
-      } else if attributeMin <= rectMax {
+      } else if attributeMin < rectMax {
         lowerBound = midIndex + 1
       } else {
         upperBound = midIndex

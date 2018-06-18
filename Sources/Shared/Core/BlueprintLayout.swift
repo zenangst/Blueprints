@@ -267,7 +267,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
 
     while lowerBound < upperBound {
       let midIndex = lowerBound + (upperBound - lowerBound) / 2
-      let (rectMax, _, _, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
+      let (rectMax, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
 
       if array[midIndex].frame.intersects(rect) {
         return midIndex
@@ -281,26 +281,20 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     return nil
   }
 
-  private func getMaxMinFrom(layoutAttributes: LayoutAttributes, rect: CGRect) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
+  private func getMaxMinFrom(layoutAttributes: LayoutAttributes, rect: CGRect) -> (CGFloat, CGFloat) {
     let rectMax: CGFloat
-    let rectMin: CGFloat
-    let attributeMax: CGFloat
     let attributeMin: CGFloat
 
     switch scrollDirection {
     case .horizontal:
-      attributeMax = layoutAttributes.frame.maxX
       attributeMin = layoutAttributes.frame.minX
       rectMax = rect.maxX
-      rectMin = rect.minX
     case .vertical:
-      attributeMax = layoutAttributes.frame.maxY
       attributeMin = layoutAttributes.frame.minY
       rectMax = rect.maxY
-      rectMin = rect.minY
     }
 
-    return (rectMax, rectMin, attributeMax, attributeMin)
+    return (rectMax, attributeMin)
   }
 
   /// Returns the layout attributes for all of the cells and views

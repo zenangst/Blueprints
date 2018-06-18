@@ -60,6 +60,7 @@
 		BDB4B6CD204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
 		BDB4B6CE204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
 		BDB4B6CF204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */; };
+		BDB98DCE20D6E115001C5578 /* PeformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB98DCD20D6E115001C5578 /* PeformanceTests.swift */; };
 		BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */; };
 		BDC90AF420CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */; };
 		BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */; };
@@ -153,6 +154,7 @@
 		BDB4B6C6204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayoutAnimator+iOS+tvOS.swift"; sourceTree = "<group>"; };
 		BDB4B6CA204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayoutAnimator+macOS.swift"; sourceTree = "<group>"; };
 		BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLayoutAnimator.swift; sourceTree = "<group>"; };
+		BDB98DCD20D6E115001C5578 /* PeformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeformanceTests.swift; sourceTree = "<group>"; };
 		BDC90AF220CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMosaicBlueprintLayout.swift; sourceTree = "<group>"; };
 		BDD0C01120570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VerticalBlueprintLayoutTests+macOS.swift"; sourceTree = "<group>"; };
 		BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HorizontalBlueprintLayoutTests+macOS.swift"; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */,
 				BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */,
 				BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */,
+				BDB98DCD20D6E115001C5578 /* PeformanceTests.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB38701204D45B50080C93B /* Helper.swift in Sources */,
+				BDB98DCE20D6E115001C5578 /* PeformanceTests.swift in Sources */,
 				BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01920570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,

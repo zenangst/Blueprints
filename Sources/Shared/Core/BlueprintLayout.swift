@@ -311,7 +311,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
     var attributesArray = [LayoutAttributes]()
     guard let firstMatchIndex = binarySearch(allCachedAttributes, rect: rect) else {
-      return attributesArray
+      return allCachedAttributes.filter { $0.frame.intersects(rect) }
     }
 
     for attributes in allCachedAttributes[..<firstMatchIndex] {

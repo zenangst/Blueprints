@@ -314,20 +314,20 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       return allCachedAttributes.filter { $0.frame.intersects(rect) }
     }
 
-    for attributes in allCachedAttributes[..<firstMatchIndex] {
+    for attributes in allCachedAttributes[..<firstMatchIndex].reversed() {
       if scrollDirection == .horizontal {
-        guard attributes.frame.minX <= rect.maxX else { break }
+        guard attributes.frame.maxX >= rect.minY else { break }
       } else {
-        guard attributes.frame.minY <= rect.maxY else { break }
+        guard attributes.frame.maxY >= rect.minY else { break }
       }
       attributesArray.append(attributes)
     }
 
     for attributes in allCachedAttributes[firstMatchIndex...] {
       if scrollDirection == .horizontal {
-        guard attributes.frame.minX <= rect.minX else { break }
+        guard attributes.frame.minX <= rect.maxY else { break }
       } else {
-        guard attributes.frame.minY <= rect.minY else { break }
+        guard attributes.frame.minY <= rect.maxY else { break }
       }
       attributesArray.append(attributes)
     }

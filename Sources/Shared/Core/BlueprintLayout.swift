@@ -211,6 +211,13 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     self.cachedAttributes = attributes
     self.allCachedAttributes = Array(attributes.joined())
 
+    switch scrollDirection {
+    case .horizontal:
+      self.allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minX < $1.frame.minX })
+    case .vertical:
+      self.allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
+    }
+
     #if os(macOS)
       cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
       cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .item })
@@ -254,13 +261,78 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     }
   }
 
+  private func binarySearch(_ array: [LayoutAttributes], rect: CGRect) -> Int? {
+    var lowerBound = 0
+    var upperBound = array.count
+
+    while lowerBound < upperBound {
+      let midIndex = lowerBound + (upperBound - lowerBound) / 2
+      let (rectMax, rectMin, attributeMax, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
+
+      if attributeMax >= rectMin {
+        return midIndex
+      } else if attributeMin <= rectMax {
+        lowerBound = midIndex + 1
+      } else {
+        upperBound = midIndex
+      }
+    }
+
+    return nil
+  }
+
+  private func getMaxMinFrom(layoutAttributes: LayoutAttributes, rect: CGRect) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
+    let rectMax: CGFloat
+    let rectMin: CGFloat
+    let attributeMax: CGFloat
+    let attributeMin: CGFloat
+
+    switch scrollDirection {
+    case .horizontal:
+      attributeMax = layoutAttributes.frame.maxX
+      attributeMin = layoutAttributes.frame.minX
+      rectMax = rect.maxX
+      rectMin = rect.minX
+    case .vertical:
+      attributeMax = layoutAttributes.frame.maxY
+      attributeMin = layoutAttributes.frame.minY
+      rectMax = rect.maxY
+      rectMin = rect.minY
+    }
+
+    return (rectMax, rectMin, attributeMax, attributeMin)
+  }
+
   /// Returns the layout attributes for all of the cells and views
   /// in the specified rectangle.
   ///
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    return allCachedAttributes.filter { $0.frame.intersects(rect) }
+    var attributesArray = [LayoutAttributes]()
+    guard let firstMatchIndex = binarySearch(allCachedAttributes, rect: rect) else {
+      return attributesArray
+    }
+
+    for attributes in allCachedAttributes[..<firstMatchIndex] {
+      if scrollDirection == .horizontal {
+        guard attributes.frame.minX <= rect.maxX else { break }
+      } else {
+        guard attributes.frame.minY <= rect.maxY else { break }
+      }
+      attributesArray.append(attributes)
+    }
+
+    for attributes in allCachedAttributes[firstMatchIndex...] {
+      if scrollDirection == .horizontal {
+        guard attributes.frame.minX <= rect.minX else { break }
+      } else {
+        guard attributes.frame.minY <= rect.minY else { break }
+      }
+      attributesArray.append(attributes)
+    }
+
+    return attributesArray
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

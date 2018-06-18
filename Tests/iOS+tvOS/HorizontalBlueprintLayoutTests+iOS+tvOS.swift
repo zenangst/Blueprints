@@ -20,9 +20,9 @@ class HorizontalBlueprintLayoutTests_iOS_tvOS: XCTestCase {
     horizontalLayout.prepare()
 
     let size: CGSize = .init(width: 50, height: 50)
-    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: size))?.count, 1)
-    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 75, y: 0), size: size))?.count, 2)
-    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 100, y: 0), size: size))?.count, 1)
-    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: .init(width: 500, height: 500)))?.count, 10)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: size))?.count, 2)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 75, y: 0), size: size))?.count, 3)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 100, y: 0), size: size))?.count, 4)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: .init(width: 500, height: 500)))?.count, 5)
   }
 }

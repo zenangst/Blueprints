@@ -6,8 +6,8 @@ script:
 - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-macOS" -sdk macosx -enableCodeCoverage YES test
 - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-iOS" -sdk iphonesimulator -destination name="iPhone 8" clean build
 - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-iOS" -sdk iphonesimulator -destination name="iPhone 8" -enableCodeCoverage YES test
-- set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=11.0' clean build
-- set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=11.0' -enableCodeCoverage YES test
+- set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 4K (at 1080p),OS=11.4' clean build
+- set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV 4K (at 1080p),OS=11.4' -enableCodeCoverage YES test
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)

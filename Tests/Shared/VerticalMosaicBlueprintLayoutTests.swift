@@ -20,9 +20,9 @@ class VerticalMosaicBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame,
                    CGRect(origin: .init(x: 2, y: 2), size: CGSize(width: 98, height: 23)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame,
-                   CGRect(origin: .init(x: 102, y: 2), size: CGSize(width: 96, height: 10)))
+                   CGRect(origin: .init(x: 102, y: 2), size: CGSize(width: 94, height: 10)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame,
-                   CGRect(origin: .init(x: 102, y: 14), size: CGSize(width: 96, height: 10)))
+                   CGRect(origin: .init(x: 102, y: 14), size: CGSize(width: 94, height: 10)))
 
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame,
                    CGRect(origin: .init(x: 2, y: 27), size: CGSize(width: 98, height: 23)))
@@ -34,9 +34,9 @@ class VerticalMosaicBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame,
                    CGRect(origin: .init(x: 100, y: 52), size: CGSize(width: 98, height: 23)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame,
-                   CGRect(origin: .init(x: 2, y: 52), size: CGSize(width: 96, height: 10)))
+                   CGRect(origin: .init(x: 2, y: 52), size: CGSize(width: 94, height: 10)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame,
-                   CGRect(origin: .init(x: 2, y: 64), size: CGSize(width: 96, height: 10)))
+                   CGRect(origin: .init(x: 2, y: 64), size: CGSize(width: 94, height: 10)))
 
 
   }

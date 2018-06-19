@@ -68,6 +68,10 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
             mosaicLayoutAttribute.frame.size.width -= minimumInteritemSpacing
           }
 
+          if mosaicLayoutAttribute.pattern.amount == 0 {
+            mosaicLayoutAttribute.frame.size.width = threshold - sectionInset.left - sectionInset.right
+          }
+
           mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - minimumLineSpacing
 
           apply(pattern, to: mosaicLayoutAttribute, with: threshold)
@@ -125,7 +129,7 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
 
         switch mosaic.pattern.alignment {
         case .left:
-          layoutAttribute.frame.size.width = (width - mosaic.frame.maxX - minimumInteritemSpacing - sectionInset.left - sectionInset.right) / childCount
+          layoutAttribute.frame.size.width = (width - mosaic.frame.maxX - (minimumInteritemSpacing * childCount) - sectionInset.left) / childCount
         case .right:
           layoutAttribute.frame.size.width = (width - mosaic.frame.size.width - (minimumInteritemSpacing * childCount) - sectionInset.left - sectionInset.right) / childCount
         }
@@ -141,7 +145,7 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
         }
       case .vertical:
         layoutAttribute.frame.origin.y = mosaic.frame.origin.y
-        layoutAttribute.frame.size.width = width - mosaic.frame.size.width - minimumInteritemSpacing - sectionInset.right - sectionInset.left
+        layoutAttribute.frame.size.width = width - mosaic.frame.size.width - (minimumInteritemSpacing * childCount) - sectionInset.right - sectionInset.left
         layoutAttribute.frame.size.height = (mosaic.frame.size.height - minimumLineSpacing) / childCount
 
         if childCount > 1 {

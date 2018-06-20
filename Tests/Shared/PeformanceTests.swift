@@ -38,7 +38,7 @@ class PerformanceTests: XCTestCase {
   }
 
   func testPerformanceBetweenLegacyAndNewBinarySearchOnVerticalLayout() {
-    let dataSource = DataSource(amount: 50_000)
+    let dataSource = DataSource(amount: 1_000_000)
     var layout: BlueprintLayout = LegacyVerticalBlueprintLayout(itemsPerRow: 1,
                                          itemSize: CGSize(width: 200, height: 60),
                                          minimumInteritemSpacing: 10,
@@ -63,6 +63,7 @@ class PerformanceTests: XCTestCase {
                                      minimumInteritemSpacing: 10,
                                      minimumLineSpacing: 10,
                                      sectionInset: .zero)
+    layout.newAlgorithm = false
     collectionView.collectionViewLayout = layout
     layout.prepare()
     startTime = CFAbsoluteTimeGetCurrent()
@@ -73,6 +74,22 @@ class PerformanceTests: XCTestCase {
 
     Swift.print("💪: \(binarySearchBenchmark)")
     XCTAssertTrue(binarySearchBenchmark < legacyBenchmark)
+
+    layout = VerticalBlueprintLayout(itemsPerRow: 1,
+                                     itemSize: CGSize(width: 200, height: 60),
+                                     minimumInteritemSpacing: 10,
+                                     minimumLineSpacing: 10,
+                                     sectionInset: .zero)
+    layout.newAlgorithm = true
+    collectionView.collectionViewLayout = layout
+    layout.prepare()
+    startTime = CFAbsoluteTimeGetCurrent()
+    attributes = layout.layoutAttributesForElements(in: rect)!
+    XCTAssertEqual(attributes.count, 3)
+    let binarySearchBenchmark2 = CFAbsoluteTimeGetCurrent() - startTime
+
+    Swift.print("🏎: \(binarySearchBenchmark2)")
+    XCTAssertTrue(binarySearchBenchmark > binarySearchBenchmark2)
   }
 
   func testPerformanceBetweenLegacyAndNewBinarySearchOnHorizontalLayout() {

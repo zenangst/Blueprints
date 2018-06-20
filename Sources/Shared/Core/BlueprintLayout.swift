@@ -18,6 +18,9 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var cachedCells = [LayoutAttributes]()
   public var allCachedAttributes = [LayoutAttributes]()
 
+  public var newAlgorithm: Bool = false
+  var binarySearch = BinarySearch<LayoutAttributes>()
+
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = CGSize(width: 50, height: 50)
   /// The number of sections in the collection view.
@@ -261,7 +264,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     }
   }
 
-  private func binarySearch(_ array: [LayoutAttributes], rect: CGRect) -> Int? {
+  private func _binarySearch(_ array: [LayoutAttributes], rect: CGRect) -> Int? {
     var lowerBound = 0
     var upperBound = array.count
 
@@ -303,8 +306,16 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
+    if newAlgorithm {
+      let result = binarySearch.findElements(in: allCachedAttributes,
+                                             less: { rect.maxY > $0.frame.minY },
+                                             match: { $0.frame.intersects(rect) })
+      return result ?? []
+    }
+
     var attributesArray = [LayoutAttributes]()
-    guard let firstMatchIndex = binarySearch(allCachedAttributes, rect: rect) else {
+
+    guard let firstMatchIndex = _binarySearch(allCachedAttributes, rect: rect) else {
       return allCachedAttributes.filter { $0.frame.intersects(rect) }
     }
 

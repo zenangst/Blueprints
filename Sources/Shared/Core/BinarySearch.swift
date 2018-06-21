@@ -1,9 +1,11 @@
 import Foundation
 
-public class BinarySearch<T> {
+public class BinarySearch {
   public init() {}
 
-  private func binarySearch<T>(_ collection: [T], less: (T) -> Bool, match: (T) -> Bool) -> Int? {
+  private func binarySearch(_ collection: [LayoutAttributes],
+                               less: (LayoutAttributes) -> Bool,
+                               match: (LayoutAttributes) -> Bool) -> Int? {
     var lowerBound = 0
     var upperBound = collection.count
 

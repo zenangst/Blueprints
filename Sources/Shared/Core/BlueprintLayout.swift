@@ -17,7 +17,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var cachedHeaders = [LayoutAttributes]()
   public var cachedCells = [LayoutAttributes]()
   public var allCachedAttributes = [LayoutAttributes]()
-  var binarySearch = BinarySearch<LayoutAttributes>()
+  var binarySearch = BinarySearch()
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = CGSize(width: 50, height: 50)

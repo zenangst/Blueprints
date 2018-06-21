@@ -37,59 +37,70 @@ class PerformanceTests: XCTestCase {
     }
   }
 
-  func testPerformanceBetweenLegacyAndNewBinarySearchOnVerticalLayout() {
+  func testPerformanceLegacyVerticalLayoutPerformance() {
     let dataSource = DataSource(amount: 1_000_000)
     var layout: BlueprintLayout = LegacyVerticalBlueprintLayout(itemsPerRow: 1,
-                                         itemSize: CGSize(width: 200, height: 60),
-                                         minimumInteritemSpacing: 10,
-                                         minimumLineSpacing: 10,
-                                         sectionInset: .zero)
+                                                                itemSize: CGSize(width: 200, height: 60),
+                                                                minimumInteritemSpacing: 10,
+                                                                minimumLineSpacing: 10,
+                                                                sectionInset: .zero)
     let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     collectionView.dataSource = dataSource
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    let startTime = CFAbsoluteTimeGetCurrent()
     layout.prepare()
 
     let rect = CGRect(origin: .init(x: 0, y: -200), size: .init(width: 200, height: 400))
-    var startTime = CFAbsoluteTimeGetCurrent()
     var attributes = layout.layoutAttributesForElements(in: rect)!
 
     XCTAssertEqual(attributes.count, 3)
     let legacyBenchmark = CFAbsoluteTimeGetCurrent() - startTime
     Swift.print("🦀: \(legacyBenchmark)")
 
-    layout = VerticalBlueprintLayout(itemsPerRow: 1,
+  }
+  func testPerformanceExistingVerticalLayoutPerformance() {
+    let dataSource = DataSource(amount: 1_000_000)
+    let layout = VerticalBlueprintLayout(itemsPerRow: 1,
                                      itemSize: CGSize(width: 200, height: 60),
                                      minimumInteritemSpacing: 10,
                                      minimumLineSpacing: 10,
                                      sectionInset: .zero)
+    let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
+    let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
+    let rect = CGRect(origin: .init(x: 0, y: -200), size: .init(width: 200, height: 400))
+    collectionView.dataSource = dataSource
+    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     layout.newAlgorithm = false
     collectionView.collectionViewLayout = layout
     layout.prepare()
-    startTime = CFAbsoluteTimeGetCurrent()
-
-    attributes = layout.layoutAttributesForElements(in: rect)!
+    let startTime = CFAbsoluteTimeGetCurrent()
+    let attributes = layout.layoutAttributesForElements(in: rect)!
     XCTAssertEqual(attributes.count, 3)
     let binarySearchBenchmark = CFAbsoluteTimeGetCurrent() - startTime
+    Swift.print("🚗: \(binarySearchBenchmark)")
 
-    Swift.print("💪: \(binarySearchBenchmark)")
-    XCTAssertTrue(binarySearchBenchmark < legacyBenchmark)
-
-    layout = VerticalBlueprintLayout(itemsPerRow: 1,
+  }
+  func testPerformanceNewVerticalLayoutPerformance() {
+    let dataSource = DataSource(amount: 1_000_000)
+    let layout = VerticalBlueprintLayout(itemsPerRow: 1,
                                      itemSize: CGSize(width: 200, height: 60),
                                      minimumInteritemSpacing: 10,
                                      minimumLineSpacing: 10,
                                      sectionInset: .zero)
+    let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
+    let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
+    let rect = CGRect(origin: .init(x: 0, y: -200), size: .init(width: 200, height: 400))
+    collectionView.dataSource = dataSource
+    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     layout.newAlgorithm = true
     collectionView.collectionViewLayout = layout
     layout.prepare()
-    startTime = CFAbsoluteTimeGetCurrent()
-    attributes = layout.layoutAttributesForElements(in: rect)!
+    let startTime = CFAbsoluteTimeGetCurrent()
+    let attributes = layout.layoutAttributesForElements(in: rect)!
     XCTAssertEqual(attributes.count, 3)
-    let binarySearchBenchmark2 = CFAbsoluteTimeGetCurrent() - startTime
-
-    Swift.print("🏎: \(binarySearchBenchmark2)")
-    XCTAssertTrue(binarySearchBenchmark > binarySearchBenchmark2)
+    let binarySearchBenchmark = CFAbsoluteTimeGetCurrent() - startTime
+    Swift.print("🏎: \(binarySearchBenchmark)")
   }
 
   func testPerformanceBetweenLegacyAndNewBinarySearchOnHorizontalLayout() {

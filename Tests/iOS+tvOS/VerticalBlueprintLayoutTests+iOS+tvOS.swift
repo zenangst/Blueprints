@@ -19,7 +19,7 @@ class VerticalBlueprintLayoutTests_iOS_tvOS: XCTestCase {
     verticalLayout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     verticalLayout.prepare()
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero)?.count, 4)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero)?.count, 1)
 
     let size = CGSize(width: 50, height: 50)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: size))?.count, 1)

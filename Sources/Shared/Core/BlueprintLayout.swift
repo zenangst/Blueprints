@@ -17,6 +17,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var cachedHeaders = [LayoutAttributes]()
   public var cachedCells = [LayoutAttributes]()
   public var allCachedAttributes = [LayoutAttributes]()
+  var binarySearch = BinarySearch()
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = CGSize(width: 50, height: 50)
@@ -261,72 +262,19 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     }
   }
 
-  private func binarySearch(_ array: [LayoutAttributes], rect: CGRect) -> Int? {
-    var lowerBound = 0
-    var upperBound = array.count
-
-    while lowerBound < upperBound {
-      let midIndex = lowerBound + (upperBound - lowerBound) / 2
-      let (rectMax, attributeMin) = getMaxMinFrom(layoutAttributes: array[midIndex], rect: rect)
-
-      if array[midIndex].frame.intersects(rect) {
-        return midIndex
-      } else if attributeMin < rectMax {
-        lowerBound = midIndex + 1
-      } else {
-        upperBound = midIndex
-      }
-    }
-
-    return nil
-  }
-
-  private func getMaxMinFrom(layoutAttributes: LayoutAttributes, rect: CGRect) -> (CGFloat, CGFloat) {
-    let rectMax: CGFloat
-    let attributeMin: CGFloat
-
-    switch scrollDirection {
-    case .horizontal:
-      attributeMin = layoutAttributes.frame.minX
-      rectMax = rect.maxX
-    case .vertical:
-      attributeMin = layoutAttributes.frame.minY
-      rectMax = rect.maxY
-    }
-
-    return (rectMax, attributeMin)
-  }
-
   /// Returns the layout attributes for all of the cells and views
   /// in the specified rectangle.
   ///
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    var attributesArray = [LayoutAttributes]()
-    guard let firstMatchIndex = binarySearch(allCachedAttributes, rect: rect) else {
-      return allCachedAttributes.filter { $0.frame.intersects(rect) }
-    }
-
-    for attributes in allCachedAttributes[..<firstMatchIndex].reversed() {
-      if scrollDirection == .horizontal {
-        guard attributes.frame.maxX >= rect.minY else { break }
-      } else {
-        guard attributes.frame.maxY >= rect.minY else { break }
-      }
-      attributesArray.append(attributes)
-    }
-
-    for attributes in allCachedAttributes[firstMatchIndex...] {
-      if scrollDirection == .horizontal {
-        guard attributes.frame.minX <= rect.maxY else { break }
-      } else {
-        guard attributes.frame.minY <= rect.maxY else { break }
-      }
-      attributesArray.append(attributes)
-    }
-
-    return attributesArray
+    let closure: (LayoutAttributes) -> Bool = scrollDirection == .horizontal
+      ? { rect.maxX > $0.frame.minX }
+      : { rect.maxY > $0.frame.minY }
+    let result = binarySearch.findElements(in: allCachedAttributes,
+                                           less: { closure($0) },
+                                           match: { $0.frame.intersects(rect) })
+    return result ?? allCachedAttributes.filter { $0.frame.intersects(rect) }
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

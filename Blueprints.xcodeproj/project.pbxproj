@@ -249,6 +249,7 @@
 		BDA31AFD20D41AD0001E4870 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */,
 				BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */,
 				BDB4B6B6204CB07400971F64 /* BlueprintLayoutAnimation.swift */,
 				BDB4B6C1204CB17800971F64 /* BlueprintLayoutAnimationType.swift */,
@@ -325,7 +326,6 @@
 		D284B1311F7906DA00D94AF3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */,
 				BDFB6381204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift */,
 				D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */,
 				BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */,

@@ -25,6 +25,15 @@ public class BinarySearch {
     return nil
   }
 
+  public func findElement(in collection: [LayoutAttributes],
+                           less: (LayoutAttributes) -> Bool,
+                           match: (LayoutAttributes) -> Bool) -> LayoutAttributes? {
+    guard let firstMatchIndex = binarySearch(collection, less: less, match: match) else {
+      return nil
+    }
+    return collection[firstMatchIndex]
+  }
+
   public func findElements(in collection: [LayoutAttributes],
                               less: (LayoutAttributes) -> Bool,
                               match: (LayoutAttributes) -> Bool) -> [LayoutAttributes]? {

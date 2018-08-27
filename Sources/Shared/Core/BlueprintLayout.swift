@@ -245,8 +245,8 @@ open class BlueprintLayout : CollectionViewFlowLayout {
                                     match: { indexPath == $0.indexPath! })
     #else
     return binarySearch.findElement(in: allCachedAttributes,
-                                    less: { indexPath > $0.indexPath! },
-                                    match: { indexPath == $0.indexPath! })
+                                    less: { indexPath > $0.indexPath },
+                                    match: { indexPath == $0.indexPath })
     #endif
   }
 

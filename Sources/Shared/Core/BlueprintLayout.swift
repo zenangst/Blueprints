@@ -215,11 +215,11 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       #if os(macOS)
         var sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
         self.cachedAttributes.append(sorted)
-        sorted.removeAll(where: { $0.representedElementCategory != .item })
+        sorted = sorted.filter({ $0.representedElementCategory == .item })
       #else
         var sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
         self.cachedAttributes.append(sorted)
-        sorted.removeAll(where: { $0.representedElementCategory != .cell })
+        sorted = sorted.filter({ $0.representedElementCategory == .cell })
       #endif
       self.cachedItems.append(sorted)
     }

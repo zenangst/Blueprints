@@ -14,8 +14,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
   public var cachedAttributes = [[LayoutAttributes]]()
-  public var cachedHeaders = [LayoutAttributes]()
-  public var cachedCells = [LayoutAttributes]()
   public var allCachedAttributes = [LayoutAttributes]()
   public var isUpdating: Bool = false
   var binarySearch = BinarySearch()
@@ -219,14 +217,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     case .vertical:
       self.allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
     }
-
-    #if os(macOS)
-      cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
-      cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .item })
-    #else
-      cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
-      cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .cell })
-    #endif
   }
 
   open override func prepareForTransition(to newLayout: CollectionViewLayout) {
@@ -248,7 +238,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     if isUpdating && collectionView?.indexPathsForVisibleItems.contains(indexPath) == false {
       return nil
     }
-
     return binarySearch.findElement(in: allCachedAttributes,
                                     less: { indexPath > $0.indexPath },
                                     match: { indexPath == $0.indexPath })

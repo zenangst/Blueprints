@@ -9,7 +9,7 @@ open class DefaultLayoutAnimator: BlueprintLayoutAnimator {
   public var indexPathsToAnimate: [IndexPath] = []
   public var indexPathsToMove: [IndexPath] = []
 
-  weak public var CollectionViewFlowLayout: CollectionViewFlowLayout?
+  weak public var collectionViewFlowLayout: CollectionViewFlowLayout?
 
   public init() {}
 }

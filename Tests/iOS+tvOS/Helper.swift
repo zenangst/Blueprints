@@ -40,16 +40,16 @@ class Helper {
     return (collectionView: collectionView, layout: layout)
   }
 
-  static func createAnimator(dataSource: UICollectionViewDataSource) -> DefaultLayoutAnimator {
+  static func createAnimator(dataSource: UICollectionViewDataSource) -> (DefaultLayoutAnimator, CollectionView, CollectionViewFlowLayout) {
     let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
     let animator = DefaultLayoutAnimator()
     let layout = BlueprintLayout(animator: animator)
-    animator.CollectionViewFlowLayout = layout
+    animator.collectionViewFlowLayout = layout
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     collectionView.dataSource = dataSource
     layout.prepare()
 
-    return animator
+    return (animator, collectionView, layout)
   }
 
   static func createVerticalMosaicLayout(dataSource: UICollectionViewDataSource) -> (collectionView: CollectionView, layout: VerticalMosaicBlueprintLayout) {

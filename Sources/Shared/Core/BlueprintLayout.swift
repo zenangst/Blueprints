@@ -17,6 +17,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var cachedHeaders = [LayoutAttributes]()
   public var cachedCells = [LayoutAttributes]()
   public var allCachedAttributes = [LayoutAttributes]()
+  public var isUpdating: Bool = false
   var binarySearch = BinarySearch()
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
@@ -244,15 +245,16 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    guard indexPath.section < cachedAttributes.count else { return nil }
-    guard indexPath.item < cachedAttributes[indexPath.section].count else { return nil }
+    if isUpdating && collectionView?.indexPathsForVisibleItems.contains(indexPath) == false {
+      return nil
+    }
 
     #if os(macOS)
-      let sections = cachedAttributes[indexPath.section]
-        .filter({ $0.representedElementCategory == .item })
+    let sections = cachedAttributes[indexPath.section]
+      .filter({ $0.representedElementCategory == .item })
     #else
-      let sections = cachedAttributes[indexPath.section]
-        .filter({ $0.representedElementCategory == .cell })
+    let sections = cachedAttributes[indexPath.section]
+      .filter({ $0.representedElementCategory == .cell })
     #endif
 
     if indexPath.item < sections.count {
@@ -260,6 +262,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     } else {
       return nil
     }
+
   }
 
   /// Returns the layout attributes for all of the cells and views
@@ -308,6 +311,12 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter updateItems: An array of CollectionViewUpdateItem objects
   //                           that identify the changes being made.
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
+    isUpdating = true
     return animator.prepare(forCollectionViewUpdates: updateItems)
+  }
+
+  open override func finalizeLayoutTransition() {
+    super.finalizeLayoutTransition()
+    isUpdating = false
   }
 }

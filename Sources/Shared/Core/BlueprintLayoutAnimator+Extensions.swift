@@ -76,8 +76,8 @@ extension BlueprintLayoutAnimator {
   private func applyAnimation(_ animation: BlueprintLayoutAnimation,
                               type: BlueprintLayoutAnimationType,
                               to attributes: LayoutAttributes) {
-    guard let CollectionViewFlowLayout = CollectionViewFlowLayout,
-      let collectionView = CollectionViewFlowLayout.collectionView,
+    guard let collectionViewFlowLayout = collectionViewFlowLayout,
+      let collectionView = collectionViewFlowLayout.collectionView,
       let dataSource = collectionView.dataSource
       else
     {
@@ -93,7 +93,7 @@ extension BlueprintLayoutAnimator {
     let excludedAnimationTypes: [BlueprintLayoutAnimation] = [.top, .bottom]
 
     if !excludedAnimationTypes.contains(animation) {
-      applyAnimationFix(type, collectionViewFlowLayout: CollectionViewFlowLayout, attributes)
+      applyAnimationFix(type, collectionViewFlowLayout: collectionViewFlowLayout, attributes)
     }
 
     switch animation {
@@ -106,7 +106,7 @@ extension BlueprintLayoutAnimator {
     case .top:
       attributes.frame.origin.y -= attributes.frame.size.height
     case .bottom:
-      if attributes.frame.origin.x == CollectionViewFlowLayout.sectionInset.left {
+      if attributes.frame.origin.x == collectionViewFlowLayout.sectionInset.left {
         attributes.frame.origin = .init(x: attributes.frame.origin.x,
                                         y: attributes.frame.origin.y + attributes.frame.size.height)
       } else {

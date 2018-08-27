@@ -36,7 +36,7 @@ class BlueprintLayoutAnimatorTests: XCTestCase {
   let dataSource = MockDataSource(numberOfItems: 15)
 
   func testDefaultAnimatorFadeInsertion() {
-    let animator = Helper.createAnimator(dataSource: dataSource)
+    let (animator, collectionView, layout) = Helper.createAnimator(dataSource: dataSource)
     let indexPath = IndexPath(item: 0, section: 0)
     let insertion = MockCollectionViewUpdateItem(afterIndexPath: indexPath)
 
@@ -54,7 +54,7 @@ class BlueprintLayoutAnimatorTests: XCTestCase {
   }
 
   func testDefaultAnimatorFadeDeletion() {
-    let animator = Helper.createAnimator(dataSource: dataSource)
+    let (animator, collectionView, layout) = Helper.createAnimator(dataSource: dataSource)
     let indexPath = IndexPath(item: 0, section: 0)
     let deletion = MockCollectionViewUpdateItem(beforeIndexPath: indexPath)
 
@@ -72,7 +72,7 @@ class BlueprintLayoutAnimatorTests: XCTestCase {
   }
 
   func testDefaultAnimatorFadeMultipleAttributes() {
-    let animator = Helper.createAnimator(dataSource: dataSource)
+    let (animator, collectionView, layout) = Helper.createAnimator(dataSource: dataSource)
     let beforeIndexPath = IndexPath(item: 0, section: 0)
     let afterIndexPath = IndexPath(item: 1, section: 0)
     let move = MockCollectionViewUpdateItem(

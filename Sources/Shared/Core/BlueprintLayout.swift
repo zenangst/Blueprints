@@ -14,9 +14,9 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
   public var cachedAttributes = [[LayoutAttributes]]()
-  public var cachedHeaders = [LayoutAttributes]()
-  public var cachedCells = [LayoutAttributes]()
+  public var cachedItems = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
+  public var isUpdating: Bool = false
   var binarySearch = BinarySearch()
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
@@ -196,6 +196,8 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   open override func prepare() {
     self.contentSize = .zero
     self.cachedAttributes = []
+    self.cachedItems = []
+    self.allCachedAttributes = []
 
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView?.contentView {
@@ -209,7 +211,19 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   ///
   /// - Parameter attributes: The attributes that were created in the collection view layout.
   func createCache(with attributes: [[LayoutAttributes]]) {
-    self.cachedAttributes = attributes
+    for value in attributes {
+      #if os(macOS)
+        var sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
+        self.cachedAttributes.append(sorted)
+        sorted = sorted.filter({ $0.representedElementCategory == .item })
+      #else
+        var sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
+        self.cachedAttributes.append(sorted)
+        sorted = sorted.filter({ $0.representedElementCategory == .cell })
+      #endif
+      self.cachedItems.append(sorted)
+    }
+
     self.allCachedAttributes = Array(attributes.joined())
 
     switch scrollDirection {
@@ -218,14 +232,6 @@ open class BlueprintLayout : CollectionViewFlowLayout {
     case .vertical:
       self.allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
     }
-
-    #if os(macOS)
-      cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
-      cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .item })
-    #else
-      cachedHeaders = allCachedAttributes.filter({ $0.representedElementCategory == .supplementaryView })
-      cachedCells = allCachedAttributes.filter({ $0.representedElementCategory == .cell })
-    #endif
   }
 
   open override func prepareForTransition(to newLayout: CollectionViewLayout) {
@@ -244,22 +250,20 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    guard indexPath.section < cachedAttributes.count else { return nil }
-    guard indexPath.item < cachedAttributes[indexPath.section].count else { return nil }
-
-    #if os(macOS)
-      let sections = cachedAttributes[indexPath.section]
-        .filter({ $0.representedElementCategory == .item })
-    #else
-      let sections = cachedAttributes[indexPath.section]
-        .filter({ $0.representedElementCategory == .cell })
-    #endif
-
-    if indexPath.item < sections.count {
-      return sections[indexPath.item]
-    } else {
+    if isUpdating && collectionView?.visibleIndexPaths.contains(indexPath) == false {
       return nil
     }
+
+    let compare: (LayoutAttributes) -> Bool
+    #if os(macOS)
+      compare = { indexPath > $0.indexPath! }
+    #else
+      compare = { indexPath > $0.indexPath }
+    #endif
+    let result = binarySearch.findElement(in: cachedItems[indexPath.section],
+                                          less: compare,
+                                          match: { indexPath == $0.indexPath })
+    return result
   }
 
   /// Returns the layout attributes for all of the cells and views
@@ -308,6 +312,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter updateItems: An array of CollectionViewUpdateItem objects
   //                           that identify the changes being made.
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
+    isUpdating = true
     return animator.prepare(forCollectionViewUpdates: updateItems)
   }
 }

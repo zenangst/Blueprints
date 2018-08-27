@@ -14,6 +14,7 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
   public var cachedAttributes = [[LayoutAttributes]]()
+  public var cachedItems = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
   public var isUpdating: Bool = false
   var binarySearch = BinarySearch()
@@ -195,6 +196,8 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   open override func prepare() {
     self.contentSize = .zero
     self.cachedAttributes = []
+    self.cachedItems = []
+    self.allCachedAttributes = []
 
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView?.contentView {
@@ -208,7 +211,19 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   ///
   /// - Parameter attributes: The attributes that were created in the collection view layout.
   func createCache(with attributes: [[LayoutAttributes]]) {
-    self.cachedAttributes = attributes
+    for value in attributes {
+      #if os(macOS)
+        var sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
+        self.cachedAttributes.append(sorted)
+        sorted.removeAll(where: { $0.representedElementCategory != .item })
+      #else
+        var sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
+        self.cachedAttributes.append(sorted)
+        sorted.removeAll(where: { $0.representedElementCategory != .cell })
+      #endif
+      self.cachedItems.append(sorted)
+    }
+
     self.allCachedAttributes = Array(attributes.joined())
 
     switch scrollDirection {
@@ -239,19 +254,16 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       return nil
     }
 
+    let compare: (LayoutAttributes) -> Bool
     #if os(macOS)
-    let sections = cachedAttributes[indexPath.section]
-      .filter({ $0.representedElementCategory == .item })
+      compare = { indexPath > $0.indexPath! }
     #else
-    let sections = cachedAttributes[indexPath.section]
-      .filter({ $0.representedElementCategory == .cell })
+      compare = { indexPath > $0.indexPath }
     #endif
-
-    if indexPath.item < sections.count {
-      return sections[indexPath.item]
-    } else {
-      return nil
-    }
+    let result = binarySearch.findElement(in: cachedItems[indexPath.section],
+                                          less: compare,
+                                          match: { indexPath == $0.indexPath })
+    return result
   }
 
   /// Returns the layout attributes for all of the cells and views

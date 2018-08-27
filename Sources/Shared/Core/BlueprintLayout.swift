@@ -249,20 +249,9 @@ open class BlueprintLayout : CollectionViewFlowLayout {
       return nil
     }
 
-    #if os(macOS)
-    let sections = cachedAttributes[indexPath.section]
-      .filter({ $0.representedElementCategory == .item })
-    #else
-    let sections = cachedAttributes[indexPath.section]
-      .filter({ $0.representedElementCategory == .cell })
-    #endif
-
-    if indexPath.item < sections.count {
-      return sections[indexPath.item]
-    } else {
-      return nil
-    }
-
+    return binarySearch.findElement(in: allCachedAttributes,
+                                    less: { indexPath > $0.indexPath },
+                                    match: { indexPath == $0.indexPath })
   }
 
   /// Returns the layout attributes for all of the cells and views

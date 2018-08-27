@@ -235,12 +235,19 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    if isUpdating && collectionView?.indexPathsForVisibleItems.contains(indexPath) == false {
+    if isUpdating && collectionView?.visibleIndexPaths.contains(indexPath) == false {
       return nil
     }
+
+    #if os(macOS)
     return binarySearch.findElement(in: allCachedAttributes,
-                                    less: { indexPath > $0.indexPath },
-                                    match: { indexPath == $0.indexPath })
+                                    less: { indexPath > $0.indexPath! },
+                                    match: { indexPath == $0.indexPath! })
+    #else
+    return binarySearch.findElement(in: allCachedAttributes,
+                                    less: { indexPath > $0.indexPath! },
+                                    match: { indexPath == $0.indexPath! })
+    #endif
   }
 
   /// Returns the layout attributes for all of the cells and views
@@ -291,10 +298,5 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
     isUpdating = true
     return animator.prepare(forCollectionViewUpdates: updateItems)
-  }
-
-  open override func finalizeLayoutTransition() {
-    super.finalizeLayoutTransition()
-    isUpdating = false
   }
 }

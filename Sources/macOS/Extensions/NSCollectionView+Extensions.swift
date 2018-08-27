@@ -9,6 +9,10 @@ public extension CollectionView {
     set { scroll(newValue) }
   }
 
+  var visibleIndexPaths: Set<IndexPath> {
+    return indexPathsForVisibleItems()
+  }
+
   var documentRect: CGRect {
     return enclosingScrollView?.documentVisibleRect ?? .zero
   }

@@ -7,4 +7,8 @@ extension UICollectionView {
   var documentRect: CGRect {
     return frame
   }
+
+  var visibleIndexPaths: [IndexPath] {
+    return indexPathsForVisibleItems
+  }
 }

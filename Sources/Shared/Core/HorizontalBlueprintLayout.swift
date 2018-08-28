@@ -4,7 +4,7 @@
   import UIKit
 #endif
 
-open class HorizontalBlueprintLayout: BlueprintLayout {
+@objc open class HorizontalBlueprintLayout: BlueprintLayout {
   /// A Integer value indicating how many items that should be visible per column.
   public var itemsPerColumn: Int
   //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
@@ -24,8 +24,8 @@ open class HorizontalBlueprintLayout: BlueprintLayout {
   ///   - stickyHeaders: A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
   ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
-  required public init(
-    itemsPerRow: CGFloat? = nil,
+  @objc required public init(
+    itemsPerRow: CGFloat = 0.0,
     itemsPerColumn: Int = 1,
     itemSize: CGSize = CGSize(width: 50, height: 50),
     estimatedItemSize: CGSize = .zero,

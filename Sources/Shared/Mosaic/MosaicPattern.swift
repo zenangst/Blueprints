@@ -1,10 +1,11 @@
 import CoreGraphics
+import Foundation
 
-public class MosaicPattern {
-  public enum Direction {
+@objc public class MosaicPattern: NSObject {
+  @objc public enum Direction: Int {
     case horizontal, vertical
   }
-  public enum Alignment {
+  @objc public enum Alignment: Int {
     case left, right
   }
   let amount: Int
@@ -12,10 +13,14 @@ public class MosaicPattern {
   let multiplier: CGFloat
   let direction: Direction
 
-  public init(alignment: MosaicPattern.Alignment = .left, direction: Direction = .vertical, amount: Int, multiplier: CGFloat) {
+  @objc public init(alignment: MosaicPattern.Alignment = .left,
+                    direction: Direction = .vertical,
+                    amount: Int,
+                    multiplier: CGFloat) {
     self.alignment = alignment
     self.amount = amount
     self.multiplier = multiplier
     self.direction = direction
+    super.init()
   }
 }

@@ -1,4 +1,6 @@
-public enum BlueprintLayoutAnimation: Int {
+import Foundation
+
+@objc public enum BlueprintLayoutAnimation: Int {
   case fade
   case right
   case left

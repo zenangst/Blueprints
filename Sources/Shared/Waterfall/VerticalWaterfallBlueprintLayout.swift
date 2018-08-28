@@ -4,7 +4,7 @@ import Cocoa
 import UIKit
 #endif
 
-public class VerticalWaterfallBlueprintLayout: BlueprintLayout {
+@objc public class VerticalWaterfallBlueprintLayout: BlueprintLayout {
   public override func prepare() {
     super.prepare()
     var layoutAttributes = self.cachedAttributes

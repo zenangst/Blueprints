@@ -4,7 +4,7 @@
   import UIKit
 #endif
 
-open class VerticalBlueprintLayout: BlueprintLayout {
+@objc open class VerticalBlueprintLayout: BlueprintLayout {
   //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
   public var stickyHeaders: Bool = false
   /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
@@ -21,8 +21,8 @@ open class VerticalBlueprintLayout: BlueprintLayout {
   ///   - stickyHeaders: A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
   ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
-  required public init(
-    itemsPerRow: CGFloat? = nil,
+  @objc required public init(
+    itemsPerRow: CGFloat = 0.0,
     itemSize: CGSize = CGSize(width: 50, height: 50),
     estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 0,
@@ -30,7 +30,7 @@ open class VerticalBlueprintLayout: BlueprintLayout {
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
     stickyHeaders: Bool = false,
     stickyFooters: Bool = false,
-    animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()
+    animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(animation: .automatic)
     ) {
     self.stickyHeaders = stickyHeaders
     self.stickyFooters = stickyFooters

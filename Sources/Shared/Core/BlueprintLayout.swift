@@ -8,7 +8,7 @@
 /// This class is meant to be subclasses and not used directly.
 /// When subclassing, your subclass should implement `prepare` with the
 /// layout algorithm that your subclass should implement.
-open class BlueprintLayout : CollectionViewFlowLayout {
+@objc open class BlueprintLayout : CollectionViewFlowLayout {
   override open var collectionViewContentSize: CGSize { return contentSize }
   /// The amount of items that should appear on each row.
   public var itemsPerRow: CGFloat?
@@ -37,8 +37,8 @@ open class BlueprintLayout : CollectionViewFlowLayout {
   ///   - minimumLineSpacing: The minimum spacing to use between lines of items in the grid.
   ///   - sectionInset: The margins used to lay out content in a section
   ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
-  public init(
-    itemsPerRow: CGFloat? = nil,
+  @objc public init(
+    itemsPerRow: CGFloat = 0.0,
     itemSize: CGSize = CGSize(width: 50, height: 50),
     estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 10,

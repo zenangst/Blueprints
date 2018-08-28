@@ -29,9 +29,10 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 🖍 Supports sticky headers and footers.
 - [x] 🌈 Built-in mosiac layout
 - [x] 💦 Built-in waterfall layout
-- [x] 📱 iOS support.
-- [x] 💻 macOS support.
-- [x] 📺 tvOS support.
+- [x] 📱 iOS support
+- [x] 💻 macOS support
+- [x] 📺 tvOS support
+- [x] 🦖 Objective-C support
 
 
 ## How do items per row work?

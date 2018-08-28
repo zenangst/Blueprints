@@ -4,8 +4,8 @@
   import UIKit
 #endif
 
-public protocol BlueprintLayoutAnimator: class {
-  var animation: BlueprintLayoutAnimation? { get set }
+@objc public protocol BlueprintLayoutAnimator: class {
+  var animation: BlueprintLayoutAnimation { get set }
   var indexPathsToAnimate: [IndexPath] { get set }
   var indexPathsToMove: [IndexPath] { get set }
   var collectionViewFlowLayout: CollectionViewFlowLayout? { get set }

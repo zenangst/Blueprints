@@ -4,10 +4,10 @@
   import UIKit
 #endif
 
-public class VerticalMosaicBlueprintLayout: BlueprintLayout {
+@objc public class VerticalMosaicBlueprintLayout: BlueprintLayout {
   private let controller: MosaicBlueprintPatternController
 
-  public required init(
+  @objc public required init(
     itemSize: CGSize = CGSize(width: 50, height: 50),
     estimatedItemSize: CGSize = .zero,
     minimumInteritemSpacing: CGFloat = 10,
@@ -18,7 +18,7 @@ public class VerticalMosaicBlueprintLayout: BlueprintLayout {
     ) {
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
     super.init(
-      itemsPerRow: nil,
+      itemsPerRow: 0.0,
       itemSize: itemSize,
       estimatedItemSize: estimatedItemSize,
       minimumInteritemSpacing: minimumInteritemSpacing,

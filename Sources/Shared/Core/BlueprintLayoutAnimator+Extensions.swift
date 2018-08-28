@@ -19,7 +19,7 @@ extension BlueprintLayoutAnimator {
       indexPathsToAnimate.remove(at: index)
     }
 
-    guard let animation = animation else {
+    guard animation != .none else {
       return nil
     }
 
@@ -42,7 +42,7 @@ extension BlueprintLayoutAnimator {
       indexPathsToAnimate.remove(at: index)
     }
 
-    guard let animation = animation else {
+    guard animation != .none else {
       return nil
     }
 

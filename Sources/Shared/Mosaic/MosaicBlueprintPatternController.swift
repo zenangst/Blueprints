@@ -1,13 +1,13 @@
 import Foundation
 
-public class MosaicBlueprintPatternController {
+@objc public class MosaicBlueprintPatternController: NSObject {
   var patterns: [MosaicPattern]
 
-  init(patterns: MosaicPattern ...) {
+  public init(patterns: MosaicPattern ...) {
     self.patterns = patterns
   }
 
-  init(patterns: [MosaicPattern]) {
+  public init(patterns: [MosaicPattern]) {
     self.patterns = patterns
   }
 

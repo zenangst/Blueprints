@@ -10,6 +10,9 @@
 		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
+		BD476BC421355C1E008E1D0A /* macOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC221355C1E008E1D0A /* macOSObjectiveCSupportTests.m */; };
+		BD476BC721356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */; };
+		BD476BC821356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */; };
 		BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */; };
 		BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
 		BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
@@ -136,6 +139,11 @@
 		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		BD476BBF21355C1E008E1D0A /* Blueprints-iOS-Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blueprints-iOS-Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		BD476BC021355C1E008E1D0A /* Blueprints-macOS-Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blueprints-macOS-Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		BD476BC121355C1E008E1D0A /* Blueprints-tvOS-Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blueprints-tvOS-Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		BD476BC221355C1E008E1D0A /* macOSObjectiveCSupportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = macOSObjectiveCSupportTests.m; sourceTree = "<group>"; };
+		BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOStvOSObjectiveCSupportTests.m; sourceTree = "<group>"; };
 		BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+macOS.swift"; sourceTree = "<group>"; };
 		BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+iOS+tvOS.swift"; sourceTree = "<group>"; };
 		BD975E7C2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionViewLayoutAttributes+Extensions.swift"; sourceTree = "<group>"; };
@@ -315,6 +323,7 @@
 		D284B12D1F7906DA00D94AF3 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				BD476BC221355C1E008E1D0A /* macOSObjectiveCSupportTests.m */,
 				BDB38706204D46960080C93B /* Helper.swift */,
 				BDD0C01320570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift */,
 				BDB38708204D46BB0080C93B /* Mocks.swift */,
@@ -332,6 +341,9 @@
 				BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */,
 				BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */,
 				BDB98DCD20D6E115001C5578 /* PeformanceTests.swift */,
+				BD476BBF21355C1E008E1D0A /* Blueprints-iOS-Tests-Bridging-Header.h */,
+				BD476BC021355C1E008E1D0A /* Blueprints-macOS-Tests-Bridging-Header.h */,
+				BD476BC121355C1E008E1D0A /* Blueprints-tvOS-Tests-Bridging-Header.h */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -343,6 +355,7 @@
 				BDD0C01520570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift */,
 				BDB38703204D46400080C93B /* Mocks.swift */,
 				BDD0C01620570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift */,
+				BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */,
 			);
 			path = "iOS+tvOS";
 			sourceTree = "<group>";
@@ -604,7 +617,7 @@
 					};
 					D284B1031F79038B00D94AF3 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					D284B1171F79039F00D94AF3 = {
@@ -618,13 +631,14 @@
 					};
 					D5B2E8A81C3A780C00C0327D = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 					};
 					D5C6293F1C3A7FAA007F7B7C = {
 						CreatedOnToolsVersion = 7.2;
 					};
 					D5C629481C3A7FAA007F7B7C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -744,6 +758,7 @@
 				BDB38702204D45B50080C93B /* Helper.swift in Sources */,
 				BDB38705204D46400080C93B /* Mocks.swift in Sources */,
 				BDB3870A204D46CC0080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
+				BD476BC821356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */,
 				BDFB6385204D823700D863E3 /* BlueprintLayoutAnimatorTests.swift in Sources */,
 				BDA31B0E20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
 			);
@@ -804,6 +819,7 @@
 				BDB38704204D46400080C93B /* Mocks.swift in Sources */,
 				BDFB637B204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
 				BDA31B0C20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
+				BD476BC721356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +862,7 @@
 				BDA31B0D20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
 				BDFB637C204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
 				BDD0C01420570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift in Sources */,
+				BD476BC421355C1E008E1D0A /* macOSObjectiveCSupportTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -948,6 +965,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-tvOS-Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -972,6 +990,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-tvOS-Tests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
@@ -1202,6 +1221,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.BlueprintsTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-iOS-Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
@@ -1216,6 +1236,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.BlueprintsTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-iOS-Tests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -1268,6 +1289,7 @@
 		D5C629551C3A7FAA007F7B7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1277,12 +1299,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-MacTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-macOS-Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		D5C629561C3A7FAA007F7B7C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1292,6 +1318,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-MacTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-macOS-Tests-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

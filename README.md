@@ -22,11 +22,11 @@ The framework also provides a good base for your custom implementations. By exte
 
 ## Features
 
-- [x] 🍭 Animation support.
+- [x] 🍭 Animation support
 - [x] 🤳🏻 Optimized for performance
-- [x] 📏 Built-in vertical and horizontal layouts.
-- [x] 📰 Supports header and footers.
-- [x] 🖍 Supports sticky headers and footers.
+- [x] 📏 Built-in vertical and horizontal layouts
+- [x] 📰 Supports header and footers
+- [x] 🖍 Supports sticky headers and footers
 - [x] 🌈 Built-in mosiac layout
 - [x] 💦 Built-in waterfall layout
 - [x] 📱 iOS support

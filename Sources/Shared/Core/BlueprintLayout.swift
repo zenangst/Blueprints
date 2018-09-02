@@ -16,7 +16,6 @@
   public var cachedAttributes = [[LayoutAttributes]]()
   public var cachedItems = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
-  public var isUpdating: Bool = false
   var binarySearch = BinarySearch()
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
@@ -250,10 +249,6 @@
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    if isUpdating && collectionView?.visibleIndexPaths.contains(indexPath) == false {
-      return nil
-    }
-
     let compare: (LayoutAttributes) -> Bool
     #if os(macOS)
       compare = { indexPath > $0.indexPath! }
@@ -312,7 +307,6 @@
   /// - Parameter updateItems: An array of CollectionViewUpdateItem objects
   //                           that identify the changes being made.
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
-    isUpdating = true
     return animator.prepare(forCollectionViewUpdates: updateItems)
   }
 }

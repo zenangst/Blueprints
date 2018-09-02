@@ -16,9 +16,4 @@ extension BlueprintLayout {
 
     return layoutAttributesResult
   }
-
-  open override func finalizeLayoutTransition() {
-    super.finalizeLayoutTransition()
-    isUpdating = false
-  }
 }

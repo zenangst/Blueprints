@@ -70,6 +70,8 @@
 
           if mosaicLayoutAttribute.pattern.amount == 0 {
             mosaicLayoutAttribute.frame.size.width = threshold - sectionInset.left - sectionInset.right
+          } else {
+            mosaicLayoutAttribute.frame.size.width = (threshold - minimumInteritemSpacing - sectionInset.left - sectionInset.right) * CGFloat(mosaicLayoutAttribute.pattern.multiplier)
           }
 
           mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - minimumLineSpacing

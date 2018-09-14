@@ -70,6 +70,8 @@
 
           if mosaicLayoutAttribute.pattern.amount == 0 {
             mosaicLayoutAttribute.frame.size.width = threshold - sectionInset.left - sectionInset.right
+          } else {
+            mosaicLayoutAttribute.frame.size.width = (threshold - minimumInteritemSpacing - sectionInset.left - sectionInset.right) * CGFloat(mosaicLayoutAttribute.pattern.multiplier)
           }
 
           mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - minimumLineSpacing
@@ -145,7 +147,14 @@
         }
       case .vertical:
         layoutAttribute.frame.origin.y = mosaic.frame.origin.y
-        layoutAttribute.frame.size.width = width - mosaic.frame.size.width - (minimumInteritemSpacing * childCount) - sectionInset.right - sectionInset.left
+
+        switch mosaic.pattern.alignment {
+        case .left:
+          layoutAttribute.frame.size.width = width - mosaic.frame.maxX - minimumInteritemSpacing - sectionInset.right
+        case .right:
+          layoutAttribute.frame.size.width = width - mosaic.frame.size.width - minimumInteritemSpacing - sectionInset.left - sectionInset.right
+        }
+
         layoutAttribute.frame.size.height = (mosaic.frame.size.height - minimumLineSpacing) / childCount
 
         if childCount > 1 {

@@ -1,8 +1,8 @@
 import Cocoa
 
 public extension CollectionView {
-  public static var collectionViewHeaderType: NSCollectionView.SupplementaryElementKind { return .sectionHeader }
-  public static var collectionViewFooterType: NSCollectionView.SupplementaryElementKind { return .sectionFooter }
+  public static var collectionViewHeaderType: NSCollectionView.SupplementaryElementKind { return NSCollectionView.elementKindSectionHeader }
+  public static var collectionViewFooterType: NSCollectionView.SupplementaryElementKind { return NSCollectionView.elementKindSectionFooter }
 
   public var contentOffset: CGPoint {
     get { return enclosingScrollView?.documentVisibleRect.origin ?? .zero }

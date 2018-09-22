@@ -6,9 +6,9 @@ extension BlueprintLayout {
     var layoutAttributesResult: LayoutAttributes? = nil
 
     switch elementKind {
-    case .sectionHeader:
+    case NSCollectionView.elementKindSectionHeader:
       layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first
-    case .sectionFooter:
+    case NSCollectionView.elementKindSectionHeader:
       layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
     default:
       return nil

@@ -30,7 +30,7 @@ class BlueprintLayoutAnimatorTests: XCTestCase {
 
     override var indexPathBeforeUpdate: IndexPath? { return beforeIndexPath }
     override var indexPathAfterUpdate: IndexPath? { return afterIndexPath }
-    override var updateAction: UICollectionUpdateAction { return action }
+    override var updateAction: UICollectionViewUpdateItem.Action { return action }
   }
 
   let dataSource = MockDataSource(numberOfItems: 15)

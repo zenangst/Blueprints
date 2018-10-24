@@ -19,7 +19,7 @@
   var binarySearch = BinarySearch()
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
-  public var contentSize: CGSize = CGSize(width: 50, height: 50)
+  public var contentSize: CGSize = .zero
   /// The number of sections in the collection view.
   var numberOfSections: Int { return resolveCollectionView({ $0.dataSource?.numberOfSections?(in: $0) },
                                                            defaultValue: 1) }
@@ -215,6 +215,7 @@
         var sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
         self.cachedAttributes.append(sorted)
         sorted = sorted.filter({ $0.representedElementCategory == .item })
+        collectionView?.frame.size.height = contentSize.height
       #else
         var sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
         self.cachedAttributes.append(sorted)

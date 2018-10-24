@@ -53,7 +53,6 @@
     self.minimumInteritemSpacing = minimumInteritemSpacing
     self.minimumLineSpacing = minimumLineSpacing
     self.sectionInset = sectionInset
-    self.animator.collectionViewFlowLayout = self
 
     #if os(macOS)
       NotificationCenter.default.addObserver(

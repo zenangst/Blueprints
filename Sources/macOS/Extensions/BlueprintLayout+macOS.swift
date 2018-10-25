@@ -32,7 +32,7 @@ extension BlueprintLayout {
   /// is equal to the workaround value.
   func macOSWorkaround() {
     let alphaValue: CGFloat = 0.0001
-    if contentSize.height == 0 {
+    if contentSize.height == 0 && collectionView?.alphaValue != 0.0 {
       contentSize.height = 0.5
       collectionView?.alphaValue = alphaValue
     } else if collectionView?.alphaValue == alphaValue {

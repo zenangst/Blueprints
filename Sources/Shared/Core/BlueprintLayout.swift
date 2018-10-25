@@ -210,12 +210,15 @@
   ///
   /// - Parameter attributes: The attributes that were created in the collection view layout.
   func createCache(with attributes: [[LayoutAttributes]]) {
+    #if os(macOS)
+      macOSWorkaround()
+    #endif
+
     for value in attributes {
       #if os(macOS)
         var sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
         self.cachedAttributes.append(sorted)
         sorted = sorted.filter({ $0.representedElementCategory == .item })
-        collectionView?.frame.size.height = contentSize.height
       #else
         var sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
         self.cachedAttributes.append(sorted)

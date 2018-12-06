@@ -253,6 +253,10 @@
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
+    guard cachedItems.count < 0, indexPath.section < cachedItems.count else {
+        return nil
+    }
+
     let compare: (LayoutAttributes) -> Bool
     #if os(macOS)
       compare = { indexPath > $0.indexPath! }

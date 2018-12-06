@@ -256,7 +256,6 @@
     guard cachedItems.count > 0, indexPath.section < cachedItems.count else {
         return nil
     }
-    //guard indexPath.section < cachedItems.count else { return nil }
 
     let compare: (LayoutAttributes) -> Bool
     #if os(macOS)

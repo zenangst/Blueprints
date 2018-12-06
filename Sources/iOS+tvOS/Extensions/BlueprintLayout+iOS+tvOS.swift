@@ -2,7 +2,10 @@ import UIKit
 
 extension BlueprintLayout {
   open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
-    guard cachedAttributes.count > 0, indexPath.section < cachedAttributes.count else {
+    guard cachedAttributes.count > 0 else {
+        return nil
+    }
+    guard indexPath.section < cachedAttributes.count else {
         return nil
     }
 

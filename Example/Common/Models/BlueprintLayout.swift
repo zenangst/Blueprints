@@ -28,3 +28,19 @@ extension BlueprintLayout {
         }
     }
 }
+
+extension BlueprintLayout {
+
+    var title: String {
+        switch self {
+        case .vertical:
+            return "Vertical Blueprint"
+        case .horizontal:
+            return "Horizontal Blueprint"
+        case .mosaic:
+            return "Mosaic Blueprint"
+        case .waterfall:
+            return "Waterfall Blueprint"
+        }
+    }
+}

@@ -21,6 +21,13 @@ class LayoutExampleSceneViewController: UIViewController, LayoutExampleSceneDisp
     var activeLayout: BlueprintLayout = .vertical
     var itemsPerRow: CGFloat = 1
     var itemsPerColumn: Int = 2
+    var minimumInteritemSpacing: CGFloat = 10
+    var minimumLineSpacing: CGFloat = 10
+    var sectionInsets: UIEdgeInsets = UIEdgeInsets(top: 10,
+                                                   left: 10,
+                                                   bottom: 10,
+                                                   right: 10)
+
     var interactor: LayoutExampleSceneBusinessLogic?
     var router: (LayoutExampleSceneRoutingLogic & LayoutExampleSceneDataPassing)?
 
@@ -55,13 +62,14 @@ class LayoutExampleSceneViewController: UIViewController, LayoutExampleSceneDisp
         super.viewDidLoad()
 
         configureScene(completion: {
-            fetchExampleData()
+            getExampleData()
         })
     }
 
     private func configureScene(completion: () -> Void) {
         configureNavigationController()
         configureNavigationItems()
+        configureControllerTitle()
         configureCollectionView()
         configureBluePrintLayout()
         completion()
@@ -70,8 +78,8 @@ class LayoutExampleSceneViewController: UIViewController, LayoutExampleSceneDisp
 
 extension LayoutExampleSceneViewController {
 
-    func fetchExampleData() {
-        let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 1,
+    func getExampleData() {
+        let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 2,
                                                                 numberOfRowsInSection: 10)
         interactor?.getExampleData(request: request)
     }

@@ -13,7 +13,7 @@ class RootViewController: UIViewController {
     private var current: UIViewController
 
     var initialController: UIViewController = {
-        let dataSourceExampleSceneViewController = UIStoryboard(name: Constants.StoryboardIdentifiers.layoutsExampleScene.rawValue, bundle: nil).instantiateInitialViewController()!
+        let dataSourceExampleSceneViewController = UIStoryboard(name: Constants.StoryboardIdentifiers.layoutExampleScene.rawValue, bundle: nil).instantiateInitialViewController()!
         return dataSourceExampleSceneViewController
     }()
 

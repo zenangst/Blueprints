@@ -23,6 +23,14 @@ extension LayoutExampleSceneViewController: UICollectionViewDataSource {
     }
 }
 
+// TODO: - Implement this to showcase dynamic heights for layouts that support this.
+/*extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    }
+}*/
+
 private extension LayoutExampleSceneViewController {
 
     func layoutExampleCell(forItemAt indexPath: IndexPath) -> LayoutExampleCollectionViewCell {

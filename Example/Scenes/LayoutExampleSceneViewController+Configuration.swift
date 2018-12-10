@@ -6,14 +6,30 @@
 //  Copyright © 2018 Christoffer Winterkvist. All rights reserved.
 //
 
+import UIKit
+
 extension LayoutExampleSceneViewController {
+
+    func configureControllerTitle() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.title = self?.activeLayout.title
+        }
+    }
 
     func configureNavigationController() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     func configureNavigationItems() {
+        configureSettingsButton()
         configureNextLayoutButton()
+    }
+
+    private func configureSettingsButton() {
+        let settingsButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                             target: self,
+                                             action: #selector(routeToSettingsScene))
+        navigationItem.leftBarButtonItem = settingsButton
     }
 
     private func configureNextLayoutButton() {
@@ -24,9 +40,15 @@ extension LayoutExampleSceneViewController {
     }
 
     @objc
+    private func routeToSettingsScene() {
+        router?.routeToLayoutSettingsScene()
+    }
+
+    @objc
     private func configureNextLayout() {
         activeLayout.switchToNextLayout()
         configureBluePrintLayout()
+        configureControllerTitle()
     }
 }
 
@@ -63,111 +85,6 @@ extension LayoutExampleSceneViewController {
             configureMosaicLayout()
         case .waterfall:
             configureWaterFallLayout()
-        }
-    }
-}
-
-// TODO: - Move to there own file so it's easy to follow as a reader of the example project.. keeps evreything seperated.
-import Blueprints
-import UIKit
-
-private extension LayoutExampleSceneViewController {
-
-    func configureVerticalLayout() {
-        let verticalBlueprintLayout = VerticalBlueprintLayout(
-            itemsPerRow: itemsPerRow,
-            itemSize: CGSize(width: 200,
-                             height: 95),
-            minimumInteritemSpacing: 10,
-            minimumLineSpacing: 10,
-            sectionInset: EdgeInsets(top: 10,
-                                     left: 10,
-                                     bottom: 10,
-                                     right: 10),
-            stickyHeaders: true,
-            stickyFooters: true
-        )
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-        }
-    }
-
-    func configureHorizontalLayout() {
-        let horizontalBlueprintLayout = HorizontalBlueprintLayout(
-            itemsPerRow: itemsPerRow + 0.1,
-            itemsPerColumn: itemsPerColumn,
-            itemSize: CGSize(width: 200,
-                             height: 95),
-            minimumInteritemSpacing: 10,
-            minimumLineSpacing: 10,
-            sectionInset: EdgeInsets(top: 10,
-                                     left: 10,
-                                     bottom: 10,
-                                     right: 10),
-            stickyHeaders: true,
-            stickyFooters: true
-        )
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.layoutExampleCollectionView.collectionViewLayout = horizontalBlueprintLayout
-            self?.layoutExampleCollectionView.contentOffset.x = 0
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-        }
-    }
-
-    func configureMosaicLayout() {
-        let mosaicBlueprintLayout = VerticalMosaicBlueprintLayout(
-            itemSize: CGSize.init(width: 50,
-                                  height: 400),
-            minimumInteritemSpacing: 10,
-            minimumLineSpacing: 10,
-            sectionInset: EdgeInsets(top: 10,
-                                     left: 10,
-                                     bottom: 10,
-                                     right: 10),
-            patterns: [
-                MosaicPattern(alignment: .left,
-                              direction: .vertical,
-                              amount: 2,
-                              multiplier: 0.6),
-                MosaicPattern(alignment: .left,
-                              direction: .horizontal,
-                              amount: 2,
-                              multiplier: 0.33),
-                MosaicPattern(alignment: .left,
-                              direction: .vertical,
-                              amount: 1,
-                              multiplier: 0.5),
-                MosaicPattern(alignment: .left,
-                              direction: .vertical,
-                              amount: 1,
-                              multiplier: 0.5)
-            ])
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.layoutExampleCollectionView.collectionViewLayout = mosaicBlueprintLayout
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-        }
-    }
-
-    func configureWaterFallLayout() {
-        let waterfallBlueprintLayout = VerticalWaterfallBlueprintLayout(
-            itemsPerRow: itemsPerRow,
-            itemSize: CGSize.init(width: 50,
-                                  height: 95),
-            minimumInteritemSpacing: 10,
-            minimumLineSpacing: 10,
-            sectionInset: EdgeInsets(top: 10,
-                                     left: 10,
-                                     bottom: 10,
-                                     right: 10)
-        )
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.layoutExampleCollectionView.collectionViewLayout = waterfallBlueprintLayout
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
         }
     }
 }

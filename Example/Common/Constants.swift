@@ -14,7 +14,8 @@ struct Constants {
     static let cellShadowColor = UIColor.darkGray
 
     enum StoryboardIdentifiers: String {
-        case layoutsExampleScene = "LayoutExample"
+        case layoutExampleScene = "LayoutExample"
+        case layoutSettingsScene = "LayoutSettings"
     }
 
     enum CollectionViewCellIdentifiers: String {

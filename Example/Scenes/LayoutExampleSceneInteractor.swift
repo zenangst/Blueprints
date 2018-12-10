@@ -6,8 +6,6 @@
 //  Copyright (c) 2018 Christoffer Winterkvist. All rights reserved.
 //
 
-import UIKit
-
 protocol LayoutExampleSceneBusinessLogic {
 
     func getExampleData(request: LayoutExampleScene.GetExampleData.Request)

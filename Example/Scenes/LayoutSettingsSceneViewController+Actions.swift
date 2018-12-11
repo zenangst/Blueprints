@@ -10,14 +10,6 @@ import UIKit
 
 extension LayoutSettingsSceneViewController {
 
-    @objc
-    func routeToLayoutExampleScene() {
-        router?.routeToLayoutExampleScene()
-    }
-}
-
-extension LayoutSettingsSceneViewController {
-
     @IBAction
     func itemsPerRowStepperValueChanged(_ sender: Any) {
         guard let stepper = sender as? UIStepper else {

@@ -87,7 +87,6 @@ extension LayoutExampleSceneViewController {
     }
 }
 
-// TODO: - Move to own file
 extension LayoutExampleSceneViewController: LayoutConfigurationDelegate {
 
     func configurationUpdated(configuration: LayoutConfiguration) {

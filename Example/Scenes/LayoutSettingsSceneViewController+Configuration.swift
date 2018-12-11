@@ -12,18 +12,10 @@ extension LayoutSettingsSceneViewController {
 
     func configureNavigationItems() {
         configureLargeTitles()
-        //configureDoneButton()
     }
 
     private func configureLargeTitles() {
         navigationItem.largeTitleDisplayMode = .never
-    }
-
-    private func configureDoneButton() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                             target: self,
-                                             action: #selector(routeToLayoutExampleScene))
-        navigationItem.leftBarButtonItem = doneButton
     }
 }
 

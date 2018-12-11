@@ -85,6 +85,7 @@
       }
 
       nextY += sectionInset.top
+      var sectionMaxY: CGFloat = 0
 
       for item in 0..<numberOfItemsInSection(section) {
         let indexPath = IndexPath(item: item, section: section)
@@ -95,13 +96,31 @@
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
 
         if let previousItem = previousItem {
+          var minY: CGFloat = previousItem.frame.origin.y
+          var maxY: CGFloat = previousItem.frame.maxY
+
+          // Properly align the current item with the previous item at the same
+          // x offset. This helps ensure that the layout renders correctly when
+          // using layout attributes with dynamic height.
+          if let itemsPerRow = itemsPerRow,
+            itemsPerRow > 1,
+            item > Int(itemsPerRow) - 1,
+            Int(itemsPerRow) - 1 < layoutAttributes[section].count {
+            let previousXOffset = item - Int(itemsPerRow)
+            let lookupAttribute = layoutAttributes[section][previousXOffset]
+            maxY = lookupAttribute.frame.maxY
+            minY = lookupAttribute.frame.maxY + minimumLineSpacing
+          }
+
           layoutAttribute.frame.origin.x = previousItem.frame.maxX + minimumInteritemSpacing
-          layoutAttribute.frame.origin.y = previousItem.frame.origin.y
+          layoutAttribute.frame.origin.y = minY
 
           if layoutAttribute.frame.maxX > threshold {
             layoutAttribute.frame.origin.x = sectionInset.left
-            layoutAttribute.frame.origin.y = previousItem.frame.maxY + minimumLineSpacing
+            layoutAttribute.frame.origin.y = maxY + minimumLineSpacing
           }
+
+          sectionMaxY = max(previousItem.frame.maxY, layoutAttribute.frame.maxY)
         } else {
           firstItem = layoutAttribute
           layoutAttribute.frame.origin.x = sectionInset.left

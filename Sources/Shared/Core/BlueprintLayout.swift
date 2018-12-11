@@ -189,6 +189,10 @@
     }
   }
 
+  func indexPathIsOutOfBounds(_ indexPath: IndexPath, for cache: [[LayoutAttributes]]) -> Bool {
+    return !(cache.count > 0 && indexPath.section < cache.count)
+  }
+
   // MARK: - Overrides
 
   /// Tells the layout object to update the current layout.
@@ -253,6 +257,10 @@
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
+    if indexPathIsOutOfBounds(indexPath, for: cachedItems) {
+        return nil
+    }
+
     let compare: (LayoutAttributes) -> Bool
     #if os(macOS)
       compare = { indexPath > $0.indexPath! }

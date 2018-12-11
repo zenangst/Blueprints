@@ -30,12 +30,38 @@ extension LayoutExampleSceneViewController: UICollectionViewDataSource {
 }
 
 // TODO: - Implement this to showcase dynamic heights for layouts that support this.
-/*extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
+extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let layoutExampleCellIdentifier = Constants
+            .CollectionViewCellIdentifiers
+            .layoutExampleCell
+            .rawValue
+        guard let layoutExampleCell = layoutExampleCollectionView.dequeueReusableCell(withReuseIdentifier: layoutExampleCellIdentifier, for: indexPath) as? LayoutExampleCollectionViewCell else {
+            fatalError("Failed to dequeue cell at indexPath: \(indexPath)")
+        }
+        layoutExampleCell.configure(forExampleContent: exampleDataSource?[indexPath.section].contents?[indexPath.row])
+        layoutExampleCell.setNeedsLayout()
+        layoutExampleCell.layoutIfNeeded()
 
+        let cellWidth = widthForCellInCurrentLayout()
+        let cellHeight: CGFloat = 0
+        let cellTargetSize = CGSize(width: cellWidth, height: cellHeight)
+        let cellSize = layoutExampleCell.contentView.systemLayoutSizeFitting(cellTargetSize,
+                                                                             withHorizontalFittingPriority: .defaultHigh,
+                                                                             verticalFittingPriority: .fittingSizeLevel)
+
+        return cellSize
     }
-}*/
+
+    private func widthForCellInCurrentLayout() -> CGFloat {
+        var cellWidth = layoutExampleCollectionView.frame.size.width
+        if itemsPerRow > 1 {
+            cellWidth -= minimumInteritemSpacing * (itemsPerRow - 1)
+        }
+        return floor(cellWidth / itemsPerRow)
+    }
+}
 
 private extension LayoutExampleSceneViewController {
 

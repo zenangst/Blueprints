@@ -56,6 +56,8 @@ extension LayoutExampleSceneViewController {
 
     func configureCollectionView() {
         layoutExampleCollectionView.dataSource = self
+        // TODO: - Add switch to enable or disable the behaviour
+        layoutExampleCollectionView.delegate = self
         registerCollectionViewCells()
     }
 

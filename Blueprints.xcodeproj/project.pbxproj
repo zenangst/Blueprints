@@ -48,6 +48,12 @@
 		832107DD21BEA8E00032A439 /* KeyboardAvoidableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107DC21BEA8E00032A439 /* KeyboardAvoidableProtocol.swift */; };
 		832107DF21BEA9380032A439 /* LayoutSettingsSceneViewController+KeyboardAvoidableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107DE21BEA9380032A439 /* LayoutSettingsSceneViewController+KeyboardAvoidableProtocol.swift */; };
 		832107E121BEB25F0032A439 /* LayoutSettingsSceneViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E021BEB25F0032A439 /* LayoutSettingsSceneViewController+Actions.swift */; };
+		832107E421BFBDE50032A439 /* LayoutConfigurationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E321BFBDE50032A439 /* LayoutConfigurationDelegate.swift */; };
+		832107E621BFBE530032A439 /* LayoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E521BFBE530032A439 /* LayoutConfiguration.swift */; };
+		832107E821BFCDB50032A439 /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E721BFCDB50032A439 /* DoubleExtensions.swift */; };
+		832107EA21BFD4040032A439 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E921BFD4040032A439 /* CGFloatExtensions.swift */; };
+		832107EC21BFD49E0032A439 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107EB21BFD49E0032A439 /* IntExtensions.swift */; };
+		832107EE21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */; };
 		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
@@ -232,6 +238,12 @@
 		832107DC21BEA8E00032A439 /* KeyboardAvoidableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidableProtocol.swift; sourceTree = "<group>"; };
 		832107DE21BEA9380032A439 /* LayoutSettingsSceneViewController+KeyboardAvoidableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutSettingsSceneViewController+KeyboardAvoidableProtocol.swift"; sourceTree = "<group>"; };
 		832107E021BEB25F0032A439 /* LayoutSettingsSceneViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutSettingsSceneViewController+Actions.swift"; sourceTree = "<group>"; };
+		832107E321BFBDE50032A439 /* LayoutConfigurationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConfigurationDelegate.swift; sourceTree = "<group>"; };
+		832107E521BFBE530032A439 /* LayoutConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConfiguration.swift; sourceTree = "<group>"; };
+		832107E721BFCDB50032A439 /* DoubleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
+		832107E921BFD4040032A439 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
+		832107EB21BFD49E0032A439 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -383,10 +395,11 @@
 		8321078521B95D450032A439 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				832107B921B97CCD0032A439 /* Extensions */,
 				832107B321B97C7E0032A439 /* Components */,
-				832107A621B964EE0032A439 /* Helpers */,
 				8321078A21B95E710032A439 /* Controllers */,
+				832107E221BFBDB00032A439 /* Delegates */,
+				832107B921B97CCD0032A439 /* Extensions */,
+				832107A621B964EE0032A439 /* Helpers */,
 				8321079E21B9603B0032A439 /* Models */,
 				8321079B21B95FEF0032A439 /* Protocols */,
 				8321078621B95D500032A439 /* Constants.swift */,
@@ -444,9 +457,10 @@
 		8321079E21B9603B0032A439 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				832107AD21B9791A0032A439 /* BlueprintLayout.swift */,
 				8321079F21B960C00032A439 /* ExampleContent.swift */,
 				832107A121B962DE0032A439 /* ExampleSection.swift */,
-				832107AD21B9791A0032A439 /* BlueprintLayout.swift */,
+				832107E521BFBE530032A439 /* LayoutConfiguration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -495,6 +509,10 @@
 			isa = PBXGroup;
 			children = (
 				832107BA21B97CE00032A439 /* CALayerExtensions.swift */,
+				832107E921BFD4040032A439 /* CGFloatExtensions.swift */,
+				832107E721BFCDB50032A439 /* DoubleExtensions.swift */,
+				832107EB21BFD49E0032A439 /* IntExtensions.swift */,
+				832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -514,6 +532,14 @@
 				832107CD21BE6A5B0032A439 /* LayoutSettingsSceneWorker.swift */,
 			);
 			name = LayoutSettingsScene;
+			sourceTree = "<group>";
+		};
+		832107E221BFBDB00032A439 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				832107E321BFBDE50032A439 /* LayoutConfigurationDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		BDA31AFD20D41AD0001E4870 /* Core */ = {
@@ -1029,11 +1055,13 @@
 			files = (
 				832107E121BEB25F0032A439 /* LayoutSettingsSceneViewController+Actions.swift in Sources */,
 				8321077521B95B280032A439 /* AppDelegate.swift in Sources */,
+				832107EA21BFD4040032A439 /* CGFloatExtensions.swift in Sources */,
 				832107D221BE6A5B0032A439 /* LayoutSettingsScenePresenter.swift in Sources */,
 				832107A821B965010032A439 /* Lorem.swift in Sources */,
 				832107D521BE6A5B0032A439 /* LayoutSettingsSceneModels.swift in Sources */,
 				832107DD21BEA8E00032A439 /* KeyboardAvoidableProtocol.swift in Sources */,
 				832107D421BE6A5B0032A439 /* LayoutSettingsSceneRouter.swift in Sources */,
+				832107EE21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift in Sources */,
 				832107D621BE6A5B0032A439 /* LayoutSettingsSceneViewController.swift in Sources */,
 				8321079621B95FB10032A439 /* LayoutExampleSceneWorker.swift in Sources */,
 				832107DB21BEA6410032A439 /* LayoutSettingsSceneViewController+Configuration.swift in Sources */,
@@ -1049,18 +1077,22 @@
 				832107CA21BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */,
 				832107C621BE69240032A439 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift in Sources */,
 				832107DF21BEA9380032A439 /* LayoutSettingsSceneViewController+KeyboardAvoidableProtocol.swift in Sources */,
+				832107E621BFBE530032A439 /* LayoutConfiguration.swift in Sources */,
 				832107A521B963A90032A439 /* ExampleDataMocks.swift in Sources */,
 				832107C421BE68F20032A439 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift in Sources */,
 				8321079721B95FB10032A439 /* LayoutExampleSceneRouter.swift in Sources */,
 				832107A221B962DE0032A439 /* ExampleSection.swift in Sources */,
 				832107BB21B97CE00032A439 /* CALayerExtensions.swift in Sources */,
+				832107E821BFCDB50032A439 /* DoubleExtensions.swift in Sources */,
 				8321079A21B95FB10032A439 /* LayoutExampleSceneInteractor.swift in Sources */,
 				832107AC21B978240032A439 /* LayoutExampleSceneViewController+Configuration.swift in Sources */,
 				8321078921B95E4D0032A439 /* RootViewController.swift in Sources */,
+				832107EC21BFD49E0032A439 /* IntExtensions.swift in Sources */,
 				832107BD21B97F9C0032A439 /* LayoutExampleSceneViewController+CollectionView.swift in Sources */,
 				8321079D21B960000032A439 /* RouterProtocol.swift in Sources */,
 				832107D721BE6A5B0032A439 /* LayoutSettingsSceneInteractor.swift in Sources */,
 				832107B621B97CAC0032A439 /* LayoutExampleCollectionViewCell.swift in Sources */,
+				832107E421BFBDE50032A439 /* LayoutConfigurationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

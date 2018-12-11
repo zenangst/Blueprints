@@ -19,14 +19,11 @@ class LayoutExampleSceneViewController: UIViewController, LayoutExampleSceneDisp
 
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
     var activeLayout: BlueprintLayout = .vertical
-    var itemsPerRow: CGFloat = 1
-    var itemsPerColumn: Int = 2
-    var minimumInteritemSpacing: CGFloat = 10
-    var minimumLineSpacing: CGFloat = 10
-    var sectionInsets: UIEdgeInsets = UIEdgeInsets(top: 10,
-                                                   left: 10,
-                                                   bottom: 10,
-                                                   right: 10)
+    var itemsPerRow = Constants.ExampleLayoutDefaults.itemsPerRow
+    var itemsPerColumn = Constants.ExampleLayoutDefaults.itemsPerColumn
+    var minimumInteritemSpacing = Constants.ExampleLayoutDefaults.minimumInteritemSpacing
+    var minimumLineSpacing = Constants.ExampleLayoutDefaults.minimumLineSpacing
+    var sectionInsets = Constants.ExampleLayoutDefaults.sectionInsets
 
     var interactor: LayoutExampleSceneBusinessLogic?
     var router: (LayoutExampleSceneRoutingLogic & LayoutExampleSceneDataPassing)?
@@ -87,5 +84,18 @@ extension LayoutExampleSceneViewController {
     func displayExampleData(viewModel: LayoutExampleScene.GetExampleData.ViewModel) {
         exampleDataSource = viewModel.displayedExampleSections
         layoutExampleCollectionView.reloadData()
+    }
+}
+
+// TODO: - Move to own file
+extension LayoutExampleSceneViewController: LayoutConfigurationDelegate {
+
+    func configurationUpdated(configuration: LayoutConfiguration) {
+        self.itemsPerRow = (configuration.itemsPerRow) ?? (Constants.ExampleLayoutDefaults.itemsPerRow)
+        self.itemsPerColumn = (configuration.itemsPerCollumn) ?? (Constants.ExampleLayoutDefaults.itemsPerColumn)
+        self.minimumInteritemSpacing = (configuration.minimumInteritemSpacing) ?? (Constants.ExampleLayoutDefaults.minimumInteritemSpacing)
+        self.minimumLineSpacing = (configuration.minimumLineSpacing) ?? (Constants.ExampleLayoutDefaults.minimumLineSpacing)
+        self.sectionInsets = (configuration.sectionInsets) ?? (Constants.ExampleLayoutDefaults.sectionInsets)
+        configureBluePrintLayout()
     }
 }

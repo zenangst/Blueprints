@@ -15,11 +15,7 @@ enum LayoutSettingsScene {
 
         }
         struct Response {
-            var itemsPerRow: CGFloat?
-            var itemsPerCollumn: Int?
-            var minimumInteritemSpacing: CGFloat?
-            var minimumLineSpacing: CGFloat?
-            var sectionInsets: UIEdgeInsets?
+            var layoutConfiguration: LayoutConfiguration
         }
         struct ViewModel {
             var itemsPerRow: String?

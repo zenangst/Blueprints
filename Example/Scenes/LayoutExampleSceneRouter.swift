@@ -43,6 +43,7 @@ extension LayoutExampleSceneRouter {
                         var destinationDataStore = destinationViewController.router?.dataStore else {
                             fatalError("Missing prerequisites")
                     }
+                    destinationViewController.layoutConfigurationDelegate = self?.viewController
                     self?.passDataToLayoutSettingsScene(source: sourceDataStore,
                                                         destination: &destinationDataStore)
                 }
@@ -63,6 +64,7 @@ extension LayoutExampleSceneRouter {
 extension LayoutExampleSceneRouter {
 
     func navigateToLayoutSettingsScene(source: LayoutExampleSceneViewController, destination: LayoutSettingsSceneViewController) {
+        destination.layoutConfigurationDelegate = source
         source.show(destination, sender: nil)
     }
 }

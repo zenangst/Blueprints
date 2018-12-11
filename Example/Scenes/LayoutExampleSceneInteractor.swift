@@ -24,9 +24,14 @@ class LayoutExampleSceneInteractor: LayoutExampleSceneBusinessLogic, LayoutExamp
 extension LayoutExampleSceneInteractor {
 
     func getExampleData(request: LayoutExampleScene.GetExampleData.Request) {
-        let exampleSections = worker?.buildExampleData(forNumberOfSections: request.numberOfSections,
-                                                       numberOfRowsInSection: request.numberOfRowsInSection)
-        let response = LayoutExampleScene.GetExampleData.Response(exampleSections: exampleSections)
+        let exampleSections = worker?.buildExampleData(
+            forNumberOfSections: request.numberOfSections,
+            numberOfRowsInSection: request.numberOfRowsInSection)
+
+        let response = LayoutExampleScene
+            .GetExampleData
+            .Response(exampleSections: exampleSections)
+
         presenter?.presentExampleData(response: response)
     }
 }

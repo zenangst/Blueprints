@@ -35,13 +35,17 @@ class LayoutSettingsSceneInteractor: LayoutSettingsSceneBusinessLogic, LayoutSet
 extension LayoutSettingsSceneInteractor {
 
     func getLayoutConfiguration(request: LayoutSettingsScene.GetLayoutConfiguration.Request) {
+        let layoutConfiguration = LayoutConfiguration(
+            itemsPerRow: self.itemsPerRow,
+            itemsPerCollumn: self.itemsPerCollumn,
+            minimumInteritemSpacing: self.minimumInteritemSpacing,
+            minimumLineSpacing: self.minimumLineSpacing,
+            sectionInsets: self.sectionInsets)
+
         let response = LayoutSettingsScene
             .GetLayoutConfiguration
-            .Response(itemsPerRow: self.itemsPerRow,
-                      itemsPerCollumn: self.itemsPerCollumn,
-                      minimumInteritemSpacing: self.minimumInteritemSpacing,
-                      minimumLineSpacing: self.minimumLineSpacing,
-                      sectionInsets: self.sectionInsets)
+            .Response(layoutConfiguration: layoutConfiguration)
+
         presenter?.presentLayoutConfiguration(response: response)
     }
 }

@@ -12,7 +12,7 @@ extension LayoutSettingsSceneViewController {
 
     func configureNavigationItems() {
         configureLargeTitles()
-        configureDoneButton()
+        //configureDoneButton()
     }
 
     private func configureLargeTitles() {

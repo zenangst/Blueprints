@@ -36,6 +36,8 @@ class LayoutSettingsSceneViewController: UIViewController, LayoutSettingsSceneDi
     var interactor: LayoutSettingsSceneBusinessLogic?
     var router: (LayoutSettingsSceneRoutingLogic & LayoutSettingsSceneDataPassing)?
 
+    weak var layoutConfigurationDelegate: LayoutConfigurationDelegate?
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
@@ -78,6 +80,9 @@ class LayoutSettingsSceneViewController: UIViewController, LayoutSettingsSceneDi
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        if self.isMovingFromParent {
+            updateLayoutConfiguration()
+        }
         removeKeyboardObservers()
     }
 
@@ -103,6 +108,26 @@ extension LayoutSettingsSceneViewController {
 
 private extension LayoutSettingsSceneViewController {
 
+    func updateLayoutConfiguration() {
+        let itemsPerRow = CGFloat(itemsPerRowTextField.text)
+        let itemsPerCollumn = Int(itemsPerCollumnTextField.text)
+        let minimumInteritemSpacing = CGFloat(minimumInteritemSpacingTextField.text)
+        let minimumLineSpacing = CGFloat(minimumLineSpacingTextField.text)
+        let sectionInsets = UIEdgeInsets(top: topSectionInsetTextField.text,
+                                         left: leftSectionInsetTextField.text,
+                                         bottom: bottomSectionInsetTextField.text,
+                                         right: rightSectionInsetTextField.text)
+
+        let layoutConfiguration = LayoutConfiguration(itemsPerRow: itemsPerRow,
+                                                      itemsPerCollumn: itemsPerCollumn,
+                                                      minimumInteritemSpacing: minimumInteritemSpacing,
+                                                      minimumLineSpacing: minimumLineSpacing,
+                                                      sectionInsets: sectionInsets)
+
+        layoutConfigurationDelegate?
+            .configurationUpdated(configuration: layoutConfiguration)
+    }
+
     func setTextFieldValues(viewModel: LayoutSettingsScene.GetLayoutConfiguration.ViewModel) {
         itemsPerRowTextField.text = viewModel.itemsPerRow
         itemsPerCollumnTextField.text = viewModel.itemsPerCollumn
@@ -126,58 +151,58 @@ private extension LayoutSettingsSceneViewController {
     }
 
     func setItemsPerRowStepperValue(value: String?) {
-        if let itemsPerRow = value,
-            let itemsPerRowDouble = Double(itemsPerRow) {
-            itemsPerRowStepper.value = itemsPerRowDouble
+        guard let itemsPerRow = Double(value) else {
+            return
         }
+        itemsPerRowStepper.value = itemsPerRow
     }
 
     func setItemsPerCollumnStepperValue(value: String?) {
-        if let itemsPerCollumn = value,
-            let itemsPerCollumnDouble = Double(itemsPerCollumn) {
-            itemsPerCollumnStepper.value = itemsPerCollumnDouble
+        guard let itemsPerCollumn = Double(value) else {
+            return
         }
+        itemsPerCollumnStepper.value = itemsPerCollumn
     }
 
     func setMinimumInteritemSpacingStepperValue(value: String?) {
-        if let minimumInteritemSpacing = value,
-            let minimumInteritemSpacingDouble = Double(minimumInteritemSpacing) {
-            minimumInteritemSpacingStepper.value = minimumInteritemSpacingDouble
+        guard let minimumInteritemSpacing = Double(value) else {
+            return
         }
+        minimumInteritemSpacingStepper.value = minimumInteritemSpacing
     }
 
     func setMinimumLineSpacingStepperValue(value: String?) {
-        if let minimumLineSpacing = value,
-            let minimumLineSpacingDouble = Double(minimumLineSpacing) {
-            minimumLineSpacingStepper.value = minimumLineSpacingDouble
+        guard let minimumLineSpacing = Double(value) else {
+            return
         }
+        minimumLineSpacingStepper.value = minimumLineSpacing
     }
 
     func setTopSectionInsetStepperValue(value: String?) {
-        if let topSectionInset = value,
-            let topSectionInsetDouble = Double(topSectionInset) {
-            topSectionInsetStepper.value = topSectionInsetDouble
+        guard let topSectionInset = Double(value) else {
+            return
         }
+        topSectionInsetStepper.value = topSectionInset
     }
 
     func setLeftSectionInsetStepperValue(value: String?) {
-        if let leftSectionInset = value,
-            let leftSectionInsetDouble = Double(leftSectionInset) {
-            leftSectionInsetStepper.value = leftSectionInsetDouble
+        guard let leftSectionInset = Double(value) else {
+            return
         }
+        leftSectionInsetStepper.value = leftSectionInset
     }
 
     func setBottomSectionInsetStepperValue(value: String?) {
-        if let bottomSectionInset = value,
-            let bottomSectionInsetDouble = Double(bottomSectionInset) {
-            bottomSectionInsetStepper.value = bottomSectionInsetDouble
+        guard let bottomSectionInset = Double(value) else {
+            return
         }
+        bottomSectionInsetStepper.value = bottomSectionInset
     }
 
     func setRightSectionInsetStepperValue(value: String?) {
-        if let rightSectionInset = value,
-            let rightSectionInsetDouble = Double(rightSectionInset) {
-            rightSectionInsetStepper.value = rightSectionInsetDouble
+        guard let rightSectionInset = Double(value) else {
+            return
         }
+        rightSectionInsetStepper.value = rightSectionInset
     }
 }

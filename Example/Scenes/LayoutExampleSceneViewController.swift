@@ -19,11 +19,14 @@ class LayoutExampleSceneViewController: UIViewController, LayoutExampleSceneDisp
 
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
     var activeLayout: BlueprintLayout = .vertical
+    var dynamicCellSizeCache: [[CGSize]] = [[]]
+    var useDynamicHeight = false
     var itemsPerRow = Constants.ExampleLayoutDefaults.itemsPerRow
     var itemsPerColumn = Constants.ExampleLayoutDefaults.itemsPerColumn
     var minimumInteritemSpacing = Constants.ExampleLayoutDefaults.minimumInteritemSpacing
     var minimumLineSpacing = Constants.ExampleLayoutDefaults.minimumLineSpacing
     var sectionInsets = Constants.ExampleLayoutDefaults.sectionInsets
+    var currentConfiguration: LayoutConfiguration?
 
     var interactor: LayoutExampleSceneBusinessLogic?
     var router: (LayoutExampleSceneRoutingLogic & LayoutExampleSceneDataPassing)?
@@ -90,11 +93,15 @@ extension LayoutExampleSceneViewController {
 extension LayoutExampleSceneViewController: LayoutConfigurationDelegate {
 
     func configurationUpdated(configuration: LayoutConfiguration) {
-        self.itemsPerRow = (configuration.itemsPerRow) ?? (Constants.ExampleLayoutDefaults.itemsPerRow)
-        self.itemsPerColumn = (configuration.itemsPerCollumn) ?? (Constants.ExampleLayoutDefaults.itemsPerColumn)
-        self.minimumInteritemSpacing = (configuration.minimumInteritemSpacing) ?? (Constants.ExampleLayoutDefaults.minimumInteritemSpacing)
-        self.minimumLineSpacing = (configuration.minimumLineSpacing) ?? (Constants.ExampleLayoutDefaults.minimumLineSpacing)
-        self.sectionInsets = (configuration.sectionInsets) ?? (Constants.ExampleLayoutDefaults.sectionInsets)
-        configureBluePrintLayout()
+        if currentConfiguration != configuration {
+            currentConfiguration = configuration
+            self.itemsPerRow = (configuration.itemsPerRow) ?? (Constants.ExampleLayoutDefaults.itemsPerRow)
+            self.itemsPerColumn = (configuration.itemsPerCollumn) ?? (Constants.ExampleLayoutDefaults.itemsPerColumn)
+            self.minimumInteritemSpacing = (configuration.minimumInteritemSpacing) ?? (Constants.ExampleLayoutDefaults.minimumInteritemSpacing)
+            self.minimumLineSpacing = (configuration.minimumLineSpacing) ?? (Constants.ExampleLayoutDefaults.minimumLineSpacing)
+            self.sectionInsets = (configuration.sectionInsets) ?? (Constants.ExampleLayoutDefaults.sectionInsets)
+            self.useDynamicHeight = (configuration.useDynamicHeight) ?? (Constants.ExampleLayoutDefaults.useDynamicHeight)
+            configureBluePrintLayout()
+        }
     }
 }

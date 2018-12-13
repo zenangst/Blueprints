@@ -13,7 +13,7 @@ extension LayoutExampleSceneViewController {
 
     func configureHorizontalLayout() {
         let horizontalBlueprintLayout = HorizontalBlueprintLayout(
-            itemsPerRow: itemsPerRow + 0.1,
+            itemsPerRow: itemsPerRow,
             itemsPerColumn: itemsPerColumn,
             itemSize: CGSize(width: 200,
                              height: 95),

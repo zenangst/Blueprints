@@ -54,6 +54,7 @@
 		832107EA21BFD4040032A439 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E921BFD4040032A439 /* CGFloatExtensions.swift */; };
 		832107EC21BFD49E0032A439 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107EB21BFD49E0032A439 /* IntExtensions.swift */; };
 		832107EE21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */; };
+		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
 		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
@@ -244,6 +245,7 @@
 		832107E921BFD4040032A439 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
 		832107EB21BFD49E0032A439 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		83B883FD21C259230074A461 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 		832107B921B97CCD0032A439 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				83B883FD21C259230074A461 /* ArrayExtensions.swift */,
 				832107BA21B97CE00032A439 /* CALayerExtensions.swift */,
 				832107E921BFD4040032A439 /* CGFloatExtensions.swift */,
 				832107E721BFCDB50032A439 /* DoubleExtensions.swift */,
@@ -1054,6 +1057,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				832107E121BEB25F0032A439 /* LayoutSettingsSceneViewController+Actions.swift in Sources */,
+				83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */,
 				8321077521B95B280032A439 /* AppDelegate.swift in Sources */,
 				832107EA21BFD4040032A439 /* CGFloatExtensions.swift in Sources */,
 				832107D221BE6A5B0032A439 /* LayoutSettingsScenePresenter.swift in Sources */,

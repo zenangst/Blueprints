@@ -78,5 +78,6 @@ extension LayoutExampleSceneRouter {
         destination.minimumInteritemSpacing = viewController?.minimumInteritemSpacing
         destination.minimumLineSpacing = viewController?.minimumLineSpacing
         destination.sectionInsets = viewController?.sectionInsets
+        destination.useDynamicHeight = viewController?.useDynamicHeight
     }
 }

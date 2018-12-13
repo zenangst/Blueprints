@@ -39,7 +39,8 @@ extension LayoutSettingsScenePresenter {
                                                                              topSectionInset: topSectionInset,
                                                                              leftSectionInset: leftSectionInset,
                                                                              bottomSectionInset: bottomSectionInset,
-                                                                             rightSectionInset: rightSectionInset)
+                                                                             rightSectionInset: rightSectionInset,
+                                                                             dynamicCellHeightEnabled: layoutConfiguration.useDynamicHeight)
 
         viewController?.presentLayoutConfiguration(viewModel: viewModel)
     }

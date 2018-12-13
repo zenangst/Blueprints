@@ -26,6 +26,7 @@ enum LayoutSettingsScene {
             var leftSectionInset: String?
             var bottomSectionInset: String?
             var rightSectionInset: String?
+            var dynamicCellHeightEnabled: Bool?
         }
     }
 }

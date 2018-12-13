@@ -31,6 +31,7 @@ class LayoutSettingsSceneViewController: UIViewController, LayoutSettingsSceneDi
     @IBOutlet weak var leftSectionInsetStepper: UIStepper!
     @IBOutlet weak var bottomSectionInsetStepper: UIStepper!
     @IBOutlet weak var rightSectionInsetStepper: UIStepper!
+    @IBOutlet weak var dynamicCellHeightEnabledSwitch: UISwitch!
     @IBOutlet weak var mainScrollViewBottomConstraint: NSLayoutConstraint!
 
     var interactor: LayoutSettingsSceneBusinessLogic?
@@ -103,6 +104,7 @@ extension LayoutSettingsSceneViewController {
     func presentLayoutConfiguration(viewModel: LayoutSettingsScene.GetLayoutConfiguration.ViewModel) {
         setTextFieldValues(viewModel: viewModel)
         setStepperValues(viewModel: viewModel)
+        setSwitchValues(viewModel: viewModel)
     }
 }
 
@@ -117,12 +119,14 @@ private extension LayoutSettingsSceneViewController {
                                          left: leftSectionInsetTextField.text,
                                          bottom: bottomSectionInsetTextField.text,
                                          right: rightSectionInsetTextField.text)
+        let useDynamicHeight = dynamicCellHeightEnabledSwitch.isOn
 
         let layoutConfiguration = LayoutConfiguration(itemsPerRow: itemsPerRow,
                                                       itemsPerCollumn: itemsPerCollumn,
                                                       minimumInteritemSpacing: minimumInteritemSpacing,
                                                       minimumLineSpacing: minimumLineSpacing,
-                                                      sectionInsets: sectionInsets)
+                                                      sectionInsets: sectionInsets,
+                                                      useDynamicHeight: useDynamicHeight)
 
         layoutConfigurationDelegate?
             .configurationUpdated(configuration: layoutConfiguration)
@@ -148,6 +152,10 @@ private extension LayoutSettingsSceneViewController {
         setLeftSectionInsetStepperValue(value: viewModel.leftSectionInset)
         setBottomSectionInsetStepperValue(value: viewModel.bottomSectionInset)
         setRightSectionInsetStepperValue(value: viewModel.rightSectionInset)
+    }
+
+    func setSwitchValues(viewModel: LayoutSettingsScene.GetLayoutConfiguration.ViewModel) {
+        dynamicCellHeightEnabledSwitch.isOn = (viewModel.dynamicCellHeightEnabled) ?? (false)
     }
 
     func setItemsPerRowStepperValue(value: String?) {

@@ -56,8 +56,6 @@ extension LayoutExampleSceneViewController {
 
     func configureCollectionView() {
         layoutExampleCollectionView.dataSource = self
-        // TODO: - Add switch to enable or disable the behaviour
-        layoutExampleCollectionView.delegate = self
         registerCollectionViewCells()
     }
 
@@ -78,6 +76,7 @@ extension LayoutExampleSceneViewController {
 extension LayoutExampleSceneViewController {
 
     func configureBluePrintLayout() {
+        configureDynamicHeight()
         switch activeLayout {
         case .vertical:
             configureVerticalLayout()
@@ -87,6 +86,15 @@ extension LayoutExampleSceneViewController {
             configureMosaicLayout()
         case .waterfall:
             configureWaterFallLayout()
+        }
+    }
+
+    private func configureDynamicHeight() {
+        dynamicCellSizeCache = [[]]
+        if useDynamicHeight {
+            layoutExampleCollectionView.delegate = self
+        } else {
+            layoutExampleCollectionView.delegate = nil
         }
     }
 }

@@ -31,6 +31,7 @@ struct Constants {
                                                        left: 10,
                                                        bottom: 10,
                                                        right: 10)
+        static let useDynamicHeight = false
     }
 }
 

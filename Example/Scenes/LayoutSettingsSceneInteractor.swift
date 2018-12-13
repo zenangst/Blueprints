@@ -20,6 +20,7 @@ protocol LayoutSettingsSceneDataStore {
     var minimumInteritemSpacing: CGFloat? { get set }
     var minimumLineSpacing: CGFloat? { get set }
     var sectionInsets: UIEdgeInsets? { get set }
+    var useDynamicHeight: Bool? { get set }
 }
 
 class LayoutSettingsSceneInteractor: LayoutSettingsSceneBusinessLogic, LayoutSettingsSceneDataStore {
@@ -30,6 +31,7 @@ class LayoutSettingsSceneInteractor: LayoutSettingsSceneBusinessLogic, LayoutSet
     var minimumInteritemSpacing: CGFloat?
     var minimumLineSpacing: CGFloat?
     var sectionInsets: UIEdgeInsets?
+    var useDynamicHeight: Bool?
 }
 
 extension LayoutSettingsSceneInteractor {
@@ -40,7 +42,8 @@ extension LayoutSettingsSceneInteractor {
             itemsPerCollumn: self.itemsPerCollumn,
             minimumInteritemSpacing: self.minimumInteritemSpacing,
             minimumLineSpacing: self.minimumLineSpacing,
-            sectionInsets: self.sectionInsets)
+            sectionInsets: self.sectionInsets,
+            useDynamicHeight: self.useDynamicHeight)
 
         let response = LayoutSettingsScene
             .GetLayoutConfiguration

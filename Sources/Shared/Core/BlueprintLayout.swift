@@ -190,7 +190,7 @@
   }
 
   func indexPathIsOutOfBounds(_ indexPath: IndexPath, for cache: [[LayoutAttributes]]) -> Bool {
-    return !(cache.count > 0 && indexPath.section < cache.count)
+    return !(indexPath.count > 0 && cache.count > 0 && indexPath.section < cache.count)
   }
 
   // MARK: - Overrides

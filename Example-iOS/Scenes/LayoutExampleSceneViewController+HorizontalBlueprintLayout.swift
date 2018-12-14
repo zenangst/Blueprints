@@ -16,16 +16,22 @@ extension LayoutExampleSceneViewController {
             stickyFooters: true
         )
 
-        let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
+        // TODO: - Investigate the horizontal layout does not invalidate the the layout attributes
+        /*let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
         horizontalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
-        horizontalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
+        horizontalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize*/
 
         UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.layoutExampleCollectionView.collectionViewLayout = horizontalBlueprintLayout
-            self?.layoutExampleCollectionView.contentOffset.x = 0
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-            self?.navigationController?.navigationBar.sizeToFit()
+            // TODO: - Remove, testing implementation
+            self?.layoutExampleCollectionView.collectionViewLayout.invalidateLayout()
+            self?.layoutExampleCollectionView.setCollectionViewLayout(horizontalBlueprintLayout, animated: true)
+            // END
+
+            //self?.layoutExampleCollectionView.collectionViewLayout = horizontalBlueprintLayout
+            //self?.layoutExampleCollectionView.contentOffset.x = 0
+            //self?.view.setNeedsLayout()
+            //self?.view.layoutIfNeeded()
+            //self?.navigationController?.navigationBar.sizeToFit()
         }
     }
 }

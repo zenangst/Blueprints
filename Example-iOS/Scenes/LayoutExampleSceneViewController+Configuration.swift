@@ -50,6 +50,7 @@ extension LayoutExampleSceneViewController {
         layoutExampleCollectionView.dataSource = self
         registerCollectionViewCells()
         registerCollectionViewHeaders()
+        registerCollectionViewFooters()
     }
 
     private func registerCollectionViewCells() {
@@ -68,7 +69,7 @@ extension LayoutExampleSceneViewController {
     private func registerCollectionViewHeaders() {
         let titleCellIdentifier = Constants
             .CollectionViewCellIdentifiers
-            .titleHeader
+            .titleReusableView
             .rawValue
 
         let titleCellXib = UINib(nibName: titleCellIdentifier,
@@ -76,6 +77,20 @@ extension LayoutExampleSceneViewController {
 
         layoutExampleCollectionView?.register(titleCellXib,
                                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                              withReuseIdentifier: titleCellIdentifier)
+    }
+
+    private func registerCollectionViewFooters() {
+        let titleCellIdentifier = Constants
+            .CollectionViewCellIdentifiers
+            .titleReusableView
+            .rawValue
+
+        let titleCellXib = UINib(nibName: titleCellIdentifier,
+                                 bundle: nil)
+
+        layoutExampleCollectionView?.register(titleCellXib,
+                                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                               withReuseIdentifier: titleCellIdentifier)
     }
 }

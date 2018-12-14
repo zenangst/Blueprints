@@ -12,7 +12,7 @@ struct Constants {
 
     enum CollectionViewCellIdentifiers: String {
         case layoutExampleCell = "LayoutExampleCollectionViewCell"
-        case titleHeader = "TitleCollectionReusableView"
+        case titleReusableView = "TitleCollectionReusableView"
     }
 
     struct ExampleLayoutDefaults {

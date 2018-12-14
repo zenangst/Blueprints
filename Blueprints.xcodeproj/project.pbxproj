@@ -503,7 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				832107B821B97CB30032A439 /* CollectionViewCells */,
-				83B883FF21C2ACC30074A461 /* CollectionViewHeaders */,
+				83B883FF21C2ACC30074A461 /* CollectionViewReusableViews */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -554,13 +554,13 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		83B883FF21C2ACC30074A461 /* CollectionViewHeaders */ = {
+		83B883FF21C2ACC30074A461 /* CollectionViewReusableViews */ = {
 			isa = PBXGroup;
 			children = (
 				83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */,
 				83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */,
 			);
-			name = CollectionViewHeaders;
+			name = CollectionViewReusableViews;
 			sourceTree = "<group>";
 		};
 		BDA31AFD20D41AD0001E4870 /* Core */ = {

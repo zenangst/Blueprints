@@ -15,8 +15,9 @@ extension LayoutExampleSceneViewController {
             stickyFooters: true
         )
 
-        verticalBlueprintLayout.headerReferenceSize = CGSize(width: view.bounds.width,
-                                                             height: 61)
+        let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
+        verticalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
+        verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
 
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout

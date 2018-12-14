@@ -23,7 +23,9 @@ extension LayoutExampleSceneViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            return titleCollectionReusableView(forItemAt: indexPath)
+            return headerTitleCollectionReusableView(forItemAt: indexPath)
+        case UICollectionView.elementKindSectionFooter:
+            return footerTitleCollectionReusableView(forItemAt: indexPath)
         default:
             return UICollectionReusableView()
         }
@@ -43,10 +45,10 @@ extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
 
 private extension LayoutExampleSceneViewController {
 
-    func titleCollectionReusableView(forItemAt indexPath: IndexPath) -> TitleCollectionReusableView {
+    func headerTitleCollectionReusableView(forItemAt indexPath: IndexPath) -> TitleCollectionReusableView {
         let titleCellIdentifier = Constants
             .CollectionViewCellIdentifiers
-            .titleHeader
+            .titleReusableView
             .rawValue
         guard let titleCollectionReusableView = layoutExampleCollectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
@@ -54,7 +56,23 @@ private extension LayoutExampleSceneViewController {
             for: indexPath) as? TitleCollectionReusableView else {
                 fatalError("Failed to dequeue UICollectionReusableView for indexPath: \(indexPath)")
         }
-        let title = (exampleDataSource?[indexPath.section].title) ?? ("Title")
+        let title = "\((exampleDataSource?[indexPath.section].title) ?? ("Section")) Header"
+        titleCollectionReusableView.configure(withTitle: title)
+        return titleCollectionReusableView
+    }
+
+    func footerTitleCollectionReusableView(forItemAt indexPath: IndexPath) -> TitleCollectionReusableView {
+        let titleCellIdentifier = Constants
+            .CollectionViewCellIdentifiers
+            .titleReusableView
+            .rawValue
+        guard let titleCollectionReusableView = layoutExampleCollectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: titleCellIdentifier,
+            for: indexPath) as? TitleCollectionReusableView else {
+                fatalError("Failed to dequeue UICollectionReusableView for indexPath: \(indexPath)")
+        }
+        let title = "\((exampleDataSource?[indexPath.section].title) ?? ("Section")) Footer"
         titleCollectionReusableView.configure(withTitle: title)
         return titleCollectionReusableView
     }

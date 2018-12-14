@@ -13,7 +13,7 @@
         <!--Layout Settings Scene View Controller-->
         <scene sceneID="HA1-q8-awY">
             <objects>
-                <viewController id="MHz-t7-7Uv" customClass="LayoutSettingsSceneViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MHz-t7-7Uv" customClass="LayoutSettingsSceneViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1WY-fb-Eh0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

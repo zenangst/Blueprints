@@ -1,5 +1,6 @@
 import XCTest
 import Blueprints
+import UIKit
 
 class VerticalBlueprintLayoutTests: XCTestCase {
   let dataSource = MockDataSource(numberOfItems: 10)

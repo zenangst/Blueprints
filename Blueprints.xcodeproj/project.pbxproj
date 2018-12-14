@@ -55,6 +55,8 @@
 		832107EC21BFD49E0032A439 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107EB21BFD49E0032A439 /* IntExtensions.swift */; };
 		832107EE21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */; };
 		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
+		83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */; };
+		83B8840321C2ACF20074A461 /* TitleCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */; };
 		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
@@ -160,6 +162,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		83CDDC3421C3A47300EA28BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5B2E8961C3A780C00C0327D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5B2E89E1C3A780C00C0327D;
+			remoteInfo = "Blueprints-iOS";
+		};
 		D284B1061F79038B00D94AF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D5B2E8961C3A780C00C0327D /* Project object */;
@@ -246,6 +255,8 @@
 		832107EB21BFD49E0032A439 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		83B883FD21C259230074A461 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
+		83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionReusableView.xib; sourceTree = "<group>"; };
 		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -494,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				832107B821B97CB30032A439 /* CollectionViewCells */,
+				83B883FF21C2ACC30074A461 /* CollectionViewHeaders */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -543,6 +555,15 @@
 				832107E321BFBDE50032A439 /* LayoutConfigurationDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		83B883FF21C2ACC30074A461 /* CollectionViewHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */,
+				83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */,
+			);
+			name = CollectionViewHeaders;
 			sourceTree = "<group>";
 		};
 		BDA31AFD20D41AD0001E4870 /* Core */ = {
@@ -780,6 +801,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				83CDDC3521C3A47300EA28BF /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -993,6 +1015,7 @@
 				832107B721B97CAC0032A439 /* LayoutExampleCollectionViewCell.xib in Resources */,
 				832107D921BE77E80032A439 /* LayoutSettings.storyboard in Resources */,
 				832107AA21B976860032A439 /* LayoutExample.storyboard in Resources */,
+				83B8840321C2ACF20074A461 /* TitleCollectionReusableView.xib in Resources */,
 				8321077C21B95B290032A439 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1076,6 +1099,7 @@
 				8321078C21B95E8B0032A439 /* MainNavigationController.swift in Sources */,
 				8321079821B95FB10032A439 /* LayoutExampleSceneModels.swift in Sources */,
 				832107AE21B9791A0032A439 /* BlueprintLayout.swift in Sources */,
+				83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */,
 				832107C821BE696C0032A439 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */,
 				8321079921B95FB10032A439 /* LayoutExampleSceneViewController.swift in Sources */,
 				832107CA21BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */,
@@ -1248,6 +1272,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		83CDDC3521C3A47300EA28BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D5B2E89E1C3A780C00C0327D /* Blueprints-iOS */;
+			targetProxy = 83CDDC3421C3A47300EA28BF /* PBXContainerItemProxy */;
+		};
 		D284B1071F79038B00D94AF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D284B0FB1F79038B00D94AF3 /* Blueprints-tvOS */;

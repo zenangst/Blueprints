@@ -20,6 +20,7 @@ extension LayoutExampleSceneViewController {
             minimumLineSpacing: minimumLineSpacing,
             sectionInset: sectionInsets
         )
+
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.layoutExampleCollectionView.collectionViewLayout = waterfallBlueprintLayout
             self?.view.setNeedsLayout()

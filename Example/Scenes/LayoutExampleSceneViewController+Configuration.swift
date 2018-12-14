@@ -57,6 +57,7 @@ extension LayoutExampleSceneViewController {
     func configureCollectionView() {
         layoutExampleCollectionView.dataSource = self
         registerCollectionViewCells()
+        registerCollectionViewHeaders()
     }
 
     private func registerCollectionViewCells() {
@@ -70,6 +71,20 @@ extension LayoutExampleSceneViewController {
 
         layoutExampleCollectionView.register(layoutExampleCellXib,
                                              forCellWithReuseIdentifier: layoutExampleCellIdentifier)
+    }
+
+    private func registerCollectionViewHeaders() {
+        let titleCellIdentifier = Constants
+            .CollectionViewCellIdentifiers
+            .titleHeader
+            .rawValue
+
+        let titleCellXib = UINib(nibName: titleCellIdentifier,
+                                 bundle: nil)
+
+        layoutExampleCollectionView?.register(titleCellXib,
+                                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                              withReuseIdentifier: titleCellIdentifier)
     }
 }
 

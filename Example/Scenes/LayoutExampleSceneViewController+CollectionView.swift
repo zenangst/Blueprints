@@ -27,6 +27,15 @@ extension LayoutExampleSceneViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return layoutExampleCell(forItemAt: indexPath)
     }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return titleCollectionReusableView(forItemAt: indexPath)
+        default:
+            return UICollectionReusableView()
+        }
+    }
 }
 
 extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
@@ -42,13 +51,31 @@ extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
 
 private extension LayoutExampleSceneViewController {
 
+    func titleCollectionReusableView(forItemAt indexPath: IndexPath) -> TitleCollectionReusableView {
+        let titleCellIdentifier = Constants
+            .CollectionViewCellIdentifiers
+            .titleHeader
+            .rawValue
+        guard let titleCollectionReusableView = layoutExampleCollectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: titleCellIdentifier,
+            for: indexPath) as? TitleCollectionReusableView else {
+                fatalError("Failed to dequeue UICollectionReusableView for indexPath: \(indexPath)")
+        }
+        let title = (exampleDataSource?[indexPath.section].title) ?? ("Title")
+        titleCollectionReusableView.configure(withTitle: title)
+        return titleCollectionReusableView
+    }
+
     func layoutExampleCell(forItemAt indexPath: IndexPath) -> LayoutExampleCollectionViewCell {
         let layoutExampleCellIdentifier = Constants
             .CollectionViewCellIdentifiers
             .layoutExampleCell
             .rawValue
-        guard let layoutExampleCell = layoutExampleCollectionView.dequeueReusableCell(withReuseIdentifier: layoutExampleCellIdentifier, for: indexPath) as? LayoutExampleCollectionViewCell else {
-            fatalError("Failed to dequeue cell at indexPath: \(indexPath)")
+        guard let layoutExampleCell = layoutExampleCollectionView.dequeueReusableCell(
+            withReuseIdentifier: layoutExampleCellIdentifier,
+            for: indexPath) as? LayoutExampleCollectionViewCell else {
+                fatalError("Failed to dequeue cell at indexPath: \(indexPath)")
         }
         layoutExampleCell.configure(forExampleContent: exampleDataSource?[indexPath.section].contents?[indexPath.row])
         return layoutExampleCell

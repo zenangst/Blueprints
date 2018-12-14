@@ -206,7 +206,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8321077221B95B270032A439 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8321077221B95B270032A439 /* Example-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8321077421B95B280032A439 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8321077B21B95B290032A439 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8321077E21B95B290032A439 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -381,7 +381,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8321077321B95B280032A439 /* Example */ = {
+		8321077321B95B280032A439 /* Example-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				8321078521B95D450032A439 /* Common */,
@@ -391,7 +391,7 @@
 				8321078821B95E4D0032A439 /* RootViewController.swift */,
 				8321077D21B95B290032A439 /* LaunchScreen.storyboard */,
 			);
-			path = Example;
+			path = "Example-iOS";
 			sourceTree = "<group>";
 		};
 		8321078421B95B300032A439 /* Resources */ = {
@@ -690,7 +690,7 @@
 				D284B13F1F79081F00D94AF3 /* Info */,
 				D5C629691C3A809D007F7B7C /* Sources */,
 				D5C6298F1C3A8BDA007F7B7C /* Tests */,
-				8321077321B95B280032A439 /* Example */,
+				8321077321B95B280032A439 /* Example-iOS */,
 				D5B2E8A01C3A780C00C0327D /* Products */,
 				832107B021B97B600032A439 /* Frameworks */,
 			);
@@ -706,7 +706,7 @@
 				D284B0FC1F79038B00D94AF3 /* Blueprints.framework */,
 				D284B1041F79038B00D94AF3 /* Blueprints-tvOS-Tests.xctest */,
 				D284B1181F79039F00D94AF3 /* Blueprints.framework */,
-				8321077221B95B270032A439 /* Example.app */,
+				8321077221B95B270032A439 /* Example-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -786,9 +786,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8321077121B95B270032A439 /* Example */ = {
+		8321077121B95B270032A439 /* Example-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8321078321B95B290032A439 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildConfigurationList = 8321078321B95B290032A439 /* Build configuration list for PBXNativeTarget "Example-iOS" */;
 			buildPhases = (
 				8321076E21B95B270032A439 /* Sources */,
 				8321076F21B95B270032A439 /* Frameworks */,
@@ -800,9 +800,9 @@
 			dependencies = (
 				83CDDC3521C3A47300EA28BF /* PBXTargetDependency */,
 			);
-			name = Example;
+			name = "Example-iOS";
 			productName = Example;
-			productReference = 8321077221B95B270032A439 /* Example.app */;
+			productReference = 8321077221B95B270032A439 /* Example-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D284B0FB1F79038B00D94AF3 /* Blueprints-tvOS */ = {
@@ -998,7 +998,7 @@
 				D284B0FB1F79038B00D94AF3 /* Blueprints-tvOS */,
 				D284B1031F79038B00D94AF3 /* Blueprints-tvOS-Tests */,
 				D284B1171F79039F00D94AF3 /* Blueprints-watchOS */,
-				8321077121B95B270032A439 /* Example */,
+				8321077121B95B270032A439 /* Example-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1316,7 +1316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4D55M5QGM5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Example/Resources/Info.plist;
+				INFOPLIST_FILE = "Example-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1343,7 +1343,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4D55M5QGM5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Example/Resources/Info.plist;
+				INFOPLIST_FILE = "Example-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
@@ -1795,7 +1795,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8321078321B95B290032A439 /* Build configuration list for PBXNativeTarget "Example" */ = {
+		8321078321B95B290032A439 /* Build configuration list for PBXNativeTarget "Example-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8321078121B95B290032A439 /* Debug */,

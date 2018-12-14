@@ -1,11 +1,3 @@
-//
-//  RootViewController.swift
-//  Example
-//
-//  Created by Chris on 06/12/2018.
-//  Copyright © 2018 Christoffer Winterkvist. All rights reserved.
-//
-
 import UIKit
 
 class RootViewController: UIViewController {
@@ -13,7 +5,8 @@ class RootViewController: UIViewController {
     private var current: UIViewController
 
     var initialController: UIViewController = {
-        let dataSourceExampleSceneViewController = UIStoryboard(name: Constants.StoryboardIdentifiers.layoutExampleScene.rawValue, bundle: nil).instantiateInitialViewController()!
+        let dataSourceExampleSceneViewController = UIStoryboard(name: Constants.StoryboardIdentifiers.layoutExampleScene.rawValue,
+                                                                bundle: nil).instantiateInitialViewController()!
         return dataSourceExampleSceneViewController
     }()
 

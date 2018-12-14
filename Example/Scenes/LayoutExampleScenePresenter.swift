@@ -1,11 +1,3 @@
-//
-//  LayoutExampleScenePresenter.swift
-//  Blueprints
-//
-//  Created by Chris on 06/12/2018.
-//  Copyright (c) 2018 Christoffer Winterkvist. All rights reserved.
-//
-
 protocol LayoutExampleScenePresentationLogic {
 
     func presentExampleData(response: LayoutExampleScene.GetExampleData.Response)

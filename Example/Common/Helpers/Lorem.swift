@@ -1,10 +1,3 @@
-//
-//  Lorem.swift
-//  Example
-//
-//  Created by Chris on 06/12/2018.
-//  Copyright © 2018 Christoffer Winterkvist. All rights reserved.
-//
 // Taken from -> https://github.com/lukaskubanek/LoremSwiftum
 
 import Foundation

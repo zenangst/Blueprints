@@ -1,11 +1,3 @@
-//
-//  LayoutSettingsSceneRouter.swift
-//  Blueprints
-//
-//  Created by Chris on 10/12/2018.
-//  Copyright (c) 2018 Christoffer Winterkvist. All rights reserved.
-//
-
 import UIKit
 
 @objc protocol LayoutSettingsSceneRoutingLogic {
@@ -30,14 +22,4 @@ class LayoutSettingsSceneRouter: RouterProtocol, LayoutSettingsSceneRoutingLogic
 
     weak var viewController: ViewControllerType?
     var dataStore: LayoutSettingsSceneDataStore?
-}
-
-// MARK: - Navigation
-extension LayoutSettingsSceneRouter {
-
-}
-
-// MARK: - Passing data
-extension LayoutSettingsSceneRouter {
-
 }

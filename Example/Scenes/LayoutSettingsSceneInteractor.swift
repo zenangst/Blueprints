@@ -1,11 +1,3 @@
-//
-//  LayoutSettingsSceneInteractor.swift
-//  Blueprints
-//
-//  Created by Chris on 10/12/2018.
-//  Copyright (c) 2018 Christoffer Winterkvist. All rights reserved.
-//
-
 import UIKit
 
 protocol LayoutSettingsSceneBusinessLogic {
@@ -15,8 +7,8 @@ protocol LayoutSettingsSceneBusinessLogic {
 
 protocol LayoutSettingsSceneDataStore {
 
-    var itemsPerRow: CGFloat? { get set } // MARK: - Excludes Mosaic
-    var itemsPerCollumn: Int? { get set } // MARK: - Horizontal Only
+    var itemsPerRow: CGFloat? { get set }
+    var itemsPerCollumn: Int? { get set }
     var minimumInteritemSpacing: CGFloat? { get set }
     var minimumLineSpacing: CGFloat? { get set }
     var sectionInsets: UIEdgeInsets? { get set }
@@ -25,7 +17,6 @@ protocol LayoutSettingsSceneDataStore {
 
 class LayoutSettingsSceneInteractor: LayoutSettingsSceneBusinessLogic, LayoutSettingsSceneDataStore {
     var presenter: LayoutSettingsScenePresentationLogic?
-    var worker: LayoutSettingsSceneWorker?
     var itemsPerRow: CGFloat?
     var itemsPerCollumn: Int?
     var minimumInteritemSpacing: CGFloat?

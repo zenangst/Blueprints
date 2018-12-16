@@ -12,7 +12,7 @@ extension BlueprintLayout {
     switch elementKind {
     case NSCollectionView.elementKindSectionHeader:
       layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first
-    case NSCollectionView.elementKindSectionHeader:
+    case NSCollectionView.elementKindSectionFooter:
       layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
     default:
       return nil

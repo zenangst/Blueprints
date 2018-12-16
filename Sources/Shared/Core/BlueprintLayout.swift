@@ -193,6 +193,13 @@
     return !(indexPath.count > 0 && cache.count > 0 && indexPath.section < cache.count)
   }
 
+  func indexOffsetForSectionHeaders() -> CGFloat {
+    if headerReferenceSize.height > 0 {
+      return 1
+    }
+    return 0
+  }
+
   // MARK: - Overrides
 
   /// Tells the layout object to update the current layout.

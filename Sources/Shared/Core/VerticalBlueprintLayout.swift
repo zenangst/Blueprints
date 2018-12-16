@@ -106,7 +106,7 @@
             itemsPerRow > 1,
             item > Int(itemsPerRow) - 1,
             Int(itemsPerRow) - 1 < layoutAttributes[section].count {
-            let previousXOffset = item - Int(itemsPerRow)
+            let previousXOffset = item - Int(itemsPerRow - indexOffsetForSectionHeaders())
             let lookupAttribute = layoutAttributes[section][previousXOffset]
             maxY = lookupAttribute.frame.maxY
             minY = lookupAttribute.frame.maxY + minimumLineSpacing

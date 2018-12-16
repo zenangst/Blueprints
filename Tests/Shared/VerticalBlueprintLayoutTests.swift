@@ -1,6 +1,5 @@
 import XCTest
 import Blueprints
-import UIKit
 
 class VerticalBlueprintLayoutTests: XCTestCase {
   let dataSource = MockDataSource(numberOfItems: 10)
@@ -71,7 +70,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertEqual(verticalLayout.cachedAttributes[0].count, 11)
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 60), size: expectedCellSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 120), size: expectedCellSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 180), size: expectedCellSize))
@@ -128,7 +127,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertEqual(verticalLayout.cachedAttributes[0].count, 11)
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 60), size: expectedCellSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 105, y: 60), size: expectedCellSize))
@@ -189,7 +188,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertEqual(verticalLayout.cachedAttributes[0].count, 11)
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 60), size: expectedCellSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 73, y: 60), size: expectedCellSize))
@@ -248,7 +247,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertEqual(verticalLayout.cachedAttributes[0].count, 11)
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 60), size: expectedCellSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 57, y: 60), size: expectedCellSize))
@@ -279,7 +278,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertEqual(verticalLayout.cachedAttributes[0].count, 12)
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderAndFooterSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderAndFooterSize))
 
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 110), size: expectedCellSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 70, y: 110), size: expectedCellSize))
@@ -293,7 +292,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 290), size: expectedCellSize))
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 350), size: expectedHeaderAndFooterSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 350), size: expectedHeaderAndFooterSize))
 
     XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 450))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)

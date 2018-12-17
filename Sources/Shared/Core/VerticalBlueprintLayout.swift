@@ -172,7 +172,7 @@
           }
         }
 
-        contentSize.height = previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom
+        contentSize.height = sectionMaxY - headerReferenceSize.height + sectionInset.bottom
       }
 
       previousItem = nil

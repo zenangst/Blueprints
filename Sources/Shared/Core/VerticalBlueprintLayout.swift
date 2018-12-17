@@ -140,7 +140,7 @@
           let layoutAttribute = createSupplementaryLayoutAttribute(
             ofKind: .footer,
             indexPath: sectionIndexPath,
-            atY: nextY + sectionInset.bottom
+            atY: sectionMaxY + sectionInset.bottom
           )
           layoutAttributes[section].append(layoutAttribute)
           nextY = layoutAttribute.frame.maxY

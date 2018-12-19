@@ -35,21 +35,38 @@ public class BinarySearch {
   }
 
   public func findElements(in collection: [LayoutAttributes],
-                              less: (LayoutAttributes) -> Bool,
-                              match: (LayoutAttributes) -> Bool) -> [LayoutAttributes]? {
+                           padding: Int = 0,
+                           less: (LayoutAttributes) -> Bool,
+                           match: (LayoutAttributes) -> Bool) -> [LayoutAttributes]? {
     guard let firstMatchIndex = binarySearch(collection, less: less, match: match) else {
       return nil
     }
 
     var results = [LayoutAttributes]()
+    var counter = padding
 
     for element in collection[..<firstMatchIndex].reversed() {
-      guard match(element) else { break }
+      if !match(element) {
+        if padding > 1 {
+          counter -= 1
+          if counter == 0 { break }
+        } else {
+          break
+        }
+      }
       results.append(element)
     }
 
+    counter = padding
     for element in collection[firstMatchIndex...] {
-      guard match(element) else { break }
+      if !match(element) {
+        if padding > 1 {
+          counter -= 1
+          if counter == 0 { break }
+        } else {
+          break
+        }
+      }
       results.append(element)
     }
 

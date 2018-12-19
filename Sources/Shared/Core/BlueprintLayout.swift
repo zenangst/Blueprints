@@ -287,9 +287,10 @@
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
     let closure: (LayoutAttributes) -> Bool = scrollDirection == .horizontal
-      ? { rect.maxX > $0.frame.minX }
-      : { rect.maxY > $0.frame.minY }
+      ? { rect.maxX >= $0.frame.minX }
+      : { rect.maxY >= $0.frame.minY }
     let result = binarySearch.findElements(in: allCachedAttributes,
+                                           padding: Int(itemsPerRow ?? 0),
                                            less: { closure($0) },
                                            match: { $0.frame.intersects(rect) })
     return result ?? allCachedAttributes.filter { $0.frame.intersects(rect) }

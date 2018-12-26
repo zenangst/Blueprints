@@ -8,8 +8,7 @@
   private let controller: MosaicBlueprintPatternController
 
   @objc public required init(
-    itemSize: CGSize = CGSize(width: 50, height: 50),
-    estimatedItemSize: CGSize = .zero,
+    patternHeight: CGFloat = 50,
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
@@ -19,8 +18,8 @@
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
     super.init(
       itemsPerRow: 0.0,
-      itemSize: itemSize,
-      estimatedItemSize: estimatedItemSize,
+      itemSize: .init(width: 50, height: patternHeight),
+      estimatedItemSize: .zero,
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,

@@ -84,7 +84,7 @@ let collectionView = UICollectionView(frame: .zero,
 ### Mosaic layout
 ```swift
 let mosaicLayout = VerticalMosaicBlueprintLayout(
-  itemSize: CGSize.init(width: 50, height: 400),
+  patternHeight: 400,
   minimumInteritemSpacing: 2,
   minimumLineSpacing: 2,
   sectionInset: EdgeInsets(top: 2, left: 2, bottom: 2, right: 2),

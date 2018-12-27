@@ -54,13 +54,12 @@
 
 - (void)testMosaicBluePrintLayout {
 
-  VerticalMosaicBlueprintLayout *layout = [[VerticalMosaicBlueprintLayout alloc] initWithItemSize:CGSizeMake(50, 50)
-                                                                                estimatedItemSize:CGSizeZero
-                                                                          minimumInteritemSpacing:20.0
-                                                                               minimumLineSpacing:50.0
-                                                                                     sectionInset:UIEdgeInsetsMake(20, 20, 20, 20)
-                                                                                         animator:nil
-                                                                                         patterns:@[]];
+  VerticalMosaicBlueprintLayout *layout = [[VerticalMosaicBlueprintLayout alloc] initWithPatternHeight:50
+                                                                               minimumInteritemSpacing:20.0
+                                                                                    minimumLineSpacing:50.0
+                                                                                          sectionInset:UIEdgeInsetsMake(20, 20, 20, 20)
+                                                                                              animator:nil
+                                                                                              patterns:@[]];
   XCTAssertEqual(layout.minimumInteritemSpacing, 20);
   XCTAssertEqual(layout.minimumLineSpacing, 50);
 }

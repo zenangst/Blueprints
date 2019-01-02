@@ -165,6 +165,8 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
   }
 
   func testHorizontalLayoutAttributesWithHeaderAndFooter() {
+    horizontalLayout.stickyHeaders = false
+    horizontalLayout.stickyFooters = false
     horizontalLayout.headerReferenceSize = CGSize(width: 100, height: 100)
     horizontalLayout.footerReferenceSize = CGSize(width: 100, height: 100)
     horizontalLayout.prepare()
@@ -202,7 +204,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     horizontalLayout.prepare()
 
     let expectedCellSize: CGSize = .init(width: 50, height: 50)
-    let expectedHeaderAndFooterSize: CGSize = .init(width: 690, height: 100)
+    let expectedHeaderAndFooterSize: CGSize = .init(width: 200, height: 100)
 
     XCTAssertEqual(horizontalLayout.cachedAttributes[0].count, 12)
 

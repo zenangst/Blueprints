@@ -125,7 +125,6 @@
 
       if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
-        headerAttribute?.frame.size.width = widthOfSection
 
         if footerReferenceSize.height > 0 {
           let layoutAttribute = createSupplementaryLayoutAttribute(
@@ -137,7 +136,6 @@
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
-          footerAttribute?.frame.size.width = widthOfSection
         }
 
         if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
@@ -149,11 +147,15 @@
           if stickyHeaders {
             headerAttribute?.frame.origin.x = headerFooterX
             headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          } else {
+            headerAttribute?.frame.size.width = widthOfSection
           }
 
           if stickyFooters {
             footerAttribute?.frame.origin.x = headerFooterX
             footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          } else {
+            footerAttribute?.frame.size.width = widthOfSection
           }
         }
 

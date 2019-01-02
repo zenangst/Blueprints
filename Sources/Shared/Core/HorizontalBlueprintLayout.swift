@@ -148,12 +148,12 @@
 
           if stickyHeaders {
             headerAttribute?.frame.origin.x = headerFooterX
-            headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+            headerAttribute?.frame.size.width = max(headerFooterWidth, widthOfSection)
           }
 
           if stickyFooters {
             footerAttribute?.frame.origin.x = headerFooterX
-            footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+            footerAttribute?.frame.size.width = max(headerFooterWidth, widthOfSection)
           }
         }
 

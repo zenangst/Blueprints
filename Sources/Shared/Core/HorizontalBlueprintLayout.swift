@@ -74,18 +74,18 @@
       var footerAttribute: LayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
+      if headerReferenceSize.height > 0 {
+        let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
+          ofKind: .header,
+          indexPath: sectionIndexPath,
+          atX: nextX
+        )
+
+        headerAttribute = layoutAttribute
+        layoutAttributes.append([layoutAttribute])
+      }
+
       for item in 0..<numberOfItemsInSection(section) {
-        if headerReferenceSize.height > 0 {
-          let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
-            ofKind: .header,
-            indexPath: sectionIndexPath,
-            atX: nextX
-          )
-
-          headerAttribute = layoutAttribute
-          layoutAttributes.append([layoutAttribute])
-        }
-
         let indexPath = IndexPath(item: item, section: section)
         let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
 
@@ -137,6 +137,7 @@
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
+          footerAttribute?.frame.size.width = widthOfSection
         }
 
         if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {

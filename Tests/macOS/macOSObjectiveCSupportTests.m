@@ -17,7 +17,7 @@
                                                                             sectionInset:NSEdgeInsetsMake(20, 20, 20, 20)
                                                                            stickyHeaders:true
                                                                            stickyFooters:true
-                                                                                  animator:nil];
+                                                                                  animator:[[DefaultLayoutAnimator alloc] initWithAnimation:BlueprintLayoutAnimationAutomatic]];
   XCTAssertEqual(layout.minimumInteritemSpacing, 20);
   XCTAssertEqual(layout.minimumLineSpacing, 50);
 }
@@ -32,7 +32,7 @@
                                                                                 sectionInset:NSEdgeInsetsMake(20, 20, 20, 20)
                                                                                stickyHeaders:true
                                                                                stickyFooters:true
-                                                                                    animator:nil];
+                                                                                    animator:[[DefaultLayoutAnimator alloc] initWithAnimation:BlueprintLayoutAnimationAutomatic] ];
   XCTAssertEqual(layout.minimumInteritemSpacing, 20);
   XCTAssertEqual(layout.minimumLineSpacing, 50);
 }

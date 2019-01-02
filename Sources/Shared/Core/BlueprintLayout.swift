@@ -213,6 +213,8 @@
       if let clipView = collectionView?.enclosingScrollView?.contentView {
         configureHeaderFooterWidth(clipView)
       }
+    #else
+      headerFooterWidth = collectionView?.frame.size.width
     #endif
   }
 

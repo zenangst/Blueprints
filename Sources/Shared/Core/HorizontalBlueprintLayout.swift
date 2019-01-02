@@ -74,18 +74,18 @@
       var footerAttribute: LayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
+      if headerReferenceSize.height > 0 {
+        let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
+          ofKind: .header,
+          indexPath: sectionIndexPath,
+          atX: nextX
+        )
+
+        headerAttribute = layoutAttribute
+        layoutAttributes.append([layoutAttribute])
+      }
+
       for item in 0..<numberOfItemsInSection(section) {
-        if headerReferenceSize.height > 0 {
-          let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
-            ofKind: .header,
-            indexPath: sectionIndexPath,
-            atX: nextX
-          )
-
-          headerAttribute = layoutAttribute
-          layoutAttributes.append([layoutAttribute])
-        }
-
         let indexPath = IndexPath(item: item, section: section)
         let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
 
@@ -125,7 +125,6 @@
 
       if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
-        headerAttribute?.frame.size.width = widthOfSection
 
         if footerReferenceSize.height > 0 {
           let layoutAttribute = createSupplementaryLayoutAttribute(
@@ -148,11 +147,15 @@
           if stickyHeaders {
             headerAttribute?.frame.origin.x = headerFooterX
             headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          } else {
+            headerAttribute?.frame.size.width = widthOfSection
           }
 
           if stickyFooters {
             footerAttribute?.frame.origin.x = headerFooterX
             footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+          } else {
+            footerAttribute?.frame.size.width = widthOfSection
           }
         }
 

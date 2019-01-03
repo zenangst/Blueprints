@@ -162,6 +162,7 @@
           )
 
           if stickyHeaders {
+            headerAttribute?.zIndex = numberOfSections
             headerAttribute?.frame.origin.y = headerFooterY
             headerAttribute?.frame.size.width = headerFooterWidth
           }
@@ -187,5 +188,92 @@
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
+  }
+}
+
+extension VerticalBlueprintLayout {
+
+  // TODO: - Performance investigation
+  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    return true
+  }
+
+  override open func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
+    if indexPathIsOutOfBounds(indexPath, for: cachedAttributes) {
+      return nil
+    }
+
+    let sectionAttributes = cachedAttributes[indexPath.section]
+    var layoutAttributesResult: LayoutAttributes? = nil
+
+    switch elementKind {
+    case CollectionView.collectionViewHeaderType:
+      if stickyHeaders {
+        layoutAttributesResult = adjustedLayoutAttributesForStickyHeader(layoutAttributes: sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first,
+                                                                         at: indexPath)
+      } else {
+        layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first
+      }
+    case CollectionView.collectionViewFooterType:
+      layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
+    default:
+      return nil
+    }
+
+    return layoutAttributesResult
+  }
+
+  private func adjustedLayoutAttributesForStickyHeader(layoutAttributes: LayoutAttributes?, at indexPath: IndexPath) -> LayoutAttributes? {
+    guard let layoutAttributes = layoutAttributes,
+      let collectionView = collectionView,
+      let boundaries = boundaries(forSection: indexPath.section) else {
+        return nil
+    }
+
+    let contentOffsetY = collectionView.contentOffset.y
+    var frameForSupplementaryHeaderView = layoutAttributes.frame
+    let minimum = boundaries.minimum - frameForSupplementaryHeaderView.height
+    let maximum = boundaries.maximum - frameForSupplementaryHeaderView.height
+
+    if contentOffsetY < minimum {
+      frameForSupplementaryHeaderView.origin.y = minimum
+    } else if contentOffsetY > maximum {
+      frameForSupplementaryHeaderView.origin.y = maximum
+    } else {
+      frameForSupplementaryHeaderView.origin.y = contentOffsetY
+    }
+
+    layoutAttributes.frame = frameForSupplementaryHeaderView
+
+    return layoutAttributes
+  }
+
+  // TODO: - Rename to boundariesForHorizontalLayout? move to parent as this will be reused in other layouts?
+  private func boundaries(forSection section: Int) -> (minimum: CGFloat, maximum: CGFloat)? {
+    var result = (minimum: CGFloat(0.0), maximum: CGFloat(0.0))
+    guard let collectionView = collectionView else {
+      return result
+    }
+
+    let numberOfItemsInSection = collectionView.numberOfItems(inSection: section)
+    guard numberOfItemsInSection > 0 else {
+      return result
+    }
+
+    let indexOffset = 1
+    let firstItemsIndexPath = IndexPath(item: 0, section: section)
+    let lastItemsIndexPath = IndexPath(item: numberOfItemsInSection - indexOffset, section: section)
+
+    if let firstItem = layoutAttributesForItem(at: firstItemsIndexPath),
+      let lastItem = layoutAttributesForItem(at: lastItemsIndexPath) {
+      result.minimum = firstItem.frame.minY
+      result.maximum = lastItem.frame.maxY
+      result.minimum -= headerReferenceSize.height
+      result.maximum -= headerReferenceSize.height
+      result.minimum -= sectionInset.top
+      result.maximum += (sectionInset.top + sectionInset.bottom)
+    }
+
+    return result
   }
 }

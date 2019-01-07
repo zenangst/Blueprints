@@ -60,6 +60,7 @@
     }
 
     var nextY: CGFloat = 0
+    var sectionMaxYs = [CGFloat]()
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else {
@@ -86,6 +87,7 @@
 
       nextY += sectionInset.top
       var sectionMaxY: CGFloat = 0
+      var totalOfSectionsMaxYs: CGFloat = 0
 
       for item in 0..<numberOfItemsInSection(section) {
         let indexPath = IndexPath(item: item, section: section)
@@ -134,6 +136,9 @@
         }
       }
 
+      // Append the current sectionMaxY to the array
+      sectionMaxYs.append(sectionMaxY)
+
       if let previousItem = previousItem, let firstItem = firstItem {
         nextY = previousItem.frame.maxY
         if footerReferenceSize.height > 0 {
@@ -168,12 +173,16 @@
             headerAttribute?.frame.size.width = headerFooterWidth
           }
 
-          // TODO: - Existing header logic will not work and will need to be re-worked.
           if stickyFooters {
-            let footerY = min(
-              max(collectionView.contentOffset.y + contentInsetTop,
-                  firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
-              previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom)
+            for section in 0..<numberOfSections {
+              guard sectionMaxYs.count > section else {
+                continue
+              }
+              totalOfSectionsMaxYs += sectionMaxYs[section]
+            }
+
+            let footerY = min(collectionView.contentOffset.y + collectionView.bounds.size.height - footerReferenceSize.height,
+                              max(previousItem.frame.maxY, totalOfSectionsMaxYs - sectionMaxY - collectionView.contentOffset.y))
 
             footerAttribute?.zIndex = numberOfSections
             footerAttribute?.frame.origin.y = footerY
@@ -190,6 +199,8 @@
       firstItem = nil
     }
 
+    sectionMaxYs = [CGFloat]()
+
     contentSize.width = threshold
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height
 
@@ -205,141 +216,4 @@ extension VerticalBlueprintLayout {
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
     return true
   }
-
-  /*override open func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
-    if indexPathIsOutOfBounds(indexPath, for: cachedAttributes) {
-      return nil
-    }
-
-    let sectionAttributes = cachedAttributes[indexPath.section]
-    var layoutAttributesResult: LayoutAttributes? = nil
-
-    switch elementKind {
-    case CollectionView.collectionViewHeaderType:
-      if stickyHeaders {
-        layoutAttributesResult = adjustedLayoutAttributesForStickyHeader(layoutAttributes: sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first,
-                                                                         at: indexPath)
-      } else {
-        layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first
-      }
-    case CollectionView.collectionViewFooterType:
-      if stickyFooters {
-        layoutAttributesResult = adjustedLayoutAttributesForStickyFooter(layoutAttributes: sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last,
-                                                                         at: indexPath)
-      } else {
-        layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
-      }
-    default:
-      return nil
-    }
-
-    return layoutAttributesResult
-  }
-
-  private func adjustedLayoutAttributesForStickyHeader(layoutAttributes: LayoutAttributes?, at indexPath: IndexPath) -> LayoutAttributes? {
-    guard let layoutAttributes = layoutAttributes,
-      let collectionView = collectionView,
-      let boundaries = boundaries(forSection: indexPath.section) else {
-        return nil
-    }
-
-    let contentOffsetY = collectionView.contentOffset.y
-    var frameForSupplementaryHeaderView = layoutAttributes.frame
-    let minimum = boundaries.minimum - frameForSupplementaryHeaderView.height
-    let maximum = boundaries.maximum - frameForSupplementaryHeaderView.height
-
-    if contentOffsetY < minimum {
-      frameForSupplementaryHeaderView.origin.y = minimum
-    } else if contentOffsetY > maximum {
-      frameForSupplementaryHeaderView.origin.y = maximum
-    } else {
-      frameForSupplementaryHeaderView.origin.y = contentOffsetY
-    }
-
-    layoutAttributes.frame = frameForSupplementaryHeaderView
-
-    return layoutAttributes
-  }
-
-  private func adjustedLayoutAttributesForStickyFooter(layoutAttributes: LayoutAttributes?, at indexPath: IndexPath) -> LayoutAttributes? {
-    guard let layoutAttributes = layoutAttributes,
-      let collectionView = collectionView,
-      let boundaries = footerBoundaries(forSection: indexPath.section) else {
-        return nil
-    }
-
-    let contentOffsetY = collectionView.contentOffset.y
-    var frameForSupplementaryHeaderView = layoutAttributes.frame
-    let minimum = boundaries.minimum - frameForSupplementaryHeaderView.height
-    let maximum = boundaries.maximum - frameForSupplementaryHeaderView.height
-
-    if contentOffsetY < minimum {
-      frameForSupplementaryHeaderView.origin.y = minimum
-    } else if contentOffsetY > maximum {
-      frameForSupplementaryHeaderView.origin.y = maximum
-    } else {
-      frameForSupplementaryHeaderView.origin.y = contentOffsetY
-    }
-
-    layoutAttributes.frame = frameForSupplementaryHeaderView
-
-    return layoutAttributes
-  }
-
-  // TODO: - Rename to boundariesForHorizontalLayout? move to parent as this will be reused in other layouts?
-  private func boundaries(forSection section: Int) -> (minimum: CGFloat, maximum: CGFloat)? {
-    var result = (minimum: CGFloat(0.0), maximum: CGFloat(0.0))
-    guard let collectionView = collectionView else {
-      return result
-    }
-
-    let numberOfItemsInSection = collectionView.numberOfItems(inSection: section)
-    guard numberOfItemsInSection > 0 else {
-      return result
-    }
-
-    let indexOffset = 1
-    let firstItemsIndexPath = IndexPath(item: 0, section: section)
-    let lastItemsIndexPath = IndexPath(item: numberOfItemsInSection - indexOffset, section: section)
-
-    if let firstItem = layoutAttributesForItem(at: firstItemsIndexPath),
-      let lastItem = layoutAttributesForItem(at: lastItemsIndexPath) {
-      result.minimum = firstItem.frame.minY
-      result.maximum = lastItem.frame.maxY
-      result.minimum -= headerReferenceSize.height
-      result.maximum -= headerReferenceSize.height
-      result.minimum -= sectionInset.top
-      result.maximum += (sectionInset.top + sectionInset.bottom)
-    }
-
-    return result
-  }
-
-  private func footerBoundaries(forSection section: Int) -> (minimum: CGFloat, maximum: CGFloat)? {
-    var result = (minimum: CGFloat(0.0), maximum: CGFloat(0.0))
-    guard let collectionView = collectionView else {
-      return result
-    }
-
-    let numberOfItemsInSection = collectionView.numberOfItems(inSection: section)
-    guard numberOfItemsInSection > 0 else {
-      return result
-    }
-
-    let indexOffset = 1
-    let firstItemsIndexPath = IndexPath(item: 0, section: section)
-    let lastItemsIndexPath = IndexPath(item: numberOfItemsInSection - indexOffset, section: section)
-
-    if let firstItem = layoutAttributesForItem(at: firstItemsIndexPath),
-      let lastItem = layoutAttributesForItem(at: lastItemsIndexPath) {
-      result.minimum = lastItem.frame.minY//firstItem.frame.minY
-      result.maximum = lastItem.frame.maxY//lastItem.frame.maxY
-      result.minimum -= headerReferenceSize.height
-      result.maximum -= headerReferenceSize.height
-      result.minimum -= sectionInset.top
-      result.maximum += (sectionInset.top + sectionInset.bottom)
-    }
-
-    return result
-  }*/
 }

@@ -143,6 +143,7 @@
             atY: sectionMaxY + sectionInset.bottom
           )
           layoutAttributes[section].append(layoutAttribute)
+          footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         }
 
@@ -156,19 +157,26 @@
             }
           #endif
 
-          let headerFooterY = min(
-            max(collectionView.contentOffset.y + contentInsetTop, firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
-            previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom
-          )
-
           if stickyHeaders {
+            let headerY = min(
+              max(collectionView.contentOffset.y + contentInsetTop,
+                  firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
+              previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom)
+
             headerAttribute?.zIndex = numberOfSections
-            headerAttribute?.frame.origin.y = headerFooterY
+            headerAttribute?.frame.origin.y = headerY
             headerAttribute?.frame.size.width = headerFooterWidth
           }
 
+          // TODO: - Existing header logic will not work and will need to be re-worked.
           if stickyFooters {
-            footerAttribute?.frame.origin.y = headerFooterY
+            let footerY = min(
+              max(collectionView.contentOffset.y + contentInsetTop,
+                  firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
+              previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom)
+
+            footerAttribute?.zIndex = numberOfSections
+            footerAttribute?.frame.origin.y = footerY
             footerAttribute?.frame.size.width = headerFooterWidth
           }
         }
@@ -198,7 +206,7 @@ extension VerticalBlueprintLayout {
     return true
   }
 
-  override open func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
+  /*override open func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
     if indexPathIsOutOfBounds(indexPath, for: cachedAttributes) {
       return nil
     }
@@ -215,7 +223,12 @@ extension VerticalBlueprintLayout {
         layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).first
       }
     case CollectionView.collectionViewFooterType:
-      layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
+      if stickyFooters {
+        layoutAttributesResult = adjustedLayoutAttributesForStickyFooter(layoutAttributes: sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last,
+                                                                         at: indexPath)
+      } else {
+        layoutAttributesResult = sectionAttributes.filter({ $0.representedElementCategory == .supplementaryView }).last
+      }
     default:
       return nil
     }
@@ -227,6 +240,31 @@ extension VerticalBlueprintLayout {
     guard let layoutAttributes = layoutAttributes,
       let collectionView = collectionView,
       let boundaries = boundaries(forSection: indexPath.section) else {
+        return nil
+    }
+
+    let contentOffsetY = collectionView.contentOffset.y
+    var frameForSupplementaryHeaderView = layoutAttributes.frame
+    let minimum = boundaries.minimum - frameForSupplementaryHeaderView.height
+    let maximum = boundaries.maximum - frameForSupplementaryHeaderView.height
+
+    if contentOffsetY < minimum {
+      frameForSupplementaryHeaderView.origin.y = minimum
+    } else if contentOffsetY > maximum {
+      frameForSupplementaryHeaderView.origin.y = maximum
+    } else {
+      frameForSupplementaryHeaderView.origin.y = contentOffsetY
+    }
+
+    layoutAttributes.frame = frameForSupplementaryHeaderView
+
+    return layoutAttributes
+  }
+
+  private func adjustedLayoutAttributesForStickyFooter(layoutAttributes: LayoutAttributes?, at indexPath: IndexPath) -> LayoutAttributes? {
+    guard let layoutAttributes = layoutAttributes,
+      let collectionView = collectionView,
+      let boundaries = footerBoundaries(forSection: indexPath.section) else {
         return nil
     }
 
@@ -276,4 +314,32 @@ extension VerticalBlueprintLayout {
 
     return result
   }
+
+  private func footerBoundaries(forSection section: Int) -> (minimum: CGFloat, maximum: CGFloat)? {
+    var result = (minimum: CGFloat(0.0), maximum: CGFloat(0.0))
+    guard let collectionView = collectionView else {
+      return result
+    }
+
+    let numberOfItemsInSection = collectionView.numberOfItems(inSection: section)
+    guard numberOfItemsInSection > 0 else {
+      return result
+    }
+
+    let indexOffset = 1
+    let firstItemsIndexPath = IndexPath(item: 0, section: section)
+    let lastItemsIndexPath = IndexPath(item: numberOfItemsInSection - indexOffset, section: section)
+
+    if let firstItem = layoutAttributesForItem(at: firstItemsIndexPath),
+      let lastItem = layoutAttributesForItem(at: lastItemsIndexPath) {
+      result.minimum = lastItem.frame.minY//firstItem.frame.minY
+      result.maximum = lastItem.frame.maxY//lastItem.frame.maxY
+      result.minimum -= headerReferenceSize.height
+      result.maximum -= headerReferenceSize.height
+      result.minimum -= sectionInset.top
+      result.maximum += (sectionInset.top + sectionInset.bottom)
+    }
+
+    return result
+  }*/
 }

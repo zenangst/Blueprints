@@ -199,7 +199,6 @@
 
 extension VerticalBlueprintLayout {
 
-  // TODO: - Performance investigation
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
     if stickyFooters || stickyHeaders {
       return true

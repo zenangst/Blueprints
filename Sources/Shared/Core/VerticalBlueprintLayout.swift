@@ -60,7 +60,6 @@
     }
 
     var nextY: CGFloat = 0
-    var sectionMaxYs = [CGFloat]()
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else {
@@ -87,7 +86,6 @@
 
       nextY += sectionInset.top
       var sectionMaxY: CGFloat = 0
-      var totalOfSectionsMaxYs: CGFloat = 0
 
       for item in 0..<numberOfItemsInSection(section) {
         let indexPath = IndexPath(item: item, section: section)
@@ -136,9 +134,6 @@
         }
       }
 
-      // Append the current sectionMaxY to the array
-      sectionMaxYs.append(sectionMaxY)
-
       if let previousItem = previousItem, let firstItem = firstItem {
         nextY = previousItem.frame.maxY
         if footerReferenceSize.height > 0 {
@@ -174,15 +169,10 @@
           }
 
           if stickyFooters {
-            for section in 0..<numberOfSections {
-              guard sectionMaxYs.count > section else {
-                continue
-              }
-              totalOfSectionsMaxYs += sectionMaxYs[section]
-            }
-
-            let footerY = min(collectionView.contentOffset.y + collectionView.bounds.size.height - footerReferenceSize.height,
-                              max(previousItem.frame.maxY, totalOfSectionsMaxYs - sectionMaxY - collectionView.contentOffset.y))
+            let footerY = min(
+              max(collectionView.contentOffset.y + collectionView.bounds.height - footerReferenceSize.height - sectionInset.bottom,
+                  firstItem.frame.minY),
+              sectionMaxY + sectionInset.bottom)
 
             footerAttribute?.zIndex = numberOfSections
             footerAttribute?.frame.origin.y = footerY
@@ -199,11 +189,8 @@
       firstItem = nil
     }
 
-    sectionMaxYs = [CGFloat]()
-
     contentSize.width = threshold
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height
-
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)

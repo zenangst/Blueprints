@@ -26,6 +26,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="Zw5-Xw-wnW" secondAttribute="trailing" constant="10" id="LNT-o1-zGa"/>
                 <constraint firstItem="Zw5-Xw-wnW" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" constant="20" id="SZ5-Gs-AVI"/>

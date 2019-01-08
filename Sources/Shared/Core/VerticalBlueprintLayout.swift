@@ -170,7 +170,7 @@
 
           if stickyFooters {
             let footerY = min(
-              max(collectionView.contentOffset.y + collectionView.bounds.height - footerReferenceSize.height - sectionInset.bottom,
+              max(collectionView.contentOffset.y + collectionView.bounds.height - footerReferenceSize.height,
                   firstItem.frame.minY),
               sectionMaxY + sectionInset.bottom)
 
@@ -201,6 +201,9 @@ extension VerticalBlueprintLayout {
 
   // TODO: - Performance investigation
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return true
+    if stickyFooters || stickyHeaders {
+      return true
+    }
+    return false
   }
 }

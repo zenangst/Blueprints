@@ -31,7 +31,6 @@ extension LayoutExampleSceneViewController {
       UIView.animate(withDuration: 0.5) { [weak self] in
         self?.layoutExampleCollectionView.collectionViewLayout = mosaicBlueprintLayout
         self?.view.setNeedsLayout()
-        self?.view.layoutIfNeeded()
       }
   }
 }

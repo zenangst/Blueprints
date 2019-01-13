@@ -195,14 +195,8 @@
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
   }
-}
-
-extension VerticalBlueprintLayout {
 
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    if stickyFooters || stickyHeaders {
-      return true
-    }
-    return false
+    return stickyFooters || stickyHeaders
   }
 }

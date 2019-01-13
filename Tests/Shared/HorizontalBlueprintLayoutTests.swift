@@ -65,28 +65,29 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
   }
 
   func testHorizontalLayoutAttributesWithSpanOne() {
-    horizontalLayout.itemsPerRow = 1
-    horizontalLayout.prepare()
+    let (collectionView, layout) = Helper.createHorizontalLayout(dataSource: dataSource, withItemsPerRow: 1.0)
+    collectionView.collectionViewLayout.invalidateLayout()
+    layout.prepare()
 
-    XCTAssertEqual(horizontalLayout.cachedAttributes[0].count, 10)
+    XCTAssertEqual(layout.cachedAttributes[0].count, 10)
 
     let expectedSize: CGSize = .init(width: 100, height: 50)
 
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 160, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 270, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame, CGRect(origin: .init(x: 380, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))?.frame, CGRect(origin: .init(x: 490, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))?.frame, CGRect(origin: .init(x: 600, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame, CGRect(origin: .init(x: 710, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 820, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 930, y: 10), size: expectedSize))
-    XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 1040, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 50, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 160, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 270, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame, CGRect(origin: .init(x: 380, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))?.frame, CGRect(origin: .init(x: 490, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))?.frame, CGRect(origin: .init(x: 600, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame, CGRect(origin: .init(x: 710, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 820, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 930, y: 10), size: expectedSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 1040, y: 10), size: expectedSize))
 
-    XCTAssertNil(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
+    XCTAssertNil(layout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 1190, height: 70))
-    XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
+    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 1190, height: 70))
+    XCTAssertEqual(layout.contentSize, layout.collectionViewContentSize)
   }
 
   func testHorizontalLayoutAttributesWithSpanTwo() {

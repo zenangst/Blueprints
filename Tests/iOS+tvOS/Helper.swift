@@ -9,12 +9,24 @@ class MockDelegate: NSObject, UICollectionViewDelegateFlowLayout {
 }
 
 class Helper {
-  static func createHorizontalLayout(dataSource: UICollectionViewDataSource) -> (collectionView: CollectionView, layout: HorizontalBlueprintLayout) {
+  static func createHorizontalLayout(dataSource: UICollectionViewDataSource,
+                                     withItemsPerRow: CGFloat = 0.0) -> (collectionView: CollectionView, layout: HorizontalBlueprintLayout) {
     let frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
-    let layout = HorizontalBlueprintLayout(
-      minimumInteritemSpacing: 10,
-      minimumLineSpacing: 10,
-      sectionInset: EdgeInsets(top: 10, left: 50, bottom: 10, right: 50))
+    let layout: HorizontalBlueprintLayout
+
+    if withItemsPerRow > 0.0 {
+      layout = HorizontalBlueprintLayout(
+        itemsPerRow: withItemsPerRow,
+        minimumInteritemSpacing: 10,
+        minimumLineSpacing: 10,
+        sectionInset: EdgeInsets(top: 10, left: 50, bottom: 10, right: 50))
+    } else {
+      layout = HorizontalBlueprintLayout(
+        minimumInteritemSpacing: 10,
+        minimumLineSpacing: 10,
+        sectionInset: EdgeInsets(top: 10, left: 50, bottom: 10, right: 50))
+    }
+
     layout.itemSize = CGSize(width: 50, height: 50)
     layout.estimatedItemSize = CGSize(width: 50, height: 50)
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
@@ -24,13 +36,23 @@ class Helper {
     return (collectionView: collectionView, layout: layout)
   }
 
-  static func createVerticalLayout(dataSource: UICollectionViewDataSource) -> (collectionView: CollectionView, layout: VerticalBlueprintLayout) {
+  static func createVerticalLayout(dataSource: UICollectionViewDataSource, withItemsPerRow: CGFloat = 0.0) -> (collectionView: CollectionView, layout: VerticalBlueprintLayout) {
     let frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
+    let layout: VerticalBlueprintLayout
 
-    let layout = VerticalBlueprintLayout(
-      minimumInteritemSpacing: 10,
-      minimumLineSpacing: 10,
-      sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    if withItemsPerRow > 0.0 {
+      layout = VerticalBlueprintLayout(
+        itemsPerRow: withItemsPerRow,
+        minimumInteritemSpacing: 10,
+        minimumLineSpacing: 10,
+        sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    } else {
+      layout = VerticalBlueprintLayout(
+        minimumInteritemSpacing: 10,
+        minimumLineSpacing: 10,
+        sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    }
+
     layout.itemSize = CGSize(width: 50, height: 50)
     layout.estimatedItemSize = CGSize(width: 50, height: 50)
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)

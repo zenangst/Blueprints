@@ -66,7 +66,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
 
   func testHorizontalLayoutAttributesWithSpanOne() {
     let (collectionView, layout) = Helper.createHorizontalLayout(dataSource: dataSource, withItemsPerRow: 1.0)
-    collectionView.collectionViewLayout.invalidateLayout()
+    _ = collectionView.frame
     layout.prepare()
 
     XCTAssertEqual(layout.cachedAttributes[0].count, 10)

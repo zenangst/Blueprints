@@ -62,7 +62,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
   func testVerticalLayoutAttributesWithSpanOneUsingSectionHeaders() {
     let (collectionView, layout) = Helper.createVerticalLayout(dataSource: dataSource, withItemsPerRow: 1.0)
-    collectionView.collectionViewLayout.invalidateLayout()
+    _ = collectionView.frame
     layout.headerReferenceSize = CGSize(width: 200, height: 50)
     layout.prepare()
 

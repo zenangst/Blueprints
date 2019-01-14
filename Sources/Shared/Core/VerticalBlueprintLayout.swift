@@ -48,7 +48,7 @@
   /// An initialized vertical collection view layout object.
   ///
   /// - Parameters:
-  ///   - itemsPerRow: The amount of items that should appear on each row.
+  ///   - itemSize: The default size to use for cells.
   ///   - minimumInteritemSpacing: The minimum spacing to use between items in the same row.
   ///   - minimumLineSpacing: The minimum spacing to use between lines of items in the grid.
   ///   - sectionInset: The margins used to lay out content in a section
@@ -76,7 +76,8 @@
   /// An initialized vertical collection view layout object.
   ///
   /// - Parameters:
-  ///   - itemSize: The default size to use for cells.
+  ///   - itemsPerRow: The amount of items that should appear on each row.
+  ///   - height: The height for the cells.
   ///   - minimumInteritemSpacing: The minimum spacing to use between items in the same row.
   ///   - minimumLineSpacing: The minimum spacing to use between lines of items in the grid.
   ///   - sectionInset: The margins used to lay out content in a section

@@ -88,7 +88,6 @@
   /// An initialized vertical collection view layout object.
   ///
   /// - Parameters:
-  ///   - itemsPerRow: The amount of items that should appear on each row.
   ///   - itemsPerColumn: The amount of items that should appear per column.
   ///   - itemSize: The default size to use for cells.
   ///   - minimumInteritemSpacing: The minimum spacing to use between items in the same row.

@@ -128,9 +128,10 @@ github "zenangst/Blueprints"
 
 **Blueprints** can also be installed manually. Just download and drop `Sources` folders in your project.
 
-## Author
+## Author(s)
 
-Christoffer Winterkvist, christoffer@winterkvist.com
+- Christoffer Winterkvist, [@zenangst](https://github.com/zenangst)
+- Christopher Roberts, [@christoff-1992](https://github.com/christoff-1992)
 
 ## Contributing
 

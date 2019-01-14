@@ -125,6 +125,7 @@
           firstItem = layoutAttribute
           layoutAttribute.frame.origin.x = sectionInset.left
           layoutAttribute.frame.origin.y = nextY
+          sectionMaxY = layoutAttribute.frame.maxY
         }
 
         if section == layoutAttributes.count {

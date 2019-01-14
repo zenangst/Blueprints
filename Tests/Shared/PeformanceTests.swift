@@ -105,8 +105,8 @@ class PerformanceTests: XCTestCase {
 
   func testPerformanceLegacyVerticalLayoutPerformance() {
     let dataSource = DataSource(amount: 250_000)
-    var layout: BlueprintLayout = LegacyVerticalBlueprintLayout(itemsPerRow: 1,
-                                                                itemSize: CGSize(width: 200, height: 60),
+    let layout: BlueprintLayout = LegacyVerticalBlueprintLayout(itemsPerRow: 1,
+                                                                height: 60,
                                                                 minimumInteritemSpacing: 10,
                                                                 minimumLineSpacing: 10,
                                                                 sectionInset: .zero)
@@ -118,7 +118,7 @@ class PerformanceTests: XCTestCase {
     layout.prepare()
 
     let rect = CGRect(origin: .init(x: 0, y: -200), size: .init(width: 200, height: 400))
-    var attributes = layout.layoutAttributesForElements(in: rect)!
+    let attributes = layout.layoutAttributesForElements(in: rect)!
 
     XCTAssertEqual(attributes.count, 3)
     let legacyBenchmark = CFAbsoluteTimeGetCurrent() - startTime
@@ -128,10 +128,10 @@ class PerformanceTests: XCTestCase {
   func testPerformanceExistingVerticalLayoutPerformance() {
     let dataSource = DataSource(amount: 250_000)
     let layout = PreviousVerticalBlueprintLayout(itemsPerRow: 1,
-                                     itemSize: CGSize(width: 200, height: 60),
-                                     minimumInteritemSpacing: 10,
-                                     minimumLineSpacing: 10,
-                                     sectionInset: .zero)
+                                                 height: 60,
+                                                 minimumInteritemSpacing: 10,
+                                                 minimumLineSpacing: 10,
+                                                 sectionInset: .zero)
     let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     let rect = CGRect(origin: .init(x: 0, y: -200), size: .init(width: 200, height: 400))
@@ -149,10 +149,10 @@ class PerformanceTests: XCTestCase {
   func testPerformanceNewVerticalLayoutPerformance() {
     let dataSource = DataSource(amount: 250_000)
     let layout = VerticalBlueprintLayout(itemsPerRow: 1,
-                                     itemSize: CGSize(width: 200, height: 60),
-                                     minimumInteritemSpacing: 10,
-                                     minimumLineSpacing: 10,
-                                     sectionInset: .zero)
+                                         height: 60,
+                                         minimumInteritemSpacing: 10,
+                                         minimumLineSpacing: 10,
+                                         sectionInset: .zero)
     let frame = CGRect(origin: .zero, size: .init(width: 200, height: 200))
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     let rect = CGRect(origin: .init(x: 0, y: -200), size: .init(width: 200, height: 400))
@@ -170,7 +170,7 @@ class PerformanceTests: XCTestCase {
   func testPerformanceBetweenLegacyAndNewBinarySearchOnHorizontalLayout() {
     let dataSource = DataSource(amount: 250_000)
     var layout: BlueprintLayout = LegacyHorizontalBlueprintLayout(itemsPerRow: 3,
-                                                                  itemSize: CGSize(width: 200, height: 60),
+                                                                  height: 60,
                                                                   minimumInteritemSpacing: 10,
                                                                   minimumLineSpacing: 10,
                                                                   sectionInset: .zero)
@@ -189,7 +189,7 @@ class PerformanceTests: XCTestCase {
     Swift.print("🦀: \(legacyBenchmark)")
 
     layout = HorizontalBlueprintLayout(itemsPerRow: 3,
-                                       itemSize: CGSize(width: 200, height: 60),
+                                       height: 60,
                                        minimumInteritemSpacing: 10,
                                        minimumLineSpacing: 10,
                                        sectionInset: .zero)

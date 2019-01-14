@@ -202,6 +202,7 @@
             atY: sectionMaxY + sectionInset.bottom
           )
           layoutAttributes[section].append(layoutAttribute)
+          footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         }
 
@@ -215,18 +216,25 @@
             }
           #endif
 
-          let headerFooterY = min(
-            max(collectionView.contentOffset.y + contentInsetTop, firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
-            previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom
-          )
-
           if stickyHeaders {
-            headerAttribute?.frame.origin.y = headerFooterY
+            let headerY = min(
+              max(collectionView.contentOffset.y + contentInsetTop,
+                  firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
+              previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom)
+
+            headerAttribute?.zIndex = numberOfSections
+            headerAttribute?.frame.origin.y = headerY
             headerAttribute?.frame.size.width = headerFooterWidth
           }
 
           if stickyFooters {
-            footerAttribute?.frame.origin.y = headerFooterY
+            let footerY = min(
+              max(collectionView.contentOffset.y + collectionView.bounds.height - footerReferenceSize.height,
+                  firstItem.frame.minY),
+              sectionMaxY + sectionInset.bottom)
+
+            footerAttribute?.zIndex = numberOfSections
+            footerAttribute?.frame.origin.y = footerY
             footerAttribute?.frame.size.width = headerFooterWidth
           }
         }
@@ -243,8 +251,11 @@
     contentSize.width = threshold
     contentSize.height += headerReferenceSize.height + footerReferenceSize.height
 
-
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
+  }
+
+  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    return stickyFooters || stickyHeaders
   }
 }

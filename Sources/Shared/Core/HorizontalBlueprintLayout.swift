@@ -242,4 +242,8 @@
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
   }
+
+  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    return stickyFooters || stickyHeaders
+  }
 }

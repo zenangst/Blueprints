@@ -5,14 +5,13 @@ extension LayoutExampleSceneViewController {
 
     func configureVerticalLayout() {
         let verticalBlueprintLayout = VerticalBlueprintLayout(
-            itemsPerRow: itemsPerRow,
-            itemSize: CGSize(width: 200,
-                             height: 95),
-            minimumInteritemSpacing: minimumInteritemSpacing,
-            minimumLineSpacing: minimumLineSpacing,
-            sectionInset: sectionInsets,
-            stickyHeaders: true,
-            stickyFooters: true
+          itemsPerRow: itemsPerRow,
+          height: 95,
+          minimumInteritemSpacing: minimumInteritemSpacing,
+          minimumLineSpacing: minimumLineSpacing,
+          sectionInset: sectionInsets,
+          stickyHeaders: true,
+          stickyFooters: true
         )
 
         let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)

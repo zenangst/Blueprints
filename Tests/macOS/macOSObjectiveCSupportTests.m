@@ -10,8 +10,7 @@
 
 - (void)testVerticalBluePrintLayout {
   VerticalBlueprintLayout *layout = [[VerticalBlueprintLayout alloc] initWithItemsPerRow:1.0
-                                                                                itemSize:CGSizeMake(50, 50)
-                                                                       estimatedItemSize:CGSizeZero
+                                                                                height:50
                                                                  minimumInteritemSpacing:20.0
                                                                       minimumLineSpacing:50.0
                                                                             sectionInset:NSEdgeInsetsMake(20, 20, 20, 20)
@@ -25,8 +24,7 @@
 - (void)testHorizontalBluePrintLayout {
   HorizontalBlueprintLayout *layout = [[HorizontalBlueprintLayout alloc] initWithItemsPerRow:1.0
                                                                               itemsPerColumn:1.0
-                                                                                    itemSize:CGSizeMake(50, 50)
-                                                                           estimatedItemSize:CGSizeZero
+                                                                                    height:50
                                                                      minimumInteritemSpacing:20.0
                                                                           minimumLineSpacing:50.0
                                                                                 sectionInset:NSEdgeInsetsMake(20, 20, 20, 20)

@@ -5,15 +5,14 @@ extension LayoutExampleSceneViewController {
 
     func configureHorizontalLayout() {
         let horizontalBlueprintLayout = HorizontalBlueprintLayout(
-            itemsPerRow: itemsPerRow,
-            itemsPerColumn: itemsPerColumn,
-            itemSize: CGSize(width: 200,
-                             height: 95),
-            minimumInteritemSpacing: minimumInteritemSpacing,
-            minimumLineSpacing: minimumLineSpacing,
-            sectionInset: sectionInsets,
-            stickyHeaders: true,
-            stickyFooters: true
+          itemsPerRow: itemsPerRow,
+          itemsPerColumn: itemsPerColumn,
+          height: 95,
+          minimumInteritemSpacing: minimumInteritemSpacing,
+          minimumLineSpacing: minimumLineSpacing,
+          sectionInset: sectionInsets,
+          stickyHeaders: true,
+          stickyFooters: true
         )
 
         // TODO: - Uncomment once https://github.com/zenangst/Blueprints/issues/49 has been investigated and resolved.

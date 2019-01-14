@@ -61,31 +61,32 @@ class VerticalBlueprintLayoutTests: XCTestCase {
   }
 
   func testVerticalLayoutAttributesWithSpanOneUsingSectionHeaders() {
-    verticalLayout.itemsPerRow = 1
-    verticalLayout.headerReferenceSize = CGSize(width: 200, height: 50)
-    verticalLayout.prepare()
+    let (collectionView, layout) = Helper.createVerticalLayout(dataSource: dataSource, withItemsPerRow: 1.0)
+    _ = collectionView.frame
+    layout.headerReferenceSize = CGSize(width: 200, height: 50)
+    layout.prepare()
 
     let expectedHeaderSize: CGSize = .init(width: 200, height: 50)
     let expectedCellSize: CGSize = .init(width: 180, height: 50)
 
-    XCTAssertEqual(verticalLayout.cachedAttributes[0].count, 11)
+    XCTAssertEqual(layout.cachedAttributes[0].count, 11)
 
-    XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 60), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 120), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 180), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 240), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 300), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 360), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 420), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 480), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 540), size: expectedCellSize))
-    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 600), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 60), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 120), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 180), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 240), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 300), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 360), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 6, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 420), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 480), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 540), size: expectedCellSize))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 600), size: expectedCellSize))
 
-    XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
+    XCTAssertNil(layout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 660))
-    XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
+    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 660))
+    XCTAssertEqual(layout.contentSize, layout.collectionViewContentSize)
   }
 
   func testVerticalLayoutAttributesWithSpanTwo() {

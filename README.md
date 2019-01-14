@@ -130,7 +130,8 @@ github "zenangst/Blueprints"
 
 ## Author
 
-Christoffer Winterkvist, christoffer@winterkvist.com
+Christoffer Winterkvist, [@zenangst](https://github.com/zenangst)
+Christoffer Roberts, [@christoff-1992](https://github.com/christoff-1992)
 
 ## Contributing
 

@@ -14,7 +14,7 @@ public extension CollectionView {
   }
 
   var documentRect: CGRect {
-    return enclosingScrollView?.documentVisibleRect ?? .zero
+    return enclosingScrollView?.frame ?? .zero
   }
 
   convenience public init(frame: CGRect, collectionViewLayout: CollectionViewFlowLayout) {

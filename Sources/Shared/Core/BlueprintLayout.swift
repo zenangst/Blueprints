@@ -115,7 +115,7 @@
       #if os(macOS)
         containerWidth = collectionView.enclosingScrollView?.frame.width ?? collectionView.frame.size.width
       #else
-        containerWidth = layoutExampleCollectionView.frame.size.width
+        containerWidth = collectionView.frame.size.width
       #endif
 
       let height = resolveCollectionView({ collectionView -> CGSize? in
@@ -214,7 +214,7 @@
         configureHeaderFooterWidth(clipView)
       }
     #else
-      headerFooterWidth = layoutExampleCollectionView?.frame.size.width
+      headerFooterWidth = collectionView?.frame.size.width
     #endif
   }
 

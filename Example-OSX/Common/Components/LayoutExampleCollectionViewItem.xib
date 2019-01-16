@@ -19,7 +19,7 @@
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-vm-CJn">
                     <rect key="frame" x="20" y="20" width="55" height="55"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="55" id="Tue-kv-jDB"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="55" id="Tue-kv-jDB"/>
                         <constraint firstAttribute="height" constant="55" id="l9z-9Z-0fE"/>
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blueprints-icon-single" id="fA7-B3-mTo"/>
@@ -34,6 +34,9 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fQv-fh-k4V">
                     <rect key="frame" x="83" y="33" width="286" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="ivM-wZ-rjc"/>
+                    </constraints>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Label" id="FZS-5b-9Zn">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

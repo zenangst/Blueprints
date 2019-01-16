@@ -14,6 +14,9 @@ public extension CollectionView {
   }
 
   var documentRect: CGRect {
+    let esvF = enclosingScrollView?.frame
+    let esvDVR = enclosingScrollView?.documentVisibleRect
+    //return enclosingScrollView?.frame ?? .zero
     return enclosingScrollView?.documentVisibleRect ?? .zero
   }
 

@@ -14,8 +14,13 @@ class LayoutExampleCollectionViewItem: NSCollectionViewItem {
         super.viewDidLoad()
 
         view.wantsLayer = true
+        configureStyle()
+    }
+}
+
+private extension LayoutExampleCollectionViewItem {
+
+    func configureStyle() {
         view.layer?.backgroundColor = NSColor.lightGray.cgColor
-        view.layer?.borderColor = NSColor.white.cgColor
-        view.layer?.borderWidth = 0.0
     }
 }

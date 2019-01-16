@@ -111,17 +111,12 @@
   /// - Returns: The desired size of the item at the index path.
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
     if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
-      var containerWidth: CGFloat
+      let containerWidth: CGFloat
       #if os(macOS)
         containerWidth = collectionView.enclosingScrollView?.frame.width ?? collectionView.frame.size.width
-        if let indicator = collectionView.enclosingScrollView?.verticalScroller, !indicator.isHidden {
-            let scrollIndicatorOffset = indicator.frame.width
-            containerWidth -= scrollIndicatorOffset
-        }
       #else
         containerWidth = layoutExampleCollectionView.frame.size.width
       #endif
-        print(containerWidth)
 
       let height = resolveCollectionView({ collectionView -> CGSize? in
         return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,

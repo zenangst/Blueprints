@@ -33,48 +33,16 @@ class LayoutExampleSceneViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: - Move inside completionHandler method
+        configureScene {
+            // GET DATA
+        }
+    }
+
+    private func configureScene(completion: () -> Void) {
+        view.wantsLayer = true
         configureCollectionView()
         configureBluePrintLayout()
-    }
-
-    override func viewWillAppear() {
-        super.viewWillAppear()
-
-    }
-
-    override func viewDidAppear() {
-        super.viewDidAppear()
-
-    }
-}
-
-extension LayoutExampleSceneViewController: NSCollectionViewDataSource {
-
-    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        return layoutExampleItem(itemForRepresentedObjectAt: indexPath)
-    }
-}
-
-private extension LayoutExampleSceneViewController {
-
-    func layoutExampleItem(itemForRepresentedObjectAt indexPath: IndexPath) -> LayoutExampleCollectionViewItem {
-        let layoutExampleCellIdentifier = Constants
-            .CollectionViewItemIdentifiers
-            .layoutExampleItem
-            .rawValue
-        guard let layoutExampleCollectionViewItem = layoutExampleCollectionView.makeItem(
-            withIdentifier: NSUserInterfaceItemIdentifier(rawValue: layoutExampleCellIdentifier),
-            for: indexPath) as? LayoutExampleCollectionViewItem else {
-                fatalError("Failed to makeItem at indexPath \(indexPath)")
-        }
-        // TODO: - Complete implementation
-        //layoutExampleCollectionViewItem.configure(forExampleContent: exampleDataSource?[indexPath.section].contents?[indexPath.row])
-        return layoutExampleCollectionViewItem
+        completion()
     }
 }
 
@@ -131,8 +99,8 @@ private extension LayoutExampleSceneViewController {
 extension LayoutExampleSceneViewController {
 
     func configureVerticalLayout() {
-        let verticalBlueprintLayout = HorizontalBlueprintLayout(
-            itemsPerRow: itemsPerRow,
+        let verticalBlueprintLayout = VerticalBlueprintLayout(
+            itemsPerRow: 2,//itemsPerRow,
             height: 95,
             minimumInteritemSpacing: minimumInteritemSpacing,
             minimumLineSpacing: minimumLineSpacing,
@@ -146,7 +114,6 @@ extension LayoutExampleSceneViewController {
         //verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
 
         layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
-        view.layout()
 
         /*NSView.animate(withDuration: 0.5) { [weak self] in
             self?.layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout

@@ -24,14 +24,14 @@
                             <rect key="frame" x="0.0" y="0.0" width="255" height="272"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lek-4s-qe7">
+                                <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lek-4s-qe7">
                                     <rect key="frame" x="10" y="10" width="235" height="252"/>
                                     <clipView key="contentView" id="xuT-h7-Jev">
                                         <rect key="frame" x="1" y="1" width="233" height="250"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <collectionView id="L8s-6k-Zt0">
-                                                <rect key="frame" x="0.0" y="0.0" width="233" height="158"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="233" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="Wd8-fX-GOj">
                                                     <size key="itemSize" width="50" height="50"/>
@@ -44,7 +44,7 @@
                                         <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="YHR-m8-Npq">
+                                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="YHR-m8-Npq">
                                         <rect key="frame" x="-100" y="-100" width="15" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>

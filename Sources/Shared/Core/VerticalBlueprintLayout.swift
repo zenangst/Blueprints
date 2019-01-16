@@ -256,6 +256,12 @@
   }
 
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return stickyFooters || stickyHeaders
+    var shouldInvalidate = stickyFooters || stickyHeaders
+
+    if contentSize.width != newBounds.size.width {
+      shouldInvalidate = true
+    }
+
+    return shouldInvalidate
   }
 }

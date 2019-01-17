@@ -69,6 +69,19 @@
 		83E4B84E21EE244E008AEA87 /* Blueprints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C629401C3A7FAA007F7B7C /* Blueprints.framework */; };
 		83E4B84F21EE2456008AEA87 /* Blueprints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C629401C3A7FAA007F7B7C /* Blueprints.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83E4B85121EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85021EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift */; };
+		83E4B85321EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85221EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift */; };
+		83E4B85521EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85421EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */; };
+		83E4B85721EF6D6F008AEA87 /* LayoutExampleSceneInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85621EF6D6F008AEA87 /* LayoutExampleSceneInteractor.swift */; };
+		83E4B85921EF6D9C008AEA87 /* LayoutExampleSceneModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85821EF6D9C008AEA87 /* LayoutExampleSceneModels.swift */; };
+		83E4B85B21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85A21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift */; };
+		83E4B85D21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85C21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift */; };
+		83E4B85F21EF6E4C008AEA87 /* ExampleContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B85E21EF6E4C008AEA87 /* ExampleContent.swift */; };
+		83E4B86121EF6E71008AEA87 /* ExampleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B86021EF6E71008AEA87 /* ExampleSection.swift */; };
+		83E4B86321EF6E86008AEA87 /* LayoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B86221EF6E86008AEA87 /* LayoutConfiguration.swift */; };
+		83E4B86621EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B86521EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift */; };
+		83E4B86921EF733D008AEA87 /* ExampleDataMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B86821EF733D008AEA87 /* ExampleDataMocks.swift */; };
+		83E4B86C21EF7365008AEA87 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B86B21EF7365008AEA87 /* Lorem.swift */; };
+		83E4B86E21EF791E008AEA87 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B86D21EF791E008AEA87 /* ArrayExtensions.swift */; };
 		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
@@ -300,6 +313,19 @@
 		83E4B84221EE1343008AEA87 /* LayoutExampleCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutExampleCollectionViewItem.xib; sourceTree = "<group>"; };
 		83E4B84621EE21C8008AEA87 /* BlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintLayout.swift; sourceTree = "<group>"; };
 		83E4B85021EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		83E4B85221EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+Configuration.swift"; sourceTree = "<group>"; };
+		83E4B85421EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalBlueprintLayout.swift"; sourceTree = "<group>"; };
+		83E4B85621EF6D6F008AEA87 /* LayoutExampleSceneInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleSceneInteractor.swift; sourceTree = "<group>"; };
+		83E4B85821EF6D9C008AEA87 /* LayoutExampleSceneModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleSceneModels.swift; sourceTree = "<group>"; };
+		83E4B85A21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleScenePresenter.swift; sourceTree = "<group>"; };
+		83E4B85C21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleSceneWorker.swift; sourceTree = "<group>"; };
+		83E4B85E21EF6E4C008AEA87 /* ExampleContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleContent.swift; sourceTree = "<group>"; };
+		83E4B86021EF6E71008AEA87 /* ExampleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleSection.swift; sourceTree = "<group>"; };
+		83E4B86221EF6E86008AEA87 /* LayoutConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConfiguration.swift; sourceTree = "<group>"; };
+		83E4B86521EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		83E4B86821EF733D008AEA87 /* ExampleDataMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleDataMocks.swift; sourceTree = "<group>"; };
+		83E4B86B21EF7365008AEA87 /* Lorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
+		83E4B86D21EF791E008AEA87 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -641,9 +667,16 @@
 		836DB29221ECDD7D003D38B1 /* LayoutExampleScene */ = {
 			isa = PBXGroup;
 			children = (
+				83E4B86721EF72FF008AEA87 /* ExampleData */,
 				836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */,
+				83E4B85621EF6D6F008AEA87 /* LayoutExampleSceneInteractor.swift */,
+				83E4B85821EF6D9C008AEA87 /* LayoutExampleSceneModels.swift */,
+				83E4B85A21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift */,
 				836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */,
 				83E4B85021EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift */,
+				83E4B85221EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift */,
+				83E4B85421EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */,
+				83E4B85C21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift */,
 			);
 			name = LayoutExampleScene;
 			sourceTree = "<group>";
@@ -651,8 +684,10 @@
 		836DB2A121EDDB39003D38B1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				83E4B84521EE21AC008AEA87 /* Models */,
 				83E4B83F21EE1303008AEA87 /* Components */,
+				83E4B86421EF71A8008AEA87 /* Extensions */,
+				83E4B86A21EF7354008AEA87 /* Helpers */,
+				83E4B84521EE21AC008AEA87 /* Models */,
 				836DB2A221EDDB47003D38B1 /* Constants.swift */,
 			);
 			path = Common;
@@ -688,8 +723,36 @@
 			isa = PBXGroup;
 			children = (
 				83E4B84621EE21C8008AEA87 /* BlueprintLayout.swift */,
+				83E4B85E21EF6E4C008AEA87 /* ExampleContent.swift */,
+				83E4B86021EF6E71008AEA87 /* ExampleSection.swift */,
+				83E4B86221EF6E86008AEA87 /* LayoutConfiguration.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		83E4B86421EF71A8008AEA87 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				83E4B86D21EF791E008AEA87 /* ArrayExtensions.swift */,
+				83E4B86521EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		83E4B86721EF72FF008AEA87 /* ExampleData */ = {
+			isa = PBXGroup;
+			children = (
+				83E4B86821EF733D008AEA87 /* ExampleDataMocks.swift */,
+			);
+			name = ExampleData;
+			sourceTree = "<group>";
+		};
+		83E4B86A21EF7354008AEA87 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				83E4B86B21EF7365008AEA87 /* Lorem.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		BDA31AFD20D41AD0001E4870 /* Core */ = {
@@ -1291,11 +1354,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				836DB2A621EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift in Sources */,
+				83E4B86121EF6E71008AEA87 /* ExampleSection.swift in Sources */,
+				83E4B85D21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift in Sources */,
+				83E4B85321EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift in Sources */,
+				83E4B86C21EF7365008AEA87 /* Lorem.swift in Sources */,
 				836DB29821ECE220003D38B1 /* RootViewController.swift in Sources */,
 				836DB27D21ECBE77003D38B1 /* AppDelegate.swift in Sources */,
+				83E4B86921EF733D008AEA87 /* ExampleDataMocks.swift in Sources */,
+				83E4B85B21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift in Sources */,
 				83E4B85121EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift in Sources */,
+				83E4B85521EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift in Sources */,
+				83E4B86E21EF791E008AEA87 /* ArrayExtensions.swift in Sources */,
+				83E4B86621EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift in Sources */,
 				83E4B84721EE21C8008AEA87 /* BlueprintLayout.swift in Sources */,
+				83E4B86321EF6E86008AEA87 /* LayoutConfiguration.swift in Sources */,
 				83E4B84321EE1343008AEA87 /* LayoutExampleCollectionViewItem.swift in Sources */,
+				83E4B85921EF6D9C008AEA87 /* LayoutExampleSceneModels.swift in Sources */,
+				83E4B85721EF6D6F008AEA87 /* LayoutExampleSceneInteractor.swift in Sources */,
+				83E4B85F21EF6E4C008AEA87 /* ExampleContent.swift in Sources */,
 				836DB2A321EDDB47003D38B1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

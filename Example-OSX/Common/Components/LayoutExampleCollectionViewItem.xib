@@ -7,6 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LayoutExampleCollectionViewItem" customModule="Example_OSX" customModuleProvider="target">
             <connections>
+                <outlet property="iconImageView" destination="WM9-vm-CJn" id="kgT-1X-cMH"/>
+                <outlet property="messageLabel" destination="fQv-fh-k4V" id="InD-bp-VCe"/>
+                <outlet property="titleLabel" destination="dnH-sE-mZg" id="3lO-Bc-M6C"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

@@ -20,18 +20,18 @@
                 <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJI-cJ-IJQ">
                     <rect key="frame" x="0.0" y="0.0" width="517" height="272"/>
                     <subviews>
-                        <customView id="Lqh-uQ-8Fp">
-                            <rect key="frame" x="0.0" y="0.0" width="255" height="272"/>
+                        <customView misplaced="YES" id="Lqh-uQ-8Fp">
+                            <rect key="frame" x="0.0" y="0.0" width="254" height="272"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lek-4s-qe7">
-                                    <rect key="frame" x="10" y="10" width="235" height="252"/>
+                                    <rect key="frame" x="10" y="10" width="287" height="252"/>
                                     <clipView key="contentView" id="xuT-h7-Jev">
-                                        <rect key="frame" x="1" y="1" width="233" height="250"/>
+                                        <rect key="frame" x="1" y="1" width="285" height="250"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <collectionView id="L8s-6k-Zt0">
-                                                <rect key="frame" x="0.0" y="0.0" width="233" height="250"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="285" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="Wd8-fX-GOj">
                                                     <size key="itemSize" width="50" height="50"/>
@@ -57,9 +57,26 @@
                                 <constraint firstAttribute="trailing" secondItem="lek-4s-qe7" secondAttribute="trailing" constant="10" id="y0r-Vi-4Nb"/>
                             </constraints>
                         </customView>
-                        <customView fixedFrame="YES" id="5wz-2x-tpA">
-                            <rect key="frame" x="265" y="0.0" width="252" height="272"/>
+                        <customView misplaced="YES" id="5wz-2x-tpA">
+                            <rect key="frame" x="264" y="0.0" width="253" height="272"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WXz-eC-oMh">
+                                    <rect key="frame" x="18" y="235" width="164" height="17"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Title" id="3Ko-MY-Mlx">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="7j9-dp-Bpj"/>
+                                <constraint firstItem="WXz-eC-oMh" firstAttribute="leading" secondItem="5wz-2x-tpA" secondAttribute="leading" constant="20" id="Lj4-Kh-ioP"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WXz-eC-oMh" secondAttribute="trailing" constant="20" id="RmF-Uh-SJG"/>
+                                <constraint firstItem="WXz-eC-oMh" firstAttribute="top" secondItem="5wz-2x-tpA" secondAttribute="top" constant="20" id="Xhd-rU-hC5"/>
+                                <constraint firstItem="WXz-eC-oMh" firstAttribute="width" secondItem="5wz-2x-tpA" secondAttribute="width" multiplier="0.8" id="n7f-qf-6E8"/>
+                            </constraints>
                         </customView>
                     </subviews>
                     <holdingPriorities>
@@ -74,7 +91,7 @@
                 <constraint firstItem="TJI-cJ-IJQ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="fyr-1y-eig"/>
                 <constraint firstItem="TJI-cJ-IJQ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="iJc-LR-E5j"/>
             </constraints>
-            <point key="canvasLocation" x="87" y="118"/>
+            <point key="canvasLocation" x="86.5" y="118"/>
         </customView>
     </objects>
 </document>

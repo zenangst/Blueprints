@@ -6,13 +6,18 @@
 //  Copyright © 2019 Christoffer Winterkvist. All rights reserved.
 //
 
-import Blueprints
 import Cocoa
 
-class LayoutExampleSceneViewController: NSViewController {
+protocol LayoutExampleSceneDisplayLogic: class {
+
+    func displayExampleData(viewModel: LayoutExampleScene.GetExampleData.ViewModel)
+}
+
+class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisplayLogic {
 
     @IBOutlet weak var layoutExampleCollectionView: NSCollectionView!
 
+    var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
     var activeLayout: BlueprintLayout = .vertical
     var dynamicCellSizeCache: [[CGSize]] = [[]]
     var useDynamicHeight = false
@@ -21,20 +26,38 @@ class LayoutExampleSceneViewController: NSViewController {
     var minimumInteritemSpacing = Constants.ExampleLayoutDefaults.minimumInteritemSpacing
     var minimumLineSpacing = Constants.ExampleLayoutDefaults.minimumLineSpacing
     var sectionInsets = Constants.ExampleLayoutDefaults.sectionInsets
+    var currentConfiguration: LayoutConfiguration?
+
+    var interactor: LayoutExampleSceneBusinessLogic?
 
     override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+
+        setup()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+
+        setup()
+    }
+
+    private func setup() {
+        let viewController = self
+        let interactor = LayoutExampleSceneInteractor()
+        let presenter = LayoutExampleScenePresenter()
+        let worker = LayoutExampleSceneWorker()
+        viewController.interactor = interactor
+        interactor.presenter = presenter
+        interactor.worker = worker
+        presenter.viewController = viewController
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureScene {
-            // GET DATA
+            getExampleData()
         }
     }
 
@@ -46,79 +69,16 @@ class LayoutExampleSceneViewController: NSViewController {
     }
 }
 
-// TODO: - Move to seperate file
-private extension LayoutExampleSceneViewController {
-
-    func configureCollectionView() {
-        layoutExampleCollectionView.dataSource = self
-        registerCollectionViewItems()
-    }
-
-    func registerCollectionViewItems() {
-        let layoutExampleItemIdentifier = Constants
-            .CollectionViewItemIdentifiers
-            .layoutExampleItem
-            .rawValue
-
-        layoutExampleCollectionView.register(LayoutExampleCollectionViewItem.self,
-                                forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: layoutExampleItemIdentifier))
-    }
-}
-
-// TODO: - Move to seperate file
-private extension LayoutExampleSceneViewController {
-
-    func configureBluePrintLayout() {
-        configureDynamicHeight()
-        switch activeLayout {
-        case .vertical:
-            configureVerticalLayout()
-        case .horizontal:
-            return
-            //configureHorizontalLayout()
-        case .mosaic:
-            return
-            //configureMosaicLayout()
-        case .waterfall:
-            return
-            //configureWaterFallLayout()
-        }
-    }
-
-    private func configureDynamicHeight() {
-        dynamicCellSizeCache = [[]]
-        if useDynamicHeight {
-            //layoutExampleCollectionView.delegate = self
-        } else {
-            layoutExampleCollectionView.delegate = nil
-        }
-    }
-}
-
-// TODO: - Move to seperate file
 extension LayoutExampleSceneViewController {
 
-    func configureVerticalLayout() {
-        let verticalBlueprintLayout = VerticalBlueprintLayout(
-            itemsPerRow: 2,//itemsPerRow,
-            height: 95,
-            minimumInteritemSpacing: minimumInteritemSpacing,
-            minimumLineSpacing: minimumLineSpacing,
-            sectionInset: sectionInsets,
-            stickyHeaders: true,
-            stickyFooters: true
-        )
+    func getExampleData() {
+        let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 2,
+                                                                numberOfRowsInSection: 10)
+        interactor?.getExampleData(request: request)
+    }
 
-        //let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
-        //verticalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
-        //verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
-
-        layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
-
-        /*NSView.animate(withDuration: 0.5) { [weak self] in
-            self?.layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-        }*/
+    func displayExampleData(viewModel: LayoutExampleScene.GetExampleData.ViewModel) {
+        exampleDataSource = viewModel.displayedExampleSections
+        layoutExampleCollectionView.reloadData()
     }
 }

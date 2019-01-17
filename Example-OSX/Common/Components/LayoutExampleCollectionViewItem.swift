@@ -10,11 +10,26 @@ import Cocoa
 
 class LayoutExampleCollectionViewItem: NSCollectionViewItem {
 
+    @IBOutlet weak var iconImageView: NSImageView!
+    @IBOutlet weak var titleLabel: NSTextField!
+    @IBOutlet weak var messageLabel: NSTextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.wantsLayer = true
         configureStyle()
+    }
+}
+
+extension LayoutExampleCollectionViewItem {
+
+    func configure(forExampleContent exampleContent: LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleContent?) {
+        guard let exampleContent = exampleContent else {
+            return
+        }
+        titleLabel.stringValue = exampleContent.title
+        messageLabel.stringValue = exampleContent.message
     }
 }
 

@@ -27,6 +27,28 @@ extension LayoutExampleSceneViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         return layoutExampleItem(itemForRepresentedObjectAt: indexPath)
     }
+
+    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
+        switch kind {
+        case NSCollectionView.elementKindSectionHeader:
+            return headerTitleCollectionViewElement(forItemAt: indexPath)
+        case NSCollectionView.elementKindSectionFooter:
+            return footerTitleCollectionViewElement(forItemAt: indexPath)
+        default:
+            return NSView()
+        }
+    }
+
+    /*func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return headerTitleCollectionReusableView(forItemAt: indexPath)
+        case UICollectionView.elementKindSectionFooter:
+            return footerTitleCollectionReusableView(forItemAt: indexPath)
+        default:
+            return UICollectionReusableView()
+        }
+    }*/
 }
 
 extension LayoutExampleSceneViewController: NSCollectionViewDelegateFlowLayout {
@@ -40,9 +62,41 @@ extension LayoutExampleSceneViewController: NSCollectionViewDelegateFlowLayout {
     }*/
 }
 
-private extension LayoutExampleSceneViewController {
+extension LayoutExampleSceneViewController {
 
-    func layoutExampleItem(itemForRepresentedObjectAt indexPath: IndexPath) -> LayoutExampleCollectionViewItem {
+    private func headerTitleCollectionViewElement(forItemAt indexPath: IndexPath) -> TitleCollectionViewElement {
+        let titleViewElementIdentifier = Constants
+            .CollectionViewItemIdentifiers
+            .titleViewElement
+            .rawValue
+        guard let titleViewElementView = layoutExampleCollectionView.makeSupplementaryView(
+            ofKind: NSCollectionView.elementKindSectionHeader,
+            withIdentifier: NSUserInterfaceItemIdentifier(rawValue: titleViewElementIdentifier),
+            for: indexPath) as? TitleCollectionViewElement else {
+                fatalError("Failed to makeItem at indexPath \(indexPath)")
+        }
+        let title = "\((exampleDataSource?[indexPath.section].title) ?? ("Section")) Header"
+        titleViewElementView.configure(withTitle: title)
+        return titleViewElementView
+    }
+
+    private func footerTitleCollectionViewElement(forItemAt indexPath: IndexPath) -> TitleCollectionViewElement {
+        let titleViewElementIdentifier = Constants
+            .CollectionViewItemIdentifiers
+            .titleViewElement
+            .rawValue
+        guard let titleViewElementView = layoutExampleCollectionView.makeSupplementaryView(
+            ofKind: NSCollectionView.elementKindSectionFooter,
+            withIdentifier: NSUserInterfaceItemIdentifier(rawValue: titleViewElementIdentifier),
+            for: indexPath) as? TitleCollectionViewElement else {
+                fatalError("Failed to makeItem at indexPath \(indexPath)")
+        }
+        let title = "\((exampleDataSource?[indexPath.section].title) ?? ("Section")) Footer"
+        titleViewElementView.configure(withTitle: title)
+        return titleViewElementView
+    }
+
+    private func layoutExampleItem(itemForRepresentedObjectAt indexPath: IndexPath) -> LayoutExampleCollectionViewItem {
         let layoutExampleCellIdentifier = Constants
             .CollectionViewItemIdentifiers
             .layoutExampleItem
@@ -67,13 +121,19 @@ private extension LayoutExampleSceneViewController {
     }
 
     // TODO: - Research into how the implementation differs from iOS as we need to load a dummy cell with the content to get the size.
+    // - Cant use makeItem as the collectionView has not been finalised at this time.
     func layoutExampleCellCalculatedSize(forItemAt indexPath: IndexPath) -> CGSize {
         let layoutExampleCellIdentifier = Constants
             .CollectionViewItemIdentifiers
             .layoutExampleItem
             .rawValue
-
-        return CGSize(width: 0, height: 0)
+        guard let layoutExampleCollectionViewItem = layoutExampleCollectionView.makeItem(
+            withIdentifier: NSUserInterfaceItemIdentifier(rawValue: layoutExampleCellIdentifier),
+            for: indexPath) as? LayoutExampleCollectionViewItem else {
+                fatalError("Failed to makeItem at indexPath \(indexPath)")
+        }
+        layoutExampleCollectionViewItem.configure(forExampleContent: exampleDataSource?[indexPath.section].contents?[indexPath.item])
+        return layoutExampleCollectionViewItem.view.fittingSize
     }
 
     func widthForCellInCurrentLayout() -> CGFloat {

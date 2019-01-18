@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LayoutExampleCollectionViewItem" customModule="Example_OSX" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundView" destination="QoR-9J-VuB" id="Nxf-aS-Zi0"/>
                 <outlet property="iconImageView" destination="WM9-vm-CJn" id="kgT-1X-cMH"/>
                 <outlet property="messageLabel" destination="fQv-fh-k4V" id="InD-bp-VCe"/>
                 <outlet property="titleLabel" destination="dnH-sE-mZg" id="3lO-Bc-M6C"/>
@@ -19,6 +20,17 @@
             <rect key="frame" x="0.0" y="0.0" width="387" height="95"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="QoR-9J-VuB" customClass="BackgroundColorView" customModule="Example_OSX" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="387" height="95"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" name="gridColor" catalog="System" colorSpace="catalog"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-vm-CJn">
                     <rect key="frame" x="20" y="20" width="55" height="55"/>
                     <constraints>
@@ -48,9 +60,13 @@
                 </textField>
             </subviews>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="QoR-9J-VuB" secondAttribute="bottom" id="3kw-D2-Eef"/>
                 <constraint firstItem="WM9-vm-CJn" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="4fK-Kt-Dd6"/>
+                <constraint firstItem="QoR-9J-VuB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="7QH-xI-JLj"/>
+                <constraint firstAttribute="trailing" secondItem="QoR-9J-VuB" secondAttribute="trailing" id="A9K-ZL-Ed6"/>
                 <constraint firstItem="fQv-fh-k4V" firstAttribute="leading" secondItem="dnH-sE-mZg" secondAttribute="leading" id="Bt8-hq-Hu3"/>
                 <constraint firstAttribute="trailing" secondItem="dnH-sE-mZg" secondAttribute="trailing" constant="20" id="GeB-Un-dUe"/>
+                <constraint firstItem="QoR-9J-VuB" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="GwQ-CR-gJI"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WM9-vm-CJn" secondAttribute="bottom" constant="20" id="Wwm-Vg-AKZ"/>
                 <constraint firstItem="dnH-sE-mZg" firstAttribute="top" secondItem="WM9-vm-CJn" secondAttribute="top" id="a2J-Jh-M6y"/>
                 <constraint firstItem="WM9-vm-CJn" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="aT2-JS-Rsw"/>

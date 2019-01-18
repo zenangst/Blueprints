@@ -7,6 +7,7 @@
 //
 
 import Blueprints
+import Cocoa
 
 // TODO: - Move to seperate file
 extension LayoutExampleSceneViewController {
@@ -22,9 +23,9 @@ extension LayoutExampleSceneViewController {
             stickyFooters: true
         )
 
-        //let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
-        //verticalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
-        //verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
+        let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 59)
+        verticalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
+        verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
 
         layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
 

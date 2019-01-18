@@ -16,6 +16,8 @@ protocol LayoutExampleSceneDisplayLogic: class {
 class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisplayLogic {
 
     @IBOutlet weak var layoutExampleCollectionView: NSCollectionView!
+    // TODO: - Remove if this is unused.
+    @IBOutlet weak var collectionViewContainerViewWidthConstraint: NSLayoutConstraint!
 
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
     var activeLayout: BlueprintLayout = .vertical
@@ -73,7 +75,7 @@ extension LayoutExampleSceneViewController {
 
     func getExampleData() {
         let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 2,
-                                                                numberOfRowsInSection: 10)
+                                                                numberOfRowsInSection: 20)
         interactor?.getExampleData(request: request)
     }
 

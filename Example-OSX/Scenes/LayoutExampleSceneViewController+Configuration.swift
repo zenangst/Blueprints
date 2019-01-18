@@ -13,8 +13,8 @@ extension LayoutExampleSceneViewController {
     func configureCollectionView() {
         layoutExampleCollectionView.dataSource = self
         registerCollectionViewItems()
-        // TODO: - Register headers
-        // TODO: - Register footers
+        registerCollectionViewHeaders()
+        registerCollectionViewFooters()
     }
 
     private func registerCollectionViewItems() {
@@ -25,6 +25,34 @@ extension LayoutExampleSceneViewController {
 
         layoutExampleCollectionView.register(LayoutExampleCollectionViewItem.self,
                                              forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: layoutExampleItemIdentifier))
+    }
+
+    private func registerCollectionViewHeaders() {
+        let titleViewElementIdentifier = Constants
+            .CollectionViewItemIdentifiers
+            .titleViewElement
+            .rawValue
+
+        let titleViewElementXib = NSNib(nibNamed: titleViewElementIdentifier,
+                                        bundle: nil)
+
+        layoutExampleCollectionView.register(titleViewElementXib,
+                                             forSupplementaryViewOfKind: NSCollectionView.elementKindSectionHeader,
+                                             withIdentifier: NSUserInterfaceItemIdentifier(rawValue: titleViewElementIdentifier))
+    }
+
+    private func registerCollectionViewFooters() {
+        let titleViewElementIdentifier = Constants
+            .CollectionViewItemIdentifiers
+            .titleViewElement
+            .rawValue
+
+        let titleViewElementXib = NSNib(nibNamed: titleViewElementIdentifier,
+                                        bundle: nil)
+
+        layoutExampleCollectionView.register(titleViewElementXib,
+                                             forSupplementaryViewOfKind: NSCollectionView.elementKindSectionFooter,
+                                             withIdentifier: NSUserInterfaceItemIdentifier(rawValue: titleViewElementIdentifier))
     }
 }
 

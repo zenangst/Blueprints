@@ -13,12 +13,17 @@ class LayoutExampleCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var iconImageView: NSImageView!
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var messageLabel: NSTextField!
+    @IBOutlet weak var backgroundView: BackgroundColorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.wantsLayer = true
         configureStyle()
+    }
+
+    override func prepareForReuse() {
+        titleLabel.stringValue = ""
+        messageLabel.stringValue = ""
     }
 }
 
@@ -35,7 +40,9 @@ extension LayoutExampleCollectionViewItem {
 
 private extension LayoutExampleCollectionViewItem {
 
+    // TODO: - Remove use the xib to configure.
     func configureStyle() {
-        view.layer?.backgroundColor = NSColor.lightGray.cgColor
+        titleLabel.textColor = NSColor.headerTextColor
+        messageLabel.textColor = NSColor.textColor
     }
 }

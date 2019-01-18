@@ -228,8 +228,14 @@
           }
 
           if stickyFooters {
+            let heightThreshold: CGFloat
+            #if os(macOS)
+              heightThreshold = collectionView.enclosingScrollView?.bounds.height ?? collectionView.bounds.height
+            #else
+              heightThreshold = collectionView.bounds.height
+            #endif
             let footerY = min(
-              max(collectionView.contentOffset.y + collectionView.bounds.height - footerReferenceSize.height,
+              max(collectionView.contentOffset.y + heightThreshold - footerReferenceSize.height,
                   firstItem.frame.minY),
               sectionMaxY + sectionInset.bottom)
 

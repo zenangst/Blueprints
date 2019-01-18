@@ -16,11 +16,12 @@ struct Constants {
 
     enum CollectionViewItemIdentifiers: String {
         case layoutExampleItem = "LayoutExampleCollectionViewItem"
+        case titleViewElement = "TitleCollectionViewElement"
     }
 
     struct ExampleLayoutDefaults {
-        static let itemsPerRow: CGFloat = 1
-        static let itemsPerColumn: Int = 2
+        static let itemsPerRow: CGFloat = 2
+        static let itemsPerColumn: Int = 1
         static let minimumInteritemSpacing: CGFloat = 10
         static let minimumLineSpacing: CGFloat = 10
         static let sectionInsets: NSEdgeInsets = NSEdgeInsets(top: 10,

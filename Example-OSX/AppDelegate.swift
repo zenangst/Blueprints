@@ -14,14 +14,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let centerX = NSScreen.main?.frame.midX ?? 0
-        let centerY = NSScreen.main?.frame.midY ?? 0
+        guard let mainScreen = NSScreen.main ?? NSScreen.screens.first else {
+            fatalError("Expected a display.")
+        }
+        let screenWidth = mainScreen.frame.width
+        let screenHeight = mainScreen.frame.height
+        let centerX = mainScreen.frame.midX
+        let centerY = mainScreen.frame.midY
         let window = NSWindow(contentViewController: RootViewController(withNibName: Constants.xibIdentifiers.layoutExampleScene.rawValue,
                                                                         controllerType: LayoutExampleSceneViewController.self))
         window.setFrame(NSRect.init(x: centerX,
                                     y: centerY,
-                                    width: 500,
-                                    height: 500),
+                                    width: screenWidth/2,
+                                    height: screenHeight/2),
                         display: false)
 
         self.window = window

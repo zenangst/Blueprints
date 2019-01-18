@@ -16,6 +16,15 @@ protocol LayoutExampleSceneDisplayLogic: class {
 class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisplayLogic {
 
     @IBOutlet weak var layoutExampleCollectionView: NSCollectionView!
+    @IBOutlet weak var itemsPerRowTextField: NSTextField!
+    @IBOutlet weak var itemsPerCollumnTextField: NSTextField!
+    @IBOutlet weak var minimumInterItemSpacingTextField: NSTextField!
+    @IBOutlet weak var minimumLineSpacingTextField: NSTextField!
+    @IBOutlet weak var sectionInsetTopTextField: NSTextField!
+    @IBOutlet weak var sectionInsetLeftTextField: NSTextField!
+    @IBOutlet weak var sectionInsetBottomTextField: NSTextField!
+    @IBOutlet weak var sectionInsetRightTextField: NSTextField!
+    @IBOutlet weak var applyConfigurationButton: NSButton!
     // TODO: - Remove if this is unused.
     @IBOutlet weak var collectionViewContainerViewWidthConstraint: NSLayoutConstraint!
 

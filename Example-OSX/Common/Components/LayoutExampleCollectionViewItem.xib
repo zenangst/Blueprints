@@ -27,7 +27,7 @@
                             <color key="value" name="gridColor" catalog="System" colorSpace="catalog"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="2"/>
+                            <real key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </customView>
@@ -40,21 +40,21 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blueprints-icon-single" id="fA7-B3-mTo"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dnH-sE-mZg">
-                    <rect key="frame" x="83" y="58" width="286" height="17"/>
+                    <rect key="frame" x="83" y="56" width="286" height="19"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Title" id="oSD-Cc-RFR">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <font key="font" metaFont="systemSemibold" size="15"/>
+                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fQv-fh-k4V">
-                    <rect key="frame" x="83" y="33" width="286" height="17"/>
+                    <rect key="frame" x="83" y="29" width="286" height="19"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="ivM-wZ-rjc"/>
                     </constraints>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Label" id="FZS-5b-9Zn">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <font key="font" metaFont="systemLight" size="15"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

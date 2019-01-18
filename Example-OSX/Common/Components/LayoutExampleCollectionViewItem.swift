@@ -15,12 +15,6 @@ class LayoutExampleCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var messageLabel: NSTextField!
     @IBOutlet weak var backgroundView: BackgroundColorView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        configureStyle()
-    }
-
     override func prepareForReuse() {
         titleLabel.stringValue = ""
         messageLabel.stringValue = ""
@@ -35,14 +29,5 @@ extension LayoutExampleCollectionViewItem {
         }
         titleLabel.stringValue = exampleContent.title
         messageLabel.stringValue = exampleContent.message
-    }
-}
-
-private extension LayoutExampleCollectionViewItem {
-
-    // TODO: - Remove use the xib to configure.
-    func configureStyle() {
-        titleLabel.textColor = NSColor.headerTextColor
-        messageLabel.textColor = NSColor.textColor
     }
 }

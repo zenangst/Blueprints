@@ -64,14 +64,11 @@ extension LayoutExampleSceneViewController {
         case .vertical:
             configureVerticalLayout()
         case .horizontal:
-            return
-        //configureHorizontalLayout()
+            configureHorizontalLayout()
         case .mosaic:
-            return
-        //configureMosaicLayout()
+            configureMosaicLayout()
         case .waterfall:
-            return
-            //configureWaterFallLayout()
+            configureWaterFallLayout()
         }
     }
 

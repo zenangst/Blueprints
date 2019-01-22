@@ -27,6 +27,19 @@ extension BlueprintLayout {
             self = .vertical
         }
     }
+
+    mutating func switchToPreviousLayout() {
+        switch self {
+        case .vertical:
+            self = .waterfall
+        case .horizontal:
+            self = .vertical
+        case .mosaic:
+            self = .horizontal
+        case .waterfall:
+            self = .mosaic
+        }
+    }
 }
 
 extension BlueprintLayout {

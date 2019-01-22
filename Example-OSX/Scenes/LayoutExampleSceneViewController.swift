@@ -11,10 +11,17 @@ import Cocoa
 protocol LayoutExampleSceneDisplayLogic: class {
 
     func displayExampleData(viewModel: LayoutExampleScene.GetExampleData.ViewModel)
+    func presentLayoutConfiguration(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel)
 }
 
 class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisplayLogic {
 
+    // MARK: - Title
+    @IBOutlet weak var currentBlueprintTitleTextField: NSTextField!
+    // TODO: - Remove if unused.
+    @IBOutlet weak var previousBlueprintButton: NSButton!
+    @IBOutlet weak var nextBlueprintButton: NSButton!
+    // MARK: - Settings
     @IBOutlet weak var layoutExampleCollectionView: NSCollectionView!
     @IBOutlet weak var itemsPerRowTextField: NSTextField!
     @IBOutlet weak var itemsPerCollumnTextField: NSTextField!
@@ -28,8 +35,33 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
     // TODO: - Remove if this is unused.
     @IBOutlet weak var collectionViewContainerViewWidthConstraint: NSLayoutConstraint!
 
+    // TODO: - To move to own file
+    // ACTIONS:
+
+    @IBAction func previousButtonDidClick(_ sender: Any) {
+        activeLayout.switchToPreviousLayout()
+        configureBluePrintLayout()
+    }
+
+    @IBAction func nextButtonDidClick(_ sender: Any) {
+        activeLayout.switchToNextLayout()
+        configureBluePrintLayout()
+    }
+
+    @IBAction func applyButtonDidClick(_ sender: Any) {
+        let currentLayoutConfiguration = currentlayoutConfiguration()
+        if currentConfiguration != currentLayoutConfiguration {
+            currentConfiguration = currentLayoutConfiguration
+            itemsPerRow = (currentConfiguration?.itemsPerRow) ?? (Constants.ExampleLayoutDefaults.itemsPerRow)
+            itemsPerColumn = (currentConfiguration?.itemsPerCollumn) ?? (Constants.ExampleLayoutDefaults.itemsPerColumn)
+            minimumLineSpacing = (currentConfiguration?.minimumLineSpacing) ?? (Constants.ExampleLayoutDefaults.minimumLineSpacing)
+            sectionInsets = (currentConfiguration?.sectionInsets) ?? (Constants.ExampleLayoutDefaults.sectionInsets)
+            configureBluePrintLayout()
+        }
+    }
+
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
-    var activeLayout: BlueprintLayout = .vertical
+    var activeLayout: BlueprintLayout = .vertical //.mosaic //.vertical
     var dynamicCellSizeCache: [[CGSize]] = [[]]
     var useDynamicHeight = false
     var itemsPerRow = Constants.ExampleLayoutDefaults.itemsPerRow
@@ -69,6 +101,7 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
 
         configureScene {
             getExampleData()
+            getLayoutConfiguration()
         }
     }
 
@@ -91,5 +124,74 @@ extension LayoutExampleSceneViewController {
     func displayExampleData(viewModel: LayoutExampleScene.GetExampleData.ViewModel) {
         exampleDataSource = viewModel.displayedExampleSections
         layoutExampleCollectionView.reloadData()
+    }
+
+    func getLayoutConfiguration() {
+        let request = LayoutExampleScene.GetLayoutConfiguration.Request()
+        interactor?.getLayoutConfiguration(request: request)
+    }
+
+    func presentLayoutConfiguration(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
+        setInitialLayoutConfiguration(viewModel: viewModel)
+        setInitialTextFieldValues(viewModel: viewModel)
+    }
+}
+
+private extension LayoutExampleSceneViewController {
+
+    func setInitialLayoutConfiguration(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
+        let itemsPerRow = CGFloat(viewModel.itemsPerRow)
+        let itemsPerCollumn = Int(viewModel.itemsPerCollumn)
+        let minimumInteritemSpacing = CGFloat(viewModel.minimumInteritemSpacing)
+        let minimumLineSpacing = CGFloat(viewModel.minimumLineSpacing)
+        let sectionInsets = NSEdgeInsets(top: viewModel.topSectionInset,
+                                         left: viewModel.leftSectionInset,
+                                         bottom: viewModel.bottomSectionInset,
+                                         right: viewModel.rightSectionInset)
+        let useDynamicHeight = viewModel.dynamicCellHeightEnabled
+
+        let layoutConfiguration = LayoutConfiguration(itemsPerRow: itemsPerRow,
+                                                      itemsPerCollumn: itemsPerCollumn,
+                                                      minimumInteritemSpacing: minimumInteritemSpacing,
+                                                      minimumLineSpacing: minimumLineSpacing,
+                                                      sectionInsets: sectionInsets,
+                                                      useDynamicHeight: useDynamicHeight)
+
+        currentConfiguration = layoutConfiguration
+    }
+
+    func setInitialTextFieldValues(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
+        let nilValueReplacement = ""
+        itemsPerRowTextField.stringValue = (viewModel.itemsPerRow) ?? (nilValueReplacement)
+        itemsPerCollumnTextField.stringValue = (viewModel.itemsPerCollumn) ?? (nilValueReplacement)
+        minimumInterItemSpacingTextField.stringValue = (viewModel.minimumInteritemSpacing) ?? (nilValueReplacement)
+        minimumLineSpacingTextField.stringValue = (viewModel.minimumLineSpacing) ?? (nilValueReplacement)
+        sectionInsetTopTextField.stringValue = (viewModel.topSectionInset) ?? (nilValueReplacement)
+        sectionInsetLeftTextField.stringValue = (viewModel.leftSectionInset) ?? (nilValueReplacement)
+        sectionInsetBottomTextField.stringValue = (viewModel.bottomSectionInset) ?? (nilValueReplacement)
+        sectionInsetRightTextField.stringValue = (viewModel.rightSectionInset) ?? (nilValueReplacement)
+    }
+
+    func currentlayoutConfiguration() -> LayoutConfiguration {
+        let itemsPerRow = CGFloat(itemsPerRowTextField.stringValue)
+        let itemsPerCollumn = Int(itemsPerCollumnTextField.stringValue)
+        let minimumInteritemSpacing = CGFloat(minimumInterItemSpacingTextField.stringValue)
+        let minimumLineSpacing = CGFloat(minimumLineSpacingTextField.stringValue)
+        let sectionInsets = NSEdgeInsets(top: sectionInsetTopTextField.stringValue,
+                                         left: sectionInsetLeftTextField.stringValue,
+                                         bottom: sectionInsetBottomTextField.stringValue,
+                                         right: sectionInsetRightTextField.stringValue)
+
+        // TODO: - Update this value once we have implemented dynamic heights.
+        let useDynamicHeight = false
+
+        let layoutConfiguration = LayoutConfiguration(itemsPerRow: itemsPerRow,
+                                                      itemsPerCollumn: itemsPerCollumn,
+                                                      minimumInteritemSpacing: minimumInteritemSpacing,
+                                                      minimumLineSpacing: minimumLineSpacing,
+                                                      sectionInsets: sectionInsets,
+                                                      useDynamicHeight: useDynamicHeight)
+
+        return layoutConfiguration
     }
 }

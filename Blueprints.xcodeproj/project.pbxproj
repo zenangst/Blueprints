@@ -52,6 +52,13 @@
 		832107EA21BFD4040032A439 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107E921BFD4040032A439 /* CGFloatExtensions.swift */; };
 		832107EC21BFD49E0032A439 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107EB21BFD49E0032A439 /* IntExtensions.swift */; };
 		832107EE21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */; };
+		833FB00C21F5C61400FE5DC7 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB00B21F5C61400FE5DC7 /* IntExtensions.swift */; };
+		833FB00E21F5C63C00FE5DC7 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB00D21F5C63C00FE5DC7 /* CGFloatExtensions.swift */; };
+		833FB01021F5C66A00FE5DC7 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB00F21F5C66A00FE5DC7 /* UIEdgeInsetsExtensions.swift */; };
+		833FB01221F5E7E500FE5DC7 /* NSViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01121F5E7E500FE5DC7 /* NSViewExtensions.swift */; };
+		833FB01421F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */; };
+		833FB01621F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01521F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */; };
+		833FB01821F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01721F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */; };
 		836DB27D21ECBE77003D38B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB27C21ECBE77003D38B1 /* AppDelegate.swift */; };
 		836DB28121ECBE77003D38B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836DB28021ECBE77003D38B1 /* Assets.xcassets */; };
 		836DB28E21ECDAC7003D38B1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836DB28D21ECDAC7003D38B1 /* MainMenu.xib */; };
@@ -298,6 +305,13 @@
 		832107E921BFD4040032A439 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
 		832107EB21BFD49E0032A439 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		832107ED21BFD4B40032A439 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		833FB00B21F5C61400FE5DC7 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		833FB00D21F5C63C00FE5DC7 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
+		833FB00F21F5C66A00FE5DC7 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		833FB01121F5E7E500FE5DC7 /* NSViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSViewExtensions.swift; sourceTree = "<group>"; };
+		833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift"; sourceTree = "<group>"; };
+		833FB01521F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift"; sourceTree = "<group>"; };
+		833FB01721F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift"; sourceTree = "<group>"; };
 		836DB27A21ECBE77003D38B1 /* Example-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836DB27C21ECBE77003D38B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		836DB28021ECBE77003D38B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -681,7 +695,10 @@
 				836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */,
 				83E4B85021EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift */,
 				83E4B85221EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift */,
+				833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */,
 				83E4B85421EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */,
+				833FB01521F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */,
+				833FB01721F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */,
 				83E4B85C21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift */,
 			);
 			name = LayoutExampleScene;
@@ -742,7 +759,11 @@
 			isa = PBXGroup;
 			children = (
 				83E4B86D21EF791E008AEA87 /* ArrayExtensions.swift */,
+				833FB00D21F5C63C00FE5DC7 /* CGFloatExtensions.swift */,
+				833FB00B21F5C61400FE5DC7 /* IntExtensions.swift */,
 				83E4B86521EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift */,
+				833FB01121F5E7E500FE5DC7 /* NSViewExtensions.swift */,
+				833FB00F21F5C66A00FE5DC7 /* UIEdgeInsetsExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1381,15 +1402,20 @@
 			files = (
 				836DB2A621EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift in Sources */,
 				83E4B86121EF6E71008AEA87 /* ExampleSection.swift in Sources */,
+				833FB00E21F5C63C00FE5DC7 /* CGFloatExtensions.swift in Sources */,
 				83E4B85D21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift in Sources */,
 				83E4B85321EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift in Sources */,
 				83E4B86C21EF7365008AEA87 /* Lorem.swift in Sources */,
 				836DB29821ECE220003D38B1 /* RootViewController.swift in Sources */,
 				836DB27D21ECBE77003D38B1 /* AppDelegate.swift in Sources */,
+				833FB01821F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */,
+				833FB01021F5C66A00FE5DC7 /* UIEdgeInsetsExtensions.swift in Sources */,
 				83E4B86921EF733D008AEA87 /* ExampleDataMocks.swift in Sources */,
 				83E4B85B21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift in Sources */,
+				833FB00C21F5C61400FE5DC7 /* IntExtensions.swift in Sources */,
 				83E4B85121EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift in Sources */,
 				83E4B87621F1E4C9008AEA87 /* TitleCollectionViewElement.swift in Sources */,
+				833FB01621F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */,
 				83E4B85521EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift in Sources */,
 				83E4B86E21EF791E008AEA87 /* ArrayExtensions.swift in Sources */,
 				83E4B86621EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift in Sources */,
@@ -1399,7 +1425,9 @@
 				83E4B85921EF6D9C008AEA87 /* LayoutExampleSceneModels.swift in Sources */,
 				83E4B85721EF6D6F008AEA87 /* LayoutExampleSceneInteractor.swift in Sources */,
 				83E4B85F21EF6E4C008AEA87 /* ExampleContent.swift in Sources */,
+				833FB01221F5E7E500FE5DC7 /* NSViewExtensions.swift in Sources */,
 				83E4B87321F1DF32008AEA87 /* BackgroundColorView.swift in Sources */,
+				833FB01421F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift in Sources */,
 				836DB2A321EDDB47003D38B1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -143,4 +143,21 @@ extension LayoutExampleSceneViewController {
         }
         return floor(cellWidth / itemsPerRow)
     }*/
+
+    func scrollLayoutExampleCollectionViewToTopItem() {
+        let initalIndexPath = IndexPath(item: 0, section: 0)
+        if let sectionHeader = layoutExampleCollectionView.supplementaryView(
+            forElementKind: NSCollectionView.elementKindSectionHeader,
+            at: initalIndexPath) {
+            layoutExampleCollectionView.scrollToVisible(
+                NSRect(x: sectionHeader.bounds.origin.x,
+                       y: sectionHeader.bounds.origin.y,
+                       width: sectionHeader.bounds.width,
+                       height: sectionHeader.bounds.height))
+        } else if layoutExampleCollectionView.item(at: initalIndexPath) != nil {
+            layoutExampleCollectionView.scrollToItems(
+                at: [initalIndexPath],
+                scrollPosition: NSCollectionView.ScrollPosition.top)
+        }
+    }
 }

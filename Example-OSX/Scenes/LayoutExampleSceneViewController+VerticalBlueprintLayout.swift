@@ -9,7 +9,6 @@
 import Blueprints
 import Cocoa
 
-// TODO: - Move to seperate file
 extension LayoutExampleSceneViewController {
 
     func configureVerticalLayout() {
@@ -27,12 +26,9 @@ extension LayoutExampleSceneViewController {
         verticalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
         verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
 
-        layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
-
-        /*NSView.animate(withDuration: 0.5) { [weak self] in
-         self?.layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
-         self?.view.setNeedsLayout()
-         self?.view.layoutIfNeeded()
-         }*/
+        NSView.animate(withDuration: 0.5) { [weak self] in
+            self?.layoutExampleCollectionView.collectionViewLayout = verticalBlueprintLayout
+            self?.scrollLayoutExampleCollectionViewToTopItem()
+        }
     }
 }

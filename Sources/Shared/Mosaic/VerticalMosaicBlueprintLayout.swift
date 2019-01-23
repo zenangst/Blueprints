@@ -62,7 +62,7 @@
         )
         layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
-        nextY = layoutAttribute.frame.maxY
+        nextY += layoutAttribute.frame.maxY
       }
 
       for item in 0..<numberOfItemsInSection(section) {

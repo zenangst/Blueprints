@@ -35,43 +35,9 @@ private extension RootViewController {
 
     func configureCurrentViewsConstraints() {
         current.view.translatesAutoresizingMaskIntoConstraints = false
-
-        let topConstraint = NSLayoutConstraint(
-            item: current.view,
-            attribute: .top,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .top,
-            multiplier: 1.0,
-            constant: 0)
-        let leftConstraint = NSLayoutConstraint(
-            item: current.view,
-            attribute: .leading,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .leading,
-            multiplier: 1.0,
-            constant: 0)
-        let rightConstraint = NSLayoutConstraint(
-            item: current.view,
-            attribute: .trailing,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .trailing,
-            multiplier: 1.0,
-            constant: 0)
-        let bottomConstraint = NSLayoutConstraint(
-            item: current.view,
-            attribute: .bottom,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .bottom,
-            multiplier: 1.0,
-            constant: 0)
-
-        view.addConstraints([topConstraint,
-                             leftConstraint,
-                             rightConstraint,
-                             bottomConstraint])
+        current.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        current.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        current.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        current.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LayoutExampleCollectionViewItem" customModule="Example_OSX" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="QoR-9J-VuB" id="Nxf-aS-Zi0"/>
+                <outlet property="iconImageView" destination="WM9-vm-CJn" id="kgT-1X-cMH"/>
+                <outlet property="messageLabel" destination="fQv-fh-k4V" id="InD-bp-VCe"/>
+                <outlet property="titleLabel" destination="dnH-sE-mZg" id="3lO-Bc-M6C"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="LayoutExampleCollectionViewItem" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="387" height="95"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="QoR-9J-VuB" customClass="BackgroundColorView" customModule="Example_OSX" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="387" height="95"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" name="gridColor" catalog="System" colorSpace="catalog"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-vm-CJn">
+                    <rect key="frame" x="20" y="20" width="55" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="55" id="Tue-kv-jDB"/>
+                        <constraint firstAttribute="height" constant="55" id="l9z-9Z-0fE"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blueprints-icon-single" id="fA7-B3-mTo"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dnH-sE-mZg">
+                    <rect key="frame" x="83" y="56" width="286" height="19"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Title" id="oSD-Cc-RFR">
+                        <font key="font" metaFont="systemSemibold" size="15"/>
+                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fQv-fh-k4V">
+                    <rect key="frame" x="83" y="29" width="286" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="ivM-wZ-rjc"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Label" id="FZS-5b-9Zn">
+                        <font key="font" metaFont="systemLight" size="15"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="QoR-9J-VuB" secondAttribute="bottom" id="3kw-D2-Eef"/>
+                <constraint firstItem="WM9-vm-CJn" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="4fK-Kt-Dd6"/>
+                <constraint firstItem="QoR-9J-VuB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="7QH-xI-JLj"/>
+                <constraint firstAttribute="trailing" secondItem="QoR-9J-VuB" secondAttribute="trailing" id="A9K-ZL-Ed6"/>
+                <constraint firstItem="fQv-fh-k4V" firstAttribute="leading" secondItem="dnH-sE-mZg" secondAttribute="leading" id="Bt8-hq-Hu3"/>
+                <constraint firstAttribute="trailing" secondItem="dnH-sE-mZg" secondAttribute="trailing" constant="20" id="GeB-Un-dUe"/>
+                <constraint firstItem="QoR-9J-VuB" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="GwQ-CR-gJI"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WM9-vm-CJn" secondAttribute="bottom" constant="20" id="Wwm-Vg-AKZ"/>
+                <constraint firstItem="dnH-sE-mZg" firstAttribute="top" secondItem="WM9-vm-CJn" secondAttribute="top" id="a2J-Jh-M6y"/>
+                <constraint firstItem="WM9-vm-CJn" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="aT2-JS-Rsw"/>
+                <constraint firstItem="fQv-fh-k4V" firstAttribute="top" secondItem="dnH-sE-mZg" secondAttribute="bottom" constant="8" id="ccW-Zp-Ygf"/>
+                <constraint firstItem="dnH-sE-mZg" firstAttribute="leading" secondItem="WM9-vm-CJn" secondAttribute="trailing" constant="10" id="kzq-v2-8T3"/>
+                <constraint firstItem="fQv-fh-k4V" firstAttribute="trailing" secondItem="dnH-sE-mZg" secondAttribute="trailing" id="raZ-Be-DLq"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fQv-fh-k4V" secondAttribute="bottom" constant="20" id="uZs-eL-KGz"/>
+            </constraints>
+            <point key="canvasLocation" x="93.5" y="199.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Blueprints-icon-single" width="385" height="386"/>
+    </resources>
+</document>

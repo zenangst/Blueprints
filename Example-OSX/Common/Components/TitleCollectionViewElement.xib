@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="TitleCollectionViewElement" id="c22-O7-iKe" customClass="TitleCollectionViewElement" customModule="Example_OSX" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="59"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="2ba-nQ-HmG" customClass="BackgroundColorView" customModule="Example_OSX" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="59"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GIw-VM-9WM">
+                    <rect key="frame" x="18" y="20" width="444" height="19"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Title" id="CxA-fM-WEy">
+                        <font key="font" metaFont="systemSemibold" size="15"/>
+                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="GIw-VM-9WM" secondAttribute="bottom" constant="20" id="6Pg-Bp-clA"/>
+                <constraint firstAttribute="bottom" secondItem="2ba-nQ-HmG" secondAttribute="bottom" id="Ctm-BF-SCX"/>
+                <constraint firstItem="2ba-nQ-HmG" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="RUv-Gb-mTY"/>
+                <constraint firstItem="2ba-nQ-HmG" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="cgj-ri-9bj"/>
+                <constraint firstItem="GIw-VM-9WM" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="dOH-5e-SJL"/>
+                <constraint firstAttribute="trailing" secondItem="GIw-VM-9WM" secondAttribute="trailing" constant="20" id="i3H-hG-QKq"/>
+                <constraint firstAttribute="trailing" secondItem="2ba-nQ-HmG" secondAttribute="trailing" id="pR4-m3-ey3"/>
+                <constraint firstItem="GIw-VM-9WM" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="wDa-aC-X8D"/>
+            </constraints>
+            <connections>
+                <outlet property="titleLabel" destination="GIw-VM-9WM" id="6hb-FZ-jhr"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="153.5"/>
+        </customView>
+    </objects>
+</document>

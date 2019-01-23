@@ -37,7 +37,7 @@ The framework also provides a good base for your custom implementations. By exte
 
 ## Preview
 
-| iOS   | Mac OS  |
+| iOS   | macOS  |
 | ------------ | ------------ |
 | ![iOS Preview](Images/iOS-Preview.gif?raw=true "iOS Preview")  | ![iOS Preview](Images/OSX-Preview.gif?raw=true "iOS Preview")  |
 
@@ -60,7 +60,7 @@ To provide dynamic sizing, you can make your collection view delegate conform to
 ```swift
 let blueprintLayout = VerticalBlueprintLayout(
   itemsPerRow: 1.0,
-  itemSize: CGSize(width: 200, height: 60),
+  height: 50,
   minimumInteritemSpacing: 10,
   minimumLineSpacing: 10,
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
@@ -76,7 +76,7 @@ let collectionView = UICollectionView(frame: .zero,
 let blueprintLayout = HorizontalBlueprintLayout(
   itemsPerRow: 1.0,
   itemsPerColumn: 2,
-  itemSize: CGSize(width: 200, height: 200),
+  height: 50,
   minimumInteritemSpacing: 10,
   minimumLineSpacing: 10,
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10),

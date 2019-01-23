@@ -63,8 +63,6 @@ extension LayoutExampleSceneViewController {
             configureHorizontalLayout()
         case .mosaic:
             configureMosaicLayout()
-        case .waterfall:
-            configureWaterFallLayout()
         }
     }
 

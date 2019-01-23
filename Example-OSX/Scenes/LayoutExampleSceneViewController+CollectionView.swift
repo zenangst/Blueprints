@@ -6,7 +6,7 @@ extension LayoutExampleSceneViewController: NSCollectionViewDataSource {
         switch activeLayout {
         case .horizontal, .vertical:
             return (exampleDataSource?.count) ?? (0)
-        case .mosaic, .waterfall:
+        case .mosaic:
             // MARK: - Only supports one section, multiple sections cause overlapping.
             return 1
         }

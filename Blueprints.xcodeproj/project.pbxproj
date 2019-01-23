@@ -35,7 +35,6 @@
 		832107C421BE68F20032A439 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107C321BE68F20032A439 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */; };
 		832107C621BE69240032A439 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107C521BE69240032A439 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */; };
 		832107C821BE696C0032A439 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107C721BE696C0032A439 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */; };
-		832107CA21BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107C921BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */; };
 		832107D221BE6A5B0032A439 /* LayoutSettingsScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107CC21BE6A5B0032A439 /* LayoutSettingsScenePresenter.swift */; };
 		832107D421BE6A5B0032A439 /* LayoutSettingsSceneRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107CE21BE6A5B0032A439 /* LayoutSettingsSceneRouter.swift */; };
 		832107D521BE6A5B0032A439 /* LayoutSettingsSceneModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832107CF21BE6A5B0032A439 /* LayoutSettingsSceneModels.swift */; };
@@ -58,7 +57,6 @@
 		833FB01221F5E7E500FE5DC7 /* NSViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01121F5E7E500FE5DC7 /* NSViewExtensions.swift */; };
 		833FB01421F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */; };
 		833FB01621F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01521F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */; };
-		833FB01821F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833FB01721F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */; };
 		836DB27D21ECBE77003D38B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB27C21ECBE77003D38B1 /* AppDelegate.swift */; };
 		836DB28121ECBE77003D38B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836DB28021ECBE77003D38B1 /* Assets.xcassets */; };
 		836DB28E21ECDAC7003D38B1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836DB28D21ECDAC7003D38B1 /* MainMenu.xib */; };
@@ -68,6 +66,9 @@
 		836DB2A621EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */; };
 		836DB2A721EDDCA6003D38B1 /* LayoutExample.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */; };
 		839F31B121F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */; };
+		839F31B621F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */; };
+		839F31B721F8C76B0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */; };
+		839F31B821F8C76C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */; };
 		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
 		83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */; };
 		83B8840321C2ACF20074A461 /* TitleCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */; };
@@ -93,9 +94,6 @@
 		83E4B87321F1DF32008AEA87 /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B87221F1DF32008AEA87 /* BackgroundColorView.swift */; };
 		83E4B87621F1E4C9008AEA87 /* TitleCollectionViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B87521F1E4C9008AEA87 /* TitleCollectionViewElement.swift */; };
 		83E4B87821F1E4ED008AEA87 /* TitleCollectionViewElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E4B87721F1E4ED008AEA87 /* TitleCollectionViewElement.xib */; };
-		BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
-		BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
-		BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */; };
 		BD476BC421355C1E008E1D0A /* macOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC221355C1E008E1D0A /* macOSObjectiveCSupportTests.m */; };
 		BD476BC721356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */; };
 		BD476BC821356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */; };
@@ -117,9 +115,6 @@
 		BDA31B0C20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
 		BDA31B0D20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
 		BDA31B0E20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */; };
-		BDA31B1120D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */; };
-		BDA31B1220D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */; };
-		BDA31B1320D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */; };
 		BDAC0BD320DAEE4C0045678C /* BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */; };
 		BDAC0BD420DAEE4C0045678C /* BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */; };
 		BDAC0BD520DAEE4C0045678C /* BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */; };
@@ -289,7 +284,6 @@
 		832107C321BE68F20032A439 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalBlueprintLayout.swift"; sourceTree = "<group>"; };
 		832107C521BE69240032A439 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift"; sourceTree = "<group>"; };
 		832107C721BE696C0032A439 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift"; sourceTree = "<group>"; };
-		832107C921BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift"; sourceTree = "<group>"; };
 		832107CC21BE6A5B0032A439 /* LayoutSettingsScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSettingsScenePresenter.swift; sourceTree = "<group>"; };
 		832107CE21BE6A5B0032A439 /* LayoutSettingsSceneRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSettingsSceneRouter.swift; sourceTree = "<group>"; };
 		832107CF21BE6A5B0032A439 /* LayoutSettingsSceneModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSettingsSceneModels.swift; sourceTree = "<group>"; };
@@ -312,7 +306,6 @@
 		833FB01121F5E7E500FE5DC7 /* NSViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSViewExtensions.swift; sourceTree = "<group>"; };
 		833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift"; sourceTree = "<group>"; };
 		833FB01521F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift"; sourceTree = "<group>"; };
-		833FB01721F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift"; sourceTree = "<group>"; };
 		836DB27A21ECBE77003D38B1 /* Example-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836DB27C21ECBE77003D38B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		836DB28021ECBE77003D38B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -325,6 +318,7 @@
 		836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleSceneViewController.swift; sourceTree = "<group>"; };
 		836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutExample.xib; sourceTree = "<group>"; };
 		839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+Actions.swift"; sourceTree = "<group>"; };
+		839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerticalWaterfallBlueprintLayout.swift; path = Sources/Shared/Waterfall/VerticalWaterfallBlueprintLayout.swift; sourceTree = SOURCE_ROOT; };
 		83B883FD21C259230074A461 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
 		83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -348,7 +342,6 @@
 		83E4B87221F1DF32008AEA87 /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
 		83E4B87521F1E4C9008AEA87 /* TitleCollectionViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewElement.swift; sourceTree = "<group>"; };
 		83E4B87721F1E4ED008AEA87 /* TitleCollectionViewElement.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleCollectionViewElement.xib; sourceTree = "<group>"; };
-		BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayoutTests.swift; sourceTree = "<group>"; };
 		BD1B9F67204FD4C500C0333D /* Blueprints.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Blueprints.podspec; sourceTree = "<group>"; };
 		BD1B9F68204FE43B00C0333D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		BD476BBF21355C1E008E1D0A /* Blueprints-iOS-Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blueprints-iOS-Tests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -364,7 +357,6 @@
 		BDA31B0320D41B12001E4870 /* MosaicLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicLayoutAttributes.swift; sourceTree = "<group>"; };
 		BDA31B0720D41B5B001E4870 /* MosaicBlueprintPatternController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicBlueprintPatternController.swift; sourceTree = "<group>"; };
 		BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMosaicBlueprintLayoutTests.swift; sourceTree = "<group>"; };
-		BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalWaterfallBlueprintLayout.swift; sourceTree = "<group>"; };
 		BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinarySearch.swift; sourceTree = "<group>"; };
 		BDB386FE204D45180080C93B /* NSCollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDB38700204D45B50080C93B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -551,7 +543,6 @@
 				832107C521BE69240032A439 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */,
 				832107C321BE68F20032A439 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */,
 				832107C721BE696C0032A439 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */,
-				832107C921BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */,
 				8321079021B95FB10032A439 /* LayoutExampleSceneWorker.swift */,
 			);
 			name = LayoutExampleScene;
@@ -701,7 +692,6 @@
 				833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */,
 				83E4B85421EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift */,
 				833FB01521F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift */,
-				833FB01721F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift */,
 				83E4B85C21EF6E0E008AEA87 /* LayoutExampleSceneWorker.swift */,
 			);
 			name = LayoutExampleScene;
@@ -717,6 +707,15 @@
 				836DB2A221EDDB47003D38B1 /* Constants.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		839F31B421F8C52D0097E635 /* Waterfall */ = {
+			isa = PBXGroup;
+			children = (
+				839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */,
+			);
+			name = Waterfall;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		83B883FF21C2ACC30074A461 /* CollectionViewReusableViews */ = {
@@ -833,14 +832,6 @@
 			path = Mosaic;
 			sourceTree = "<group>";
 		};
-		BDA31B0F20D42C7C001E4870 /* Waterfall */ = {
-			isa = PBXGroup;
-			children = (
-				BDA31B1020D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift */,
-			);
-			path = Waterfall;
-			sourceTree = "<group>";
-		};
 		BDB4B6C5204CB1FC00971F64 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -889,7 +880,6 @@
 				D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */,
 				BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */,
 				BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */,
-				BD10268020D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift */,
 				BDB98DCD20D6E115001C5578 /* PeformanceTests.swift */,
 				BD476BBF21355C1E008E1D0A /* Blueprints-iOS-Tests-Bridging-Header.h */,
 				BD476BC021355C1E008E1D0A /* Blueprints-macOS-Tests-Bridging-Header.h */,
@@ -975,7 +965,7 @@
 		D5C6296E1C3A809D007F7B7C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				BDA31B0F20D42C7C001E4870 /* Waterfall */,
+				839F31B421F8C52D0097E635 /* Waterfall */,
 				BDA31AFE20D41AD6001E4870 /* Mosaic */,
 				BDA31AFD20D41AD0001E4870 /* Core */,
 			);
@@ -1378,7 +1368,6 @@
 				83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */,
 				832107C821BE696C0032A439 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */,
 				8321079921B95FB10032A439 /* LayoutExampleSceneViewController.swift in Sources */,
-				832107CA21BE699F0032A439 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */,
 				832107C621BE69240032A439 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift in Sources */,
 				832107DF21BEA9380032A439 /* LayoutSettingsSceneViewController+KeyboardAvoidableProtocol.swift in Sources */,
 				832107E621BFBE530032A439 /* LayoutConfiguration.swift in Sources */,
@@ -1411,7 +1400,6 @@
 				83E4B86C21EF7365008AEA87 /* Lorem.swift in Sources */,
 				836DB29821ECE220003D38B1 /* RootViewController.swift in Sources */,
 				836DB27D21ECBE77003D38B1 /* AppDelegate.swift in Sources */,
-				833FB01821F5E95300FE5DC7 /* LayoutExampleSceneViewController+VerticalWaterfallBlueprintLayout.swift in Sources */,
 				833FB01021F5C66A00FE5DC7 /* UIEdgeInsetsExtensions.swift in Sources */,
 				83E4B86921EF733D008AEA87 /* ExampleDataMocks.swift in Sources */,
 				83E4B85B21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift in Sources */,
@@ -1450,11 +1438,11 @@
 				BDD5F8CF204C7D6D00A6BFD5 /* BlueprintLayout.swift in Sources */,
 				D284B1491F790CA200D94AF3 /* TypeAlias.swift in Sources */,
 				BDD5F8CE204C7D6A00A6BFD5 /* HorizontalBlueprintLayout.swift in Sources */,
-				BDA31B1320D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDAC0BD520DAEE4C0045678C /* BinarySearch.swift in Sources */,
 				BDA31B0220D41AF8001E4870 /* MosaicPattern.swift in Sources */,
+				839F31B821F8C76C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDFB454A20559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
@@ -1467,7 +1455,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDFB637D204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
-				BD10268320D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01820570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01A20570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB38702204D45B50080C93B /* Helper.swift in Sources */,
@@ -1508,11 +1495,11 @@
 				D5C629831C3A892A007F7B7C /* HorizontalBlueprintLayout.swift in Sources */,
 				D5C629871C3A89A8007F7B7C /* TypeAlias.swift in Sources */,
 				BDB4B6B5204CB04900971F64 /* BlueprintLayoutAnimator.swift in Sources */,
-				BDA31B1120D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDAC0BD320DAEE4C0045678C /* BinarySearch.swift in Sources */,
 				BDA31B0020D41AF8001E4870 /* MosaicPattern.swift in Sources */,
+				839F31B621F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDB4B6C7204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
 				BDFB454820559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
@@ -1526,7 +1513,6 @@
 			files = (
 				BDB38701204D45B50080C93B /* Helper.swift in Sources */,
 				BDB98DCE20D6E115001C5578 /* PeformanceTests.swift in Sources */,
-				BD10268120D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01920570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
@@ -1546,6 +1532,7 @@
 				BDB4B6BA204CB09100971F64 /* BlueprintLayoutAnimator.swift in Sources */,
 				BDB4B6B8204CB07400971F64 /* BlueprintLayoutAnimation.swift in Sources */,
 				BDB4B6CE204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */,
+				839F31B721F8C76B0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BDAC0BD420DAEE4C0045678C /* BinarySearch.swift in Sources */,
 				BDB4B6CB204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift in Sources */,
 				BDB4B6BF204CB11100971F64 /* BlueprintLayoutAnimator+Extensions.swift in Sources */,
@@ -1557,7 +1544,6 @@
 				BDD5F8D1204C7EA300A6BFD5 /* BlueprintLayout.swift in Sources */,
 				BDFB454920559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
 				BDC90AF420CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
-				BDA31B1220D42C91001E4870 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BDD5F8D4204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */,
 				BDA31B0520D41B12001E4870 /* MosaicLayoutAttributes.swift in Sources */,
@@ -1570,7 +1556,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
-				BD10268220D56744004964F7 /* VerticalWaterfallBlueprintLayoutTests.swift in Sources */,
 				BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */,
 				BDB38707204D46960080C93B /* Helper.swift in Sources */,
 				BDB38709204D46BB0080C93B /* Mocks.swift in Sources */,

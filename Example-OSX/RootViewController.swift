@@ -1,11 +1,3 @@
-//
-//  RootViewController.swift
-//  Example-OSX
-//
-//  Created by Chris on 14/01/2019.
-//  Copyright © 2019 Christoffer Winterkvist. All rights reserved.
-//
-
 import Cocoa
 
 class RootViewController: NSViewController {
@@ -30,17 +22,11 @@ class RootViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
 
-        configureAppearence()
         addCurrentView()
     }
 }
 
 private extension RootViewController {
-
-    // TODO: - Complete implementation
-    func configureAppearence() {
-
-    }
 
     func addCurrentView() {
         view.addSubview(current.view)

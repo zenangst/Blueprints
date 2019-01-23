@@ -8,15 +8,12 @@
         <customObject id="-2" userLabel="File's Owner" customClass="LayoutExampleSceneViewController" customModule="Example_OSX">
             <connections>
                 <outlet property="applyConfigurationButton" destination="UxL-eg-L6n" id="egT-yU-NjG"/>
-                <outlet property="collectionViewContainerViewWidthConstraint" destination="JA7-MT-aSo" id="3KW-T8-Pez"/>
                 <outlet property="currentBlueprintTitleTextField" destination="WXz-eC-oMh" id="na7-QI-bXw"/>
                 <outlet property="itemsPerCollumnTextField" destination="arZ-vK-0Ts" id="xAZ-FM-4A9"/>
                 <outlet property="itemsPerRowTextField" destination="dLV-WP-DHi" id="0GU-DY-cMc"/>
                 <outlet property="layoutExampleCollectionView" destination="L8s-6k-Zt0" id="AJa-kU-tmW"/>
                 <outlet property="minimumInterItemSpacingTextField" destination="WIh-lM-DI3" id="cAf-3u-cUN"/>
                 <outlet property="minimumLineSpacingTextField" destination="Vcc-oG-7fD" id="YDC-YZ-fcO"/>
-                <outlet property="nextBlueprintButton" destination="HNQ-Hh-5cd" id="8Pp-TR-Kw3"/>
-                <outlet property="previousBlueprintButton" destination="BNe-bQ-qG7" id="GDb-U6-hUA"/>
                 <outlet property="sectionInsetBottomTextField" destination="a9S-XO-b1n" id="Wi2-bT-cUR"/>
                 <outlet property="sectionInsetLeftTextField" destination="CrX-lo-rfL" id="lNs-Oz-KcE"/>
                 <outlet property="sectionInsetRightTextField" destination="uoE-Fd-idc" id="5z6-QD-glU"/>

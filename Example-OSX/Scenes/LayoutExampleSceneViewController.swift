@@ -1,11 +1,3 @@
-//
-//  LayoutExampleSceneViewController.swift
-//  Example-OSX
-//
-//  Created by Chris on 15/01/2019.
-//  Copyright © 2019 Christoffer Winterkvist. All rights reserved.
-//
-
 import Cocoa
 
 protocol LayoutExampleSceneDisplayLogic: class {
@@ -16,12 +8,7 @@ protocol LayoutExampleSceneDisplayLogic: class {
 
 class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisplayLogic {
 
-    // MARK: - Title
     @IBOutlet weak var currentBlueprintTitleTextField: NSTextField!
-    // TODO: - Remove if unused.
-    @IBOutlet weak var previousBlueprintButton: NSButton!
-    @IBOutlet weak var nextBlueprintButton: NSButton!
-    // MARK: - Settings
     @IBOutlet weak var layoutExampleCollectionView: NSCollectionView!
     @IBOutlet weak var itemsPerRowTextField: NSTextField!
     @IBOutlet weak var itemsPerCollumnTextField: NSTextField!
@@ -32,36 +19,6 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
     @IBOutlet weak var sectionInsetBottomTextField: NSTextField!
     @IBOutlet weak var sectionInsetRightTextField: NSTextField!
     @IBOutlet weak var applyConfigurationButton: NSButton!
-    // TODO: - Remove if this is unused.
-    @IBOutlet weak var collectionViewContainerViewWidthConstraint: NSLayoutConstraint!
-
-    // TODO: - To move to own file
-    // ACTIONS:
-    @IBAction func previousButtonDidClick(_ sender: Any) {
-        activeLayout.switchToPreviousLayout()
-        configureBluePrintLayout()
-        // TODO: - Move to config
-        currentBlueprintTitleTextField.stringValue = activeLayout.title
-    }
-
-    @IBAction func nextButtonDidClick(_ sender: Any) {
-        activeLayout.switchToNextLayout()
-        configureBluePrintLayout()
-        // TODO: - Move to config
-        currentBlueprintTitleTextField.stringValue = activeLayout.title
-    }
-
-    @IBAction func applyButtonDidClick(_ sender: Any) {
-        let currentLayoutConfiguration = currentlayoutConfiguration()
-        if currentConfiguration != currentLayoutConfiguration {
-            currentConfiguration = currentLayoutConfiguration
-            itemsPerRow = (currentConfiguration?.itemsPerRow) ?? (Constants.ExampleLayoutDefaults.itemsPerRow)
-            itemsPerColumn = (currentConfiguration?.itemsPerCollumn) ?? (Constants.ExampleLayoutDefaults.itemsPerColumn)
-            minimumLineSpacing = (currentConfiguration?.minimumLineSpacing) ?? (Constants.ExampleLayoutDefaults.minimumLineSpacing)
-            sectionInsets = (currentConfiguration?.sectionInsets) ?? (Constants.ExampleLayoutDefaults.sectionInsets)
-            configureBluePrintLayout()
-        }
-    }
 
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
     var activeLayout: BlueprintLayout = .vertical
@@ -112,6 +69,7 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
         view.wantsLayer = true
         configureCollectionView()
         configureBluePrintLayout()
+        configureSceneLayoutTitle()
         completion()
     }
 }

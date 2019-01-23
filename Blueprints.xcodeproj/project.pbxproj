@@ -67,6 +67,7 @@
 		836DB2A321EDDB47003D38B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB2A221EDDB47003D38B1 /* Constants.swift */; };
 		836DB2A621EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */; };
 		836DB2A721EDDCA6003D38B1 /* LayoutExample.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */; };
+		839F31B121F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */; };
 		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
 		83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */; };
 		83B8840321C2ACF20074A461 /* TitleCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */; };
@@ -323,6 +324,7 @@
 		836DB2A221EDDB47003D38B1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleSceneViewController.swift; sourceTree = "<group>"; };
 		836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutExample.xib; sourceTree = "<group>"; };
+		839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+Actions.swift"; sourceTree = "<group>"; };
 		83B883FD21C259230074A461 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
 		83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 				83E4B85821EF6D9C008AEA87 /* LayoutExampleSceneModels.swift */,
 				83E4B85A21EF6DDA008AEA87 /* LayoutExampleScenePresenter.swift */,
 				836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */,
+				839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */,
 				83E4B85021EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift */,
 				83E4B85221EF6BCB008AEA87 /* LayoutExampleSceneViewController+Configuration.swift */,
 				833FB01321F5E82E00FE5DC7 /* LayoutExampleSceneViewController+HorizontalBlueprintLayout.swift */,
@@ -1416,6 +1419,7 @@
 				83E4B85121EF44C7008AEA87 /* LayoutExampleSceneViewController+CollectionView.swift in Sources */,
 				83E4B87621F1E4C9008AEA87 /* TitleCollectionViewElement.swift in Sources */,
 				833FB01621F5E94100FE5DC7 /* LayoutExampleSceneViewController+VerticalMosaicBlueprintLayout.swift in Sources */,
+				839F31B121F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift in Sources */,
 				83E4B85521EF6C50008AEA87 /* LayoutExampleSceneViewController+VerticalBlueprintLayout.swift in Sources */,
 				83E4B86E21EF791E008AEA87 /* ArrayExtensions.swift in Sources */,
 				83E4B86621EF71C8008AEA87 /* NSEdgeInsetsExtensions.swift in Sources */,

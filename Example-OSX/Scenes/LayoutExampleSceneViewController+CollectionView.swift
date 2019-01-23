@@ -1,11 +1,3 @@
-//
-//  LayoutExampleSceneViewController+CollectionView.swift
-//  Example-OSX
-//
-//  Created by Chris on 16/01/2019.
-//  Copyright © 2019 Christoffer Winterkvist. All rights reserved.
-//
-
 import Cocoa
 
 extension LayoutExampleSceneViewController: NSCollectionViewDataSource {
@@ -39,6 +31,7 @@ extension LayoutExampleSceneViewController: NSCollectionViewDataSource {
         }
     }
 
+    // TODO: - Update this once we have implemented dynamic heights.
     /*func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
@@ -53,6 +46,7 @@ extension LayoutExampleSceneViewController: NSCollectionViewDataSource {
 
 extension LayoutExampleSceneViewController: NSCollectionViewDelegateFlowLayout {
 
+    // TODO: - Update this value once we have implemented dynamic heights.
     /*func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         guard let cachedCellSize = dynamicCellSizeCache[safe: indexPath.section]?[safe: indexPath.item] else {
             let insertedCellSize = addCellSizeToCache(forItemAt: indexPath)
@@ -110,6 +104,7 @@ extension LayoutExampleSceneViewController {
         return layoutExampleCollectionViewItem
     }
 
+    // TODO: - Update this value once we have implemented dynamic heights.
     /*func addCellSizeToCache(forItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = layoutExampleCellCalculatedSize(forItemAt: indexPath)
         guard dynamicCellSizeCache[safe: indexPath.section] != nil else {

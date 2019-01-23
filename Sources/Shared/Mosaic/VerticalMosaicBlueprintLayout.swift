@@ -41,11 +41,25 @@
     }
 
     var mosaicCount: Int = 0
+    var nextY: CGFloat = sectionInset.top
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else { continue }
 
       var previousAttribute: MosaicLayoutAttributes?
+      let sectionIndexPath = IndexPath(item: 0, section: section)
+
+      if headerReferenceSize.height > 0 {
+        let layoutAttribute = createSupplementaryLayoutAttribute(
+          ofKind: .header,
+          indexPath: sectionIndexPath,
+          atY: nextY
+        )
+        layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
+        layoutAttributes.append([layoutAttribute])
+        nextY += layoutAttribute.frame.maxY
+      }
+
       for item in 0..<numberOfItemsInSection(section) {
         let layoutAttribute: LayoutAttributes
         let indexPath = IndexPath(item: item, section: section)
@@ -80,7 +94,7 @@
           if let previousAttribute = previousAttribute {
             mosaicLayoutAttribute.frame.origin.y = previousAttribute.frame.maxY + minimumLineSpacing
           } else {
-            mosaicLayoutAttribute.frame.origin.y = sectionInset.top
+            mosaicLayoutAttribute.frame.origin.y = nextY
           }
 
           previousAttribute = mosaicLayoutAttribute

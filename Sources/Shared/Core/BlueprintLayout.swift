@@ -111,7 +111,7 @@
   /// - Returns: The desired size of the item at the index path.
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
     if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
-      var containerWidth: CGFloat = collectionView.frame.size.width
+      var containerWidth = collectionView.frame.size.width
 
       #if os(macOS)
       if scrollDirection == .horizontal {

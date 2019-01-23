@@ -1,11 +1,3 @@
-//
-//  BackgroundColorView.swift
-//  Example-OSX
-//
-//  Created by Chris on 18/01/2019.
-//  Copyright © 2019 Christoffer Winterkvist. All rights reserved.
-//
-
 import Cocoa
 
 @IBDesignable

@@ -39,7 +39,7 @@ The framework also provides a good base for your custom implementations. By exte
 
 | iOS   | macOS  |
 | ------------ | ------------ |
-| ![iOS Preview](Images/iOS-Preview.gif?=500x)  | ![macOS Preview](Images/OSX-Preview.gif?raw=true)  |
+| <img src="Images/iOS-Preview.gif?raw=true" width="556" alt="iOS PReview"/>  | ![macOS Preview](Images/OSX-Preview.gif?raw=true)  |
 
 ## How do items per row work?
 

@@ -7,20 +7,15 @@
 @objc public class VerticalMosaicBlueprintLayout: BlueprintLayout {
   private let controller: MosaicBlueprintPatternController
 
-  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
-  public var stickyHeaders: Bool = false
-
   @objc public required init(
     patternHeight: CGFloat = 50,
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-    stickyHeaders: Bool = false,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(),
     patterns: [MosaicPattern]
     ) {
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
-    self.stickyHeaders = stickyHeaders
     super.init(
       itemsPerRow: 0.0,
       itemSize: .init(width: 50, height: patternHeight),
@@ -186,9 +181,5 @@
         }
       }
     }
-  }
-
-  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return stickyHeaders
   }
 }

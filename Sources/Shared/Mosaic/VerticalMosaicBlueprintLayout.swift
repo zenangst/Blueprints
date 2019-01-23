@@ -110,7 +110,19 @@
       }
 
       if let previousAttribute = previousAttribute {
-        contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom
+        nextY = previousAttribute.frame.maxY
+        if footerReferenceSize.height > 0 {
+          let layoutAttribute = createSupplementaryLayoutAttribute(
+            ofKind: .footer,
+            indexPath: sectionIndexPath,
+            atY: nextY + sectionInset.bottom
+          )
+          layoutAttributes[section].append(layoutAttribute)
+        }
+      }
+
+      if let previousAttribute = previousAttribute {
+        contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + footerReferenceSize.height
       }
     }
 

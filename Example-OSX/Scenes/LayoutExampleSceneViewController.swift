@@ -37,15 +37,18 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
 
     // TODO: - To move to own file
     // ACTIONS:
-
     @IBAction func previousButtonDidClick(_ sender: Any) {
         activeLayout.switchToPreviousLayout()
         configureBluePrintLayout()
+        // TODO: - Move to config
+        currentBlueprintTitleTextField.stringValue = activeLayout.title
     }
 
     @IBAction func nextButtonDidClick(_ sender: Any) {
         activeLayout.switchToNextLayout()
         configureBluePrintLayout()
+        // TODO: - Move to config
+        currentBlueprintTitleTextField.stringValue = activeLayout.title
     }
 
     @IBAction func applyButtonDidClick(_ sender: Any) {

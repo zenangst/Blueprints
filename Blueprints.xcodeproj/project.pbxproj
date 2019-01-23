@@ -66,9 +66,6 @@
 		836DB2A621EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */; };
 		836DB2A721EDDCA6003D38B1 /* LayoutExample.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */; };
 		839F31B121F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */; };
-		839F31B621F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */; };
-		839F31B721F8C76B0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */; };
-		839F31B821F8C76C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */; };
 		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
 		83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */; };
 		83B8840321C2ACF20074A461 /* TitleCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */; };
@@ -318,7 +315,6 @@
 		836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleSceneViewController.swift; sourceTree = "<group>"; };
 		836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutExample.xib; sourceTree = "<group>"; };
 		839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutExampleSceneViewController+Actions.swift"; sourceTree = "<group>"; };
-		839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerticalWaterfallBlueprintLayout.swift; path = Sources/Shared/Waterfall/VerticalWaterfallBlueprintLayout.swift; sourceTree = SOURCE_ROOT; };
 		83B883FD21C259230074A461 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
 		83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -709,15 +705,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		839F31B421F8C52D0097E635 /* Waterfall */ = {
-			isa = PBXGroup;
-			children = (
-				839F31B521F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift */,
-			);
-			name = Waterfall;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		83B883FF21C2ACC30074A461 /* CollectionViewReusableViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,7 +952,6 @@
 		D5C6296E1C3A809D007F7B7C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				839F31B421F8C52D0097E635 /* Waterfall */,
 				BDA31AFE20D41AD6001E4870 /* Mosaic */,
 				BDA31AFD20D41AD0001E4870 /* Core */,
 			);
@@ -1442,7 +1428,6 @@
 				BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDAC0BD520DAEE4C0045678C /* BinarySearch.swift in Sources */,
 				BDA31B0220D41AF8001E4870 /* MosaicPattern.swift in Sources */,
-				839F31B821F8C76C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDFB454A20559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
@@ -1499,7 +1484,6 @@
 				BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDAC0BD320DAEE4C0045678C /* BinarySearch.swift in Sources */,
 				BDA31B0020D41AF8001E4870 /* MosaicPattern.swift in Sources */,
-				839F31B621F8C55C0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDB4B6C7204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
 				BDFB454820559EAC008E59EA /* BlueprintSupplementaryKind.swift in Sources */,
@@ -1532,7 +1516,6 @@
 				BDB4B6BA204CB09100971F64 /* BlueprintLayoutAnimator.swift in Sources */,
 				BDB4B6B8204CB07400971F64 /* BlueprintLayoutAnimation.swift in Sources */,
 				BDB4B6CE204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */,
-				839F31B721F8C76B0097E635 /* VerticalWaterfallBlueprintLayout.swift in Sources */,
 				BDAC0BD420DAEE4C0045678C /* BinarySearch.swift in Sources */,
 				BDB4B6CB204CB25100971F64 /* BlueprintLayoutAnimator+macOS.swift in Sources */,
 				BDB4B6BF204CB11100971F64 /* BlueprintLayoutAnimator+Extensions.swift in Sources */,

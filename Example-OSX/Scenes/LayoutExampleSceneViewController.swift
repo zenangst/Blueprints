@@ -61,7 +61,7 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
     }
 
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
-    var activeLayout: BlueprintLayout = .vertical //.mosaic //.vertical
+    var activeLayout: BlueprintLayout = .vertical
     var dynamicCellSizeCache: [[CGSize]] = [[]]
     var useDynamicHeight = false
     var itemsPerRow = Constants.ExampleLayoutDefaults.itemsPerRow

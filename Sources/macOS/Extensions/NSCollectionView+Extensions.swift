@@ -14,7 +14,13 @@ public extension CollectionView {
   }
 
   var documentRect: CGRect {
-    return enclosingScrollView?.frame ?? .zero
+    guard let enclosingScrollView = enclosingScrollView else {
+      return .zero
+    }
+    if frame.width > enclosingScrollView.frame.width {
+      return enclosingScrollView.frame
+    }
+    return frame
   }
 
   convenience public init(frame: CGRect, collectionViewLayout: CollectionViewFlowLayout) {

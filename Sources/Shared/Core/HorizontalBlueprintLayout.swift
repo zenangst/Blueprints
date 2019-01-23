@@ -207,7 +207,7 @@
 
         if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
           let headerFooterX = max(
-            min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth),
+            min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth + sectionInset.left),
             firstItem.frame.origin.x - sectionInset.left
           )
 

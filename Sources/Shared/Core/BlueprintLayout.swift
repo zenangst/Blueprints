@@ -205,7 +205,7 @@
     self.allCachedAttributes = []
 
     #if os(macOS)
-      if let clipView = collectionView?.enclosingScrollView?.contentView {
+      if let clipView = collectionView?.enclosingScrollView {
         configureHeaderFooterWidth(clipView)
       }
     #else

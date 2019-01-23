@@ -1,4 +1,5 @@
 ![Blueprints logo](Images/Blueprints-header.png?raw=true)
+![Blueprints Preview](Images/Blueprints-Preview.png?raw=true "Blueprints Preview")
 
 <div align="center">
 
@@ -20,10 +21,6 @@ Blueprints is a collection of flow layouts that is meant to make your life easie
 
 The framework also provides a good base for your custom implementations. By extending the core blueprint layout, you get built-in support for animations and layout attribute caching. The bundled default animator supports animations that look very similar to what you get from a vanilla table view. If you want to provide your collection view animator, no problem; you can inject an animator of your choosing when initializing the layout.
 
-## Preview
-
-![Blueprints Preview](Images/Blueprints-Preview.png?raw=true "Blueprints Preview")
-
 ## Features
 
 - [x] 🍭 Animation support
@@ -38,6 +35,11 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 📺 tvOS support
 - [x] 🦖 Objective-C support
 
+## Preview
+
+| iOS   | Mac OS  |
+| ------------ | ------------ |
+| ![iOS Preview](Images/iOS-Preview.gif?raw=true "iOS Preview")  | ![iOS Preview](Images/OSX-Preview.gif?raw=true "iOS Preview")  |
 
 ## How do items per row work?
 

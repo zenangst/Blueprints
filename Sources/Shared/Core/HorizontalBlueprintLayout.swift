@@ -205,7 +205,6 @@
           footerAttribute = layoutAttribute
         }
 
-        // TEMP Comment - Remove - Required to resolve #77
         if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
           let headerFooterX = max(
             min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth + sectionInset.left),

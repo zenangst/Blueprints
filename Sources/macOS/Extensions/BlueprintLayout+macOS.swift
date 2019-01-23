@@ -49,7 +49,6 @@ extension BlueprintLayout {
     headerFooterWidth = view.frame.width
   }
 
-  // TEMP Comment - Remove - Required to resolve #77
   @objc func contentViewBoundsDidChange(_ notification: NSNotification) {
     guard let clipView = notification.object as? NSClipView,
       clipView == collectionView?.enclosingScrollView else {

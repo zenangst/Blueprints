@@ -113,7 +113,6 @@
     if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
       var containerWidth: CGFloat = collectionView.frame.size.width
 
-      // TEMP Comment - Remove - Required to resolve #78
       #if os(macOS)
       if scrollDirection == .horizontal {
         containerWidth = (collectionView.enclosingScrollView?.frame.size.width) ?? (collectionView.frame.size.width)
@@ -211,7 +210,6 @@
     self.cachedItems = []
     self.allCachedAttributes = []
 
-    // TEMP Comment - Remove - Required to resolve #77
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView {
         configureHeaderFooterWidth(clipView)

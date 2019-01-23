@@ -13,7 +13,6 @@ public extension CollectionView {
     return indexPathsForVisibleItems()
   }
 
-  // TEMP Comment - Remove - Required to resolve #79
   var documentRect: CGRect {
     guard let enclosingScrollView = enclosingScrollView else {
       return .zero

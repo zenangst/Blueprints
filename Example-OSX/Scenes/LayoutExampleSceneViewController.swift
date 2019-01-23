@@ -98,40 +98,7 @@ extension LayoutExampleSceneViewController {
     }
 }
 
-private extension LayoutExampleSceneViewController {
-
-    func setInitialLayoutConfiguration(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
-        let itemsPerRow = CGFloat(viewModel.itemsPerRow)
-        let itemsPerCollumn = Int(viewModel.itemsPerCollumn)
-        let minimumInteritemSpacing = CGFloat(viewModel.minimumInteritemSpacing)
-        let minimumLineSpacing = CGFloat(viewModel.minimumLineSpacing)
-        let sectionInsets = NSEdgeInsets(top: viewModel.topSectionInset,
-                                         left: viewModel.leftSectionInset,
-                                         bottom: viewModel.bottomSectionInset,
-                                         right: viewModel.rightSectionInset)
-        let useDynamicHeight = viewModel.dynamicCellHeightEnabled
-
-        let layoutConfiguration = LayoutConfiguration(itemsPerRow: itemsPerRow,
-                                                      itemsPerCollumn: itemsPerCollumn,
-                                                      minimumInteritemSpacing: minimumInteritemSpacing,
-                                                      minimumLineSpacing: minimumLineSpacing,
-                                                      sectionInsets: sectionInsets,
-                                                      useDynamicHeight: useDynamicHeight)
-
-        currentConfiguration = layoutConfiguration
-    }
-
-    func setInitialTextFieldValues(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
-        let nilValueReplacement = ""
-        itemsPerRowTextField.stringValue = (viewModel.itemsPerRow) ?? (nilValueReplacement)
-        itemsPerCollumnTextField.stringValue = (viewModel.itemsPerCollumn) ?? (nilValueReplacement)
-        minimumInterItemSpacingTextField.stringValue = (viewModel.minimumInteritemSpacing) ?? (nilValueReplacement)
-        minimumLineSpacingTextField.stringValue = (viewModel.minimumLineSpacing) ?? (nilValueReplacement)
-        sectionInsetTopTextField.stringValue = (viewModel.topSectionInset) ?? (nilValueReplacement)
-        sectionInsetLeftTextField.stringValue = (viewModel.leftSectionInset) ?? (nilValueReplacement)
-        sectionInsetBottomTextField.stringValue = (viewModel.bottomSectionInset) ?? (nilValueReplacement)
-        sectionInsetRightTextField.stringValue = (viewModel.rightSectionInset) ?? (nilValueReplacement)
-    }
+extension LayoutExampleSceneViewController {
 
     func currentlayoutConfiguration() -> LayoutConfiguration {
         let itemsPerRow = CGFloat(itemsPerRowTextField.stringValue)
@@ -154,5 +121,38 @@ private extension LayoutExampleSceneViewController {
                                                       useDynamicHeight: useDynamicHeight)
 
         return layoutConfiguration
+    }
+
+    private func setInitialLayoutConfiguration(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
+        let itemsPerRow = CGFloat(viewModel.itemsPerRow)
+        let itemsPerCollumn = Int(viewModel.itemsPerCollumn)
+        let minimumInteritemSpacing = CGFloat(viewModel.minimumInteritemSpacing)
+        let minimumLineSpacing = CGFloat(viewModel.minimumLineSpacing)
+        let sectionInsets = NSEdgeInsets(top: viewModel.topSectionInset,
+                                         left: viewModel.leftSectionInset,
+                                         bottom: viewModel.bottomSectionInset,
+                                         right: viewModel.rightSectionInset)
+        let useDynamicHeight = viewModel.dynamicCellHeightEnabled
+
+        let layoutConfiguration = LayoutConfiguration(itemsPerRow: itemsPerRow,
+                                                      itemsPerCollumn: itemsPerCollumn,
+                                                      minimumInteritemSpacing: minimumInteritemSpacing,
+                                                      minimumLineSpacing: minimumLineSpacing,
+                                                      sectionInsets: sectionInsets,
+                                                      useDynamicHeight: useDynamicHeight)
+
+        currentConfiguration = layoutConfiguration
+    }
+
+    private func setInitialTextFieldValues(viewModel: LayoutExampleScene.GetLayoutConfiguration.ViewModel) {
+        let nilValueReplacement = ""
+        itemsPerRowTextField.stringValue = (viewModel.itemsPerRow) ?? (nilValueReplacement)
+        itemsPerCollumnTextField.stringValue = (viewModel.itemsPerCollumn) ?? (nilValueReplacement)
+        minimumInterItemSpacingTextField.stringValue = (viewModel.minimumInteritemSpacing) ?? (nilValueReplacement)
+        minimumLineSpacingTextField.stringValue = (viewModel.minimumLineSpacing) ?? (nilValueReplacement)
+        sectionInsetTopTextField.stringValue = (viewModel.topSectionInset) ?? (nilValueReplacement)
+        sectionInsetLeftTextField.stringValue = (viewModel.leftSectionInset) ?? (nilValueReplacement)
+        sectionInsetBottomTextField.stringValue = (viewModel.bottomSectionInset) ?? (nilValueReplacement)
+        sectionInsetRightTextField.stringValue = (viewModel.rightSectionInset) ?? (nilValueReplacement)
     }
 }

@@ -7,15 +7,24 @@
 @objc public class VerticalMosaicBlueprintLayout: BlueprintLayout {
   private let controller: MosaicBlueprintPatternController
 
+  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
+  public var stickyHeaders: Bool = false
+  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
+  public var stickyFooters: Bool = false
+
   @objc public required init(
     patternHeight: CGFloat = 50,
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = false,
+    stickyFooters: Bool = false,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(),
     patterns: [MosaicPattern]
     ) {
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
+    self.stickyHeaders = stickyHeaders
+    self.stickyFooters = stickyFooters
     super.init(
       itemsPerRow: 0.0,
       itemSize: .init(width: 50, height: patternHeight),
@@ -41,11 +50,25 @@
     }
 
     var mosaicCount: Int = 0
+    var nextY: CGFloat = sectionInset.top
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else { continue }
 
       var previousAttribute: MosaicLayoutAttributes?
+      let sectionIndexPath = IndexPath(item: 0, section: section)
+
+      if headerReferenceSize.height > 0 {
+        let layoutAttribute = createSupplementaryLayoutAttribute(
+          ofKind: .header,
+          indexPath: sectionIndexPath,
+          atY: nextY
+        )
+        layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
+        layoutAttributes.append([layoutAttribute])
+        nextY = layoutAttribute.frame.maxY
+      }
+
       for item in 0..<numberOfItemsInSection(section) {
         let layoutAttribute: LayoutAttributes
         let indexPath = IndexPath(item: item, section: section)
@@ -80,7 +103,7 @@
           if let previousAttribute = previousAttribute {
             mosaicLayoutAttribute.frame.origin.y = previousAttribute.frame.maxY + minimumLineSpacing
           } else {
-            mosaicLayoutAttribute.frame.origin.y = sectionInset.top
+            mosaicLayoutAttribute.frame.origin.y = nextY
           }
 
           previousAttribute = mosaicLayoutAttribute
@@ -167,5 +190,9 @@
         }
       }
     }
+  }
+
+  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    return stickyFooters || stickyHeaders
   }
 }

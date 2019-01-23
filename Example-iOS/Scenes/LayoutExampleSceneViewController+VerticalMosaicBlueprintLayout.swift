@@ -30,6 +30,7 @@ extension LayoutExampleSceneViewController {
         
       let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
       mosaicBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
+      mosaicBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
       
       UIView.animate(withDuration: 0.5) { [weak self] in
         self?.layoutExampleCollectionView.collectionViewLayout = mosaicBlueprintLayout

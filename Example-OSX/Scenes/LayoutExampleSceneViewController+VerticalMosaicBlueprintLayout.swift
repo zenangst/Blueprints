@@ -28,6 +28,10 @@ extension LayoutExampleSceneViewController {
                               multiplier: 0.5)
             ])
 
+        let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 59)
+        mosaicBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
+        mosaicBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
+
         NSView.animate(withDuration: 0.5) { [weak self] in
             self?.layoutExampleCollectionView.collectionViewLayout = mosaicBlueprintLayout
             self?.scrollLayoutExampleCollectionViewToTopItem()

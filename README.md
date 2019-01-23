@@ -1,4 +1,4 @@
-![Blueprints logo](https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-header.png?raw=true)
+![Blueprints logo](Images/Blueprints-header.png?raw=true)
 
 <div align="center">
 
@@ -14,11 +14,15 @@
 
 ## Description
 
-<img src="https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-icon.png?raw=true" width="256" height="256" alt="Blueprints Icon" align="right" />
+<img src="Images/Blueprints-icon.png?raw=true" width="256" height="256" alt="Blueprints Icon" align="right" />
 
 Blueprints is a collection of flow layouts that is meant to make your life easier when working with collection view flow layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
 
 The framework also provides a good base for your custom implementations. By extending the core blueprint layout, you get built-in support for animations and layout attribute caching. The bundled default animator supports animations that look very similar to what you get from a vanilla table view. If you want to provide your collection view animator, no problem; you can inject an animator of your choosing when initializing the layout.
+
+## Preview
+
+![Blueprints Preview](Images/Blueprints-Preview.png?raw=true "Blueprints Preview")
 
 ## Features
 

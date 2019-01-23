@@ -1,4 +1,5 @@
-![Blueprints logo](https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-header.png?raw=true)
+![Blueprints logo](Images/Blueprints-header.png?raw=true)
+![Blueprints Preview](Images/Blueprints-Preview.png?raw=true "Blueprints Preview")
 
 <div align="center">
 
@@ -14,7 +15,7 @@
 
 ## Description
 
-<img src="https://github.com/zenangst/Blueprints/blob/master/Images/Blueprints-icon.png?raw=true" width="256" height="256" alt="Blueprints Icon" align="right" />
+<img src="Images/Blueprints-icon.png?raw=true" width="256" height="256" alt="Blueprints Icon" align="right" />
 
 Blueprints is a collection of flow layouts that is meant to make your life easier when working with collection view flow layouts. It comes with two built-in layouts that are highly flexible and easy to configure at the call-site. They support properties like items per row and items per column; this will calculate the layout attributes needed for fitting the number of views that you want to appear on the screen.
 
@@ -34,6 +35,11 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 📺 tvOS support
 - [x] 🦖 Objective-C support
 
+## Preview
+
+| iOS   | macOS  |
+| ------------ | ------------ |
+| <img src="Images/iOS-Preview.gif?raw=true" width="556" alt="iOS PReview"/>  | ![macOS Preview](Images/OSX-Preview.gif?raw=true)  |
 
 ## How do items per row work?
 
@@ -54,7 +60,7 @@ To provide dynamic sizing, you can make your collection view delegate conform to
 ```swift
 let blueprintLayout = VerticalBlueprintLayout(
   itemsPerRow: 1.0,
-  itemSize: CGSize(width: 200, height: 60),
+  height: 50,
   minimumInteritemSpacing: 10,
   minimumLineSpacing: 10,
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
@@ -70,7 +76,7 @@ let collectionView = UICollectionView(frame: .zero,
 let blueprintLayout = HorizontalBlueprintLayout(
   itemsPerRow: 1.0,
   itemsPerColumn: 2,
-  itemSize: CGSize(width: 200, height: 200),
+  height: 50,
   minimumInteritemSpacing: 10,
   minimumLineSpacing: 10,
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10),

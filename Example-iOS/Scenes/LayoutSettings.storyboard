@@ -251,7 +251,7 @@
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q90-As-96m">
                                                 <rect key="frame" x="8" y="596.5" width="359" height="19.5"/>
-                                                <string key="text">Cell height calculated from the contents of the cell, custom implementation required. Vertical, Horizontal and Waterfall layouts supported.</string>
+                                                <string key="text">Cell height calculated from the contents of the cell, custom implementation required. Vertical and Horizontal layouts supported.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>

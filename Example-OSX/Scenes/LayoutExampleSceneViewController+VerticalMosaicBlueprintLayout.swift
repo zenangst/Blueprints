@@ -28,7 +28,7 @@ extension LayoutExampleSceneViewController {
                               multiplier: 0.5)
             ])
 
-        let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 59)
+        let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
         mosaicBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
         mosaicBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize
 

@@ -24,6 +24,7 @@ extension BlueprintLayout {
   open override func finalizeLayoutTransition() {
     super.finalizeLayoutTransition()
     collectionView?.enclosingScrollView?.layout()
+    macOSWorkaroundSetNewContentSize()
   }
 
   /// On macOS, collection views that don't have an initial size won't
@@ -34,7 +35,7 @@ extension BlueprintLayout {
   /// properly. If a hidden collection view gets a new content size
   /// it will restore the alpha value to 1.0, but only if the alpha value
   /// is equal to the workaround value.
-  func macOSWorkaround() {
+  func macOSWorkaroundCreateCache() {
     let alphaValue: CGFloat = 0.0001
     if contentSize.height == 0 && collectionView?.alphaValue != 0.0 {
       contentSize.height = 0.5
@@ -43,6 +44,29 @@ extension BlueprintLayout {
       collectionView?.alphaValue = 1.0
     }
     collectionView?.frame.size.height = contentSize.height
+  }
+
+  /// When transitioning between layouts macOS does not set the
+  /// proper size to the document view of the scroll view.
+  /// To work around this, the collection views window will
+  /// temporarily be resized and then restored. This will
+  /// trigger the document view getting the new size.
+  func macOSWorkaroundSetNewContentSize() {
+    if let window = collectionView?.window {
+      CATransaction.begin()
+      CATransaction.setDisableActions(true)
+      CATransaction.setAnimationDuration(0.0)
+      let originalFrame = window.frame
+      var frame = originalFrame
+      frame.origin.y = frame.origin.y - 0.025
+      frame.size.height = frame.size.height + 0.025
+      frame.size.width = frame.size.width + 0.025
+      window.setFrame(frame, display: false)
+      CATransaction.commit()
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.045) {
+        window.setFrame(originalFrame, display: false)
+      }
+    }
   }
 
   func configureHeaderFooterWidth(_ view: NSView) {

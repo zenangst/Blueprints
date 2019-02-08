@@ -6,6 +6,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/macOSInjection10.bundle")?.load()
+
         guard let mainScreen = NSScreen.main ?? NSScreen.screens.first else {
             fatalError("Expected a display.")
         }

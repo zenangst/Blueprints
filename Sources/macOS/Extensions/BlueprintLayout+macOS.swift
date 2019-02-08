@@ -60,6 +60,7 @@ extension BlueprintLayout {
       var frame = originalFrame
       frame.origin.y = frame.origin.y - 0.025
       frame.size.height = frame.size.height + 0.025
+      frame.size.width = frame.size.width + 0.025
       window.setFrame(frame, display: false)
       CATransaction.commit()
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.045) {

@@ -316,9 +316,14 @@
                                            match: { $0.frame.intersects(rect) }) ?? []
 
     if let collectionView = collectionView {
-      let contentRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
-                        size: collectionView.frame.size)
-      let headerFooter = cachedHeaderFooterAttributes.filter({ $0.frame.intersects(contentRect) })
+      #if os(macOS)
+      let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                        size: collectionView.enclosingScrollView!.visibleRect.size)
+      #else
+      let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                               size: collectionView.frame.size)
+      #endif
+      let headerFooter = cachedHeaderFooterAttributes.filter({ $0.frame.intersects(visibleRect) })
       result.append(contentsOf: headerFooter)
     }
 

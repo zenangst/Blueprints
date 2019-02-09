@@ -346,7 +346,7 @@
       #endif
 
       var results = cachedHeaderFooterAttributes
-      if collectionView.contentOffset.y > 0 {
+      if collectionView.contentOffset.y > 0 || collectionView.contentOffset.x > 0 {
         results = results.filter({
           switch scrollDirection {
           case .vertical:

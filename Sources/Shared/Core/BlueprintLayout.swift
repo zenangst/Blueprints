@@ -342,7 +342,6 @@
       }
 
       if stickyHeaders, let header = results.filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first {
-        header.frame.size.width = collectionView.enclosingScrollView?.frame.width ?? collectionView.frame.size.width
         switch scrollDirection {
         case .vertical:
           if collectionView.contentOffset.y < 0 {

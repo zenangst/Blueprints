@@ -20,8 +20,8 @@
   /// The amount of items that should appear on each row.
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
-  public var cachedHeaderFooterAttributes = [LayoutAttributes]()
-  public var cachedHeaderFooterAttributesBySection = [[LayoutAttributes]]()
+  public var cachedHeaderFooterAttributes = [HeaderFooterLayoutAttributes]()
+  public var cachedHeaderFooterAttributesBySection = [[HeaderFooterLayoutAttributes]]()
   public var cachedItemAttributes = [LayoutAttributes]()
   public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
@@ -250,13 +250,17 @@
       #if os(macOS)
         let sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
         let items = sorted.filter({ $0.representedElementCategory == .item })
-        let headerFooters = sorted.filter({ $0.representedElementCategory == .supplementaryView })
+        let headerFooters = sorted
+          .filter({ $0.representedElementCategory == .supplementaryView })
+          .compactMap({ $0 as? HeaderFooterLayoutAttributes })
         self.cachedHeaderFooterAttributesBySection.append(headerFooters)
         self.cachedItemAttributesBySection.append(items)
       #else
         let sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
         let items = sorted.filter({ $0.representedElementCategory == .cell })
-        let headerFooters = sorted.filter({ $0.representedElementCategory == .supplementaryView })
+        let headerFooters = sorted
+          .filter({ $0.representedElementCategory == .supplementaryView })
+          .compactMap({ $0 as? HeaderFooterLayoutAttributes })
         self.cachedHeaderFooterAttributesBySection.append(headerFooters)
         self.cachedItemAttributesBySection.append(items)
       #endif
@@ -332,9 +336,16 @@
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {
     if let collectionView = collectionView, context.invalidateEverything == false {
-      var results = cachedHeaderFooterAttributes
-        .compactMap({ $0 as? HeaderFooterLayoutAttributes })
 
+      #if os(macOS)
+      let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                               size: collectionView.enclosingScrollView!.visibleRect.size)
+      #else
+      let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                               size: collectionView.frame.size)
+      #endif
+
+      var results = cachedHeaderFooterAttributes
       if collectionView.contentOffset.y > 0 {
         results = results.filter({
           switch scrollDirection {
@@ -357,15 +368,34 @@
         case .horizontal:
           header.frame.origin.x = min(collectionView.contentOffset.x, header.max)
         }
+
+        if let invalidationContext = context as? InvalidationContext {
+          #if os(macOS)
+          invalidationContext.headerIndexPaths = [header.indexPath!]
+          #else
+          invalidationContext.headerIndexPaths = [header.indexPath]
+          #endif
+        }
       }
 
       if stickyFooters, let footer = results.filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
         switch scrollDirection {
         case .vertical:
-          footer.frame.origin.y = min(collectionView.frame.size.height + collectionView.contentOffset.y - footer.frame.size.height, footer.max + footer.frame.size.height)
+          footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
         case .horizontal:
           footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max)
         }
+        if let invalidationContext = context as? InvalidationContext {
+          #if os(macOS)
+          invalidationContext.footerIndexPaths = [footer.indexPath!]
+          #else
+          invalidationContext.footerIndexPaths = [footer.indexPath]
+          #endif
+        }
+      }
+
+      if context.invalidatedSupplementaryIndexPaths != nil {
+        super.invalidateLayout(with: context)
       }
     } else {
       super.invalidateLayout(with: context)

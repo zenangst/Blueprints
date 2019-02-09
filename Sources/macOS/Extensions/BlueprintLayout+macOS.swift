@@ -1,12 +1,13 @@
 import Cocoa
 
 extension BlueprintLayout {
-  open override func layoutAttributesForSupplementaryView(ofKind elementKind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> LayoutAttributes? {
-    if indexPathIsOutOfBounds(indexPath, for: cachedAttributes) {
+  open override func layoutAttributesForSupplementaryView(ofKind elementKind: NSCollectionView.SupplementaryElementKind,
+                                                          at indexPath: IndexPath) -> LayoutAttributes? {
+    if indexPathIsOutOfBounds(indexPath, for: cachedHeaderFooterAttributesBySection) {
         return nil
     }
 
-    let sectionAttributes = cachedAttributes[indexPath.section]
+    let sectionAttributes = cachedHeaderFooterAttributesBySection[indexPath.section]
     var layoutAttributesResult: LayoutAttributes? = nil
 
     switch elementKind {

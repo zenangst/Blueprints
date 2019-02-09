@@ -5,11 +5,6 @@
 #endif
 
 @objc open class VerticalBlueprintLayout: BlueprintLayout {
-  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
-  public var stickyHeaders: Bool = false
-  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
-  public var stickyFooters: Bool = false
-
   /// An initialized vertical collection view layout object.
   ///
   /// - Parameters:
@@ -22,17 +17,15 @@
   ///   - stickyHeaders: A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
   ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
-  @objc private init(itemsPerRow: CGFloat = 0.0,
-                     itemSize: CGSize = CGSize(width: 50, height: 50),
-                     estimatedItemSize: CGSize = .zero,
-                     minimumInteritemSpacing: CGFloat = 0,
-                     minimumLineSpacing: CGFloat = 10,
-                     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-                     stickyHeaders: Bool = false,
-                     stickyFooters: Bool = false,
-                     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(animation: .automatic)) {
-    self.stickyHeaders = stickyHeaders
-    self.stickyFooters = stickyFooters
+  @objc private override init(itemsPerRow: CGFloat = 0.0,
+                              itemSize: CGSize = CGSize(width: 50, height: 50),
+                              estimatedItemSize: CGSize = .zero,
+                              minimumInteritemSpacing: CGFloat = 0,
+                              minimumLineSpacing: CGFloat = 10,
+                              sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                              stickyHeaders: Bool = false,
+                              stickyFooters: Bool = false,
+                              animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(animation: .automatic)) {
     super.init(
       itemsPerRow: itemsPerRow,
       itemSize: itemSize,
@@ -40,6 +33,8 @@
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,
+      stickyHeaders: stickyHeaders,
+      stickyFooters: stickyFooters,
       animator: animator
     )
     self.scrollDirection = .vertical
@@ -110,7 +105,8 @@
 
   override open func prepare() {
     super.prepare()
-    var layoutAttributes = self.cachedAttributes
+
+    var layoutAttributes = [[LayoutAttributes]]()
     var threshold: CGFloat = 0.0
 
     if let collectionViewWidth = collectionView?.documentRect.width {
@@ -126,8 +122,8 @@
 
       var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
-      var headerAttribute: LayoutAttributes? = nil
-      var footerAttribute: LayoutAttributes? = nil
+      var headerAttribute: HeaderFooterLayoutAttributes? = nil
+      var footerAttribute: HeaderFooterLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {
@@ -136,10 +132,12 @@
           indexPath: sectionIndexPath,
           atY: nextY
         )
+        layoutAttribute.min = nextY
         layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
         headerAttribute = layoutAttribute
         nextY = layoutAttribute.frame.maxY
+        cachedHeaderFooterAttributes.append(layoutAttribute)
       }
 
       nextY += sectionInset.top
@@ -202,6 +200,7 @@
             atY: sectionMaxY + sectionInset.bottom
           )
           layoutAttributes[section].append(layoutAttribute)
+          cachedHeaderFooterAttributes.append(layoutAttribute)
           footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         }
@@ -246,6 +245,8 @@
         }
 
         contentSize.height = sectionMaxY - headerReferenceSize.height + sectionInset.bottom
+        headerAttribute?.max = contentSize.height
+        footerAttribute?.max = contentSize.height
       }
 
       previousItem = nil
@@ -259,15 +260,5 @@
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
-  }
-
-  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    var shouldInvalidate = stickyFooters || stickyHeaders
-
-    if contentSize.width != newBounds.size.width {
-      shouldInvalidate = true
-    }
-
-    return shouldInvalidate
   }
 }

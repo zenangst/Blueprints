@@ -9,14 +9,24 @@
 /// When subclassing, your subclass should implement `prepare` with the
 /// layout algorithm that your subclass should implement.
 @objc open class BlueprintLayout : CollectionViewFlowLayout {
+  var previousBounds: CGRect = .zero
+
+  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
+  public var stickyHeaders: Bool = false
+  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
+  public var stickyFooters: Bool = false
+
   override open var collectionViewContentSize: CGSize { return contentSize }
   /// The amount of items that should appear on each row.
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
-  public var cachedAttributes = [[LayoutAttributes]]()
-  public var cachedItems = [[LayoutAttributes]]()
+  public var cachedHeaderFooterAttributes = [LayoutAttributes]()
+  public var cachedHeaderFooterAttributesBySection = [[LayoutAttributes]]()
+  public var cachedItemAttributes = [LayoutAttributes]()
+  public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
   var binarySearch = BinarySearch()
+  var currentInvalidationContext: InvalidationContext? = nil
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = .zero
@@ -43,8 +53,12 @@
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = false,
+    stickyFooters: Bool = false,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()
     ) {
+    self.stickyHeaders = stickyHeaders
+    self.stickyFooters = stickyFooters
     self.itemsPerRow = itemsPerRow
     self.animator = animator
     super.init()
@@ -150,8 +164,11 @@
   ///   - x: The x coordinate of the header layout attributes.
   ///   - y: The y coordinate of the header layout attributes.
   /// - Returns: A `LayoutAttributes` object of supplementary kind.
-  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind, indexPath: IndexPath, atX x: CGFloat = 0, atY y: CGFloat = 0) -> LayoutAttributes {
-    let layoutAttribute = LayoutAttributes(
+  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind,
+                                          indexPath: IndexPath,
+                                          atX x: CGFloat = 0,
+                                          atY y: CGFloat = 0) -> HeaderFooterLayoutAttributes {
+    let layoutAttribute = HeaderFooterLayoutAttributes(
       forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
       with: indexPath
     )
@@ -206,9 +223,10 @@
   /// Tells the layout object to update the current layout.
   open override func prepare() {
     self.contentSize = .zero
-    self.cachedAttributes = []
-    self.cachedItems = []
-    self.allCachedAttributes = []
+    self.cachedItemAttributesBySection = []
+    self.cachedHeaderFooterAttributes = []
+    self.cachedItemAttributes = []
+    self.cachedHeaderFooterAttributesBySection = []
 
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView {
@@ -230,36 +248,36 @@
 
     for value in attributes {
       #if os(macOS)
-        var sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
-        self.cachedAttributes.append(sorted)
-        sorted = sorted.filter({ $0.representedElementCategory == .item })
+        let sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
+        let items = sorted.filter({ $0.representedElementCategory == .item })
+        let headerFooters = sorted.filter({ $0.representedElementCategory == .supplementaryView })
+        self.cachedHeaderFooterAttributesBySection.append(headerFooters)
+        self.cachedItemAttributesBySection.append(items)
       #else
-        var sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
-        self.cachedAttributes.append(sorted)
-        sorted = sorted.filter({ $0.representedElementCategory == .cell })
+        let sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
+        let items = sorted.filter({ $0.representedElementCategory == .cell })
+        let headerFooters = sorted.filter({ $0.representedElementCategory == .supplementaryView })
+        self.cachedHeaderFooterAttributesBySection.append(headerFooters)
+        self.cachedItemAttributesBySection.append(items)
       #endif
-      self.cachedItems.append(sorted)
     }
 
-    self.allCachedAttributes = Array(attributes.joined())
+    allCachedAttributes = Array(attributes.joined())
 
     switch scrollDirection {
     case .horizontal:
-      self.allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minX < $1.frame.minX })
+      allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minX < $1.frame.minX })
     case .vertical:
-      self.allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
+      allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
     }
-  }
 
-  open override func prepareForTransition(to newLayout: CollectionViewLayout) {
-    super.prepareForTransition(to: newLayout)
-    newLayout.prepare()
-    if let superview = newLayout.collectionView?.superview {
-      newLayout.collectionView?.frame.size.width = superview.frame.size.width
-    } else {
-      newLayout.collectionView?.frame.size.width = newLayout.collectionViewContentSize.width
-    }
-    newLayout.collectionView?.frame.size.height = newLayout.collectionViewContentSize.height
+    self.cachedItemAttributes = allCachedAttributes.filter({
+      #if os(macOS)
+      return $0.representedElementCategory == .item
+      #else
+      return $0.representedElementCategory == .cell
+      #endif
+    })
   }
 
   /// Returns the layout attributes for the item at the specified index path.
@@ -267,7 +285,7 @@
   /// - Parameter indexPath: The index path of the item whose attributes are requested.
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
-    if indexPathIsOutOfBounds(indexPath, for: cachedItems) {
+    if indexPathIsOutOfBounds(indexPath, for: cachedItemAttributesBySection) {
         return nil
     }
 
@@ -277,7 +295,7 @@
     #else
       compare = { indexPath > $0.indexPath }
     #endif
-    let result = binarySearch.findElement(in: cachedItems[indexPath.section],
+    let result = binarySearch.findElement(in: cachedItemAttributesBySection[indexPath.section],
                                           less: compare,
                                           match: { indexPath == $0.indexPath })
     return result
@@ -292,11 +310,79 @@
     let closure: (LayoutAttributes) -> Bool = scrollDirection == .horizontal
       ? { rect.maxX >= $0.frame.minX }
       : { rect.maxY >= $0.frame.minY }
-    let result = binarySearch.findElements(in: allCachedAttributes,
+    var result = binarySearch.findElements(in: cachedItemAttributes,
                                            padding: Int(itemsPerRow ?? 0),
                                            less: { closure($0) },
-                                           match: { $0.frame.intersects(rect) })
-    return result ?? allCachedAttributes.filter { $0.frame.intersects(rect) }
+                                           match: { $0.frame.intersects(rect) }) ?? []
+
+    if let collectionView = collectionView {
+      let contentRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                        size: collectionView.frame.size)
+      let headerFooter = cachedHeaderFooterAttributes.filter({ $0.frame.intersects(contentRect) })
+      result.append(contentsOf: headerFooter)
+    }
+
+    return !result.isEmpty ? result : cachedItemAttributes.filter { $0.frame.intersects(rect) }
+  }
+
+  open override func invalidateLayout(with context: LayoutInvalidationContext) {
+    if let collectionView = collectionView, context.invalidateEverything == false {
+      var results = cachedHeaderFooterAttributes
+        .compactMap({ $0 as? HeaderFooterLayoutAttributes })
+
+      if collectionView.contentOffset.y > 0 {
+        results = results.filter({
+          switch scrollDirection {
+          case .vertical:
+            return collectionView.contentOffset.y >= $0.min && collectionView.contentOffset.y <= $0.max
+          case .horizontal:
+            return collectionView.contentOffset.x >= $0.min && collectionView.contentOffset.x <= $0.max
+          }
+        })
+      }
+
+      if stickyHeaders, let header = results.filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first {
+        header.frame.size.width = collectionView.enclosingScrollView?.frame.width ?? collectionView.frame.size.width
+        switch scrollDirection {
+        case .vertical:
+          if collectionView.contentOffset.y < 0 {
+            header.frame.origin.y = 0
+          } else {
+            header.frame.origin.y = min(collectionView.contentOffset.y, header.max)
+          }
+        case .horizontal:
+          header.frame.origin.x = min(collectionView.contentOffset.x, header.max)
+        }
+      }
+
+      if stickyFooters, let footer = results.filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
+        switch scrollDirection {
+        case .vertical:
+          footer.frame.origin.y = min(collectionView.frame.size.height + collectionView.contentOffset.y - footer.frame.size.height, footer.max + footer.frame.size.height)
+        case .horizontal:
+          footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max)
+        }
+      }
+    } else {
+      super.invalidateLayout(with: context)
+    }
+  }
+
+  open override func invalidationContext(forBoundsChange newBounds: CGRect) -> FlowLayoutInvalidationContext {
+    let context = InvalidationContext()
+    context.shouldInvalidateEverything = previousBounds == newBounds
+    return context
+  }
+
+  override open class var invalidationContextClass: AnyClass {
+    return InvalidationContext.self
+  }
+
+  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    if previousBounds.width != newBounds.width {
+      previousBounds = newBounds
+    }
+    return true
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

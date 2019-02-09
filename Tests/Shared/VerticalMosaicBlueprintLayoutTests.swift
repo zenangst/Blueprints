@@ -16,7 +16,7 @@ class VerticalMosaicBlueprintLayoutTests: XCTestCase {
   func testMosaicLayout() {
     layout.prepare()
 
-    XCTAssertEqual(layout.cachedAttributes[0].count, 10)
+    XCTAssertEqual(layout.cachedItemAttributesBySection[0].count, 10)
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame,
                    CGRect(origin: .init(x: 2, y: 2), size: CGSize(width: 97, height: 23)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame,

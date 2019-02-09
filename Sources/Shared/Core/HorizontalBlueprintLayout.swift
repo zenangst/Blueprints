@@ -7,10 +7,6 @@
 @objc open class HorizontalBlueprintLayout: BlueprintLayout {
   /// A Integer value indicating how many items that should be visible per column.
   public var itemsPerColumn: Int
-  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
-  public var stickyHeaders: Bool = false
-  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
-  public var stickyFooters: Bool = false
 
   /// An initialized vertical collection view layout object.
   ///
@@ -35,8 +31,6 @@
                      stickyHeaders: Bool = true,
                      stickyFooters: Bool = true,
                      animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()) {
-    self.stickyHeaders = stickyHeaders
-    self.stickyFooters = stickyFooters
     self.itemsPerColumn = itemsPerColumn
     super.init(
       itemsPerRow: itemsPerRow,
@@ -45,6 +39,8 @@
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,
+      stickyHeaders: stickyHeaders,
+      stickyFooters: stickyFooters,
       animator: animator
     )
     self.scrollDirection = .horizontal
@@ -124,7 +120,7 @@
 
   override open func prepare() {
     super.prepare()
-    var layoutAttributes = self.cachedAttributes
+    var layoutAttributes = [[LayoutAttributes]]()
     var contentSize: CGSize = .zero
     var nextX: CGFloat = 0
     var widthOfSection: CGFloat = 0
@@ -137,19 +133,20 @@
 
       var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
-      var headerAttribute: LayoutAttributes? = nil
-      var footerAttribute: LayoutAttributes? = nil
+      var headerAttribute: HeaderFooterLayoutAttributes? = nil
+      var footerAttribute: HeaderFooterLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {
-        let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
+        let layoutAttribute: HeaderFooterLayoutAttributes = createSupplementaryLayoutAttribute(
           ofKind: .header,
           indexPath: sectionIndexPath,
           atX: nextX
         )
-
+        layoutAttribute.min = nextX
         headerAttribute = layoutAttribute
         layoutAttributes.append([layoutAttribute])
+        cachedHeaderFooterAttributes.append(layoutAttribute)
       }
 
       for item in 0..<numberOfItemsInSection(section) {
@@ -203,6 +200,7 @@
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
+          cachedHeaderFooterAttributes.append(layoutAttribute)
         }
 
         if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
@@ -229,6 +227,9 @@
         nextX += widthOfSection
       }
 
+      headerAttribute?.max = contentSize.width
+      footerAttribute?.max = contentSize.width
+
       previousItem = nil
       headerAttribute = nil
       footerAttribute = nil
@@ -241,9 +242,5 @@
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
-  }
-
-  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return stickyFooters || stickyHeaders
   }
 }

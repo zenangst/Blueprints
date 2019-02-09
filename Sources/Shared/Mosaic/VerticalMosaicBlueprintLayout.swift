@@ -12,6 +12,8 @@
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = true,
+    stickyFooters: Bool = true,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(),
     patterns: [MosaicPattern]
     ) {
@@ -23,6 +25,8 @@
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,
+      stickyHeaders: stickyHeaders,
+      stickyFooters: stickyFooters,
       animator: animator
     )
   }
@@ -33,7 +37,7 @@
 
   override public func prepare() {
     super.prepare()
-    var layoutAttributes = self.cachedAttributes
+    var layoutAttributes = [[LayoutAttributes]]()
     var threshold: CGFloat = 0.0
 
     if let collectionViewWidth = collectionView?.documentRect.width {
@@ -47,6 +51,8 @@
       guard numberOfItemsInSection(section) > 0 else { continue }
 
       var previousAttribute: MosaicLayoutAttributes?
+      var headerAttribute: HeaderFooterLayoutAttributes? = nil
+      var footerAttribute: HeaderFooterLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {
@@ -55,9 +61,13 @@
           indexPath: sectionIndexPath,
           atY: nextY
         )
+        layoutAttribute.min = nextY
         layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
+        cachedHeaderFooterAttributes.append(layoutAttribute)
         nextY += layoutAttribute.frame.maxY
+        headerAttribute = layoutAttribute
+        headerAttribute?.zIndex = numberOfSections
       }
 
       for item in 0..<numberOfItemsInSection(section) {
@@ -117,13 +127,20 @@
             indexPath: sectionIndexPath,
             atY: nextY + sectionInset.bottom
           )
+          layoutAttribute.zIndex = numberOfSections
+          cachedHeaderFooterAttributes.append(layoutAttribute)
           layoutAttributes[section].append(layoutAttribute)
+          footerAttribute = layoutAttribute
         }
       }
 
       if let previousAttribute = previousAttribute {
         contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + footerReferenceSize.height
+        headerAttribute?.max = contentSize.height
+        footerAttribute?.max = contentSize.height
       }
+      headerAttribute = nil
+      footerAttribute = nil
     }
 
     contentSize.width = threshold

@@ -77,8 +77,8 @@ class LayoutExampleSceneViewController: NSViewController, LayoutExampleSceneDisp
 extension LayoutExampleSceneViewController {
 
     func getExampleData() {
-        let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 2,
-                                                                numberOfRowsInSection: 20)
+        let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 150,
+                                                                numberOfRowsInSection: 150)
         interactor?.getExampleData(request: request)
     }
 

@@ -242,5 +242,8 @@
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
+    if stickyHeaders || stickyFooters {
+      positionHeadersAndFooters()
+    }
   }
 }

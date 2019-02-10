@@ -64,11 +64,14 @@
         layoutAttribute.min = nextY
         layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
-        cachedHeaderFooterAttributes.append(layoutAttribute)
-        nextY += layoutAttribute.frame.maxY
         headerAttribute = layoutAttribute
         headerAttribute?.zIndex = numberOfSections
+        nextY = layoutAttribute.frame.maxY
+        cachedHeaderFooterAttributes.append(layoutAttribute)
       }
+
+      nextY += sectionInset.top
+      var sectionMaxY: CGFloat = 0
 
       for item in 0..<numberOfItemsInSection(section) {
         let layoutAttribute: LayoutAttributes
@@ -80,6 +83,7 @@
           previousAttribute.remaining -= 1
           process(previousAttribute, width: threshold)
           layoutAttribute = childLayoutAttribute
+          sectionMaxY = max(previousAttribute.frame.maxY, layoutAttribute.frame.maxY)
         } else {
           let layoutIndexPath = IndexPath(item: mosaicCount, section: section)
           let pattern = controller.values(at: layoutIndexPath)
@@ -110,6 +114,7 @@
           previousAttribute = mosaicLayoutAttribute
           layoutAttribute = mosaicLayoutAttribute
           mosaicCount += 1
+          sectionMaxY = layoutAttribute.frame.maxY
         }
 
         if section == layoutAttributes.count {
@@ -130,14 +135,15 @@
           layoutAttribute.zIndex = numberOfSections
           cachedHeaderFooterAttributes.append(layoutAttribute)
           layoutAttributes[section].append(layoutAttribute)
+          nextY = layoutAttribute.frame.maxY
           footerAttribute = layoutAttribute
         }
-      }
 
-      if let previousAttribute = previousAttribute {
+        headerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
+        footerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
+
         contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + footerReferenceSize.height
-        headerAttribute?.max = contentSize.height
-        footerAttribute?.max = contentSize.height
+
       }
       headerAttribute = nil
       footerAttribute = nil
@@ -146,6 +152,9 @@
     contentSize.width = threshold
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
+    if stickyHeaders || stickyFooters {
+      positionHeadersAndFooters()
+    }
   }
 
   private func apply(_ pattern: MosaicPattern, to mosaicLayoutAttribute: MosaicLayoutAttributes, with threshold: CGFloat) {

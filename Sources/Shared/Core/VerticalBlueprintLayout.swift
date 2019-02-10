@@ -113,7 +113,7 @@
       threshold = collectionViewWidth
     }
 
-    var nextY: CGFloat = 0
+    var nextY: CGFloat = sectionInset.top
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else {
@@ -132,6 +132,7 @@
           indexPath: sectionIndexPath,
           atY: nextY
         )
+        layoutAttribute.zIndex = numberOfSections
         layoutAttribute.min = nextY
         layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
@@ -191,7 +192,7 @@
         }
       }
 
-      if let previousItem = previousItem, let firstItem = firstItem {
+      if let previousItem = previousItem {
         nextY = previousItem.frame.maxY
         if footerReferenceSize.height > 0 {
           let layoutAttribute = createSupplementaryLayoutAttribute(
@@ -201,47 +202,9 @@
           )
           layoutAttributes[section].append(layoutAttribute)
           cachedHeaderFooterAttributes.append(layoutAttribute)
+          layoutAttribute.zIndex = numberOfSections
           footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
-        }
-
-        if let collectionView = collectionView,
-          let headerFooterWidth = headerFooterWidth {
-          var contentInsetTop: CGFloat = 0
-          #if os(macOS)
-            contentInsetTop = (collectionView.enclosingScrollView?.enclosingScrollView?.contentInsets.top ?? 0)
-            if section == 0 && collectionView.contentOffset.y == 0 {
-              contentInsetTop = 0
-            }
-          #endif
-
-          if stickyHeaders {
-            let headerY = min(
-              max(collectionView.contentOffset.y + contentInsetTop,
-                  firstItem.frame.origin.y - headerReferenceSize.height - sectionInset.top),
-              previousItem.frame.maxY - headerReferenceSize.height + sectionInset.bottom)
-
-            headerAttribute?.zIndex = numberOfSections
-            headerAttribute?.frame.origin.y = headerY
-            headerAttribute?.frame.size.width = headerFooterWidth
-          }
-
-          if stickyFooters {
-            let heightThreshold: CGFloat
-            #if os(macOS)
-              heightThreshold = collectionView.enclosingScrollView?.bounds.height ?? collectionView.bounds.height
-            #else
-              heightThreshold = collectionView.bounds.height
-            #endif
-            let footerY = min(
-              max(collectionView.contentOffset.y + heightThreshold - footerReferenceSize.height,
-                  firstItem.frame.minY),
-              sectionMaxY + sectionInset.bottom)
-
-            footerAttribute?.zIndex = numberOfSections
-            footerAttribute?.frame.origin.y = footerY
-            footerAttribute?.frame.size.width = headerFooterWidth
-          }
         }
 
         contentSize.height = sectionMaxY - headerReferenceSize.height + sectionInset.bottom
@@ -260,5 +223,8 @@
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
+    if stickyHeaders || stickyFooters {
+      positionHeadersAndFooters()
+    }
   }
 }

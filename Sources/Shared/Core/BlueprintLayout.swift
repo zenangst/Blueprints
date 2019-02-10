@@ -335,64 +335,8 @@
   }
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {
-    if let collectionView = collectionView, context.invalidateEverything == false {
-
-      #if os(macOS)
-      let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
-                               size: collectionView.enclosingScrollView!.visibleRect.size)
-      #else
-      let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
-                               size: collectionView.frame.size)
-      #endif
-
-      var results = cachedHeaderFooterAttributes
-      if collectionView.contentOffset.y > 0 || collectionView.contentOffset.x > 0 {
-        results = results.filter({
-          switch scrollDirection {
-          case .vertical:
-            return collectionView.contentOffset.y >= $0.min && collectionView.contentOffset.y <= $0.max
-          case .horizontal:
-            return collectionView.contentOffset.x >= $0.min && collectionView.contentOffset.x <= $0.max
-          }
-        })
-      }
-
-      if stickyHeaders, let header = results.filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first {
-        switch scrollDirection {
-        case .vertical:
-          if collectionView.contentOffset.y < 0 {
-            header.frame.origin.y = 0
-          } else {
-            header.frame.origin.y = min(collectionView.contentOffset.y, header.max)
-          }
-        case .horizontal:
-          header.frame.origin.x = min(collectionView.contentOffset.x, header.max)
-        }
-
-        if let invalidationContext = context as? InvalidationContext {
-          #if os(macOS)
-          invalidationContext.headerIndexPaths = [header.indexPath!]
-          #else
-          invalidationContext.headerIndexPaths = [header.indexPath]
-          #endif
-        }
-      }
-
-      if stickyFooters, let footer = results.filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
-        switch scrollDirection {
-        case .vertical:
-          footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
-        case .horizontal:
-          footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max)
-        }
-        if let invalidationContext = context as? InvalidationContext {
-          #if os(macOS)
-          invalidationContext.footerIndexPaths = [footer.indexPath!]
-          #else
-          invalidationContext.footerIndexPaths = [footer.indexPath]
-          #endif
-        }
-      }
+    if context.invalidateEverything == false {
+      positionHeadersAndFooters(with: context)
 
       if context.invalidatedSupplementaryIndexPaths != nil {
         super.invalidateLayout(with: context)
@@ -417,6 +361,68 @@
       previousBounds = newBounds
     }
     return true
+  }
+
+  internal func positionHeadersAndFooters(with context: LayoutInvalidationContext? = nil) {
+    guard let collectionView = collectionView else { return }
+
+    #if os(macOS)
+    let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                             size: collectionView.enclosingScrollView!.visibleRect.size)
+    #else
+    let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+                             size: collectionView.frame.size)
+    #endif
+
+    var results = cachedHeaderFooterAttributes
+    if collectionView.contentOffset.y > 0 || collectionView.contentOffset.x > 0 {
+      results = results.filter({
+        switch scrollDirection {
+        case .vertical:
+          return collectionView.contentOffset.y >= $0.min && collectionView.contentOffset.y <= $0.max
+        case .horizontal:
+          return collectionView.contentOffset.x >= $0.min && collectionView.contentOffset.x <= $0.max
+        }
+      })
+    }
+
+    if stickyHeaders, let header = results.filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first {
+      switch scrollDirection {
+      case .vertical:
+        if collectionView.contentOffset.y < 0 {
+          header.frame.origin.y = 0
+        } else {
+          header.frame.origin.y = min(collectionView.contentOffset.y, header.max)
+        }
+      case .horizontal:
+        header.frame.origin.x = min(collectionView.contentOffset.x, header.max)
+      }
+
+      if let invalidationContext = context as? InvalidationContext {
+        #if os(macOS)
+        invalidationContext.headerIndexPaths = [header.indexPath!]
+        #else
+        invalidationContext.headerIndexPaths = [header.indexPath]
+        #endif
+      }
+    }
+
+    if stickyFooters, let footer = results.filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
+      switch scrollDirection {
+      case .vertical:
+        footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
+      case .horizontal:
+        footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max)
+      }
+
+      if let invalidationContext = context as? InvalidationContext {
+        #if os(macOS)
+        invalidationContext.footerIndexPaths = [footer.indexPath!]
+        #else
+        invalidationContext.footerIndexPaths = [footer.indexPath]
+        #endif
+      }
+    }
   }
 
   /// Returns the starting layout information for an item being inserted into the collection view.

@@ -4,7 +4,7 @@ import Cocoa
 import UIKit
 #endif
 
-class InvalidationContext: FlowLayoutInvalidationContext {
+class BlueprintInvalidationContext: FlowLayoutInvalidationContext {
   var shouldInvalidateEverything = true
 
   var headerIndexPaths = [IndexPath]()

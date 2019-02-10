@@ -26,7 +26,6 @@
   public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
   var binarySearch = BinarySearch()
-  var currentInvalidationContext: InvalidationContext? = nil
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = .zero
@@ -347,13 +346,13 @@
   }
 
   open override func invalidationContext(forBoundsChange newBounds: CGRect) -> FlowLayoutInvalidationContext {
-    let context = InvalidationContext()
+    let context = BlueprintInvalidationContext()
     context.shouldInvalidateEverything = previousBounds == newBounds
     return context
   }
 
   override open class var invalidationContextClass: AnyClass {
-    return InvalidationContext.self
+    return BlueprintInvalidationContext.self
   }
 
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -398,7 +397,7 @@
         header.frame.origin.x = min(collectionView.contentOffset.x, header.max)
       }
 
-      if let invalidationContext = context as? InvalidationContext {
+      if let invalidationContext = context as? BlueprintInvalidationContext {
         #if os(macOS)
         invalidationContext.headerIndexPaths = [header.indexPath!]
         #else
@@ -415,7 +414,7 @@
         footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max)
       }
 
-      if let invalidationContext = context as? InvalidationContext {
+      if let invalidationContext = context as? BlueprintInvalidationContext {
         #if os(macOS)
         invalidationContext.footerIndexPaths = [footer.indexPath!]
         #else

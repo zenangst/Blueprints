@@ -146,7 +146,6 @@
         layoutAttribute.min = nextX
         headerAttribute = layoutAttribute
         layoutAttributes.append([layoutAttribute])
-        cachedHeaderFooterAttributes.append(layoutAttribute)
       }
 
       for item in 0..<numberOfItemsInSection(section) {
@@ -200,7 +199,6 @@
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
-          cachedHeaderFooterAttributes.append(layoutAttribute)
         }
 
         if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {

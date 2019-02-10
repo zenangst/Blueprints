@@ -67,7 +67,6 @@
         headerAttribute = layoutAttribute
         headerAttribute?.zIndex = numberOfSections
         nextY = layoutAttribute.frame.maxY
-        cachedHeaderFooterAttributes.append(layoutAttribute)
       }
 
       nextY += sectionInset.top
@@ -133,7 +132,6 @@
             atY: nextY + sectionInset.bottom
           )
           layoutAttribute.zIndex = numberOfSections
-          cachedHeaderFooterAttributes.append(layoutAttribute)
           layoutAttributes[section].append(layoutAttribute)
           nextY = layoutAttribute.frame.maxY
           footerAttribute = layoutAttribute

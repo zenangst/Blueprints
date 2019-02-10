@@ -274,6 +274,8 @@
       allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
     }
 
+    cachedHeaderFooterAttributes = Array(cachedHeaderFooterAttributesBySection.joined())
+
     self.cachedItemAttributes = allCachedAttributes.filter({
       #if os(macOS)
       return $0.representedElementCategory == .item

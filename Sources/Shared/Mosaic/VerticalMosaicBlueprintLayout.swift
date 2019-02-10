@@ -45,7 +45,7 @@
     }
 
     var mosaicCount: Int = 0
-    var nextY: CGFloat = sectionInset.top
+    var nextY: CGFloat = 0
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else { continue }

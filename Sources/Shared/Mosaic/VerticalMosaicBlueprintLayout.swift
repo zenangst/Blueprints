@@ -52,8 +52,8 @@
       guard numberOfItemsInSection(section) > 0 else { continue }
 
       var previousAttribute: MosaicLayoutAttributes?
-      var headerAttribute: HeaderFooterLayoutAttributes? = nil
-      var footerAttribute: HeaderFooterLayoutAttributes? = nil
+      var headerAttribute: SupplementaryLayoutAttributes? = nil
+      var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {

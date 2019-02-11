@@ -122,8 +122,8 @@
 
       var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
-      var headerAttribute: HeaderFooterLayoutAttributes? = nil
-      var footerAttribute: HeaderFooterLayoutAttributes? = nil
+      var headerAttribute: SupplementaryLayoutAttributes? = nil
+      var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {

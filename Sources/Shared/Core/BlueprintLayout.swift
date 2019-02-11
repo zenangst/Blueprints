@@ -20,8 +20,8 @@
   /// The amount of items that should appear on each row.
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
-  public var cachedHeaderFooterAttributes = [HeaderFooterLayoutAttributes]()
-  public var cachedHeaderFooterAttributesBySection = [[HeaderFooterLayoutAttributes]]()
+  public var cachedHeaderFooterAttributes = [SupplementaryLayoutAttributes]()
+  public var cachedHeaderFooterAttributesBySection = [[SupplementaryLayoutAttributes]]()
   public var cachedItemAttributes = [LayoutAttributes]()
   public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
@@ -166,8 +166,8 @@
   func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind,
                                           indexPath: IndexPath,
                                           atX x: CGFloat = 0,
-                                          atY y: CGFloat = 0) -> HeaderFooterLayoutAttributes {
-    let layoutAttribute = HeaderFooterLayoutAttributes(
+                                          atY y: CGFloat = 0) -> SupplementaryLayoutAttributes {
+    let layoutAttribute = SupplementaryLayoutAttributes(
       forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
       with: indexPath
     )
@@ -251,7 +251,7 @@
         let items = sorted.filter({ $0.representedElementCategory == .item })
         let headerFooters = sorted
           .filter({ $0.representedElementCategory == .supplementaryView })
-          .compactMap({ $0 as? HeaderFooterLayoutAttributes })
+          .compactMap({ $0 as? SupplementaryLayoutAttributes })
         self.cachedHeaderFooterAttributesBySection.append(headerFooters)
         self.cachedItemAttributesBySection.append(items)
       #else
@@ -259,7 +259,7 @@
         let items = sorted.filter({ $0.representedElementCategory == .cell })
         let headerFooters = sorted
           .filter({ $0.representedElementCategory == .supplementaryView })
-          .compactMap({ $0 as? HeaderFooterLayoutAttributes })
+          .compactMap({ $0 as? SupplementaryLayoutAttributes })
         self.cachedHeaderFooterAttributesBySection.append(headerFooters)
         self.cachedItemAttributesBySection.append(items)
       #endif

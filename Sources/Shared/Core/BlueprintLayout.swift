@@ -315,18 +315,17 @@
     let closure: (LayoutAttributes) -> Bool = scrollDirection == .horizontal
       ? { rect.maxX >= $0.frame.minX }
       : { rect.maxY >= $0.frame.minY }
-    var result = binarySearch.findElements(in: cachedItemAttributes,
+    var items = binarySearch.findElements(in: cachedItemAttributes,
                                            padding: Int(itemsPerRow ?? 0),
                                            less: { closure($0) },
                                            match: { $0.frame.intersects(rect) }) ?? []
-
-    let headerFooter = binarySearch.findElements(in: cachedHeaderFooterAttributes,
+    let supplementary = binarySearch.findElements(in: cachedHeaderFooterAttributes,
                                                  padding: Int(itemsPerRow ?? 0),
                                                  less: { closure($0) },
                                                  match: { $0.frame.intersects(rect) }) ?? []
-    result.append(contentsOf: headerFooter)
+    items.append(contentsOf: supplementary)
 
-    return !result.isEmpty ? result : cachedItemAttributes.filter { $0.frame.intersects(rect) }
+    return !items.isEmpty ? items : cachedItemAttributes.filter { $0.frame.intersects(rect) }
   }
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {

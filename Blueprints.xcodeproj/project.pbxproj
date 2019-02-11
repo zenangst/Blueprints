@@ -810,8 +810,8 @@
 				BDB4B6BD204CB11100971F64 /* BlueprintLayoutAnimator+Extensions.swift */,
 				BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */,
 				BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */,
-				BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */,
 				D5C629821C3A892A007F7B7C /* HorizontalBlueprintLayout.swift */,
+				BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */,
 				D5C629861C3A89A8007F7B7C /* TypeAlias.swift */,
 				BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */,
 			);

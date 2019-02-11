@@ -359,60 +359,64 @@
     guard let collectionView = collectionView else { return }
 
     #if os(macOS)
-    let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
-                             size: collectionView.enclosingScrollView!.visibleRect.size)
+    NSAnimationContext.current.duration = 0.0
+    NSAnimationContext.current.allowsImplicitAnimation = false
+    let visibleRect = collectionView.visibleRect
     #else
-    let visibleRect = CGRect(origin: CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y),
+    let visibleRect = CGRect(origin: collectionView.contentOffset,
                              size: collectionView.frame.size)
     #endif
 
-    var results = cachedHeaderFooterAttributes
-    if collectionView.contentOffset.y > 0 || collectionView.contentOffset.x > 0 {
-      results = results.filter({
+    let results = cachedHeaderFooterAttributes.filter({
+      switch scrollDirection {
+      case .vertical:
+        return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max) || $0.frame.intersects(visibleRect)
+      case .horizontal:
+        return (visibleRect.origin.x >= $0.min && visibleRect.origin.x <= $0.max) || $0.frame.intersects(visibleRect)
+      }
+    })
+
+    if stickyHeaders {
+      let headers = results.filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType })
+      for header in headers {
         switch scrollDirection {
         case .vertical:
-          return collectionView.contentOffset.y >= $0.min && collectionView.contentOffset.y <= $0.max
+          if collectionView.contentOffset.y < 0 {
+            header.frame.origin.y = max(0, header.min)
+          } else {
+            header.frame.origin.y = min(max(collectionView.contentOffset.y, header.min), header.max)
+          }
         case .horizontal:
-          return collectionView.contentOffset.x >= $0.min && collectionView.contentOffset.x <= $0.max
+          header.frame.origin.x = min(max(collectionView.contentOffset.x, header.min), header.max - header.frame.size.width)
         }
-      })
-    }
 
-    if stickyHeaders, let header = results.filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first {
-      switch scrollDirection {
-      case .vertical:
-        if collectionView.contentOffset.y < 0 {
-          header.frame.origin.y = 0
-        } else {
-          header.frame.origin.y = min(collectionView.contentOffset.y, header.max)
+        if let invalidationContext = context as? BlueprintInvalidationContext {
+          #if os(macOS)
+          invalidationContext.headerIndexPaths += [header.indexPath!]
+          #else
+          invalidationContext.headerIndexPaths += [header.indexPath]
+          #endif
         }
-      case .horizontal:
-        header.frame.origin.x = min(collectionView.contentOffset.x, header.max - header.frame.size.width)
-      }
-
-      if let invalidationContext = context as? BlueprintInvalidationContext {
-        #if os(macOS)
-        invalidationContext.headerIndexPaths = [header.indexPath!]
-        #else
-        invalidationContext.headerIndexPaths = [header.indexPath]
-        #endif
       }
     }
 
-    if stickyFooters, let footer = results.filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
-      switch scrollDirection {
-      case .vertical:
-        footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
-      case .horizontal:
-        footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max - footer.frame.size.width)
-      }
+    if stickyFooters {
+      let footers = results.filter({ $0.representedElementKind == CollectionView.collectionViewFooterType })
+      for footer in footers {
+        switch scrollDirection {
+        case .vertical:
+          footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
+        case .horizontal:
+          footer.frame.origin.x = min(max(collectionView.contentOffset.x, footer.min), footer.max - footer.frame.size.width)
+        }
 
-      if let invalidationContext = context as? BlueprintInvalidationContext {
-        #if os(macOS)
-        invalidationContext.footerIndexPaths = [footer.indexPath!]
-        #else
-        invalidationContext.footerIndexPaths = [footer.indexPath]
-        #endif
+        if let invalidationContext = context as? BlueprintInvalidationContext {
+          #if os(macOS)
+          invalidationContext.footerIndexPaths += [footer.indexPath!]
+          #else
+          invalidationContext.footerIndexPaths += [footer.indexPath]
+          #endif
+        }
       }
     }
   }

@@ -201,6 +201,7 @@
           )
           layoutAttributes[section].append(layoutAttribute)
           layoutAttribute.zIndex = numberOfSections
+          layoutAttribute.min = headerAttribute?.frame.origin.y ?? nextY
           footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         }

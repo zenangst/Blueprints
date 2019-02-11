@@ -195,7 +195,7 @@
             indexPath: sectionIndexPath,
             atX: nextX
           )
-
+          layoutAttribute.min = nextX
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute

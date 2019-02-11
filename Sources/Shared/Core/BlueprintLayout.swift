@@ -396,7 +396,7 @@
           header.frame.origin.y = min(collectionView.contentOffset.y, header.max)
         }
       case .horizontal:
-        header.frame.origin.x = min(collectionView.contentOffset.x, header.max)
+        header.frame.origin.x = min(collectionView.contentOffset.x, header.max - header.frame.size.width)
       }
 
       if let invalidationContext = context as? BlueprintInvalidationContext {
@@ -413,7 +413,7 @@
       case .vertical:
         footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
       case .horizontal:
-        footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max)
+        footer.frame.origin.x = min(collectionView.contentOffset.x, footer.max - footer.frame.size.width)
       }
 
       if let invalidationContext = context as? BlueprintInvalidationContext {

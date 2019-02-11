@@ -18,8 +18,9 @@
     patterns: [MosaicPattern]
     ) {
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
+    let itemsPerRow = CGFloat(patterns.count)
     super.init(
-      itemsPerRow: 0.0,
+      itemsPerRow: itemsPerRow,
       itemSize: .init(width: 50, height: patternHeight),
       estimatedItemSize: .zero,
       minimumInteritemSpacing: minimumInteritemSpacing,

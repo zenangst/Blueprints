@@ -320,7 +320,10 @@
                                            less: { closure($0) },
                                            match: { $0.frame.intersects(rect) }) ?? []
 
-    let headerFooter = cachedHeaderFooterAttributes.filter({ $0.frame.intersects(rect) })
+    let headerFooter = binarySearch.findElements(in: cachedHeaderFooterAttributes,
+                                                 padding: Int(itemsPerRow ?? 0),
+                                                 less: { closure($0) },
+                                                 match: { $0.frame.intersects(rect) }) ?? []
     result.append(contentsOf: headerFooter)
 
     return !result.isEmpty ? result : cachedItemAttributes.filter { $0.frame.intersects(rect) }

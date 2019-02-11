@@ -201,22 +201,22 @@
           footerAttribute = layoutAttribute
         }
 
-        if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
-          let headerFooterX = max(
-            min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth + sectionInset.left),
+        if let collectionView = collectionView, let supplementaryWidth = supplementaryWidth {
+          let supplementaryX = max(
+            min(collectionView.contentOffset.x, previousItem.frame.maxX - supplementaryWidth + sectionInset.left),
             firstItem.frame.origin.x - sectionInset.left
           )
 
           if stickyHeaders {
-            headerAttribute?.frame.origin.x = headerFooterX
-            headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+            headerAttribute?.frame.origin.x = supplementaryX
+            headerAttribute?.frame.size.width = min(supplementaryWidth, widthOfSection)
           } else {
             headerAttribute?.frame.size.width = widthOfSection
           }
 
           if stickyFooters {
-            footerAttribute?.frame.origin.x = headerFooterX
-            footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+            footerAttribute?.frame.origin.x = supplementaryX
+            footerAttribute?.frame.size.width = min(supplementaryWidth, widthOfSection)
           } else {
             footerAttribute?.frame.size.width = widthOfSection
           }

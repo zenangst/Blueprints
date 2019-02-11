@@ -20,8 +20,8 @@
   /// The amount of items that should appear on each row.
   public var itemsPerRow: CGFloat?
   /// A layout attributes cache, gets invalidated with the collection view and filled using the `prepare` method.
-  public var cachedHeaderFooterAttributes = [SupplementaryLayoutAttributes]()
-  public var cachedHeaderFooterAttributesBySection = [[SupplementaryLayoutAttributes]]()
+  public var cachedSupplementaryAttributes = [SupplementaryLayoutAttributes]()
+  public var cachedSupplementaryAttributesBySection = [[SupplementaryLayoutAttributes]]()
   public var cachedItemAttributes = [LayoutAttributes]()
   public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
@@ -34,7 +34,7 @@
                                                            defaultValue: 1) }
   /// A layout animator object, defaults to `DefaultLayoutAnimator`.
   var animator: BlueprintLayoutAnimator
-  var headerFooterWidth: CGFloat?
+  var supplementaryWidth: CGFloat?
 
   /// An initialized collection view layout object.
   ///
@@ -223,16 +223,16 @@
   open override func prepare() {
     self.contentSize = .zero
     self.cachedItemAttributesBySection = []
-    self.cachedHeaderFooterAttributes = []
+    self.cachedSupplementaryAttributes = []
     self.cachedItemAttributes = []
-    self.cachedHeaderFooterAttributesBySection = []
+    self.cachedSupplementaryAttributesBySection = []
 
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView {
-        configureHeaderFooterWidth(clipView)
+        configureSupplementaryWidth(clipView)
       }
     #else
-      headerFooterWidth = collectionView?.frame.size.width
+      supplementaryWidth = collectionView?.frame.size.width
     #endif
   }
 
@@ -249,18 +249,18 @@
       #if os(macOS)
         let sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
         let items = sorted.filter({ $0.representedElementCategory == .item })
-        let headerFooters = sorted
+        let supplementaryLayoutAttributes = sorted
           .filter({ $0.representedElementCategory == .supplementaryView })
           .compactMap({ $0 as? SupplementaryLayoutAttributes })
-        self.cachedHeaderFooterAttributesBySection.append(headerFooters)
+        self.cachedSupplementaryAttributesBySection.append(supplementaryLayoutAttributes)
         self.cachedItemAttributesBySection.append(items)
       #else
         let sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
         let items = sorted.filter({ $0.representedElementCategory == .cell })
-        let headerFooters = sorted
+        let supplementaryLayoutAttributes = sorted
           .filter({ $0.representedElementCategory == .supplementaryView })
           .compactMap({ $0 as? SupplementaryLayoutAttributes })
-        self.cachedHeaderFooterAttributesBySection.append(headerFooters)
+        self.cachedSupplementaryAttributesBySection.append(supplementaryLayoutAttributes)
         self.cachedItemAttributesBySection.append(items)
       #endif
     }
@@ -274,7 +274,7 @@
       allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
     }
 
-    cachedHeaderFooterAttributes = Array(cachedHeaderFooterAttributesBySection.joined())
+    cachedSupplementaryAttributes = Array(cachedSupplementaryAttributesBySection.joined())
 
     self.cachedItemAttributes = allCachedAttributes.filter({
       #if os(macOS)
@@ -319,7 +319,7 @@
                                            padding: Int(itemsPerRow ?? 0),
                                            less: { closure($0) },
                                            match: { $0.frame.intersects(rect) }) ?? []
-    let supplementary = binarySearch.findElements(in: cachedHeaderFooterAttributes,
+    let supplementary = binarySearch.findElements(in: cachedSupplementaryAttributes,
                                                  padding: Int(itemsPerRow ?? 0),
                                                  less: { closure($0) },
                                                  match: { $0.frame.intersects(rect) }) ?? []
@@ -369,7 +369,7 @@
                              size: collectionView.frame.size)
     #endif
 
-    let results = cachedHeaderFooterAttributes.filter({
+    let results = cachedSupplementaryAttributes.filter({
       switch scrollDirection {
       case .vertical:
         return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max) || $0.frame.intersects(visibleRect)

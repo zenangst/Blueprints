@@ -175,7 +175,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     let expectedCellSize: CGSize = .init(width: 50, height: 50)
     let expectedHeaderAndFooterSize: CGSize = .init(width: 690, height: 100)
 
-    XCTAssertEqual(horizontalLayout.cachedHeaderFooterAttributesBySection[0].count, 2)
+    XCTAssertEqual(horizontalLayout.cachedSupplementaryAttributesBySection[0].count, 2)
     XCTAssertEqual(horizontalLayout.cachedItemAttributesBySection[0].count, 10)
 
     XCTAssertEqual(horizontalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderAndFooterSize))
@@ -208,7 +208,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     let expectedCellSize: CGSize = .init(width: 50, height: 50)
     let expectedHeaderAndFooterSize: CGSize = .init(width: 200, height: 100)
 
-    XCTAssertEqual(horizontalLayout.cachedHeaderFooterAttributesBySection[0].count, 2)
+    XCTAssertEqual(horizontalLayout.cachedSupplementaryAttributesBySection[0].count, 2)
     XCTAssertEqual(horizontalLayout.cachedItemAttributesBySection[0].count, 10)
 
     XCTAssertEqual(horizontalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderAndFooterSize))

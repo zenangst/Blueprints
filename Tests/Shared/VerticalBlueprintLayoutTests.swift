@@ -69,7 +69,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let expectedHeaderSize: CGSize = .init(width: 200, height: 50)
     let expectedCellSize: CGSize = .init(width: 180, height: 50)
 
-    XCTAssertEqual(layout.cachedHeaderFooterAttributesBySection[0].count, 1)
+    XCTAssertEqual(layout.cachedSupplementaryAttributesBySection[0].count, 1)
     XCTAssertEqual(layout.cachedItemAttributesBySection[0].count, 10)
 
     XCTAssertEqual(layout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
@@ -127,7 +127,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let expectedHeaderSize: CGSize = .init(width: 200, height: 50)
     let expectedCellSize: CGSize = .init(width: 85, height: 50)
 
-    XCTAssertEqual(verticalLayout.cachedHeaderFooterAttributesBySection[0].count, 1)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 1)
     XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[0].count, 10)
 
     XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
@@ -189,7 +189,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let expectedHeaderSize: CGSize = .init(width: 200, height: 50)
     let expectedCellSize: CGSize = .init(width: 53, height: 50)
 
-    XCTAssertEqual(verticalLayout.cachedHeaderFooterAttributesBySection[0].count, 1)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 1)
     XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[0].count, 10)
 
 
@@ -251,7 +251,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let expectedCellSize: CGSize = .init(width: 37, height: 50)
 
     XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[0].count, 10)
-    XCTAssertEqual(verticalLayout.cachedHeaderFooterAttributesBySection[0].count, 1)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 1)
 
     XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderSize))
 
@@ -283,7 +283,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let expectedCellSize: CGSize = .init(width: 50, height: 50)
 
     XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[0].count, 10)
-    XCTAssertEqual(verticalLayout.cachedHeaderFooterAttributesBySection[0].count, 2)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 2)
 
     XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 0), size: expectedHeaderAndFooterSize))
 
@@ -315,7 +315,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let expectedSize: CGSize = .init(width: 50, height: 50)
 
     XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[0].count, 10)
-    XCTAssertEqual(verticalLayout.cachedHeaderFooterAttributesBySection[0].count, 2)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 2)
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 110), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))?.frame, CGRect(origin: .init(x: 70, y: 110), size: expectedSize))
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))?.frame, CGRect(origin: .init(x: 130, y: 110), size: expectedSize))

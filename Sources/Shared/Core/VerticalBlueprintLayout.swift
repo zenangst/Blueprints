@@ -176,7 +176,7 @@
             layoutAttribute.frame.origin.y = maxY + minimumLineSpacing
           }
 
-          sectionMaxY = max(previousItem.frame.maxY, layoutAttribute.frame.maxY)
+          sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
         } else {
           firstItem = layoutAttribute
           layoutAttribute.frame.origin.x = sectionInset.left

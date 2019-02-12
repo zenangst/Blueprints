@@ -94,6 +94,12 @@
 		BD476BC421355C1E008E1D0A /* macOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC221355C1E008E1D0A /* macOSObjectiveCSupportTests.m */; };
 		BD476BC721356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */; };
 		BD476BC821356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */; };
+		BD742120220DDF1900614870 /* BlueprintInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD74211F220DDF1900614870 /* BlueprintInvalidationContext.swift */; };
+		BD742121220DDF1900614870 /* BlueprintInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD74211F220DDF1900614870 /* BlueprintInvalidationContext.swift */; };
+		BD742122220DDF1900614870 /* BlueprintInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD74211F220DDF1900614870 /* BlueprintInvalidationContext.swift */; };
+		BD742124220DE5EF00614870 /* SupplementaryLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */; };
+		BD742125220DE5EF00614870 /* SupplementaryLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */; };
+		BD742126220DE5EF00614870 /* SupplementaryLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */; };
 		BD975E782053031B00324B9A /* BlueprintLayout+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */; };
 		BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
 		BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */; };
@@ -345,6 +351,8 @@
 		BD476BC121355C1E008E1D0A /* Blueprints-tvOS-Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blueprints-tvOS-Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		BD476BC221355C1E008E1D0A /* macOSObjectiveCSupportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = macOSObjectiveCSupportTests.m; sourceTree = "<group>"; };
 		BD476BC621356075008E1D0A /* iOStvOSObjectiveCSupportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOStvOSObjectiveCSupportTests.m; sourceTree = "<group>"; };
+		BD74211F220DDF1900614870 /* BlueprintInvalidationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintInvalidationContext.swift; sourceTree = "<group>"; };
+		BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryLayoutAttributes.swift; sourceTree = "<group>"; };
 		BD975E772053031B00324B9A /* BlueprintLayout+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+macOS.swift"; sourceTree = "<group>"; };
 		BD975E792053038700324B9A /* BlueprintLayout+iOS+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueprintLayout+iOS+tvOS.swift"; sourceTree = "<group>"; };
 		BD975E7C2053047A00324B9A /* NSCollectionViewLayoutAttributes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionViewLayoutAttributes+Extensions.swift"; sourceTree = "<group>"; };
@@ -794,6 +802,7 @@
 			isa = PBXGroup;
 			children = (
 				BDAC0BD220DAEE4C0045678C /* BinarySearch.swift */,
+				BD74211F220DDF1900614870 /* BlueprintInvalidationContext.swift */,
 				BDD5F8C9204C7CD500A6BFD5 /* BlueprintLayout.swift */,
 				BDB4B6B6204CB07400971F64 /* BlueprintLayoutAnimation.swift */,
 				BDB4B6C1204CB17800971F64 /* BlueprintLayoutAnimationType.swift */,
@@ -802,6 +811,7 @@
 				BDFB454720559EAC008E59EA /* BlueprintSupplementaryKind.swift */,
 				BDB4B6CC204CB36300971F64 /* DefaultLayoutAnimator.swift */,
 				D5C629821C3A892A007F7B7C /* HorizontalBlueprintLayout.swift */,
+				BD742123220DE5EF00614870 /* SupplementaryLayoutAttributes.swift */,
 				D5C629861C3A89A8007F7B7C /* TypeAlias.swift */,
 				BDD5F8CB204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift */,
 			);
@@ -1421,6 +1431,7 @@
 			files = (
 				BDB4B6C8204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
 				BDB4B6CF204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */,
+				BD742126220DE5EF00614870 /* SupplementaryLayoutAttributes.swift in Sources */,
 				BDB4B6BB204CB09200971F64 /* BlueprintLayoutAnimator.swift in Sources */,
 				BDB4B6B9204CB07400971F64 /* BlueprintLayoutAnimation.swift in Sources */,
 				BDA31B0620D41B12001E4870 /* MosaicLayoutAttributes.swift in Sources */,
@@ -1432,6 +1443,7 @@
 				BD975E802053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BDC90AF520CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDAC0BD520DAEE4C0045678C /* BinarySearch.swift in Sources */,
+				BD742122220DDF1900614870 /* BlueprintInvalidationContext.swift in Sources */,
 				BDA31B0220D41AF8001E4870 /* MosaicPattern.swift in Sources */,
 				BD975E7B2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDD5F8CD204C7D4A00A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
@@ -1477,6 +1489,7 @@
 			files = (
 				BDB4B6C2204CB17800971F64 /* BlueprintLayoutAnimationType.swift in Sources */,
 				BDB4B6BE204CB11100971F64 /* BlueprintLayoutAnimator+Extensions.swift in Sources */,
+				BD742124220DE5EF00614870 /* SupplementaryLayoutAttributes.swift in Sources */,
 				BDB4B6CD204CB36300971F64 /* DefaultLayoutAnimator.swift in Sources */,
 				BDB4B6B7204CB07400971F64 /* BlueprintLayoutAnimation.swift in Sources */,
 				BDA31B0420D41B12001E4870 /* MosaicLayoutAttributes.swift in Sources */,
@@ -1488,6 +1501,7 @@
 				BD975E7F2053072F00324B9A /* UICollectionView+Extensions.swift in Sources */,
 				BDC90AF320CFE060007B35E7 /* VerticalMosaicBlueprintLayout.swift in Sources */,
 				BDAC0BD320DAEE4C0045678C /* BinarySearch.swift in Sources */,
+				BD742120220DDF1900614870 /* BlueprintInvalidationContext.swift in Sources */,
 				BDA31B0020D41AF8001E4870 /* MosaicPattern.swift in Sources */,
 				BD975E7A2053038700324B9A /* BlueprintLayout+iOS+tvOS.swift in Sources */,
 				BDB4B6C7204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
@@ -1536,6 +1550,8 @@
 				BDB386FF204D45180080C93B /* NSCollectionView+Extensions.swift in Sources */,
 				BDA31B0520D41B12001E4870 /* MosaicLayoutAttributes.swift in Sources */,
 				BDB4B6C3204CB17800971F64 /* BlueprintLayoutAnimationType.swift in Sources */,
+				BD742125220DE5EF00614870 /* SupplementaryLayoutAttributes.swift in Sources */,
+				BD742121220DDF1900614870 /* BlueprintInvalidationContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

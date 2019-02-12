@@ -40,6 +40,8 @@
                                                                                minimumInteritemSpacing:20.0
                                                                                     minimumLineSpacing:50.0
                                                                                           sectionInset:UIEdgeInsetsMake(20, 20, 20, 20)
+                                                                                         stickyHeaders:true
+                                                                                         stickyFooters:true
                                                                                               animator:nil
                                                                                               patterns:@[]];
   XCTAssertEqual(layout.minimumInteritemSpacing, 20);

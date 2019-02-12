@@ -1,12 +1,13 @@
 import UIKit
 
 extension BlueprintLayout {
-  open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> LayoutAttributes? {
-    if indexPathIsOutOfBounds(indexPath, for: cachedAttributes) {
+  open override func layoutAttributesForSupplementaryView(ofKind elementKind: String,
+                                                          at indexPath: IndexPath) -> LayoutAttributes? {
+    if indexPathIsOutOfBounds(indexPath, for: cachedSupplementaryAttributesBySection) {
         return nil
     }
 
-    let sectionAttributes = cachedAttributes[indexPath.section]
+    let sectionAttributes = cachedSupplementaryAttributesBySection[indexPath.section]
     var layoutAttributesResult: LayoutAttributes? = nil
 
     switch elementKind {

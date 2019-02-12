@@ -3,13 +3,7 @@ import UIKit
 extension LayoutExampleSceneViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch activeLayout {
-        case .horizontal, .vertical:
-            return (exampleDataSource?.count) ?? (0)
-        case .mosaic:
-            // MARK: - Only supports one section, multiple sections cause overlapping.
-            return 1
-        }
+        return (exampleDataSource?.count) ?? (0)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

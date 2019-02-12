@@ -7,10 +7,6 @@
 @objc open class HorizontalBlueprintLayout: BlueprintLayout {
   /// A Integer value indicating how many items that should be visible per column.
   public var itemsPerColumn: Int
-  //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
-  public var stickyHeaders: Bool = false
-  /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
-  public var stickyFooters: Bool = false
 
   /// An initialized vertical collection view layout object.
   ///
@@ -35,8 +31,6 @@
                      stickyHeaders: Bool = true,
                      stickyFooters: Bool = true,
                      animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()) {
-    self.stickyHeaders = stickyHeaders
-    self.stickyFooters = stickyFooters
     self.itemsPerColumn = itemsPerColumn
     super.init(
       itemsPerRow: itemsPerRow,
@@ -45,6 +39,8 @@
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,
+      stickyHeaders: stickyHeaders,
+      stickyFooters: stickyFooters,
       animator: animator
     )
     self.scrollDirection = .horizontal
@@ -124,7 +120,7 @@
 
   override open func prepare() {
     super.prepare()
-    var layoutAttributes = self.cachedAttributes
+    var layoutAttributes = [[LayoutAttributes]]()
     var contentSize: CGSize = .zero
     var nextX: CGFloat = 0
     var widthOfSection: CGFloat = 0
@@ -137,17 +133,17 @@
 
       var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
-      var headerAttribute: LayoutAttributes? = nil
-      var footerAttribute: LayoutAttributes? = nil
+      var headerAttribute: SupplementaryLayoutAttributes? = nil
+      var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {
-        let layoutAttribute: LayoutAttributes = createSupplementaryLayoutAttribute(
+        let layoutAttribute: SupplementaryLayoutAttributes = createSupplementaryLayoutAttribute(
           ofKind: .header,
           indexPath: sectionIndexPath,
           atX: nextX
         )
-
+        layoutAttribute.min = nextX
         headerAttribute = layoutAttribute
         layoutAttributes.append([layoutAttribute])
       }
@@ -172,13 +168,15 @@
           }
         } else {
           firstItem = layoutAttribute
-          contentSize.height = sectionInset.top + sectionInset.bottom + layoutAttribute.size.height
+          contentSize.height = layoutAttribute.size.height
 
           if itemsPerColumn > 1 {
+            contentSize.height += minimumLineSpacing
             contentSize.height *= CGFloat(itemsPerColumn)
             contentSize.height -= minimumLineSpacing
           }
 
+          contentSize.height += sectionInset.top + sectionInset.bottom
           layoutAttribute.frame.origin.x = nextX + sectionInset.left
           widthOfSection += sectionInset.left + sectionInset.right + layoutAttribute.size.width
         }
@@ -199,28 +197,28 @@
             indexPath: sectionIndexPath,
             atX: nextX
           )
-
+          layoutAttribute.min = nextX
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
         }
 
-        if let collectionView = collectionView, let headerFooterWidth = headerFooterWidth {
-          let headerFooterX = max(
-            min(collectionView.contentOffset.x, previousItem.frame.maxX - headerFooterWidth + sectionInset.left),
+        if let collectionView = collectionView, let supplementaryWidth = supplementaryWidth {
+          let supplementaryX = max(
+            min(collectionView.contentOffset.x, previousItem.frame.maxX - supplementaryWidth + sectionInset.left),
             firstItem.frame.origin.x - sectionInset.left
           )
 
           if stickyHeaders {
-            headerAttribute?.frame.origin.x = headerFooterX
-            headerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+            headerAttribute?.frame.origin.x = supplementaryX
+            headerAttribute?.frame.size.width = min(supplementaryWidth, widthOfSection)
           } else {
             headerAttribute?.frame.size.width = widthOfSection
           }
 
           if stickyFooters {
-            footerAttribute?.frame.origin.x = headerFooterX
-            footerAttribute?.frame.size.width = min(headerFooterWidth, widthOfSection)
+            footerAttribute?.frame.origin.x = supplementaryX
+            footerAttribute?.frame.size.width = min(supplementaryWidth, widthOfSection)
           } else {
             footerAttribute?.frame.size.width = widthOfSection
           }
@@ -228,6 +226,9 @@
 
         nextX += widthOfSection
       }
+
+      headerAttribute?.max = contentSize.width
+      footerAttribute?.max = contentSize.width
 
       previousItem = nil
       headerAttribute = nil
@@ -241,9 +242,8 @@
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
-  }
-
-  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    return stickyFooters || stickyHeaders
+    if stickyHeaders || stickyFooters {
+      positionHeadersAndFooters()
+    }
   }
 }

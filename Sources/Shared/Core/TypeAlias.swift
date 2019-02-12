@@ -10,6 +10,8 @@ public typealias CollectionViewUpdateAction = NSCollectionView.UpdateAction
 public typealias EdgeInsets = NSEdgeInsets
 public typealias LayoutAttributes = NSCollectionViewLayoutAttributes
 public typealias LayoutAttributesForElements = [NSCollectionViewLayoutAttributes]
+public typealias LayoutInvalidationContext = NSCollectionViewLayoutInvalidationContext
+public typealias FlowLayoutInvalidationContext = NSCollectionViewFlowLayoutInvalidationContext
 #else
 import UIKit
 public typealias CollectionView = UICollectionView
@@ -22,4 +24,6 @@ public typealias CollectionViewUpdateAction = UICollectionViewUpdateItem.Action
 public typealias EdgeInsets = UIEdgeInsets
 public typealias LayoutAttributes = UICollectionViewLayoutAttributes
 public typealias LayoutAttributesForElements = [UICollectionViewLayoutAttributes]?
+public typealias LayoutInvalidationContext = UICollectionViewLayoutInvalidationContext
+public typealias FlowLayoutInvalidationContext = UICollectionViewFlowLayoutInvalidationContext
 #endif

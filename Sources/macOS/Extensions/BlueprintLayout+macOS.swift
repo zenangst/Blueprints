@@ -1,12 +1,13 @@
 import Cocoa
 
 extension BlueprintLayout {
-  open override func layoutAttributesForSupplementaryView(ofKind elementKind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> LayoutAttributes? {
-    if indexPathIsOutOfBounds(indexPath, for: cachedAttributes) {
+  open override func layoutAttributesForSupplementaryView(ofKind elementKind: NSCollectionView.SupplementaryElementKind,
+                                                          at indexPath: IndexPath) -> LayoutAttributes? {
+    if indexPathIsOutOfBounds(indexPath, for: cachedSupplementaryAttributesBySection) {
         return nil
     }
 
-    let sectionAttributes = cachedAttributes[indexPath.section]
+    let sectionAttributes = cachedSupplementaryAttributesBySection[indexPath.section]
     var layoutAttributesResult: LayoutAttributes? = nil
 
     switch elementKind {
@@ -69,8 +70,8 @@ extension BlueprintLayout {
     }
   }
 
-  func configureHeaderFooterWidth(_ view: NSView) {
-    headerFooterWidth = view.frame.width
+  func configureSupplementaryWidth(_ view: NSView) {
+    supplementaryWidth = view.frame.width
   }
 
   @objc func contentViewBoundsDidChange(_ notification: NSNotification) {
@@ -79,6 +80,6 @@ extension BlueprintLayout {
         return
     }
     collectionView?.enclosingScrollView?.layout()
-    configureHeaderFooterWidth(clipView)
+    configureSupplementaryWidth(clipView)
   }
 }

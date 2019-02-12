@@ -12,17 +12,22 @@
     minimumInteritemSpacing: CGFloat = 10,
     minimumLineSpacing: CGFloat = 10,
     sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    stickyHeaders: Bool = true,
+    stickyFooters: Bool = true,
     animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(),
     patterns: [MosaicPattern]
     ) {
     self.controller = MosaicBlueprintPatternController(patterns: patterns)
+    let itemsPerRow = CGFloat(patterns.count)
     super.init(
-      itemsPerRow: 0.0,
+      itemsPerRow: itemsPerRow,
       itemSize: .init(width: 50, height: patternHeight),
       estimatedItemSize: .zero,
       minimumInteritemSpacing: minimumInteritemSpacing,
       minimumLineSpacing: minimumLineSpacing,
       sectionInset: sectionInset,
+      stickyHeaders: stickyHeaders,
+      stickyFooters: stickyFooters,
       animator: animator
     )
   }
@@ -33,7 +38,7 @@
 
   override public func prepare() {
     super.prepare()
-    var layoutAttributes = self.cachedAttributes
+    var layoutAttributes = [[LayoutAttributes]]()
     var threshold: CGFloat = 0.0
 
     if let collectionViewWidth = collectionView?.documentRect.width {
@@ -41,12 +46,14 @@
     }
 
     var mosaicCount: Int = 0
-    var nextY: CGFloat = sectionInset.top
+    var nextY: CGFloat = 0
 
     for section in 0..<numberOfSections {
       guard numberOfItemsInSection(section) > 0 else { continue }
 
       var previousAttribute: MosaicLayoutAttributes?
+      var headerAttribute: SupplementaryLayoutAttributes? = nil
+      var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
       if headerReferenceSize.height > 0 {
@@ -55,10 +62,16 @@
           indexPath: sectionIndexPath,
           atY: nextY
         )
+        layoutAttribute.min = nextY
         layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
         layoutAttributes.append([layoutAttribute])
-        nextY += layoutAttribute.frame.maxY
+        headerAttribute = layoutAttribute
+        headerAttribute?.zIndex = numberOfSections
+        nextY = layoutAttribute.frame.maxY
       }
+
+      nextY += sectionInset.top
+      var sectionMaxY: CGFloat = 0
 
       for item in 0..<numberOfItemsInSection(section) {
         let layoutAttribute: LayoutAttributes
@@ -70,6 +83,7 @@
           previousAttribute.remaining -= 1
           process(previousAttribute, width: threshold)
           layoutAttribute = childLayoutAttribute
+          sectionMaxY = max(previousAttribute.frame.maxY, layoutAttribute.frame.maxY)
         } else {
           let layoutIndexPath = IndexPath(item: mosaicCount, section: section)
           let pattern = controller.values(at: layoutIndexPath)
@@ -100,6 +114,7 @@
           previousAttribute = mosaicLayoutAttribute
           layoutAttribute = mosaicLayoutAttribute
           mosaicCount += 1
+          sectionMaxY = layoutAttribute.frame.maxY
         }
 
         if section == layoutAttributes.count {
@@ -117,18 +132,29 @@
             indexPath: sectionIndexPath,
             atY: nextY + sectionInset.bottom
           )
+          layoutAttribute.zIndex = numberOfSections
+          layoutAttribute.min = headerAttribute?.frame.origin.y ?? nextY
           layoutAttributes[section].append(layoutAttribute)
+          nextY = layoutAttribute.frame.maxY
+          footerAttribute = layoutAttribute
         }
-      }
 
-      if let previousAttribute = previousAttribute {
+        headerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
+        footerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
+
         contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + footerReferenceSize.height
+
       }
+      headerAttribute = nil
+      footerAttribute = nil
     }
 
     contentSize.width = threshold
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
+    if stickyHeaders || stickyFooters {
+      positionHeadersAndFooters()
+    }
   }
 
   private func apply(_ pattern: MosaicPattern, to mosaicLayoutAttribute: MosaicLayoutAttributes, with threshold: CGFloat) {

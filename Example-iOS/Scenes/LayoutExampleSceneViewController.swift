@@ -72,7 +72,7 @@ extension LayoutExampleSceneViewController {
 
     func getExampleData() {
         let request = LayoutExampleScene.GetExampleData.Request(numberOfSections: 2,
-                                                                numberOfRowsInSection: 10)
+                                                                numberOfRowsInSection: 20)
         interactor?.getExampleData(request: request)
     }
 

@@ -168,13 +168,15 @@
           }
         } else {
           firstItem = layoutAttribute
-          contentSize.height = sectionInset.top + sectionInset.bottom + layoutAttribute.size.height
+          contentSize.height = layoutAttribute.size.height
 
           if itemsPerColumn > 1 {
+            contentSize.height += minimumLineSpacing
             contentSize.height *= CGFloat(itemsPerColumn)
             contentSize.height -= minimumLineSpacing
           }
 
+          contentSize.height += sectionInset.top + sectionInset.bottom
           layoutAttribute.frame.origin.x = nextX + sectionInset.left
           widthOfSection += sectionInset.left + sectionInset.right + layoutAttribute.size.width
         }

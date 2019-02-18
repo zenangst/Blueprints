@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw5-Xw-wnW">
-                    <rect key="frame" x="10" y="20" width="300" height="21"/>
+                    <rect key="frame" x="144.5" y="20" width="31.5" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="b0v-MV-VP3"/>
                     </constraints>
@@ -28,9 +28,10 @@
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="Zw5-Xw-wnW" secondAttribute="trailing" constant="10" id="LNT-o1-zGa"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zw5-Xw-wnW" secondAttribute="trailing" constant="10" id="LNT-o1-zGa"/>
                 <constraint firstItem="Zw5-Xw-wnW" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" constant="20" id="SZ5-Gs-AVI"/>
-                <constraint firstItem="Zw5-Xw-wnW" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="10" id="iu5-24-Ped"/>
+                <constraint firstItem="Zw5-Xw-wnW" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="YmB-E4-ouT"/>
+                <constraint firstItem="Zw5-Xw-wnW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="10" id="iu5-24-Ped"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="Zw5-Xw-wnW" secondAttribute="bottom" constant="20" id="tHg-4G-4Sf"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>

@@ -291,7 +291,7 @@
   /// - Returns: A layout attributes object containing the information to apply to the item’s cell.
   override open func layoutAttributesForItem(at indexPath: IndexPath) -> LayoutAttributes? {
     if indexPathIsOutOfBounds(indexPath, for: cachedItemAttributesBySection) {
-        return nil
+      return nil
     }
 
     let compare: (LayoutAttributes) -> Bool
@@ -316,13 +316,13 @@
       ? { rect.maxX >= $0.frame.minX }
       : { rect.maxY >= $0.frame.minY }
     var items = binarySearch.findElements(in: cachedItemAttributes,
-                                           padding: Int(itemsPerRow ?? 0),
-                                           less: { closure($0) },
-                                           match: { $0.frame.intersects(rect) }) ?? []
+                                          padding: Int(itemsPerRow ?? 0),
+                                          less: { closure($0) },
+                                          match: { $0.frame.intersects(rect) }) ?? []
     let supplementary = binarySearch.findElements(in: cachedSupplementaryAttributes,
-                                                 padding: Int(itemsPerRow ?? 0),
-                                                 less: { closure($0) },
-                                                 match: { $0.frame.intersects(rect) }) ?? []
+                                                  padding: Int(itemsPerRow ?? 0),
+                                                  less: { closure($0) },
+                                                  match: { $0.frame.intersects(rect) }) ?? []
     items.append(contentsOf: supplementary)
 
     return !items.isEmpty ? items : cachedItemAttributes.filter { $0.frame.intersects(rect) }
@@ -390,6 +390,13 @@
           }
         case .horizontal:
           header.frame.origin.x = min(max(collectionView.contentOffset.x, header.min), header.max - header.frame.size.width)
+
+          // Adjust the X-origin if the content offset exceeds the width of the content size.
+          // This should only happen if you use section insets and have scrolled to the very end
+          // of the collection view.
+          if collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
+            header.frame.origin.x = collectionView.contentOffset.x + sectionInset.left + sectionInset.right
+          }
         }
 
         if let invalidationContext = context as? BlueprintInvalidationContext {
@@ -410,6 +417,13 @@
           footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
         case .horizontal:
           footer.frame.origin.x = min(max(collectionView.contentOffset.x, footer.min), footer.max - footer.frame.size.width)
+        }
+
+        // Adjust the X-origin if the content offset exceeds the width of the content size.
+        // This should only happen if you use section insets and have scrolled to the very end
+        // of the collection view.
+        if collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
+          footer.frame.origin.x = collectionView.contentOffset.x + sectionInset.left + sectionInset.right
         }
 
         if let invalidationContext = context as? BlueprintInvalidationContext {

@@ -394,7 +394,7 @@
           // Adjust the X-origin if the content offset exceeds the width of the content size.
           // This should only happen if you use section insets and have scrolled to the very end
           // of the collection view.
-          if collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
+          if contentSize.width > collectionView.frame.size.width && collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
             header.frame.origin.x = collectionView.contentOffset.x + sectionInset.left + sectionInset.right
           }
         }
@@ -422,7 +422,7 @@
         // Adjust the X-origin if the content offset exceeds the width of the content size.
         // This should only happen if you use section insets and have scrolled to the very end
         // of the collection view.
-        if collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
+        if contentSize.width > collectionView.frame.size.width && collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
           footer.frame.origin.x = collectionView.contentOffset.x + sectionInset.left + sectionInset.right
         }
 

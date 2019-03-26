@@ -19,12 +19,10 @@ Pod::Spec.new do |s|
   s.ios.source_files = 'Sources/{iOS+tvOS,Shared}/**/*'
   s.tvos.source_files = 'Sources/{iOS+tvOS,Shared}/**/*'
   s.osx.source_files = 'Sources/{macOS,Shared}/**/*'
-  s.watchos.source_files = 'Sources/{watchOS,Shared}/**/*'
 
   # s.ios.frameworks = 'UIKit', 'Foundation'
   # s.osx.frameworks = 'Cocoa', 'Foundation'
   # s.dependency 'Whisper', '~> 1.0'
-  # s.watchos.exclude_files = ["Sources/AnimatedImageView.swift"] 
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 end

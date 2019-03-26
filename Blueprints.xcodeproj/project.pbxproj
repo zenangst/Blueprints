@@ -65,6 +65,7 @@
 		836DB2A321EDDB47003D38B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB2A221EDDB47003D38B1 /* Constants.swift */; };
 		836DB2A621EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DB2A421EDDCA6003D38B1 /* LayoutExampleSceneViewController.swift */; };
 		836DB2A721EDDCA6003D38B1 /* LayoutExample.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836DB2A521EDDCA6003D38B1 /* LayoutExample.xib */; };
+		8376435F224A399C0076C743 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4B6C6204CB21000971F64 /* BlueprintLayoutAnimator+iOS+tvOS.swift */; };
 		839F31B121F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F31B021F88B020097E635 /* LayoutExampleSceneViewController+Actions.swift */; };
 		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
 		83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */; };
@@ -1237,7 +1238,7 @@
 			};
 			buildConfigurationList = D5B2E8991C3A780C00C0327D /* Build configuration list for PBXProject "Blueprints" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1475,6 +1476,7 @@
 				BDD5F8D2204C7F4800A6BFD5 /* HorizontalBlueprintLayout.swift in Sources */,
 				D284B14A1F790CA200D94AF3 /* TypeAlias.swift in Sources */,
 				BDFB637F204D563D00D863E3 /* BlueprintLayoutAnimation.swift in Sources */,
+				8376435F224A399C0076C743 /* BlueprintLayoutAnimator+iOS+tvOS.swift in Sources */,
 				BDD5F8D3204C7F4800A6BFD5 /* BlueprintLayout.swift in Sources */,
 				BDD5F8D5204C7F4800A6BFD5 /* VerticalBlueprintLayout.swift in Sources */,
 				BDFB637E204D563B00D863E3 /* BlueprintLayoutAnimationType.swift in Sources */,
@@ -1634,7 +1636,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS.Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1659,7 +1661,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS.Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1687,7 +1689,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1712,7 +1714,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-OSX.Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1741,7 +1743,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
@@ -1770,7 +1772,7 @@
 				PRODUCT_NAME = Blueprints;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
@@ -1796,7 +1798,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-tvOS-Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
@@ -1820,7 +1822,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-tvOS-Tests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
@@ -1852,7 +1854,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1882,7 +1884,7 @@
 				PRODUCT_NAME = Blueprints;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1940,7 +1942,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1992,7 +1994,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2017,7 +2019,7 @@
 				PRODUCT_NAME = Blueprints;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2037,7 +2039,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS";
 				PRODUCT_NAME = Blueprints;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2052,7 +2054,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-iOS-Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2066,7 +2068,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.BlueprintsTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-iOS-Tests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2090,7 +2092,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2113,7 +2115,7 @@
 				PRODUCT_NAME = Blueprints;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2132,7 +2134,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-macOS-Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2150,7 +2152,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Shared/Blueprints-macOS-Tests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -26,5 +26,5 @@ Pod::Spec.new do |s|
   # s.dependency 'Whisper', '~> 1.0'
   # s.watchos.exclude_files = ["Sources/AnimatedImageView.swift"] 
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 end

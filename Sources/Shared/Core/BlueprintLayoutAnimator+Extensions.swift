@@ -7,7 +7,7 @@
 extension BlueprintLayoutAnimator {
   public func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath, with attributes: LayoutAttributes) -> LayoutAttributes? {
     guard indexPathsToAnimate.contains(itemIndexPath) else {
-      if let index = indexPathsToMove.index(of: itemIndexPath) {
+        if let index = indexPathsToMove.firstIndex(of: itemIndexPath) {
         indexPathsToMove.remove(at: index)
         attributes.alpha = 1.0
         return attributes
@@ -15,7 +15,7 @@ extension BlueprintLayoutAnimator {
       return nil
     }
 
-    if let index = indexPathsToAnimate.index(of: itemIndexPath) {
+    if let index = indexPathsToAnimate.firstIndex(of: itemIndexPath) {
       indexPathsToAnimate.remove(at: index)
     }
 
@@ -30,7 +30,7 @@ extension BlueprintLayoutAnimator {
 
   public func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath, with attributes: LayoutAttributes) -> LayoutAttributes? {
     guard indexPathsToAnimate.contains(itemIndexPath) else {
-      if let index = indexPathsToMove.index(of: itemIndexPath) {
+        if let index = indexPathsToMove.firstIndex(of: itemIndexPath) {
         indexPathsToMove.remove(at: index)
         attributes.alpha = 1.0
         return attributes
@@ -38,7 +38,7 @@ extension BlueprintLayoutAnimator {
       return nil
     }
 
-    if let index = indexPathsToAnimate.index(of: itemIndexPath) {
+    if let index = indexPathsToAnimate.firstIndex(of: itemIndexPath) {
       indexPathsToAnimate.remove(at: index)
     }
 

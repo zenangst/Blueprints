@@ -1,10 +1,10 @@
 import Cocoa
 
 public extension CollectionView {
-  public static var collectionViewHeaderType: NSCollectionView.SupplementaryElementKind { return NSCollectionView.elementKindSectionHeader }
-  public static var collectionViewFooterType: NSCollectionView.SupplementaryElementKind { return NSCollectionView.elementKindSectionFooter }
+  static var collectionViewHeaderType: NSCollectionView.SupplementaryElementKind { return NSCollectionView.elementKindSectionHeader }
+  static var collectionViewFooterType: NSCollectionView.SupplementaryElementKind { return NSCollectionView.elementKindSectionFooter }
 
-  public var contentOffset: CGPoint {
+  var contentOffset: CGPoint {
     get { return enclosingScrollView?.documentVisibleRect.origin ?? .zero }
     set { scroll(newValue) }
   }
@@ -23,7 +23,7 @@ public extension CollectionView {
     return frame
   }
 
-  convenience public init(frame: CGRect, collectionViewLayout: CollectionViewFlowLayout) {
+  convenience init(frame: CGRect, collectionViewLayout: CollectionViewFlowLayout) {
     self.init(frame: frame)
     self.collectionViewLayout = collectionViewLayout
   }

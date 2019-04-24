@@ -86,7 +86,7 @@
                           sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
                           stickyHeaders: Bool = false,
                           stickyFooters: Bool = false,
-                          animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(animation: .automatic)) {
+                          animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()) {
     let size = CGSize(width: 50, height: height)
     self.init(itemsPerRow: itemsPerRow,
               itemSize: size,

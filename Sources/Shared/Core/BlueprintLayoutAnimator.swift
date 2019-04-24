@@ -6,8 +6,8 @@
 
 @objc public protocol BlueprintLayoutAnimator: class {
   var animation: BlueprintLayoutAnimation { get set }
-  var indexPathsToAnimate: [IndexPath] { get set }
-  var indexPathsToMove: [IndexPath] { get set }
+  var indexPathsToAnimate: Set<IndexPath> { get set }
+  var indexPathsToMove: Set<IndexPath> { get set }
   var collectionViewFlowLayout: CollectionViewFlowLayout? { get set }
 
   func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath, with attributes: LayoutAttributes) -> LayoutAttributes?

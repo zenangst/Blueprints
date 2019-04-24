@@ -66,6 +66,7 @@
     self.minimumInteritemSpacing = minimumInteritemSpacing
     self.minimumLineSpacing = minimumLineSpacing
     self.sectionInset = sectionInset
+    self.animator.collectionViewFlowLayout = self
 
     #if os(macOS)
       NotificationCenter.default.addObserver(
@@ -458,7 +459,6 @@
     guard let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) else {
       return nil
     }
-
     return animator.finalLayoutAttributesForDisappearingItem(at: itemIndexPath,
                                                              with: attributes)
   }
@@ -468,6 +468,7 @@
   /// - Parameter updateItems: An array of CollectionViewUpdateItem objects
   //                           that identify the changes being made.
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
+    super.prepare(forCollectionViewUpdates: updateItems)
     return animator.prepare(forCollectionViewUpdates: updateItems)
   }
 }

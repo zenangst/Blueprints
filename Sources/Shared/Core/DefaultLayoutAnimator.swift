@@ -6,12 +6,12 @@
 
 @objc open class DefaultLayoutAnimator: NSObject, BlueprintLayoutAnimator {
   public var animation: BlueprintLayoutAnimation
-  public var indexPathsToAnimate: [IndexPath] = []
-  public var indexPathsToMove: [IndexPath] = []
+  public var indexPathsToAnimate = Set<IndexPath>()
+  public var indexPathsToMove = Set<IndexPath>()
 
   weak public var collectionViewFlowLayout: CollectionViewFlowLayout?
 
-  @objc public init(animation: BlueprintLayoutAnimation = .automatic) {
+  @objc public init(animation: BlueprintLayoutAnimation = .fade) {
     self.animation = animation
     super.init()
   }
@@ -20,7 +20,6 @@
     guard indexPathsToAnimate.contains(itemIndexPath) else {
       if let index = indexPathsToMove.index(of: itemIndexPath) {
         indexPathsToMove.remove(at: index)
-        attributes.alpha = 1.0
         return attributes
       }
       return nil
@@ -43,7 +42,6 @@
     guard indexPathsToAnimate.contains(itemIndexPath) else {
       if let index = indexPathsToMove.index(of: itemIndexPath) {
         indexPathsToMove.remove(at: index)
-        attributes.alpha = 1.0
         return attributes
       }
       return nil
@@ -72,14 +70,14 @@
         currentIndexPath = updateItem.indexPathBeforeUpdate
       case .move:
         currentIndexPath = nil
-        indexPathsToMove.append(updateItem.indexPathBeforeUpdate!)
-        indexPathsToMove.append(updateItem.indexPathAfterUpdate!)
+        indexPathsToMove.insert(updateItem.indexPathBeforeUpdate!)
+        indexPathsToMove.insert(updateItem.indexPathAfterUpdate!)
       default:
         currentIndexPath = nil
       }
 
       if let indexPath = currentIndexPath {
-        indexPathsToAnimate.append(indexPath)
+        indexPathsToAnimate.insert(indexPath)
       }
     }
   }
@@ -97,67 +95,93 @@
 
     let count = dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
 
-    if type == .move {
-      return
-    }
-
-    let excludedAnimationTypes: [BlueprintLayoutAnimation] = [.top, .bottom]
+    let excludedAnimationTypes: [BlueprintLayoutAnimation] = [.top, .bottom, .none]
 
     if !excludedAnimationTypes.contains(animation) {
       applyAnimationFix(type, collectionViewFlowLayout: collectionViewFlowLayout, attributes)
     }
 
-    switch animation {
-    case .fade:
-      attributes.alpha = 0.0
-    case .right:
-      attributes.frame.origin.x = type == .insert ? collectionView.bounds.minX : collectionView.bounds.maxX
-    case .left:
-      attributes.frame.origin.x = type == .insert ? collectionView.bounds.maxX : collectionView.bounds.minX
-    case .top:
-      attributes.frame.origin.y -= attributes.frame.size.height
-    case .bottom:
-      if attributes.frame.origin.x == collectionViewFlowLayout.sectionInset.left {
-        attributes.frame.origin = .init(x: attributes.frame.origin.x,
-                                        y: attributes.frame.origin.y + attributes.frame.size.height)
-      } else {
-        attributes.frame.origin.y += attributes.frame.size.height
-      }
-    case .none:
-      attributes.alpha = 1.0
-    case .middle:
-      switch type {
-      case .insert:
+    switch type {
+    case .insert:
+      switch animation {
+      case .fade:
+        attributes.frame.origin.x += 0.5
+        return
+      case .right:
+        attributes.frame.origin.x = collectionView.bounds.minX
+      case .left:
+        attributes.frame.origin.x = collectionView.bounds.maxX
+      case .top:
+        attributes.frame.origin.y -= attributes.frame.size.height
+      case .bottom:
+        if attributes.frame.origin.x == collectionViewFlowLayout.sectionInset.left {
+          attributes.frame.origin = .init(x: attributes.frame.origin.x,
+                                          y: collectionView.bounds.maxY)
+        } else {
+          attributes.frame.origin.y += collectionView.bounds.maxY
+        }
+      case .none:
+        attributes.alpha = 1.0
+        return
+      case .middle:
         attributes.size = .zero
         attributes.frame.origin = .init(x: attributes.frame.origin.x,
                                         y: attributes.frame.origin.y * 2)
-      case .delete:
-        attributes.frame.origin = .init(x: attributes.frame.origin.x,
-                                        y: attributes.frame.size.height / 2)
-        return
-      default:
-        break
-      }
-    case .automatic:
-      switch type {
-      case .insert:
+      case .automatic:
         if count == 1 {
           attributes.alpha = 0.0
           return
         }
-      case .delete:
+        attributes.frame.origin = .init(x: attributes.frame.origin.x,
+                                        y: attributes.frame.origin.y - attributes.frame.size.height)
+        attributes.isHidden = false
+        attributes.alpha = 1.0
+        return
+      }
+
+      attributes.frame.origin.x = 0.5
+      attributes.isHidden = false
+      attributes.alpha = 1.0
+    case .delete:
+      switch animation {
+      case .fade:
+//        attributes.frame.size = .zero
+        break
+      case .right:
+        attributes.frame.origin.x = collectionView.bounds.maxX
+      case .left:
+        attributes.frame.origin.x = collectionView.bounds.minX
+      case .top:
+        attributes.frame.origin.y -= attributes.frame.size.height
+      case .bottom:
+        if attributes.frame.origin.x == collectionViewFlowLayout.sectionInset.left {
+          attributes.frame.origin = .init(x: attributes.frame.origin.x,
+                                          y: collectionView.bounds.maxY)
+        } else {
+          attributes.frame.origin.y += collectionView.bounds.maxY
+        }
+      case .none:
+        attributes.alpha = 1.0
+        return
+      case .middle:
+        attributes.frame.origin = .init(x: attributes.frame.origin.x,
+                                        y: attributes.frame.size.height / 2)
+      case .automatic:
         if count == 0 {
           attributes.alpha = 0.0
           return
         }
-      default:
-        break
+        attributes.frame.origin = .init(x: attributes.frame.origin.x,
+                                        y: attributes.frame.origin.y - attributes.frame.size.height)
+        attributes.isHidden = true
+        attributes.alpha = 0.0
+        return
       }
 
-      attributes.zIndex = -1
-      attributes.alpha = 1.0
-      attributes.frame.origin = .init(x: attributes.frame.origin.x,
-                                      y: attributes.frame.origin.x - attributes.frame.size.height)
+      attributes.isHidden = true
+      attributes.alpha = 0.0
+    case .move:
+      break
     }
   }
 }

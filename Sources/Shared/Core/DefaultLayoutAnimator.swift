@@ -20,6 +20,7 @@
     guard indexPathsToAnimate.contains(itemIndexPath) else {
       if let index = indexPathsToMove.index(of: itemIndexPath) {
         indexPathsToMove.remove(at: index)
+        attributes.alpha = 1.0
         return attributes
       }
       return nil
@@ -42,6 +43,7 @@
     guard indexPathsToAnimate.contains(itemIndexPath) else {
       if let index = indexPathsToMove.index(of: itemIndexPath) {
         indexPathsToMove.remove(at: index)
+        attributes.alpha = 1.0
         return attributes
       }
       return nil
@@ -105,6 +107,7 @@
     case .insert:
       switch animation {
       case .fade:
+        attributes.alpha = 0.0
         attributes.frame.origin.x += 0.5
         return
       case .right:
@@ -145,7 +148,7 @@
     case .delete:
       switch animation {
       case .fade:
-//        attributes.frame.size = .zero
+        attributes.alpha = 1.0
         break
       case .right:
         attributes.frame.origin.x = collectionView.bounds.maxX

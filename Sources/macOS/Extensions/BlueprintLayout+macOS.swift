@@ -39,7 +39,7 @@ extension BlueprintLayout {
   func macOSWorkaroundCreateCache() {
     let alphaValue: CGFloat = 0.0001
     if contentSize.height == 0 && collectionView?.alphaValue != 0.0 {
-      contentSize.height = 0.5
+      contentSize.height = super.collectionViewContentSize.height
       collectionView?.alphaValue = alphaValue
     } else if collectionView?.alphaValue == alphaValue {
       collectionView?.alphaValue = 1.0

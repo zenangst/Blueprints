@@ -243,7 +243,7 @@
   /// - Parameter attributes: The attributes that were created in the collection view layout.
   func createCache(with attributes: [[LayoutAttributes]]) {
     #if os(macOS)
-      macOSWorkaroundCreateCache()
+      macOSWorkaroundCreateCache(with: attributes)
     #endif
 
     for value in attributes {

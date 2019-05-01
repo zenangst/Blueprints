@@ -36,7 +36,7 @@ extension BlueprintLayout {
   /// properly. If a hidden collection view gets a new content size
   /// it will restore the alpha value to 1.0, but only if the alpha value
   /// is equal to the workaround value.
-  func macOSWorkaroundCreateCache(with attributes: [[LayoutAttributes]]) {
+  func macOSWorkaroundCreateCache() {
     let alphaValue: CGFloat = 0.0001
     if contentSize.height == 0 && collectionView?.alphaValue != 0.0 {
       contentSize.height = super.collectionViewContentSize.height
@@ -44,15 +44,7 @@ extension BlueprintLayout {
     } else if collectionView?.alphaValue == alphaValue {
       collectionView?.alphaValue = 1.0
     }
-
-    // Check that the layout has attributes, otherwise set the content size height
-    // to zero to indicate that it is truly empty.
-    if !attributes.isEmpty {
-      collectionView?.frame.size.height = contentSize.height
-    } else {
-      contentSize.height = 0
-      collectionView?.frame.size.height = 0
-    }
+    collectionView?.frame.size.height = contentSize.height
   }
 
   /// When transitioning between layouts macOS does not set the

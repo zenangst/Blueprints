@@ -9,7 +9,7 @@
 ![Code Coverage](https://codecov.io/github/zenangst/Blueprints/coverage.svg?branch=master)
 [![License](https://img.shields.io/cocoapods/l/Blueprints.svg?style=flat)](http://cocoadocs.org/docsets/Blueprints)
 [![Platform](https://img.shields.io/cocoapods/p/Blueprints.svg?style=flat)](http://cocoadocs.org/docsets/Blueprints)
-![Swift](https://img.shields.io/badge/%20in-swift%204.2-orange.svg)
+![Swift](https://img.shields.io/badge/%20in-swift%205.0-orange.svg)
 
 </div>
 

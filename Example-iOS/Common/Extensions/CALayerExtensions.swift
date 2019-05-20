@@ -2,7 +2,7 @@ import UIKit
 
 public extension CALayer {
 
-    public func addShadow(color: UIColor) {
+  func addShadow(color: UIColor) {
         self.shadowOffset = .zero
         self.shadowOpacity = 0.3
         self.shadowRadius = 5
@@ -13,14 +13,14 @@ public extension CALayer {
         }
     }
 
-    public func roundCorners(radius: CGFloat) {
+  func roundCorners(radius: CGFloat) {
         self.cornerRadius = radius
         if shadowOpacity != 0 {
             addShadowWithRoundedCorners()
         }
     }
 
-    public func showShadow(duration: CFTimeInterval?) {
+  func showShadow(duration: CFTimeInterval?) {
         let animation = CABasicAnimation(keyPath: "shadowOpacity")
         animation.fromValue = self.shadowOpacity
         animation.toValue = 0.3
@@ -29,7 +29,7 @@ public extension CALayer {
         self.shadowOpacity = 0.3
     }
 
-    public func hideShadow(duration: CFTimeInterval?) {
+  func hideShadow(duration: CFTimeInterval?) {
         let animation = CABasicAnimation(keyPath: "shadowOpacity")
         animation.fromValue = self.shadowOpacity
         animation.toValue = 0.0

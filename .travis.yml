@@ -1,4 +1,4 @@
-osx_image: xcode10
+osx_image: xcode10.2
 language: objective-c
 
 script:
@@ -6,8 +6,8 @@ script:
   - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-macOS" -sdk macosx -enableCodeCoverage YES test | xcpretty
   - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-iOS" -sdk iphonesimulator -destination name="iPhone 8" clean build | xcpretty
   - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-iOS" -sdk iphonesimulator -destination name="iPhone 8" -enableCodeCoverage YES test | xcpretty
-  - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=11.4' clean build | xcpretty
-  - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=11.4' -enableCodeCoverage YES test | xcpretty
+  - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.2' clean build | xcpretty
+  - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Blueprints-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.2' -enableCodeCoverage YES test | xcpretty
   - set -o pipefail && xcodebuild -project Blueprints.xcodeproj -scheme "Example-iOS" -sdk iphonesimulator -destination name="iPhone 8" clean build | xcpretty
 
 after_success:

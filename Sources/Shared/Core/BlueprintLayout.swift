@@ -273,6 +273,8 @@
       allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minX < $1.frame.minX })
     case .vertical:
       allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
+    @unknown default:
+      fatalError("Case not implemented in current implementation")
     }
 
     cachedSupplementaryAttributes = Array(cachedSupplementaryAttributesBySection.joined())
@@ -376,6 +378,8 @@
         return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max) || $0.frame.intersects(visibleRect)
       case .horizontal:
         return (visibleRect.origin.x >= $0.min && visibleRect.origin.x <= $0.max) || $0.frame.intersects(visibleRect)
+      @unknown default:
+        fatalError("Case not implemented in current implementation")
       }
     })
 
@@ -398,6 +402,8 @@
           if contentSize.width > collectionView.frame.size.width && collectionView.contentOffset.x > contentSize.width - collectionView.frame.size.width {
             header.frame.origin.x = collectionView.contentOffset.x + sectionInset.left + sectionInset.right
           }
+        @unknown default:
+          fatalError("Case not implemented in current implementation")
         }
 
         if let invalidationContext = context as? BlueprintInvalidationContext {
@@ -418,6 +424,8 @@
           footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
         case .horizontal:
           footer.frame.origin.x = min(max(collectionView.contentOffset.x, footer.min), footer.max - footer.frame.size.width)
+        @unknown default:
+          fatalError("Case not implemented in current implementation")
         }
 
         // Adjust the X-origin if the content offset exceeds the width of the content size.

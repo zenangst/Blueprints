@@ -37,10 +37,10 @@
   }
 
   override public func prepare() {
-    guard cachedItemAttributes.isEmpty,
-        cachedSupplementaryAttributes.isEmpty else {
-            return
+    guard prepareAllowed else {
+        return
     }
+    prepareAllowed = false
 
     super.prepare()
 

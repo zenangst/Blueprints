@@ -37,7 +37,13 @@
   }
 
   override public func prepare() {
+    guard cachedItemAttributes.isEmpty,
+        cachedSupplementaryAttributes.isEmpty else {
+            return
+    }
+
     super.prepare()
+
     var layoutAttributes = [[LayoutAttributes]]()
     var threshold: CGFloat = 0.0
 

@@ -119,7 +119,13 @@
   }
 
   override open func prepare() {
+    guard cachedItemAttributes.isEmpty,
+        cachedSupplementaryAttributes.isEmpty else {
+            return
+    }
+
     super.prepare()
+
     var layoutAttributes = [[LayoutAttributes]]()
     var contentSize: CGSize = .zero
     var nextX: CGFloat = 0

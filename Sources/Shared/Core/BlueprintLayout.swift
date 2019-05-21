@@ -332,6 +332,9 @@
   }
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {
+    cachedItemAttributes = []
+    cachedSupplementaryAttributes = []
+
     if context.invalidateEverything == false {
       positionHeadersAndFooters(with: context)
 

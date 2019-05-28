@@ -119,7 +119,13 @@
   }
 
   override open func prepare() {
+    guard prepareAllowed else {
+        return
+    }
+    prepareAllowed = false
+
     super.prepare()
+
     var layoutAttributes = [[LayoutAttributes]]()
     var contentSize: CGSize = .zero
     var nextX: CGFloat = 0

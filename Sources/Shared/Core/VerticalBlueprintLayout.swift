@@ -104,6 +104,11 @@
   }
 
   override open func prepare() {
+    guard prepareAllowed else {
+        return
+    }
+    prepareAllowed = false
+
     super.prepare()
 
     var layoutAttributes = [[LayoutAttributes]]()

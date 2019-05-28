@@ -37,7 +37,13 @@
   }
 
   override public func prepare() {
+    guard prepareAllowed else {
+        return
+    }
+    prepareAllowed = false
+
     super.prepare()
+
     var layoutAttributes = [[LayoutAttributes]]()
     var threshold: CGFloat = 0.0
 

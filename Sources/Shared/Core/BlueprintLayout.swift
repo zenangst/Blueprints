@@ -26,6 +26,7 @@
   public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
   var binarySearch = BinarySearch()
+  var prepareAllowed = true
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = .zero
@@ -332,6 +333,8 @@
   }
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {
+    prepareAllowed = true
+
     if context.invalidateEverything == false {
       positionHeadersAndFooters(with: context)
 

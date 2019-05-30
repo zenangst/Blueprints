@@ -56,7 +56,7 @@ To provide dynamic sizing, you can make your collection view delegate conform to
 
 #### Dynamic sizing preview
 
-<img src="https://github.com/zenangst/Blueprints/blob/master/Images/iOS-Dynamic-Height.gif?raw=true" height="600"/>
+<img src="https://github.com/zenangst/Blueprints/blob/master/Images/iOS-Dynamic-Height.gif?raw=true" height="540"/>
 
 ## Usage
 

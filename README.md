@@ -55,7 +55,8 @@ It works just like a regular flow layout, but with a twist. If you want to provi
 To provide dynamic sizing, you can make your collection view delegate conform to `UICollectionViewDelegateFlowLayout` or `NSCollectionViewDelegateFlowLayout`. That way you can compute the values based on the data coming from the data source etc. Worth noting is that using itemsPerRow takes precedence over the other alternatives.
 
 #### Dynamic sizing preview
-![macOS Preview](Images/iOS-Dynamic-Height.gif?raw=true)
+
+<img src="https://github.com/zenangst/Blueprints/blob/master/Images/iOS-Dynamic-Height.gif?raw=true" height="540"/>
 
 ## Usage
 

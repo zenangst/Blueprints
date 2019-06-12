@@ -210,7 +210,7 @@
           footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         } else {
-            nextY = nextY + sectionInset.bottom
+          nextY = sectionMaxY + sectionInset.bottom
         }
 
         contentSize.height = sectionMaxY - headerReferenceSize.height + sectionInset.bottom

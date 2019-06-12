@@ -143,6 +143,8 @@
           layoutAttributes[section].append(layoutAttribute)
           nextY = layoutAttribute.frame.maxY
           footerAttribute = layoutAttribute
+        } else {
+            nextY = nextY + sectionInset.bottom
         }
 
         headerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height

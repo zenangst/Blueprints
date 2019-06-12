@@ -926,8 +926,10 @@
 				D5C6296A1C3A809D007F7B7C /* iOS+tvOS */,
 				D5C6296E1C3A809D007F7B7C /* Shared */,
 			);
+			indentWidth = 2;
 			path = Sources;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		D5C6296A1C3A809D007F7B7C /* iOS+tvOS */ = {
 			isa = PBXGroup;

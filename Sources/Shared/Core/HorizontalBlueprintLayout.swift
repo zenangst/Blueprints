@@ -134,6 +134,7 @@
     for section in 0..<numberOfSections {
       widthOfSection = 0
       guard numberOfItemsInSection(section) > 0 else {
+        layoutAttributes.append([])
         continue
       }
 

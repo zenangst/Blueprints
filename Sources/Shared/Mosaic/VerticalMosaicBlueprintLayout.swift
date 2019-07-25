@@ -55,7 +55,10 @@
     var nextY: CGFloat = 0
 
     for section in 0..<numberOfSections {
-      guard numberOfItemsInSection(section) > 0 else { continue }
+      guard numberOfItemsInSection(section) > 0 else {
+        layoutAttributes.append([])
+        continue
+      }
 
       var previousAttribute: MosaicLayoutAttributes?
       var headerAttribute: SupplementaryLayoutAttributes? = nil

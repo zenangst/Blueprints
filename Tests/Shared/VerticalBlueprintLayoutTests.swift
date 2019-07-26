@@ -332,6 +332,8 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
+  #if os(macOS)
+  #else
   func testVerticalLayoutWithDynamicSizes() {
     let dataSource = DynamicSizeDataSource()
     let (collectionView, layout) = Helper.createVerticalLayout(dataSource: dataSource)
@@ -342,6 +344,9 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     #endif
     layout.estimatedItemSize = .init(width: 50, height: 50)
     collectionView.layoutIfNeeded()
+
+    collectionView.reloadData()
+    layout.invalidateLayout()
 
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))!.frame,
                    CGRect(origin: CGPoint(x: 10, y: 10), size: CGSize(width: 50, height: 100)))
@@ -356,4 +361,5 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))!.frame,
                    CGRect(origin: CGPoint(x: 130, y: 120), size: CGSize(width: 50, height: 100)))
   }
+  #endif
 }

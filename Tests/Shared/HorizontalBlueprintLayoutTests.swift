@@ -231,6 +231,8 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
+  #if os(macOS)
+  #else
   func testHorizontalLayoutWithDynamicSizes() {
     let dataSource = DynamicSizeDataSource()
     let (collectionView, layout) = Helper.createHorizontalLayout(dataSource: dataSource)
@@ -258,4 +260,5 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))!.frame,
                    CGRect(origin: CGPoint(x: 600, y: 10), size: CGSize(width: 100, height: 50)))
   }
+  #endif
 }

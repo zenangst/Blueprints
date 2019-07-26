@@ -29,7 +29,7 @@ let dataSource = DataSource()
 let blueprint = HorizontalBlueprintLayout(
   itemsPerRow: 3.5,
   itemsPerColumn: 2,
-  itemSize: CGSize(width: 80, height: 80),
+  height: 80,
   sectionInset: EdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 )
 let collectionView = CollectionView(frame: frame, collectionViewLayout: blueprint)

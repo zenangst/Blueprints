@@ -104,3 +104,39 @@ class Helper {
     return (collectionView: collectionView, layout: layout)
   }
 }
+
+extension CollectionView {
+  func layoutIfNeeded() {
+    layoutSubtreeIfNeeded()
+  }
+}
+
+class DynamicSizeCell: NSCollectionViewItem {
+  override func preferredLayoutAttributesFitting(_ layoutAttributes: NSCollectionViewLayoutAttributes) -> NSCollectionViewLayoutAttributes {
+    let attributes = layoutAttributes
+    attributes.frame.size = CGSize(width: 100, height: 100)
+    return attributes
+  }
+
+  override func loadView() {
+    view = NSView()
+  }
+}
+
+class DynamicSizeDataSource: NSObject, NSCollectionViewDataSource {
+  var numberOfItems: Int = 10
+
+  convenience init(numberOfItems: Int = 10) {
+    self.init()
+    self.numberOfItems = numberOfItems
+  }
+
+  func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+    return numberOfItems
+  }
+
+  func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+    let cell = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier.init("dynamic"), for: indexPath)
+    return cell
+  }
+}

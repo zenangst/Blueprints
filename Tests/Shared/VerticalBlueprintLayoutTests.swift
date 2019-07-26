@@ -331,4 +331,29 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 450))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
+
+  func testVerticalLayoutWithDynamicSizes() {
+    let dataSource = DynamicSizeDataSource()
+    let (collectionView, layout) = Helper.createVerticalLayout(dataSource: dataSource)
+    #if os(macOS)
+    collectionView.register(DynamicSizeCell.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
+    #else
+    collectionView.register(DynamicSizeCell.self, forCellWithReuseIdentifier: "dynamic")
+    #endif
+    layout.estimatedItemSize = .init(width: 50, height: 50)
+    collectionView.layoutIfNeeded()
+
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 10, y: 10), size: CGSize(width: 50, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 70, y: 10), size: CGSize(width: 50, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 130, y: 10), size: CGSize(width: 50, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 10, y: 120), size: CGSize(width: 50, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 70, y: 120), size: CGSize(width: 50, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 130, y: 120), size: CGSize(width: 50, height: 100)))
+  }
 }

@@ -435,6 +435,49 @@
     }
   }
 
+  open override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
+                                            withOriginalAttributes originalAttributes: LayoutAttributes) -> Bool {
+    guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0
+      else { return false }
+    return preferredAttributes.frame.size != originalAttributes.frame.size
+  }
+
+  open override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
+                                         withOriginalAttributes originalAttributes: LayoutAttributes) -> LayoutInvalidationContext {
+    let context = super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes,
+                                            withOriginalAttributes: originalAttributes)
+    #if os(macOS)
+    let indexPath = originalAttributes.indexPath!
+    #else
+    let indexPath = originalAttributes.indexPath
+    #endif
+
+    let currentAttributes = allCachedAttributes[indexPath.item]
+
+    switch scrollDirection {
+    case .horizontal:
+      currentAttributes.frame.size.width = preferredAttributes.frame.size.width
+      currentAttributes.frame.size.height = itemSize.height
+      let filteredAttributes = allCachedAttributes[indexPath.item...].filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes })
+      for attributes in filteredAttributes {
+        attributes.frame.origin.x = currentAttributes.frame.maxX + minimumInteritemSpacing
+      }
+    case .vertical:
+      currentAttributes.frame.size.width = itemSize.width
+      currentAttributes.frame.size.height = preferredAttributes.frame.size.height
+      let filteredAttributes = allCachedAttributes[indexPath.item...].filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes })
+      for attributes in filteredAttributes {
+        attributes.frame.origin.y = currentAttributes.frame.maxY + minimumLineSpacing
+      }
+    @unknown default:
+      assertionFailure("Scroll direction is not supported.")
+    }
+
+    context.invalidateItems(at: [indexPath])
+
+    return context
+  }
+
   /// Returns the starting layout information for an item being inserted into the collection view.
   ///
   /// - Parameter itemIndexPath: The index path of the item being inserted.

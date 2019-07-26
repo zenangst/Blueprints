@@ -28,7 +28,7 @@ class Helper {
     }
 
     layout.itemSize = CGSize(width: 50, height: 50)
-    layout.estimatedItemSize = CGSize(width: 50, height: 50)
+    layout.estimatedItemSize = .zero
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     collectionView.dataSource = dataSource
@@ -54,7 +54,7 @@ class Helper {
     }
 
     layout.itemSize = CGSize(width: 50, height: 50)
-    layout.estimatedItemSize = CGSize(width: 50, height: 50)
+    layout.estimatedItemSize = .zero
     let collectionView = CollectionView(frame: frame, collectionViewLayout: layout)
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     collectionView.dataSource = dataSource
@@ -94,5 +94,31 @@ class Helper {
     collectionView.dataSource = dataSource
 
     return (collectionView: collectionView, layout: layout)
+  }
+}
+
+class DynamicSizeCell: UICollectionViewCell {
+  override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    let attributes = layoutAttributes
+    attributes.frame.size = CGSize(width: 100, height: 100)
+    return attributes
+  }
+}
+
+class DynamicSizeDataSource: NSObject, UICollectionViewDataSource {
+  var numberOfItems: Int = 10
+
+  convenience init(numberOfItems: Int = 10) {
+    self.init()
+    self.numberOfItems = numberOfItems
+  }
+
+  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return numberOfItems
+  }
+
+  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dynamic", for: indexPath)
+    return cell
   }
 }

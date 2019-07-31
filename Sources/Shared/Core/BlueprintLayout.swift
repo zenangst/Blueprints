@@ -190,7 +190,7 @@
         return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
                                                                                                layout: self,
                                                                                                referenceSizeForFooterInSection: indexPath.section)
-      }, defaultValue: headerReferenceSize).height
+      }, defaultValue: footerReferenceSize).height
 
       let width: CGFloat
       if footerReferenceSize.width > 0 {

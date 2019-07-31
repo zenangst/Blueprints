@@ -156,6 +156,58 @@
     }
   }
 
+  /// Resolve the size of SupplementaryView at index path.
+  /// If the collection view's delegate conforms to `(UI/NS)CollectionViewDelegateFlowLayout`, it will
+  /// query the delegate for the size of the SupplementaryView.
+  /// It defaults to using the `headerReferenceSize` or `footerReferenceSize` property on collection view flow layout.
+  ///
+  /// - Parameter indexPath: The index path of the supplementaryView.
+  /// - Returns: The desired size of the item at the index path.
+  func resolveSizeForSupplementaryView(ofKind kind: BlueprintSupplementaryKind, at indexPath: IndexPath) -> CGSize {
+    switch kind {
+    case .header:
+      let height = resolveCollectionView({ collectionView -> CGSize? in
+        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                               layout: self,
+                                                                                               referenceSizeForHeaderInSection: indexPath.section)
+      }, defaultValue: headerReferenceSize).height
+
+      let width: CGFloat
+      if headerReferenceSize.width > 0 {
+        width = headerReferenceSize.width
+      } else {
+        width = collectionView?.documentRect.width ?? headerReferenceSize.width
+      }
+
+      let size = CGSize(
+        width: width,
+        height: height
+      )
+
+      return size
+    case .footer:
+      let height = resolveCollectionView({ collectionView -> CGSize? in
+        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                               layout: self,
+                                                                                               referenceSizeForFooterInSection: indexPath.section)
+      }, defaultValue: headerReferenceSize).height
+
+      let width: CGFloat
+      if footerReferenceSize.width > 0 {
+        width = footerReferenceSize.width
+      } else {
+        width = collectionView?.documentRect.width ?? footerReferenceSize.width
+      }
+
+      let size = CGSize(
+        width: width,
+        height: height
+      )
+
+      return size
+    }
+  }
+
   /// Create supplementary layout attributes.
   ///
   /// - Parameters:

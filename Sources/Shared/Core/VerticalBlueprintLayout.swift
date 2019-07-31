@@ -132,15 +132,16 @@
       var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
-      if headerReferenceSize.height > 0 {
-        let layoutAttribute = createSupplementaryLayoutAttribute(
-          ofKind: .header,
-          indexPath: sectionIndexPath,
-          atY: nextY
+      if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
+        let layoutAttribute = SupplementaryLayoutAttributes(
+          forSupplementaryViewOfKind: BlueprintSupplementaryKind.header.collectionViewSupplementaryType,
+          with: sectionIndexPath
         )
         layoutAttribute.zIndex = numberOfSections
         layoutAttribute.min = nextY
-        layoutAttribute.frame.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
+        layoutAttribute.frame.origin.x = 0
+        layoutAttribute.frame.origin.y = nextY
+        layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
         layoutAttributes.append([layoutAttribute])
         headerAttribute = layoutAttribute
         nextY = layoutAttribute.frame.maxY

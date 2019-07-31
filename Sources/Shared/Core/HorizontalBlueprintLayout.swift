@@ -144,15 +144,18 @@
       var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
 
-      if headerReferenceSize.height > 0 {
-        let layoutAttribute: SupplementaryLayoutAttributes = createSupplementaryLayoutAttribute(
-          ofKind: .header,
-          indexPath: sectionIndexPath,
-          atX: nextX
+      if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
+        let layoutAttribute = SupplementaryLayoutAttributes(
+          forSupplementaryViewOfKind: BlueprintSupplementaryKind.header.collectionViewSupplementaryType,
+          with: sectionIndexPath
         )
+        layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
+        layoutAttribute.zIndex = numberOfSections
         layoutAttribute.min = nextX
-        headerAttribute = layoutAttribute
+        layoutAttribute.frame.origin.x = nextX
+        layoutAttribute.frame.origin.y = 0
         layoutAttributes.append([layoutAttribute])
+        headerAttribute = layoutAttribute
       }
 
       for item in 0..<numberOfItemsInSection(section) {
@@ -198,13 +201,15 @@
       if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
 
-        if footerReferenceSize.height > 0 {
-          let layoutAttribute = createSupplementaryLayoutAttribute(
-            ofKind: .footer,
-            indexPath: sectionIndexPath,
-            atX: nextX
+        if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
+          let layoutAttribute = SupplementaryLayoutAttributes(
+            forSupplementaryViewOfKind: BlueprintSupplementaryKind.footer.collectionViewSupplementaryType,
+            with: sectionIndexPath
           )
+          layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
+          layoutAttribute.zIndex = numberOfSections
           layoutAttribute.min = nextX
+          layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute

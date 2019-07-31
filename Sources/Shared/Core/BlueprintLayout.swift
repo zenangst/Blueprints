@@ -208,39 +208,6 @@
     }
   }
 
-  /// Create supplementary layout attributes.
-  ///
-  /// - Parameters:
-  ///   - kind: The supplementary kind, either header or footer.
-  ///   - indexPath: The section index path for the supplementary view.
-  ///   - x: The x coordinate of the header layout attributes.
-  ///   - y: The y coordinate of the header layout attributes.
-  /// - Returns: A `LayoutAttributes` object of supplementary kind.
-  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind,
-                                          indexPath: IndexPath,
-                                          atX x: CGFloat = 0,
-                                          atY y: CGFloat = 0) -> SupplementaryLayoutAttributes {
-    let layoutAttribute = SupplementaryLayoutAttributes(
-      forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
-      with: indexPath
-    )
-
-    switch kind {
-    case .header:
-      layoutAttribute.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
-      layoutAttribute.size.height = headerReferenceSize.height
-    case .footer:
-      layoutAttribute.size.width = collectionView?.documentRect.width ?? footerReferenceSize.width
-      layoutAttribute.size.height = footerReferenceSize.height
-    }
-
-    layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.frame.origin.x = x
-    layoutAttribute.frame.origin.y = y
-
-    return layoutAttribute
-  }
-
   /// Resolve collection collection view from layout and return
   /// property or default value if collection view cannot be resolved.
   ///

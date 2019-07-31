@@ -137,11 +137,11 @@
           forSupplementaryViewOfKind: BlueprintSupplementaryKind.header.collectionViewSupplementaryType,
           with: sectionIndexPath
         )
+        layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
         layoutAttribute.zIndex = numberOfSections
         layoutAttribute.min = nextY
         layoutAttribute.frame.origin.x = 0
         layoutAttribute.frame.origin.y = nextY
-        layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
         layoutAttributes.append([layoutAttribute])
         headerAttribute = layoutAttribute
         nextY = layoutAttribute.frame.maxY
@@ -200,15 +200,17 @@
 
       if let previousItem = previousItem {
         nextY = previousItem.frame.maxY
-        if footerReferenceSize.height > 0 {
-          let layoutAttribute = createSupplementaryLayoutAttribute(
-            ofKind: .footer,
-            indexPath: sectionIndexPath,
-            atY: sectionMaxY + sectionInset.bottom
+        if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
+          let layoutAttribute = SupplementaryLayoutAttributes(
+            forSupplementaryViewOfKind: BlueprintSupplementaryKind.footer.collectionViewSupplementaryType,
+            with: sectionIndexPath
           )
-          layoutAttributes[section].append(layoutAttribute)
+          layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
           layoutAttribute.zIndex = numberOfSections
-          layoutAttribute.min = headerAttribute?.frame.origin.y ?? nextY
+          layoutAttribute.min = nextY
+          layoutAttribute.frame.origin.x = 0
+          layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
+          layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         } else {

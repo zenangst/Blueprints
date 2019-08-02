@@ -138,7 +138,7 @@
           with: sectionIndexPath
         )
         layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
-        layoutAttribute.zIndex = numberOfSections
+        layoutAttribute.zIndex = section
         layoutAttribute.min = nextY
         layoutAttribute.frame.origin.x = 0
         layoutAttribute.frame.origin.y = nextY
@@ -206,7 +206,7 @@
             with: sectionIndexPath
           )
           layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
-          layoutAttribute.zIndex = numberOfSections
+          layoutAttribute.zIndex = section
           layoutAttribute.min = nextY
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom

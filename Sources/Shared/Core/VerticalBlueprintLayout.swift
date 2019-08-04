@@ -199,6 +199,7 @@
       }
 
       if let previousItem = previousItem {
+        let previousY = nextY
         nextY = previousItem.frame.maxY
         if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
           let layoutAttribute = SupplementaryLayoutAttributes(
@@ -207,10 +208,12 @@
           )
           layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
-          layoutAttribute.min = nextY
+          layoutAttribute.min = headerAttribute?.min ?? previousY
+          layoutAttribute.max = sectionMaxY + sectionInset.bottom
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
           layoutAttributes[section].append(layoutAttribute)
+          headerAttribute?.max = sectionMaxY + sectionInset.bottom
           footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         } else {

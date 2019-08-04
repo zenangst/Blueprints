@@ -397,9 +397,17 @@
     let results = cachedSupplementaryAttributes.filter({
       switch scrollDirection {
       case .vertical:
-        return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max) || $0.frame.intersects(visibleRect)
+        if visibleRect.origin.y < 0 {
+          return $0.frame.intersects(visibleRect)
+        } else {
+          return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max)
+        }
       case .horizontal:
-        return (visibleRect.origin.x >= $0.min && visibleRect.origin.x <= $0.max) || $0.frame.intersects(visibleRect)
+        if visibleRect.origin.x < 0 {
+          return $0.frame.intersects(visibleRect)
+        } else {
+          return (visibleRect.origin.x >= $0.min && visibleRect.origin.x <= $0.max)
+        }
       @unknown default:
         fatalError("Case not implemented in current implementation")
       }

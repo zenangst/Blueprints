@@ -9,8 +9,6 @@
 /// When subclassing, your subclass should implement `prepare` with the
 /// layout algorithm that your subclass should implement.
 @objc open class BlueprintLayout : CollectionViewFlowLayout {
-  var previousBounds: CGRect = .zero
-
   //  A Boolean value indicating whether headers pin to the top of the collection view bounds during scrolling.
   public var stickyHeaders: Bool = false
   /// A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
@@ -374,7 +372,6 @@
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {
     prepareAllowed = true
-
     if context.invalidateEverything == false {
       positionHeadersAndFooters(with: context as? BlueprintInvalidationContext)
       if context.invalidatedSupplementaryIndexPaths != nil {
@@ -387,7 +384,7 @@
 
   open override func invalidationContext(forBoundsChange newBounds: CGRect) -> FlowLayoutInvalidationContext {
     let context = BlueprintInvalidationContext()
-    context.shouldInvalidateEverything = previousBounds == newBounds
+    context.shouldInvalidateEverything = collectionView?.bounds.size.width != .some(newBounds.size.width)
     return context
   }
 
@@ -396,10 +393,8 @@
   }
 
   override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    if previousBounds.width != newBounds.width {
-      previousBounds = newBounds
-    }
-    return true
+    return collectionView?.bounds.size.width != .some(newBounds.size.width) ||
+      stickyHeaders || stickyFooters
   }
 
   internal func positionHeadersAndFooters(with context: BlueprintInvalidationContext? = nil) {
@@ -483,19 +478,21 @@
     guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0 else {
       return false
     }
-    return preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded()
+    let shouldInvalidate = preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded()
+    return shouldInvalidate
   }
 
   open override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
                                          withOriginalAttributes originalAttributes: LayoutAttributes) -> LayoutInvalidationContext {
-    let context = super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes,
-                                            withOriginalAttributes: originalAttributes)
     #if os(macOS)
     let indexPath = originalAttributes.indexPath!
     #else
     let indexPath = originalAttributes.indexPath
     #endif
-    let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
+
+    let currentAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item]
+    let context = super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes,
+                                            withOriginalAttributes: currentAttributes)
     let indexOf = cachedItemAttributes.firstIndex(of: currentAttributes) ?? indexPath.item
     let filteredAttributes = cachedItemAttributes[indexOf...]
 

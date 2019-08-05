@@ -455,6 +455,8 @@
     #endif
 
     let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
+    context.invalidateItems(at: [indexPath])
+    let contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
     // The size of the preferred attributes are constrainted to be larger than -1,
     // if they are set to negative value the estimated item size will be used.
     currentAttributes.frame.size.width = preferredAttributes.frame.size.width > -1
@@ -473,13 +475,26 @@
       }
     case .vertical:
       for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
-        attributes.frame.origin.y = currentAttributes.frame.maxY + minimumLineSpacing
+        attributes.frame.origin.y += contentHeightAdjustment
+        context.invalidateItems(at: [attributes.indexPath])
       }
+
     @unknown default:
       assertionFailure("Scroll direction is not supported.")
     }
 
-    context.invalidateItems(at: [indexPath])
+    var newContentSize: CGSize = .zero
+    for (offset, section) in cachedItemAttributesBySection.enumerated() {
+      if let largestY = section.sorted(by: { $0.frame.maxY > $1.frame.maxY }).first?.frame.maxY {
+        let headerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first
+        let footerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first
+        newContentSize.height += largestY + headerReferenceSize.height + sectionInset.bottom
+        headerAttribute?.max = newContentSize.height
+        footerAttribute?.max = newContentSize.height
+      }
+    }
+    contentSize.height = newContentSize.height
+    context.contentSizeAdjustment = newContentSize
 
     return context
   }

@@ -439,7 +439,9 @@
                                             withOriginalAttributes originalAttributes: LayoutAttributes) -> Bool {
     guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0
       else { return false }
-    return preferredAttributes.frame.size != originalAttributes.frame.size
+    let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
+    let result = preferredAttributes.frame.size.height != currentAttributes.frame.size.height
+    return result
   }
 
   open override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
@@ -452,7 +454,7 @@
     let indexPath = originalAttributes.indexPath
     #endif
 
-    let currentAttributes = allCachedAttributes[indexPath.item]
+    let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
     // The size of the preferred attributes are constrainted to be larger than -1,
     // if they are set to negative value the estimated item size will be used.
     currentAttributes.frame.size.width = preferredAttributes.frame.size.width > -1
@@ -462,15 +464,15 @@
       ? preferredAttributes.frame.size.height
       : estimatedItemSize.height
 
+    let filteredAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item...]
+
     switch scrollDirection {
     case .horizontal:
-      let filteredAttributes = allCachedAttributes[indexPath.item...].filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes })
-      for attributes in filteredAttributes {
+      for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
         attributes.frame.origin.x = currentAttributes.frame.maxX + minimumInteritemSpacing
       }
     case .vertical:
-      let filteredAttributes = allCachedAttributes[indexPath.item...].filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes })
-      for attributes in filteredAttributes {
+      for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
         attributes.frame.origin.y = currentAttributes.frame.maxY + minimumLineSpacing
       }
     @unknown default:

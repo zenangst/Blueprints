@@ -112,9 +112,10 @@ extension LayoutExampleSceneViewController {
     private func configureDynamicHeight() {
         dynamicCellSizeCache = [[]]
         if useDynamicHeight {
-            layoutExampleCollectionView.delegate = self
+          (layoutExampleCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.estimatedItemSize = .init(width: 100, height: 100)
         } else {
-            layoutExampleCollectionView.delegate = nil
+
+          (layoutExampleCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.estimatedItemSize = .zero
         }
     }
 }

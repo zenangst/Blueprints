@@ -14,6 +14,8 @@ extension LayoutExampleSceneViewController {
           stickyFooters: true
         )
 
+      verticalBlueprintLayout.estimatedItemSize = .init(width: 100, height: 250)
+
         let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
         verticalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
         verticalBlueprintLayout.footerReferenceSize = titleCollectionReusableViewSize

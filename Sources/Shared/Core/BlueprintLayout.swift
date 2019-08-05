@@ -27,7 +27,19 @@
   var prepareAllowed = true
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
-  public var contentSize: CGSize = .zero
+  public var contentSize: CGSize {
+    get {
+      return self._contentSize
+    }
+    set {
+      // For more information, check https://github.com/airbnb/MagazineLayout/blob/master/MagazineLayout/Public/MagazineLayout.swift#L76
+      // Radar: https://openradar.appspot.com/radar?id=5025850143539200
+      self._contentSize = CGSize(width: newValue.width - 0.0001, height: newValue.height)
+    }
+  }
+
+  private var _contentSize: CGSize = .zero
+
   /// The number of sections in the collection view.
   var numberOfSections: Int { return resolveCollectionView({ $0.dataSource?.numberOfSections?(in: $0) },
                                                            defaultValue: 1) }

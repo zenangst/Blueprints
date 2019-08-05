@@ -20,11 +20,23 @@ class LayoutExampleCollectionViewCell: UICollectionViewCell {
   override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
     setNeedsLayout()
     layoutIfNeeded()
-    let cellSize = contentView.systemLayoutSizeFitting(contentView.frame.size,
-                                                       withHorizontalFittingPriority: .fittingSizeLevel,
-                                                       verticalFittingPriority: .fittingSizeLevel)
+
     let attributes = layoutAttributes
-    attributes.frame.size.height = cellSize.height
+    let direction = ((superview as? UICollectionView)?.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection ?? .vertical
+    let cellSize: CGSize
+    switch direction {
+    case .horizontal:
+      cellSize = contentView.systemLayoutSizeFitting(contentView.frame.size,
+                                                     withHorizontalFittingPriority: .required,
+                                                     verticalFittingPriority: .fittingSizeLevel)
+      attributes.frame.size.height = cellSize.height
+    case .vertical:
+      cellSize = contentView.systemLayoutSizeFitting(contentView.frame.size,
+                                                     withHorizontalFittingPriority: .fittingSizeLevel,
+                                                     verticalFittingPriority: .fittingSizeLevel)
+      attributes.frame.size.height = cellSize.height
+    }
+
     return attributes
   }
 }

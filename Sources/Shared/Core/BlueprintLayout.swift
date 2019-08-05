@@ -491,8 +491,7 @@
     guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0 else {
       return false
     }
-    let shouldInvalidate = preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded() ||
-      preferredAttributes.size.width.rounded() != originalAttributes.size.width.rounded()
+    let shouldInvalidate = preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded()
     return shouldInvalidate
   }
 

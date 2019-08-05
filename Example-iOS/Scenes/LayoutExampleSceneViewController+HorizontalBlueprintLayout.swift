@@ -13,7 +13,7 @@ extension LayoutExampleSceneViewController {
       stickyHeaders: true,
       stickyFooters: true
     )
-    horizontalBlueprintLayout.estimatedItemSize = .init(width: 200, height: 200)
+    horizontalBlueprintLayout.estimatedItemSize = .init(width: 100, height: 250)
 
     let titleCollectionReusableViewSize = CGSize(width: view.bounds.width, height: 61)
     horizontalBlueprintLayout.headerReferenceSize = titleCollectionReusableViewSize
@@ -23,8 +23,10 @@ extension LayoutExampleSceneViewController {
       self?.layoutExampleCollectionView.collectionViewLayout = horizontalBlueprintLayout
 
       if self?.layoutExampleCollectionView.contentSize.height != 0 {
+        self?.layoutExampleCollectionView.contentOffset.x = 0
         self?.view.setNeedsLayout()
         self?.view.layoutIfNeeded()
+        self?.navigationController?.navigationBar.sizeToFit()
       }
     }
   }

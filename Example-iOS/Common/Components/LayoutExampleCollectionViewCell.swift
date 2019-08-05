@@ -35,6 +35,8 @@ class LayoutExampleCollectionViewCell: UICollectionViewCell {
                                                      withHorizontalFittingPriority: .fittingSizeLevel,
                                                      verticalFittingPriority: .fittingSizeLevel)
       attributes.frame.size.height = cellSize.height
+    @unknown default:
+      fatalError("Case not implemented in current implementation")
     }
 
     return attributes

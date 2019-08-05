@@ -10,7 +10,7 @@ class LayoutExampleSceneViewController: UIViewController, LayoutExampleSceneDisp
     @IBOutlet weak var layoutExampleCollectionView: UICollectionView!
 
     var exampleDataSource: [LayoutExampleScene.GetExampleData.ViewModel.DisplayedExampleSection]?
-    var activeLayout: BlueprintLayout = .vertical
+    var activeLayout: BlueprintLayout = .horizontal
     var dynamicCellSizeCache: [[CGSize]] = [[]]
     var useDynamicHeight = false
     var itemsPerRow = Constants.ExampleLayoutDefaults.itemsPerRow

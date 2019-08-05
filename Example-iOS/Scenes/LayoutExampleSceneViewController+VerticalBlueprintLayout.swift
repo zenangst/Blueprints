@@ -2,7 +2,6 @@ import Blueprints
 import UIKit
 
 extension LayoutExampleSceneViewController {
-
   func configureVerticalLayout() {
     let verticalBlueprintLayout = VerticalBlueprintLayout(
       itemsPerRow: itemsPerRow,

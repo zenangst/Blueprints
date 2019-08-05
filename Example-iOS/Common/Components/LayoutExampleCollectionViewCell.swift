@@ -20,11 +20,8 @@ class LayoutExampleCollectionViewCell: UICollectionViewCell {
   override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
     setNeedsLayout()
     layoutIfNeeded()
-    let cellHeight: CGFloat = 0
-    let cellTargetSize = CGSize(width: contentView.frame.size.width,
-                                height: cellHeight)
-    let cellSize = contentView.systemLayoutSizeFitting(cellTargetSize,
-                                                       withHorizontalFittingPriority: .defaultHigh,
+    let cellSize = contentView.systemLayoutSizeFitting(contentView.frame.size,
+                                                       withHorizontalFittingPriority: .fittingSizeLevel,
                                                        verticalFittingPriority: .fittingSizeLevel)
     let attributes = layoutAttributes
     attributes.frame.size.height = cellSize.height

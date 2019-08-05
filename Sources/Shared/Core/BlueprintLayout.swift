@@ -481,6 +481,7 @@
     let indexPath = originalAttributes.indexPath
     #endif
 
+    var invalidItems = [indexPath]
     let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
     let indexOf = cachedItemAttributes.firstIndex(of: currentAttributes) ?? indexPath.item
     let filteredAttributes = cachedItemAttributes[indexOf...]
@@ -490,17 +491,19 @@
       let contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
       for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
         attributes.frame.origin.x += contentWidthAdjustment
+        invalidItems += [attributes.indexPath]
       }
     case .vertical:
       let contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
       for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
         attributes.frame.origin.y += contentHeightAdjustment
+        invalidItems += [attributes.indexPath]
       }
     @unknown default:
       assertionFailure("Scroll direction is not supported.")
     }
 
-    context.invalidateItems(at: [indexPath])
+
     // The size of the preferred attributes are constrainted to be larger than -1,
     // if they are set to negative value the estimated item size will be used.
     currentAttributes.frame.size.width = preferredAttributes.frame.size.width > -1
@@ -524,14 +527,15 @@
         if let previousSectionSize = previousSectionSize {
           headerAttribute.frame.origin.y = previousSectionSize.height + headerReferenceSize.height + sectionInset.bottom
           headerAttribute.min = headerAttribute.frame.origin.y
-          footerAttribute.min = previousSectionSize.height
-          positionHeadersAndFooters()
+          footerAttribute.min = headerAttribute.frame.origin.y
         }
         previousSectionSize = newContentSize
+        positionHeadersAndFooters()
       }
     }
     contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
     context.contentSizeAdjustment = newContentSize
+    context.invalidateItems(at: invalidItems)
 
     return context
   }

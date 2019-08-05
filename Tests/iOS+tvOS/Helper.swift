@@ -97,13 +97,22 @@ class Helper {
   }
 }
 
-class DynamicSizeCell: UICollectionViewCell {
+class DynamicSizeVerticalCell: UICollectionViewCell {
   override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
     let attributes = layoutAttributes
-    attributes.frame.size = CGSize(width: 100, height: 100)
+    attributes.frame.size = CGSize(width: 50, height: 100)
     return attributes
   }
 }
+
+class DynamicSizeHorizontalCell: UICollectionViewCell {
+  override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    let attributes = layoutAttributes
+    attributes.frame.size = CGSize(width: 100, height: 50)
+    return attributes
+  }
+}
+
 
 class DynamicSizeDataSource: NSObject, UICollectionViewDataSource {
   var numberOfItems: Int = 10

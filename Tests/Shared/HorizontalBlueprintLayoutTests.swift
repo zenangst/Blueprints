@@ -239,7 +239,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     #if os(macOS)
     collectionView.register(DynamicSizeCell.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
     #else
-    collectionView.register(DynamicSizeCell.self, forCellWithReuseIdentifier: "dynamic")
+    collectionView.register(DynamicSizeHorizontalCell.self, forCellWithReuseIdentifier: "dynamic")
     #endif
     collectionView.frame.size.width = 1000 * CGFloat(dataSource.numberOfItems)
     layout.estimatedItemSize = .init(width: 50, height: 50)

@@ -340,7 +340,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     #if os(macOS)
     collectionView.register(DynamicSizeCell.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
     #else
-    collectionView.register(DynamicSizeCell.self, forCellWithReuseIdentifier: "dynamic")
+    collectionView.register(DynamicSizeVerticalCell.self, forCellWithReuseIdentifier: "dynamic")
     #endif
     layout.estimatedItemSize = .init(width: 50, height: 50)
     collectionView.layoutIfNeeded()

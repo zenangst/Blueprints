@@ -354,6 +354,8 @@
       offset = itemSize.height
       rect.origin.y -= offset
       rect.size.height += offset * 2
+    @unknown default:
+      fatalError("Case not implemented in current implementation")
     }
 
     let padding = Int(itemsPerRow ?? 1)

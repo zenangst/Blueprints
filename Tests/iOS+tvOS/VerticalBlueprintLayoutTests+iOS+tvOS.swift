@@ -22,8 +22,8 @@ class VerticalBlueprintLayoutTests_iOS_tvOS: XCTestCase {
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: .zero)?.count, 1)
 
     let size = CGSize(width: 50, height: 50)
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: size))?.count, 1)
-    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 25), size: size))?.count, 2)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: size))?.count, 2)
+    XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 25), size: size))?.count, 1)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 50), size: size))?.count, 1)
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: CGSize(width: 500, height: 500)))?.count, 10)
   }

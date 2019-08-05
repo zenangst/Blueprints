@@ -100,7 +100,7 @@ class Helper {
 class DynamicSizeVerticalCell: UICollectionViewCell {
   override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
     let attributes = layoutAttributes
-    attributes.frame.size = CGSize(width: 50, height: 100)
+    attributes.frame.size = CGSize(width: -1, height: 100)
     return attributes
   }
 }

@@ -237,7 +237,7 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     let dataSource = DynamicSizeDataSource()
     let (collectionView, layout) = Helper.createHorizontalLayout(dataSource: dataSource)
     #if os(macOS)
-    collectionView.register(DynamicSizeCell.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
+    collectionView.register(DynamicSizeItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
     #else
     collectionView.register(DynamicSizeHorizontalCell.self, forCellWithReuseIdentifier: "dynamic")
     #endif

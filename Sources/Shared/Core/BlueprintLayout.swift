@@ -453,7 +453,14 @@
     #endif
 
     let currentAttributes = allCachedAttributes[indexPath.item]
-    currentAttributes.frame.size = preferredAttributes.frame.size
+    // The size of the preferred attributes are constrainted to be larger than -1,
+    // if they are set to negative value the estimated item size will be used.
+    currentAttributes.frame.size.width = preferredAttributes.frame.size.width > -1
+      ? preferredAttributes.frame.size.width
+      : estimatedItemSize.width
+    currentAttributes.frame.size.height = preferredAttributes.frame.size.height > -1
+      ? preferredAttributes.frame.size.height
+      : estimatedItemSize.height
 
     switch scrollDirection {
     case .horizontal:

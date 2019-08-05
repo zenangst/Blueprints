@@ -111,7 +111,7 @@ extension CollectionView {
   }
 }
 
-class DynamicSizeCell: NSCollectionViewItem {
+class DynamicSizeItem: NSCollectionViewItem {
   override func preferredLayoutAttributesFitting(_ layoutAttributes: NSCollectionViewLayoutAttributes) -> NSCollectionViewLayoutAttributes {
     let attributes = layoutAttributes
     attributes.frame.size = CGSize(width: 100, height: 100)

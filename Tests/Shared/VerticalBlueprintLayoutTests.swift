@@ -338,7 +338,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     let dataSource = DynamicSizeDataSource()
     let (collectionView, layout) = Helper.createVerticalLayout(dataSource: dataSource)
     #if os(macOS)
-    collectionView.register(DynamicSizeCell.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
+    collectionView.register(DynamicSizeItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
     #else
     collectionView.register(DynamicSizeVerticalCell.self, forCellWithReuseIdentifier: "dynamic")
     #endif

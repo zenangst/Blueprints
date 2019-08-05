@@ -357,11 +357,11 @@
     // added as padding to the visible rectangle.
     switch scrollDirection {
     case .horizontal:
-      offset = itemSize.width
+      offset = estimatedItemSize.width > 0 ? estimatedItemSize.width : itemSize.width
       rect.origin.x -= offset
       rect.size.width += offset * 2
     case .vertical:
-      offset = itemSize.height
+      offset = estimatedItemSize.height > 0 ? estimatedItemSize.height : itemSize.height
       rect.origin.y -= offset
       rect.size.height += offset * 2
     @unknown default:

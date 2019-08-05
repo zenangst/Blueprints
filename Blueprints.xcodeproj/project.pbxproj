@@ -902,7 +902,9 @@
 				D5B2E8A01C3A780C00C0327D /* Products */,
 				832107B021B97B600032A439 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		D5B2E8A01C3A780C00C0327D /* Products */ = {
 			isa = PBXGroup;

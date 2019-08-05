@@ -156,37 +156,56 @@
     }
   }
 
-  /// Create supplementary layout attributes.
+  /// Resolve the size of SupplementaryView at index path.
+  /// If the collection view's delegate conforms to `(UI/NS)CollectionViewDelegateFlowLayout`, it will
+  /// query the delegate for the size of the SupplementaryView.
+  /// It defaults to using the `headerReferenceSize` or `footerReferenceSize` property on collection view flow layout.
   ///
-  /// - Parameters:
-  ///   - kind: The supplementary kind, either header or footer.
-  ///   - indexPath: The section index path for the supplementary view.
-  ///   - x: The x coordinate of the header layout attributes.
-  ///   - y: The y coordinate of the header layout attributes.
-  /// - Returns: A `LayoutAttributes` object of supplementary kind.
-  func createSupplementaryLayoutAttribute(ofKind kind: BlueprintSupplementaryKind,
-                                          indexPath: IndexPath,
-                                          atX x: CGFloat = 0,
-                                          atY y: CGFloat = 0) -> SupplementaryLayoutAttributes {
-    let layoutAttribute = SupplementaryLayoutAttributes(
-      forSupplementaryViewOfKind: kind.collectionViewSupplementaryType,
-      with: indexPath
-    )
-
+  /// - Parameter indexPath: The index path of the supplementaryView.
+  /// - Returns: The desired size of the item at the index path.
+  func resolveSizeForSupplementaryView(ofKind kind: BlueprintSupplementaryKind, at indexPath: IndexPath) -> CGSize {
     switch kind {
     case .header:
-      layoutAttribute.size.width = collectionView?.documentRect.width ?? headerReferenceSize.width
-      layoutAttribute.size.height = headerReferenceSize.height
+      let height = resolveCollectionView({ collectionView -> CGSize? in
+        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                               layout: self,
+                                                                                               referenceSizeForHeaderInSection: indexPath.section)
+      }, defaultValue: headerReferenceSize).height
+
+      let width: CGFloat
+      if headerReferenceSize.width > 0 {
+        width = headerReferenceSize.width
+      } else {
+        width = collectionView?.documentRect.width ?? headerReferenceSize.width
+      }
+
+      let size = CGSize(
+        width: width,
+        height: height
+      )
+
+      return size
     case .footer:
-      layoutAttribute.size.width = collectionView?.documentRect.width ?? footerReferenceSize.width
-      layoutAttribute.size.height = footerReferenceSize.height
+      let height = resolveCollectionView({ collectionView -> CGSize? in
+        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                               layout: self,
+                                                                                               referenceSizeForFooterInSection: indexPath.section)
+      }, defaultValue: footerReferenceSize).height
+
+      let width: CGFloat
+      if footerReferenceSize.width > 0 {
+        width = footerReferenceSize.width
+      } else {
+        width = collectionView?.documentRect.width ?? footerReferenceSize.width
+      }
+
+      let size = CGSize(
+        width: width,
+        height: height
+      )
+
+      return size
     }
-
-    layoutAttribute.zIndex = indexPath.section
-    layoutAttribute.frame.origin.x = x
-    layoutAttribute.frame.origin.y = y
-
-    return layoutAttribute
   }
 
   /// Resolve collection collection view from layout and return
@@ -378,9 +397,17 @@
     let results = cachedSupplementaryAttributes.filter({
       switch scrollDirection {
       case .vertical:
-        return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max) || $0.frame.intersects(visibleRect)
+        if visibleRect.origin.y < 0 {
+          return $0.frame.intersects(visibleRect)
+        } else {
+          return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max)
+        }
       case .horizontal:
-        return (visibleRect.origin.x >= $0.min && visibleRect.origin.x <= $0.max) || $0.frame.intersects(visibleRect)
+        if visibleRect.origin.x < 0 {
+          return $0.frame.intersects(visibleRect)
+        } else {
+          return (visibleRect.origin.x >= $0.min && visibleRect.origin.x <= $0.max)
+        }
       @unknown default:
         fatalError("Case not implemented in current implementation")
       }

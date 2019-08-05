@@ -275,8 +275,8 @@ class VerticalBlueprintLayoutTests: XCTestCase {
   }
 
   func testVerticalLayoutAttributesWithHeaderAndFooter() {
-    verticalLayout.headerReferenceSize = CGSize(width: 100, height: 100)
-    verticalLayout.footerReferenceSize = CGSize(width: 100, height: 100)
+    verticalLayout.headerReferenceSize = CGSize(width: collectionView.frame.width, height: 100)
+    verticalLayout.footerReferenceSize = CGSize(width: collectionView.frame.width, height: 100)
     verticalLayout.prepare()
 
     let expectedHeaderAndFooterSize: CGSize = .init(width: 200, height: 100)

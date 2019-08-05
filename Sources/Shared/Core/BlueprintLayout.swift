@@ -338,12 +338,33 @@
     let closure: (LayoutAttributes) -> Bool = scrollDirection == .horizontal
       ? { rect.maxX >= $0.frame.minX }
       : { rect.maxY >= $0.frame.minY }
+    var rect = rect
+    let offset: CGFloat
+
+    // Add offset to the visible rectangle to avoid rare rendering issues when using binary search.
+    // It simply makes the visible rectangle slightly larger to ensure that all items on screen
+    // get rendered correctly. It will use the item size to determine how much offset should be
+    // added as padding to the visible rectangle.
+    switch scrollDirection {
+    case .horizontal:
+      offset = itemSize.width
+      rect.origin.x -= offset
+      rect.size.width += offset * 2
+    case .vertical:
+      offset = itemSize.height
+      rect.origin.y -= offset
+      rect.size.height += offset * 2
+    @unknown default:
+      fatalError("Case not implemented in current implementation")
+    }
+
+    let padding = Int(itemsPerRow ?? 1)
     var items = binarySearch.findElements(in: cachedItemAttributes,
-                                          padding: Int(itemsPerRow ?? 0),
+                                          padding: padding,
                                           less: { closure($0) },
                                           match: { $0.frame.intersects(rect) }) ?? []
     let supplementary = binarySearch.findElements(in: cachedSupplementaryAttributes,
-                                                  padding: Int(itemsPerRow ?? 0),
+                                                  padding: padding,
                                                   less: { closure($0) },
                                                   match: { $0.frame.intersects(rect) }) ?? []
     items.append(contentsOf: supplementary)

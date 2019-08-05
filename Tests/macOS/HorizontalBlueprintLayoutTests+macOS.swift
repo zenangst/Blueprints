@@ -24,10 +24,10 @@ class HorizontalBlueprintLayoutTests_macOS: XCTestCase {
     XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: .zero).count, 1)
 
     collectionView.contentOffset = .init(x: 75, y: 0)
-    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 2)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 4)
 
     collectionView.contentOffset = .init(x: 100, y: 0)
-    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 1)
+    XCTAssertEqual(horizontalLayout.layoutAttributesForElements(in: collectionView.enclosingScrollView!.documentVisibleRect).count, 3)
 
     collectionView.enclosingScrollView?.frame.size = CGSize(width: 500, height: 500)
     collectionView.contentOffset = .init(x: 0, y: 0)

@@ -511,16 +511,26 @@
       : estimatedItemSize.height
 
     var newContentSize: CGSize = .zero
+    var previousSectionSize: CGSize?
     for (offset, section) in cachedItemAttributesBySection.enumerated() {
-      if let largestY = section.sorted(by: { $0.frame.maxY > $1.frame.maxY }).first?.frame.maxY {
-        let headerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first
-        let footerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first
-        newContentSize.height = largestY + headerReferenceSize.height + sectionInset.bottom
-        headerAttribute?.max = newContentSize.height
-        footerAttribute?.max = newContentSize.height
+      if let largestY = section.sorted(by: { $0.frame.maxY > $1.frame.maxY }).first?.frame.maxY,
+        let headerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first,
+        let footerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
+
+        newContentSize.height = largestY
+        headerAttribute.max = newContentSize.height
+        footerAttribute.max = newContentSize.height - footerReferenceSize.height
+
+        if let previousSectionSize = previousSectionSize {
+          headerAttribute.frame.origin.y = previousSectionSize.height + headerReferenceSize.height + sectionInset.bottom
+          headerAttribute.min = headerAttribute.frame.origin.y
+          footerAttribute.min = previousSectionSize.height
+          positionHeadersAndFooters()
+        }
+        previousSectionSize = newContentSize
       }
     }
-    contentSize.height = newContentSize.height
+    contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
     context.contentSizeAdjustment = newContentSize
 
     return context

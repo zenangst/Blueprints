@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "Blueprints"
   s.summary          = "A collection of flow layouts that is meant to make your life easier."
-  s.version          = "0.11.3"
+  s.version          = "0.11.5"
   s.homepage         = "https://github.com/zenangst/Blueprints"
   s.license          = 'MIT'
   s.author           = { "Christoffer Winterkvist" => "christoffer@winterkvist.com" }
@@ -11,6 +11,7 @@ Pod::Spec.new do |s|
   }
   s.social_media_url = 'https://twitter.com/zenangst'
 
+  s.swift_version = '5.0'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.11'
   s.tvos.deployment_target = '9.2'
@@ -19,10 +20,6 @@ Pod::Spec.new do |s|
   s.ios.source_files = 'Sources/{iOS+tvOS,Shared}/**/*'
   s.tvos.source_files = 'Sources/{iOS+tvOS,Shared}/**/*'
   s.osx.source_files = 'Sources/{macOS,Shared}/**/*'
-
-  # s.ios.frameworks = 'UIKit', 'Foundation'
-  # s.osx.frameworks = 'Cocoa', 'Foundation'
-  # s.dependency 'Whisper', '~> 1.0'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 end

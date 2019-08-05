@@ -571,8 +571,8 @@
 
     if scrollDirection == .vertical {
       contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
+      context.contentSizeAdjustment = newContentSize
     }
-    context.contentSizeAdjustment = newContentSize
 
     return context
   }

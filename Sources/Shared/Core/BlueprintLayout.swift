@@ -471,6 +471,7 @@
         case .vertical:
           footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
         case .horizontal:
+          footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
           footer.frame.origin.x = min(max(collectionView.contentOffset.x, footer.min), footer.max - footer.frame.size.width)
         @unknown default:
           fatalError("Case not implemented in current implementation")
@@ -490,7 +491,8 @@
     guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0 else {
       return false
     }
-    let shouldInvalidate = preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded()
+    let shouldInvalidate = preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded() ||
+      preferredAttributes.size.width.rounded() != originalAttributes.size.width.rounded()
     return shouldInvalidate
   }
 
@@ -508,19 +510,15 @@
     let indexOf = cachedItemAttributes.firstIndex(of: currentAttributes) ?? indexPath.item
     let filteredAttributes = cachedItemAttributes[indexOf...]
 
-    switch scrollDirection {
-    case .horizontal:
-      let contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
-      for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
-        attributes.frame.origin.x += contentWidthAdjustment
-      }
-    case .vertical:
-      let contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
-      for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
-        attributes.frame.origin.y += contentHeightAdjustment
-      }
-    @unknown default:
-      assertionFailure("Scroll direction is not supported.")
+    let contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
+    let contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
+
+    for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
+      attributes.frame.origin.x += contentWidthAdjustment
+    }
+
+    for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
+      attributes.frame.origin.y += contentHeightAdjustment
     }
 
     // The size of the preferred attributes are constrainted to be larger than -1,
@@ -532,27 +530,48 @@
       ? preferredAttributes.frame.size.height
       : estimatedItemSize.height
 
-    var newContentSize: CGSize = .zero
+    var newContentSize: CGSize = contentSize
     var previousSectionSize: CGSize?
     for (offset, section) in cachedItemAttributesBySection.enumerated() {
       if let largestY = section.sorted(by: { $0.frame.maxY > $1.frame.maxY }).first?.frame.maxY,
+        let largestX = section.sorted(by: { $0.frame.maxX > $1.frame.maxX }).first?.frame.maxX,
         let headerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first,
         let footerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
 
-        newContentSize.height = largestY
-        headerAttribute.max = newContentSize.height
-        footerAttribute.max = newContentSize.height - footerReferenceSize.height
+        switch scrollDirection {
+        case .horizontal:
+          newContentSize.width = largestX
+          newContentSize.height = largestX
+          headerAttribute.max = newContentSize.width
+          footerAttribute.max = newContentSize.width
 
-        if let previousSectionSize = previousSectionSize {
-          headerAttribute.frame.origin.y = previousSectionSize.height + headerReferenceSize.height + sectionInset.bottom
-          headerAttribute.min = headerAttribute.frame.origin.y
-          footerAttribute.min = headerAttribute.frame.origin.y
+          if let previousSectionSize = previousSectionSize {
+            headerAttribute.frame.origin.x = previousSectionSize.width
+            headerAttribute.min = headerAttribute.frame.origin.x
+            footerAttribute.min = headerAttribute.frame.origin.x
+          }
+        case .vertical:
+          newContentSize.height = largestY
+          headerAttribute.max = newContentSize.height
+          footerAttribute.max = newContentSize.height - footerReferenceSize.height
+
+          if let previousSectionSize = previousSectionSize {
+            headerAttribute.frame.origin.y = previousSectionSize.height + headerReferenceSize.height + sectionInset.bottom
+            headerAttribute.min = headerAttribute.frame.origin.y
+            footerAttribute.min = headerAttribute.frame.origin.y
+          }
+        @unknown default:
+          fatalError("Case not implemented in current implementation")
         }
+
         previousSectionSize = newContentSize
         positionHeadersAndFooters()
       }
     }
-    contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
+
+    if scrollDirection == .vertical {
+      contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
+    }
     context.contentSizeAdjustment = newContentSize
 
     return context

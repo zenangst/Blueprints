@@ -376,8 +376,7 @@
     prepareAllowed = true
 
     if context.invalidateEverything == false {
-      positionHeadersAndFooters(with: context)
-
+      positionHeadersAndFooters(with: context as? BlueprintInvalidationContext)
       if context.invalidatedSupplementaryIndexPaths != nil {
         super.invalidateLayout(with: context)
       }
@@ -403,7 +402,7 @@
     return true
   }
 
-  internal func positionHeadersAndFooters(with context: LayoutInvalidationContext? = nil) {
+  internal func positionHeadersAndFooters(with context: BlueprintInvalidationContext? = nil) {
     guard let collectionView = collectionView else { return }
 
     #if os(macOS)
@@ -450,13 +449,11 @@
           fatalError("Case not implemented in current implementation")
         }
 
-        if let invalidationContext = context as? BlueprintInvalidationContext {
-          #if os(macOS)
-          invalidationContext.headerIndexPaths += [header.indexPath!]
-          #else
-          invalidationContext.headerIndexPaths += [header.indexPath]
-          #endif
-        }
+        #if os(macOS)
+        context?.headerIndexPaths += [header.indexPath!]
+        #else
+        context?.headerIndexPaths += [header.indexPath]
+        #endif
       }
     }
 
@@ -472,24 +469,21 @@
           fatalError("Case not implemented in current implementation")
         }
 
-        if let invalidationContext = context as? BlueprintInvalidationContext {
-          #if os(macOS)
-          invalidationContext.footerIndexPaths += [footer.indexPath!]
-          #else
-          invalidationContext.footerIndexPaths += [footer.indexPath]
-          #endif
-        }
+        #if os(macOS)
+        context?.footerIndexPaths += [footer.indexPath!]
+        #else
+        context?.footerIndexPaths += [footer.indexPath]
+        #endif
       }
     }
   }
 
   open override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
                                             withOriginalAttributes originalAttributes: LayoutAttributes) -> Bool {
-    guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0
-      else { return false }
-    let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
-    let result = preferredAttributes.frame.size.height != currentAttributes.frame.size.height
-    return result
+    guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0 else {
+      return false
+    }
+    return preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded()
   }
 
   open override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
@@ -501,8 +495,6 @@
     #else
     let indexPath = originalAttributes.indexPath
     #endif
-
-    var invalidItems = [indexPath]
     let currentAttributes = cachedItemAttributesBySection[originalAttributes.indexPath.section][originalAttributes.indexPath.item]
     let indexOf = cachedItemAttributes.firstIndex(of: currentAttributes) ?? indexPath.item
     let filteredAttributes = cachedItemAttributes[indexOf...]
@@ -512,18 +504,15 @@
       let contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
       for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
         attributes.frame.origin.x += contentWidthAdjustment
-        invalidItems += [attributes.indexPath]
       }
     case .vertical:
       let contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
       for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
         attributes.frame.origin.y += contentHeightAdjustment
-        invalidItems += [attributes.indexPath]
       }
     @unknown default:
       assertionFailure("Scroll direction is not supported.")
     }
-
 
     // The size of the preferred attributes are constrainted to be larger than -1,
     // if they are set to negative value the estimated item size will be used.
@@ -556,7 +545,6 @@
     }
     contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
     context.contentSizeAdjustment = newContentSize
-    context.invalidateItems(at: invalidItems)
 
     return context
   }

@@ -6,7 +6,6 @@ import UIKit
 
 class BlueprintInvalidationContext: FlowLayoutInvalidationContext {
   var shouldInvalidateEverything = true
-
   var headerIndexPaths = [IndexPath]()
   var footerIndexPaths = [IndexPath]()
 

@@ -143,6 +143,8 @@
       var headerAttribute: SupplementaryLayoutAttributes? = nil
       var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
+      let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
+      let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
 
       if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
         let layoutAttribute = SupplementaryLayoutAttributes(
@@ -158,6 +160,8 @@
         headerAttribute = layoutAttribute
       }
 
+      var sectionMaxY: CGFloat = 0
+
       for item in 0..<numberOfItemsInSection(section) {
         let indexPath = IndexPath(item: item, section: section)
         let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
@@ -168,28 +172,30 @@
         layoutAttribute.frame.origin.y = sectionInset.top + headerReferenceSize.height
 
         if item > 0, let previousItem = previousItem {
-          layoutAttribute.frame.origin.x = previousItem.frame.maxX + minimumInteritemSpacing
+          layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
 
           if itemsPerColumn > 1 && !(item % itemsPerColumn == 0) {
             layoutAttribute.frame.origin.x = previousItem.frame.origin.x
-            layoutAttribute.frame.origin.y = previousItem.frame.maxY + minimumLineSpacing
+            layoutAttribute.frame.origin.y = previousItem.frame.maxY + sectionsMinimumLineSpacing
           } else {
-            widthOfSection += layoutAttribute.size.width + minimumInteritemSpacing
+            widthOfSection += layoutAttribute.size.width + sectionsMinimumInteritemSpacing
           }
         } else {
           firstItem = layoutAttribute
           contentSize.height = layoutAttribute.size.height
 
           if itemsPerColumn > 1 {
-            contentSize.height += minimumLineSpacing
+            contentSize.height += sectionsMinimumLineSpacing
             contentSize.height *= CGFloat(itemsPerColumn)
-            contentSize.height -= minimumLineSpacing
+            contentSize.height -= sectionsMinimumLineSpacing
           }
 
           contentSize.height += sectionInset.top + sectionInset.bottom
           layoutAttribute.frame.origin.x = nextX + sectionInset.left
           widthOfSection += sectionInset.left + sectionInset.right + layoutAttribute.size.width
         }
+
+        sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
 
         if section == layoutAttributes.count {
           layoutAttributes.append([layoutAttribute])
@@ -210,7 +216,7 @@
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
           layoutAttribute.min = nextX
           layoutAttribute.frame.origin.x = 0
-          layoutAttribute.frame.origin.y = contentSize.height + footerReferenceSize.height
+          layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
           layoutAttributes[section].append(layoutAttribute)
           footerAttribute = layoutAttribute
         }

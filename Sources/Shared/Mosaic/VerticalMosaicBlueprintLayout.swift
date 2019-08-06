@@ -64,6 +64,8 @@
       var headerAttribute: SupplementaryLayoutAttributes? = nil
       var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
+      let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
+      let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
 
       if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
         let layoutAttribute = SupplementaryLayoutAttributes(
@@ -91,7 +93,12 @@
           let childLayoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
           previousAttribute.childAttributes.append(childLayoutAttribute)
           previousAttribute.remaining -= 1
-          process(previousAttribute, width: threshold)
+          process(
+            previousAttribute,
+            width: threshold,
+            minimumInteritemSpacing: sectionsMinimumInteritemSpacing,
+            minimumLineSpacing: sectionsMinimumLineSpacing
+          )
           layoutAttribute = childLayoutAttribute
           sectionMaxY = max(previousAttribute.frame.maxY, layoutAttribute.frame.maxY)
         } else {
@@ -99,24 +106,24 @@
           let pattern = controller.values(at: layoutIndexPath)
           let mosaicLayoutAttribute = MosaicLayoutAttributes.init(indexPath, pattern: pattern)
 
-          mosaicLayoutAttribute.frame.size.width = (threshold * pattern.multiplier) - minimumInteritemSpacing
+          mosaicLayoutAttribute.frame.size.width = (threshold * pattern.multiplier) - sectionsMinimumInteritemSpacing
 
           if mosaicLayoutAttribute.pattern.multiplier == 1 {
-            mosaicLayoutAttribute.frame.size.width -= minimumInteritemSpacing
+            mosaicLayoutAttribute.frame.size.width -= sectionsMinimumInteritemSpacing
           }
 
           if mosaicLayoutAttribute.pattern.amount == 0 {
             mosaicLayoutAttribute.frame.size.width = threshold - sectionInset.left - sectionInset.right
           } else {
-            mosaicLayoutAttribute.frame.size.width = (threshold - minimumInteritemSpacing - sectionInset.left - sectionInset.right) * CGFloat(mosaicLayoutAttribute.pattern.multiplier)
+            mosaicLayoutAttribute.frame.size.width = (threshold - sectionsMinimumInteritemSpacing - sectionInset.left - sectionInset.right) * CGFloat(mosaicLayoutAttribute.pattern.multiplier)
           }
 
-          mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - minimumLineSpacing
+          mosaicLayoutAttribute.frame.size.height = (itemSize.height * pattern.multiplier) - sectionsMinimumLineSpacing
 
           apply(pattern, to: mosaicLayoutAttribute, with: threshold)
 
           if let previousAttribute = previousAttribute {
-            mosaicLayoutAttribute.frame.origin.y = previousAttribute.frame.maxY + minimumLineSpacing
+            mosaicLayoutAttribute.frame.origin.y = previousAttribute.frame.maxY + sectionsMinimumLineSpacing
           } else {
             mosaicLayoutAttribute.frame.origin.y = nextY
           }
@@ -182,7 +189,7 @@
     }
   }
 
-  private func process(_ mosaic: MosaicLayoutAttributes, width: CGFloat) {
+  private func process(_ mosaic: MosaicLayoutAttributes, width: CGFloat, minimumInteritemSpacing: CGFloat, minimumLineSpacing: CGFloat) {
     let childCount = CGFloat(mosaic.childAttributes.count)
     for (offset, layoutAttribute) in mosaic.childAttributes.enumerated() {
       switch mosaic.pattern.alignment {
@@ -210,7 +217,7 @@
         }
 
         if offset > 0 {
-          layoutAttribute.frame.origin.x += (layoutAttribute.frame.size.width + minimumLineSpacing) * CGFloat(offset)
+          layoutAttribute.frame.origin.x += (layoutAttribute.frame.size.width + minimumInteritemSpacing) * CGFloat(offset)
         }
       case .vertical:
         layoutAttribute.frame.origin.y = mosaic.frame.origin.y

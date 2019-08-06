@@ -69,6 +69,15 @@
 		83B883FE21C259230074A461 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B883FD21C259230074A461 /* ArrayExtensions.swift */; };
 		83B8840221C2ACF20074A461 /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */; };
 		83B8840321C2ACF20074A461 /* TitleCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */; };
+		83CA023922F9ACFC00A50BDD /* VerticalBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA023722F9ACD300A50BDD /* VerticalBlueprintLayoutDelegateTests.swift */; };
+		83CA023A22F9ACFC00A50BDD /* VerticalBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA023722F9ACD300A50BDD /* VerticalBlueprintLayoutDelegateTests.swift */; };
+		83CA023B22F9ACFD00A50BDD /* VerticalBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA023722F9ACD300A50BDD /* VerticalBlueprintLayoutDelegateTests.swift */; };
+		83CA023E22F9B7FD00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA023C22F9B7DA00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift */; };
+		83CA023F22F9B7FE00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA023C22F9B7DA00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift */; };
+		83CA024022F9B7FE00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA023C22F9B7DA00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift */; };
+		83CA024322F9BC6800A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA024122F9BC3D00A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift */; };
+		83CA024422F9BC6900A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA024122F9BC3D00A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift */; };
+		83CA024522F9BC6900A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA024122F9BC3D00A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift */; };
 		83E4B84321EE1343008AEA87 /* LayoutExampleCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B84121EE1343008AEA87 /* LayoutExampleCollectionViewItem.swift */; };
 		83E4B84421EE1343008AEA87 /* LayoutExampleCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E4B84221EE1343008AEA87 /* LayoutExampleCollectionViewItem.xib */; };
 		83E4B84721EE21C8008AEA87 /* BlueprintLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4B84621EE21C8008AEA87 /* BlueprintLayout.swift */; };
@@ -313,6 +322,9 @@
 		83B883FD21C259230074A461 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		83B8840021C2ACF20074A461 /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
 		83B8840121C2ACF20074A461 /* TitleCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionReusableView.xib; sourceTree = "<group>"; };
+		83CA023722F9ACD300A50BDD /* VerticalBlueprintLayoutDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBlueprintLayoutDelegateTests.swift; sourceTree = "<group>"; };
+		83CA023C22F9B7DA00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalBlueprintLayoutDelegateTests.swift; sourceTree = "<group>"; };
+		83CA024122F9BC3D00A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMosaicBlueprintLayoutDelegateTests.swift; sourceTree = "<group>"; };
 		83E4B84121EE1343008AEA87 /* LayoutExampleCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutExampleCollectionViewItem.swift; sourceTree = "<group>"; };
 		83E4B84221EE1343008AEA87 /* LayoutExampleCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutExampleCollectionViewItem.xib; sourceTree = "<group>"; };
 		83E4B84621EE21C8008AEA87 /* BlueprintLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueprintLayout.swift; sourceTree = "<group>"; };
@@ -855,8 +867,11 @@
 			children = (
 				BDFB6381204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift */,
 				D284B1361F7906DA00D94AF3 /* HorizontalBlueprintLayoutTests.swift */,
+				83CA023C22F9B7DA00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift */,
 				BDFB637A204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift */,
+				83CA023722F9ACD300A50BDD /* VerticalBlueprintLayoutDelegateTests.swift */,
 				BDA31B0B20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift */,
+				83CA024122F9BC3D00A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift */,
 				BDB98DCD20D6E115001C5578 /* PeformanceTests.swift */,
 				BD476BBF21355C1E008E1D0A /* Blueprints-iOS-Tests-Bridging-Header.h */,
 				BD476BC021355C1E008E1D0A /* Blueprints-macOS-Tests-Bridging-Header.h */,
@@ -902,7 +917,9 @@
 				D5B2E8A01C3A780C00C0327D /* Products */,
 				832107B021B97B600032A439 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		D5B2E8A01C3A780C00C0327D /* Products */ = {
 			isa = PBXGroup;
@@ -1399,11 +1416,14 @@
 				BDD0C01820570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01A20570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDB38702204D45B50080C93B /* Helper.swift in Sources */,
+				83CA023B22F9ACFD00A50BDD /* VerticalBlueprintLayoutDelegateTests.swift in Sources */,
 				BDB38705204D46400080C93B /* Mocks.swift in Sources */,
+				83CA024522F9BC6900A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift in Sources */,
 				BDB3870A204D46CC0080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
 				BD476BC821356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */,
 				BDFB6385204D823700D863E3 /* BlueprintLayoutAnimatorTests.swift in Sources */,
 				BDA31B0E20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
+				83CA024022F9B7FE00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1442,12 +1462,15 @@
 				BDB98DCE20D6E115001C5578 /* PeformanceTests.swift in Sources */,
 				BDD0C01720570E85005493DC /* HorizontalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
 				BDD0C01920570E85005493DC /* VerticalBlueprintLayoutTests+iOS+tvOS.swift in Sources */,
+				83CA023922F9ACFC00A50BDD /* VerticalBlueprintLayoutDelegateTests.swift in Sources */,
 				BDB386FD204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
+				83CA023E22F9B7FD00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift in Sources */,
 				BDFB6382204D782A00D863E3 /* BlueprintLayoutAnimatorTests.swift in Sources */,
 				BDB38704204D46400080C93B /* Mocks.swift in Sources */,
 				BDFB637B204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
 				BDA31B0C20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
 				BD476BC721356075008E1D0A /* iOStvOSObjectiveCSupportTests.m in Sources */,
+				83CA024322F9BC6800A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,12 +1506,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CA023A22F9ACFC00A50BDD /* VerticalBlueprintLayoutDelegateTests.swift in Sources */,
 				BDB386FC204D44870080C93B /* HorizontalBlueprintLayoutTests.swift in Sources */,
 				BDD0C01220570D5B005493DC /* VerticalBlueprintLayoutTests+macOS.swift in Sources */,
 				BDB38707204D46960080C93B /* Helper.swift in Sources */,
 				BDB38709204D46BB0080C93B /* Mocks.swift in Sources */,
 				BDA31B0D20D41C94001E4870 /* VerticalMosaicBlueprintLayoutTests.swift in Sources */,
+				83CA023F22F9B7FE00A50BDD /* HorizontalBlueprintLayoutDelegateTests.swift in Sources */,
 				BDFB637C204D4B3300D863E3 /* VerticalBlueprintLayoutTests.swift in Sources */,
+				83CA024422F9BC6900A50BDD /* VerticalMosaicBlueprintLayoutDelegateTests.swift in Sources */,
 				BDD0C01420570D8D005493DC /* HorizontalBlueprintLayoutTests+macOS.swift in Sources */,
 				BD476BC421355C1E008E1D0A /* macOSObjectiveCSupportTests.m in Sources */,
 			);
@@ -1555,7 +1581,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS.Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS.Example.Roberts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
@@ -1581,7 +1607,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS.Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zenangst.Blueprints-iOS.Example.Roberts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

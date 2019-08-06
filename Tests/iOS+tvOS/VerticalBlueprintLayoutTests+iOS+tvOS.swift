@@ -28,4 +28,3 @@ class VerticalBlueprintLayoutTests_iOS_tvOS: XCTestCase {
     XCTAssertEqual(verticalLayout.layoutAttributesForElements(in: CGRect(origin: .init(x: 0, y: 0), size: CGSize(width: 500, height: 500)))?.count, 10)
   }
 }
-

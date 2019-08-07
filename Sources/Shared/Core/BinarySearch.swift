@@ -4,10 +4,12 @@ public class BinarySearch {
   public init() {}
 
   private func binarySearch(_ collection: [LayoutAttributes],
-                               less: (LayoutAttributes) -> Bool,
-                               match: (LayoutAttributes) -> Bool) -> Int? {
+                            less: (LayoutAttributes) -> Bool,
+                            match: (LayoutAttributes) -> Bool) -> Int? {
+    guard var upperBound = collection.indices.last else { return nil }
+    upperBound += 1
     var lowerBound = 0
-    var upperBound = collection.count
+
 
     while lowerBound < upperBound {
       let midIndex = lowerBound + (upperBound - lowerBound) / 2
@@ -26,47 +28,38 @@ public class BinarySearch {
   }
 
   public func findElement(in collection: [LayoutAttributes],
-                           less: (LayoutAttributes) -> Bool,
-                           match: (LayoutAttributes) -> Bool) -> LayoutAttributes? {
-    guard let firstMatchIndex = binarySearch(collection, less: less, match: match) else {
-      return nil
+                          upper: (LayoutAttributes) -> Bool,
+                          lower: (LayoutAttributes) -> Bool,
+                          less: (LayoutAttributes) -> Bool,
+                          match: (LayoutAttributes) -> Bool) -> LayoutAttributes? {
+    guard let firstMatchIndex = binarySearch(collection,
+                                             less: less,
+                                             match: match) else {
+                                              return nil
     }
     return collection[firstMatchIndex]
   }
 
   public func findElements(in collection: [LayoutAttributes],
-                           padding: Int = 0,
+                           upper: (LayoutAttributes) -> Bool,
+                           lower: (LayoutAttributes) -> Bool,
                            less: (LayoutAttributes) -> Bool,
-                           match: (LayoutAttributes) -> Bool) -> [LayoutAttributes]? {
-    guard let firstMatchIndex = binarySearch(collection, less: less, match: match) else {
-      return nil
+                           match: (LayoutAttributes) -> Bool) -> [LayoutAttributes] {
+    guard let firstMatchIndex = binarySearch(collection,
+                                             less: less,
+                                             match: match) else {
+                                              return []
     }
 
     var results = [LayoutAttributes]()
-    var counter = padding
 
     for element in collection[..<firstMatchIndex].reversed() {
-      if !match(element) {
-        if padding > 1 {
-          counter -= 1
-          if counter == 0 { break }
-        } else {
-          break
-        }
-      }
+      guard upper(element) else { break }
       results.append(element)
     }
 
-    counter = padding
     for element in collection[firstMatchIndex...] {
-      if !match(element) {
-        if padding > 1 {
-          counter -= 1
-          if counter == 0 { break }
-        } else {
-          break
-        }
-      }
+      guard lower(element) else { break }
       results.append(element)
     }
 

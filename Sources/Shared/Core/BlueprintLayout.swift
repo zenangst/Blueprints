@@ -317,14 +317,22 @@
       return nil
     }
 
-    let compare: (LayoutAttributes) -> Bool
+    let lower: (LayoutAttributes) -> Bool
+    let upper: (LayoutAttributes) -> Bool
+    let less: (LayoutAttributes) -> Bool
     #if os(macOS)
-      compare = { indexPath > $0.indexPath! }
+    upper = { $0.indexPath! >= indexPath }
+    lower = { $0.indexPath! <= indexPath }
+    less =  { $0.indexPath! < indexPath }
     #else
-      compare = { indexPath > $0.indexPath }
+    upper = { $0.indexPath >= indexPath }
+    lower = { $0.indexPath <= indexPath }
+    less =  { $0.indexPath < indexPath }
     #endif
     let result = binarySearch.findElement(in: cachedItemAttributesBySection[indexPath.section],
-                                          less: compare,
+                                          upper: upper,
+                                          lower: lower,
+                                          less: less,
                                           match: { indexPath == $0.indexPath })
     return result
   }
@@ -335,41 +343,35 @@
   /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
   /// - Returns: An array of layout attribute objects containing the layout information for the enclosed items and views.
   override open func layoutAttributesForElements(in rect: CGRect) -> LayoutAttributesForElements {
-    let closure: (LayoutAttributes) -> Bool = scrollDirection == .horizontal
-      ? { rect.maxX >= $0.frame.minX }
-      : { rect.maxY >= $0.frame.minY }
-    var rect = rect
-    let offset: CGFloat
+    let upper: (LayoutAttributes) -> Bool
+    let lower: (LayoutAttributes) -> Bool
+    let less: (LayoutAttributes) -> Bool
 
-    // Add offset to the visible rectangle to avoid rare rendering issues when using binary search.
-    // It simply makes the visible rectangle slightly larger to ensure that all items on screen
-    // get rendered correctly. It will use the item size to determine how much offset should be
-    // added as padding to the visible rectangle.
     switch scrollDirection {
     case .horizontal:
-      offset = itemSize.width
-      rect.origin.x -= offset
-      rect.size.width += offset * 2
+      upper = { attributes in attributes.frame.maxX >= rect.minX }
+      lower = { attributes in attributes.frame.minX <= rect.maxX }
+      less =  { attributes in attributes.frame.maxX <= rect.minX }
     case .vertical:
-      offset = itemSize.height
-      rect.origin.y -= offset
-      rect.size.height += offset * 2
+      upper = { attributes in attributes.frame.maxY >= rect.minY }
+      lower = { attributes in attributes.frame.minY <= rect.maxY }
+      less =  { attributes in attributes.frame.maxY <= rect.minY }
     @unknown default:
       fatalError("Case not implemented in current implementation")
     }
 
-    let padding = Int(itemsPerRow ?? 1)
     var items = binarySearch.findElements(in: cachedItemAttributes,
-                                          padding: padding,
-                                          less: { closure($0) },
-                                          match: { $0.frame.intersects(rect) }) ?? []
+                                          upper: upper,
+                                          lower: lower,
+                                          less: less,
+                                          match: { $0.frame.intersects(rect) })
     let supplementary = binarySearch.findElements(in: cachedSupplementaryAttributes,
-                                                  padding: padding,
-                                                  less: { closure($0) },
-                                                  match: { $0.frame.intersects(rect) }) ?? []
+                                                  upper: upper,
+                                                  lower: lower,
+                                                  less: less,
+                                                  match: { $0.frame.intersects(rect) })
     items.append(contentsOf: supplementary)
-
-    return !items.isEmpty ? items : cachedItemAttributes.filter { $0.frame.intersects(rect) }
+    return items
   }
 
   open override func invalidateLayout(with context: LayoutInvalidationContext) {

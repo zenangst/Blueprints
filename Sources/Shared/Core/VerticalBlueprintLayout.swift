@@ -131,6 +131,8 @@
       var headerAttribute: SupplementaryLayoutAttributes? = nil
       var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
+      let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
+      let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
 
       if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
         let layoutAttribute = SupplementaryLayoutAttributes(
@@ -172,15 +174,15 @@
             let previousXOffset = item - Int(itemsPerRow - indexOffsetForSectionHeaders())
             let lookupAttribute = layoutAttributes[section][previousXOffset]
             maxY = lookupAttribute.frame.maxY
-            minY = lookupAttribute.frame.maxY + minimumLineSpacing
+            minY = lookupAttribute.frame.maxY + sectionsMinimumLineSpacing
           }
 
-          layoutAttribute.frame.origin.x = previousItem.frame.maxX + minimumInteritemSpacing
+          layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
           layoutAttribute.frame.origin.y = minY
 
           if layoutAttribute.frame.maxX > threshold {
             layoutAttribute.frame.origin.x = sectionInset.left
-            layoutAttribute.frame.origin.y = maxY + minimumLineSpacing
+            layoutAttribute.frame.origin.y = maxY + sectionsMinimumLineSpacing
           }
 
           sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)

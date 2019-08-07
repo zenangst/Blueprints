@@ -208,6 +208,38 @@
     }
   }
 
+  /// Resolve the minimumLineSpacingForSectionAt.
+  /// If the collection view's delegate conforms to `(UI/NS)CollectionViewDelegateFlowLayout`, it will
+  /// query the delegate for the minimumLineSpacing.
+  /// It defaults to using the `minimumLineSpacing` property on collection view flow layout.
+  ///
+  /// - Parameter section: The section of the collection view.
+  /// - Returns: The desired lineSpacing of the section.
+  func resolveMinimumLineSpacing(forSectionAt section: Int) -> CGFloat {
+    let computedMinimumLineSpacing = resolveCollectionView({ collectionView -> CGFloat? in
+      return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                             layout: self,
+                                                                                             minimumLineSpacingForSectionAt: section)
+    }, defaultValue: minimumLineSpacing)
+    return computedMinimumLineSpacing
+  }
+
+  /// Resolve the minimumInteritemSpacingForSectionAt.
+  /// If the collection view's delegate conforms to `(UI/NS)CollectionViewDelegateFlowLayout`, it will
+  /// query the delegate for the minimumInteritemSpacing.
+  /// It defaults to using the `minimumInteritemSpacing` property on collection view flow layout.
+  ///
+  /// - Parameter section: The section of the collection view.
+  /// - Returns: The desired minimumInteritemSpacing of the section.
+  func resolveMinimumInteritemSpacing(forSectionAt section: Int) -> CGFloat {
+    let computedMinimumInteritemSpacing = resolveCollectionView({ collectionView -> CGFloat? in
+      return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                             layout: self,
+                                                                                             minimumInteritemSpacingForSectionAt: section)
+    }, defaultValue: minimumInteritemSpacing)
+    return computedMinimumInteritemSpacing
+  }
+
   /// Resolve collection collection view from layout and return
   /// property or default value if collection view cannot be resolved.
   ///

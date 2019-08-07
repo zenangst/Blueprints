@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "Blueprints"
   s.summary          = "A collection of flow layouts that is meant to make your life easier."
-  s.version          = "0.12.0"
+  s.version          = "0.12.1"
   s.homepage         = "https://github.com/zenangst/Blueprints"
   s.license          = 'MIT'
   s.author           = { "Christoffer Winterkvist" => "christoffer@winterkvist.com" }

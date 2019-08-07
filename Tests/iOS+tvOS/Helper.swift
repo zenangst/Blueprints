@@ -1,13 +1,6 @@
 import Blueprints
 import UIKit
 
-class MockDelegate: NSObject, UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let height = indexPath.item % 2 == 1 ? 200 : 275
-    return CGSize(width: 200, height: height)
-  }
-}
-
 class Helper {
   static func createHorizontalLayout(dataSource: UICollectionViewDataSource,
                                      withItemsPerRow: CGFloat = 0.0) -> (collectionView: CollectionView, layout: HorizontalBlueprintLayout) {

@@ -37,7 +37,5 @@ class VerticalMosaicBlueprintLayoutTests: XCTestCase {
                    CGRect(origin: .init(x: 2, y: 52), size: CGSize(width: 97, height: 10)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame,
                    CGRect(origin: .init(x: 2, y: 64), size: CGSize(width: 97, height: 10)))
-
-
   }
 }

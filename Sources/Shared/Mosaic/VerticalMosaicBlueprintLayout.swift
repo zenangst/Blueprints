@@ -162,10 +162,12 @@
           nextY = nextY + sectionInset.bottom
         }
 
-        headerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
-        footerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
+        let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
 
-        contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + footerReferenceSize.height
+        headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
+        footerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
+
+        contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + sectionsFooterReferenceSize.height
 
       }
       headerAttribute = nil

@@ -35,6 +35,20 @@ extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
         }
         return cachedCellSize
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return section % 2 == 1 ?
+            CGSize(width: collectionView.frame.width, height: 175)
+            :
+            CGSize(width: collectionView.frame.width, height: 350)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return section % 2 == 1 ?
+            CGSize(width: collectionView.frame.width, height: 130)
+            :
+            CGSize(width: collectionView.frame.width, height: 60)
+    }
 }
 
 private extension LayoutExampleSceneViewController {

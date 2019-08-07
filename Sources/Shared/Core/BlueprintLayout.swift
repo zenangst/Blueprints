@@ -262,8 +262,8 @@
     return !(indexPath.count > 0 && cache.count > 0 && indexPath.section < cache.count)
   }
 
-  func indexOffsetForSectionHeaders() -> CGFloat {
-    if headerReferenceSize.height > 0 {
+  func indexOffsetForSectionHeaders(at indexPath: IndexPath) -> CGFloat {
+    if resolveSizeForSupplementaryView(ofKind: .header, at: indexPath).height > 0 {
       return 1
     }
     return 0

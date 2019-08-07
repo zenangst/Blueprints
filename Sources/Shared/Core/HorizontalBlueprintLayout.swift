@@ -169,7 +169,7 @@
         defer { previousItem = layoutAttribute }
 
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
-        layoutAttribute.frame.origin.y = sectionInset.top + headerReferenceSize.height
+        layoutAttribute.frame.origin.y = sectionInset.top + resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height
 
         if item > 0, let previousItem = previousItem {
           layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
@@ -182,15 +182,6 @@
           }
         } else {
           firstItem = layoutAttribute
-          contentSize.height = layoutAttribute.size.height
-
-          if itemsPerColumn > 1 {
-            contentSize.height += sectionsMinimumLineSpacing
-            contentSize.height *= CGFloat(itemsPerColumn)
-            contentSize.height -= sectionsMinimumLineSpacing
-          }
-
-          contentSize.height += sectionInset.top + sectionInset.bottom
           layoutAttribute.frame.origin.x = nextX + sectionInset.left
           widthOfSection += sectionInset.left + sectionInset.right + layoutAttribute.size.width
         }
@@ -242,6 +233,7 @@
           }
         }
 
+        contentSize.height = sectionMaxY - resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height + sectionInset.bottom
         nextX += widthOfSection
       }
 
@@ -255,7 +247,16 @@
     }
 
     if contentSize.height > 0 {
-      contentSize.height += headerReferenceSize.height + footerReferenceSize.height
+      let headers = layoutAttributes.flatMap({ $0 }).filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType })
+      if let maxHeader = (headers.max { $0.frame.height < $1.frame.height }) {
+        let maxHeaderHeight = maxHeader.frame.height
+        contentSize.height += maxHeaderHeight
+      }
+      let footers = layoutAttributes.flatMap({ $0 }).filter({ $0.representedElementKind == CollectionView.collectionViewFooterType })
+      if let maxFooter = (footers.max { $0.frame.height < $1.frame.height }) {
+        let maxFooterHeight = maxFooter.frame.height
+        contentSize.height += maxFooterHeight
+      }
     }
 
     self.contentSize = contentSize

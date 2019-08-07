@@ -321,9 +321,9 @@
     let upper: (LayoutAttributes) -> Bool
     let less: (LayoutAttributes) -> Bool
     #if os(macOS)
-    upper = { $0.indexPath >= indexPath! }
-    lower = { $0.indexPath <= indexPath! }
-    less =  { $0.indexPath < indexPath! }
+    upper = { $0.indexPath! >= indexPath }
+    lower = { $0.indexPath! <= indexPath }
+    less =  { $0.indexPath! < indexPath }
     #else
     upper = { $0.indexPath >= indexPath }
     lower = { $0.indexPath <= indexPath }

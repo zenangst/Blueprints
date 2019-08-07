@@ -52,7 +52,7 @@ extension HorizontalBlueprintLayoutDelegateTests {
     XCTAssertEqual(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 500, y: 10), size: expectedSize))
     XCTAssertNil(horizontalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 600, height: 70))
+    XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 1290, height: 70))
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 

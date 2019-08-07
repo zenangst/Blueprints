@@ -47,7 +47,7 @@ extension VerticalMosaicBlueprintLayoutDelegateTests {
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 7, section: 0))?.frame, CGRect(origin: .init(x: 2, y: 52), size: CGSize(width: 98, height: 12)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 8, section: 0))?.frame, CGRect(origin: .init(x: 2, y: 64), size: CGSize(width: 98, height: 12)))
 
-    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 580))
+    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 198))
     XCTAssertEqual(layout.contentSize, layout.collectionViewContentSize)
   }
 
@@ -92,7 +92,7 @@ extension VerticalMosaicBlueprintLayoutDelegateTests {
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 7, section: 1))?.frame, CGRect(origin: .init(x: 105, y: 156), size: CGSize(width: 93, height: 2)))
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 8, section: 1))?.frame, CGRect(origin: .init(x: 105, y: 168), size: CGSize(width: 93, height: 2)))
 
-    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 580))
+    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 198))
     XCTAssertEqual(layout.contentSize, layout.collectionViewContentSize)
   }
 }

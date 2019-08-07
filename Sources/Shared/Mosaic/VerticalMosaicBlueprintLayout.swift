@@ -142,6 +142,7 @@
       }
 
       if let previousAttribute = previousAttribute {
+        let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
         let previousY = nextY
         nextY = previousAttribute.frame.maxY
         if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
@@ -152,7 +153,7 @@
           layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
           layoutAttribute.min = headerAttribute?.min ?? previousY
-          layoutAttribute.max = sectionMaxY + sectionInset.bottom
+          layoutAttribute.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = nextY + sectionInset.bottom
           layoutAttributes[section].append(layoutAttribute)
@@ -162,9 +163,8 @@
           nextY = nextY + sectionInset.bottom
         }
 
-        let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
-
-        headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
+        let sectionsHeaderReferenceSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
+        headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsHeaderReferenceSize.height
         footerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
 
         contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + sectionsFooterReferenceSize.height

@@ -212,7 +212,7 @@
           layoutAttribute.size = sectionsFooterReferenceSize
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
           layoutAttribute.min = headerAttribute?.min ?? previousY
-          layoutAttribute.max = sectionMaxY + sectionInset.bottom
+          layoutAttribute.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
           layoutAttributes[section].append(layoutAttribute)
@@ -223,8 +223,10 @@
           nextY = sectionMaxY + sectionInset.bottom
         }
         contentSize.height = sectionMaxY - resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height + sectionInset.bottom
-        headerAttribute?.max = contentSize.height
-        footerAttribute?.max = contentSize.height
+
+        let sectionsHeaderReferenceSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
+        headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsHeaderReferenceSize.height
+        footerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsFooterReferenceSize.height
       }
 
       previousItem = nil

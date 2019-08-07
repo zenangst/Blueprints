@@ -491,8 +491,14 @@
     guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0 else {
       return false
     }
-    let shouldInvalidate = preferredAttributes.size.height.rounded() != originalAttributes.size.height.rounded()
-    return shouldInvalidate
+    #if os(macOS)
+    let indexPath = originalAttributes.indexPath!
+    #else
+    let indexPath = originalAttributes.indexPath
+    #endif
+    let currentAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item]
+    let shouldInvalidateLayout = preferredAttributes.size.height.rounded() != currentAttributes.size.height.rounded()
+    return shouldInvalidateLayout
   }
 
   open override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
@@ -509,8 +515,15 @@
     let indexOf = cachedItemAttributes.firstIndex(of: currentAttributes) ?? indexPath.item
     let filteredAttributes = cachedItemAttributes[indexOf...]
 
-    let contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
-    let contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
+    var contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
+    if preferredAttributes.frame.size.width == -1 {
+      contentWidthAdjustment = 0
+    }
+
+    var contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
+    if preferredAttributes.frame.size.height == -1 {
+      contentHeightAdjustment = 0
+    }
 
     for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
       attributes.frame.origin.x += contentWidthAdjustment

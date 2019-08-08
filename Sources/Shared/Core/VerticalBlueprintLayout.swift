@@ -126,13 +126,13 @@
         continue
       }
 
-      var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
       var headerAttribute: SupplementaryLayoutAttributes? = nil
       var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
       let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
+      var lookupRects = [Int: CGRect]()
 
       if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
         let layoutAttribute = SupplementaryLayoutAttributes(
@@ -151,46 +151,45 @@
 
       nextY += sectionInset.top
       var sectionMaxY: CGFloat = 0
+      let perRow = Int(itemsPerRow ?? 1)
 
       for item in 0..<numberOfItemsInSection(section) {
+        let index = item % perRow
         let indexPath = IndexPath(item: item, section: section)
-        let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
+        let layoutAttribute = LayoutAttributes(forCellWith: indexPath)
+        let furthestItem = lookupRects.values.sorted(by: { $0.maxY >= $1.maxY }).first
 
-        defer { previousItem = layoutAttribute }
-
-        layoutAttribute.size = resolveSizeForItem(at: indexPath)
+        layoutAttribute.frame.size = resolveSizeForItem(at: indexPath)
+        layoutAttribute.frame.origin.y = nextY
+        layoutAttribute.frame.origin.x = sectionInset.left
 
         if let previousItem = previousItem {
-          var minY: CGFloat = previousItem.frame.origin.y
-          var maxY: CGFloat = previousItem.frame.maxY
-
-          // Properly align the current item with the previous item at the same
-          // x offset. This helps ensure that the layout renders correctly when
-          // using layout attributes with dynamic height.
-          if let itemsPerRow = itemsPerRow,
-            itemsPerRow > 1,
-            item > Int(itemsPerRow) - 1,
-            Int(itemsPerRow) - 1 < layoutAttributes[section].count {
-            let previousXOffset = item - Int(itemsPerRow - indexOffsetForSectionHeaders())
-            let lookupAttribute = layoutAttributes[section][previousXOffset]
-            maxY = lookupAttribute.frame.maxY
-            minY = lookupAttribute.frame.maxY + sectionsMinimumLineSpacing
-          }
-
           layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
-          layoutAttribute.frame.origin.y = minY
+          layoutAttribute.frame.origin.y = previousItem.frame.origin.y
 
-          if layoutAttribute.frame.maxX > threshold {
-            layoutAttribute.frame.origin.x = sectionInset.left
-            layoutAttribute.frame.origin.y = maxY + sectionsMinimumLineSpacing
+          if let rect = lookupRects[index] {
+            let sectionItems = layoutAttributes[section]
+              .filter({ $0.representedElementCategory == .cell })
+            if furthestItem?.origin.x == rect.origin.x,
+              let lastAttribute = sectionItems.filter({ $0.frame.origin.x != rect.origin.x })
+                .sorted(by: { $0.frame.maxY >= $1.frame.maxY }).first {
+              layoutAttribute.frame.origin.x = lastAttribute.frame.origin.x
+              layoutAttribute.frame.origin.y = lastAttribute.frame.maxY + sectionsMinimumLineSpacing
+            } else {
+              layoutAttribute.frame.origin.x = rect.origin.x
+              layoutAttribute.frame.origin.y = rect.maxY + sectionsMinimumLineSpacing
+            }
           }
+        }
 
-          sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
+        if let rect = lookupRects[index] {
+          if rect.origin.x == layoutAttribute.frame.origin.x {
+            lookupRects[index] = rect.maxY >= layoutAttribute.frame.maxY
+              ? rect
+              : layoutAttribute.frame
+          }
         } else {
-          firstItem = layoutAttribute
-          layoutAttribute.frame.origin.x = sectionInset.left
-          layoutAttribute.frame.origin.y = nextY
-          sectionMaxY = layoutAttribute.frame.maxY
+          lookupRects[index] = layoutAttribute.frame
         }
 
         if section == layoutAttributes.count {
@@ -198,6 +197,12 @@
         } else {
           layoutAttributes[section].append(layoutAttribute)
         }
+
+        if let attribute = furthestItem {
+          sectionMaxY = attribute.maxY
+        }
+
+        previousItem = layoutAttribute
       }
 
       if let previousItem = previousItem {
@@ -230,7 +235,6 @@
       previousItem = nil
       headerAttribute = nil
       footerAttribute = nil
-      firstItem = nil
     }
 
     contentSize.width = threshold

@@ -126,7 +126,7 @@
         continue
       }
 
-      var previousItem: LayoutAttributes? = nil
+      var previousAttribute: LayoutAttributes? = nil
       var headerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
@@ -154,11 +154,11 @@
         let indexPath = IndexPath(item: item, section: section)
         let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
 
-        defer { previousItem = layoutAttribute }
+        defer { previousAttribute = layoutAttribute }
 
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
 
-        if let previousItem = previousItem {
+        if let previousItem = previousAttribute {
           var minY: CGFloat = previousItem.frame.origin.y
           var maxY: CGFloat = previousItem.frame.maxY
 
@@ -200,7 +200,7 @@
       let sectionsHeaderReferenceSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
       headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsHeaderReferenceSize.height
 
-      if let previousItem = previousItem {
+      if let previousItem = previousAttribute {
         let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
         let previousY = nextY
         nextY = previousItem.frame.maxY
@@ -223,7 +223,7 @@
         contentSize.height = sectionMaxY - sectionsHeaderReferenceSize.height + sectionInset.bottom
         headerAttribute?.max = contentSize.height
       }
-      previousItem = nil
+      previousAttribute = nil
       headerAttribute = nil
     }
 

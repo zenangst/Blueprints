@@ -220,7 +220,7 @@
         } else {
           nextY = sectionMaxY + sectionInset.bottom
         }
-        contentSize.height = sectionMaxY - resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height + sectionInset.bottom
+        contentSize.height = sectionMaxY - sectionsHeaderReferenceSize.height + sectionInset.bottom
         headerAttribute?.max = contentSize.height
       }
       previousItem = nil

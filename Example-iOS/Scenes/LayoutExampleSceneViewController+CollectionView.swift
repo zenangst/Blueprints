@@ -47,7 +47,7 @@ extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
         return section % 2 == 1 ?
             CGSize(width: collectionView.frame.width, height: 130)
             :
-            CGSize(width: collectionView.frame.width, height: 60)
+            CGSize(width: collectionView.frame.width, height: 61)
     }
 }
 

@@ -27,6 +27,7 @@
   public var allCachedAttributes = [LayoutAttributes]()
   var binarySearch = BinarySearch()
   var prepareAllowed = true
+  var previousContentOffset: CGFloat = 0
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = .zero
@@ -452,7 +453,7 @@
     let results = cachedSupplementaryAttributes.filter({
       switch scrollDirection {
       case .vertical:
-        return (visibleRect.origin.y + collectionView.frame.height >= $0.min && visibleRect.origin.y <= $0.max)
+        return (visibleRect.maxY >= $0.min && visibleRect.origin.y <= $0.max)
       case .horizontal:
         if visibleRect.origin.x < 0 {
           return $0.frame.intersects(visibleRect)
@@ -472,7 +473,7 @@
           if collectionView.contentOffset.y < 0 {
             header.frame.origin.y = max(0, header.min)
           } else {
-            header.frame.origin.y = min(max(collectionView.contentOffset.y, header.min), header.max)
+            header.frame.origin.y = min(max(visibleRect.minY, header.min), header.max)
           }
         case .horizontal:
           header.frame.origin.x = min(max(collectionView.contentOffset.x, header.min), header.max - header.frame.size.width)

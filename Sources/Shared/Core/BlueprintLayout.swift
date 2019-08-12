@@ -455,7 +455,7 @@
         if visibleRect.origin.y < 0 {
           return $0.frame.intersects(visibleRect)
         } else {
-          return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max)
+          return (visibleRect.origin.y + collectionView.frame.height >= $0.min && visibleRect.origin.y <= $0.max)
         }
       case .horizontal:
         if visibleRect.origin.x < 0 {
@@ -499,7 +499,7 @@
       for footer in footers {
         switch scrollDirection {
         case .vertical:
-          footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
+          footer.frame.origin.y = min(max(visibleRect.maxY - footer.frame.height, footer.min), footer.max)
         case .horizontal:
           footer.frame.origin.x = min(max(collectionView.contentOffset.x, footer.min), footer.max - footer.frame.size.width)
         @unknown default:

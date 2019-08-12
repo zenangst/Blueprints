@@ -2,7 +2,7 @@ import XCTest
 import Blueprints
 
 class VerticalBlueprintLayoutTests: XCTestCase {
-  let dataSource = MockDataSource(numberOfItems: 10)
+  let dataSource = MockDataSource(numberOfItems: 10, numberOfSections: 2)
   var collectionView: CollectionView!
   var verticalLayout: VerticalBlueprintLayout!
 
@@ -31,7 +31,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 190), size: expectedSize))
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 250))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 500))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -56,7 +56,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 610))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 1220))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -86,7 +86,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(layout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 660))
+    XCTAssertEqual(layout.collectionViewContentSize, CGSize(width: 200, height: 1320))
     XCTAssertEqual(layout.contentSize, layout.collectionViewContentSize)
   }
 
@@ -115,7 +115,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 310))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 620))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -149,7 +149,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 360))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 720))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -177,7 +177,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 250))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 500))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -211,7 +211,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 300))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 600))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -238,7 +238,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 190))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 380))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -270,7 +270,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 240))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 480))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -301,7 +301,7 @@ class VerticalBlueprintLayoutTests: XCTestCase {
 
     XCTAssertEqual(verticalLayout.layoutAttributesForSupplementaryView(ofKind: CollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: 0))?.frame, CGRect(origin: .init(x: 0, y: 350), size: expectedHeaderAndFooterSize))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 450))
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 900))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 
@@ -313,6 +313,18 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     verticalLayout.prepare()
 
     let expectedSize: CGSize = .init(width: 50, height: 50)
+    let expectedSupplementarySize: CGSize = .init(width: 100, height: 100)
+
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributes.count, 4)
+
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 2)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0][0].frame, CGRect(origin: .init(x: 0, y: 0), size: expectedSupplementarySize))
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0][1].frame, CGRect(origin: .init(x: 0, y: 350), size: expectedSupplementarySize))
+
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0][0].min, 0) // start of the section
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0][0].max, 250) // just under footer position
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0][1].min, 100) // just under last header
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0][1].max, 350) // just under last cell
 
     XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[0].count, 10)
     XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[0].count, 2)
@@ -328,7 +340,29 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 0))?.frame, CGRect(origin: .init(x: 10, y: 290), size: expectedSize))
     XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 0)))
 
-    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 450))
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1].count, 2)
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1][0].frame, CGRect(origin: .init(x: 0, y: 450), size: expectedSupplementarySize))
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1][1].frame, CGRect(origin: .init(x: 0, y: 800), size: expectedSupplementarySize))
+
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1][0].min, 450) // start of the section
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1][0].max, 700) // just under footer position
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1][1].min, 550) // just under last header
+    XCTAssertEqual(verticalLayout.cachedSupplementaryAttributesBySection[1][1].max, 800) // just under last cell
+
+    XCTAssertEqual(verticalLayout.cachedItemAttributesBySection[1].count, 10)
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 0, section: 1))?.frame, CGRect(origin: .init(x: 10, y: 560), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 1, section: 1))?.frame, CGRect(origin: .init(x: 70, y: 560), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 1))?.frame, CGRect(origin: .init(x: 130, y: 560), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 3, section: 1))?.frame, CGRect(origin: .init(x: 10, y: 620), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 4, section: 1))?.frame, CGRect(origin: .init(x: 70, y: 620), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 5, section: 1))?.frame, CGRect(origin: .init(x: 130, y: 620), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 6, section: 1))?.frame, CGRect(origin: .init(x: 10, y: 680), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 7, section: 1))?.frame, CGRect(origin: .init(x: 70, y: 680), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 8, section: 1))?.frame, CGRect(origin: .init(x: 130, y: 680), size: expectedSize))
+    XCTAssertEqual(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 9, section: 1))?.frame, CGRect(origin: .init(x: 10, y: 740), size: expectedSize))
+    XCTAssertNil(verticalLayout.layoutAttributesForItem(at: IndexPath(item: 10, section: 1)))
+
+    XCTAssertEqual(verticalLayout.collectionViewContentSize, CGSize(width: 200, height: 900))
     XCTAssertEqual(verticalLayout.contentSize, verticalLayout.collectionViewContentSize)
   }
 }

@@ -211,14 +211,7 @@
           )
           layoutAttribute.size = sectionsFooterReferenceSize
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
-
-          let footerMin: CGFloat
-          if let headerAttribute = headerAttribute {
-            footerMin = headerAttribute.min + headerAttribute.frame.height
-          } else {
-            footerMin = previousY
-          }
-          layoutAttribute.min = footerMin
+          layoutAttribute.min = headerAttribute?.frame.maxY ?? previousY
           layoutAttribute.max = sectionMaxY + sectionInset.bottom
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom

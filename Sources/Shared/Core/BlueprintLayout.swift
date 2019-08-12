@@ -452,11 +452,7 @@
     let results = cachedSupplementaryAttributes.filter({
       switch scrollDirection {
       case .vertical:
-        if visibleRect.origin.y < 0 {
-          return $0.frame.intersects(visibleRect)
-        } else {
-          return (visibleRect.origin.y + collectionView.frame.height >= $0.min && visibleRect.origin.y <= $0.max)
-        }
+        return (visibleRect.origin.y + collectionView.frame.height >= $0.min && visibleRect.origin.y <= $0.max)
       case .horizontal:
         if visibleRect.origin.x < 0 {
           return $0.frame.intersects(visibleRect)

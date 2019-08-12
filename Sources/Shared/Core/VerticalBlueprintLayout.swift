@@ -148,7 +148,6 @@
       }
 
       nextY += sectionInset.top
-      var sectionMinY: CGFloat = 0
       var sectionMaxY: CGFloat = 0
 
       for item in 0..<numberOfItemsInSection(section) {
@@ -188,7 +187,6 @@
         } else {
           layoutAttribute.frame.origin.x = sectionInset.left
           layoutAttribute.frame.origin.y = nextY
-          sectionMinY = layoutAttribute.frame.minY
           sectionMaxY = layoutAttribute.frame.maxY
         }
 

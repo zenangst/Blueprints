@@ -149,6 +149,7 @@
 
       nextY += sectionInset.top
       var sectionMaxY: CGFloat = 0
+      let perRow = Int(itemsPerRow ?? 1)
 
       for item in 0..<numberOfItemsInSection(section) {
         let indexPath = IndexPath(item: item, section: section)
@@ -159,31 +160,34 @@
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
 
         if let previousItem = previousAttribute {
-          var minY: CGFloat = previousItem.frame.origin.y
-          var maxY: CGFloat = previousItem.frame.maxY
 
-          // Properly align the current item with the previous item at the same
-          // x offset. This helps ensure that the layout renders correctly when
-          // using layout attributes with dynamic height.
-          if let itemsPerRow = itemsPerRow,
-            itemsPerRow > 1,
-            item > Int(itemsPerRow) - 1,
-            Int(itemsPerRow) - 1 < layoutAttributes[section].count {
-            let previousXOffset = item - Int(itemsPerRow - indexOffsetForSectionHeaders(at: sectionIndexPath))
-            let lookupAttribute = layoutAttributes[section][previousXOffset]
-            maxY = lookupAttribute.frame.maxY
-            minY = lookupAttribute.frame.maxY + sectionsMinimumLineSpacing
+          if perRow > 1,
+            perRow > perRow - 1,
+            perRow - 1 < layoutAttributes[section].count {
+            let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cell }).suffix(perRow)
+            if lookupAttributes.count < perRow {
+              layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
+              layoutAttribute.frame.origin.y = previousItem.frame.minY
+            } else {
+              let minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY <= $1.frame.maxY })
+              guard let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first else {
+                fatalError()
+              }
+              layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
+              layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
+            }
+          } else {
+            layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
+            layoutAttribute.frame.origin.y = previousItem.frame.minY
           }
-
-          layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
-          layoutAttribute.frame.origin.y = minY
 
           if layoutAttribute.frame.maxX > threshold {
             layoutAttribute.frame.origin.x = sectionInset.left
-            layoutAttribute.frame.origin.y = maxY + sectionsMinimumLineSpacing
+            layoutAttribute.frame.origin.y = previousItem.frame.maxY + sectionsMinimumLineSpacing
           }
 
           sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
+
         } else {
           layoutAttribute.frame.origin.x = sectionInset.left
           layoutAttribute.frame.origin.y = nextY

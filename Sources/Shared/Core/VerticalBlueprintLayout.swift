@@ -160,40 +160,43 @@
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
 
         if let previousItem = previousAttribute {
-
           if perRow > 1,
             perRow > perRow - 1,
             perRow - 1 < layoutAttributes[section].count {
-            let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cell }).suffix(perRow)
+            let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cell })
             if lookupAttributes.count < perRow {
-              layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
-              layoutAttribute.frame.origin.y = previousItem.frame.minY
+                layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
+                layoutAttribute.frame.origin.y = previousItem.frame.minY
             } else {
-              let minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY <= $1.frame.maxY })
-              guard let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first else {
-                fatalError()
-              }
-              layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
-              layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
+                var minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY < $1.frame.maxY })
+                guard let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first else {
+                    fatalError()
+                }
+                layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
+                layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
+                while minimumYAttributes.contains(where: { $0.frame.minY == layoutAttribute.frame.minY && $0.frame.minX == layoutAttribute.frame.minX }) {
+                    guard let minimumYAttribute = minimumYAttributes.first else {
+                        break
+                    }
+                    minimumYAttributes.removeFirst()
+                    layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
+                    layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
+                }
             }
           } else {
             layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
             layoutAttribute.frame.origin.y = previousItem.frame.minY
           }
-
           if layoutAttribute.frame.maxX > threshold {
             layoutAttribute.frame.origin.x = sectionInset.left
             layoutAttribute.frame.origin.y = previousItem.frame.maxY + sectionsMinimumLineSpacing
           }
-
           sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
-
         } else {
           layoutAttribute.frame.origin.x = sectionInset.left
           layoutAttribute.frame.origin.y = nextY
           sectionMaxY = layoutAttribute.frame.maxY
         }
-
         if section == layoutAttributes.count {
           layoutAttributes.append([layoutAttribute])
         } else {
@@ -232,8 +235,9 @@
     }
 
     let indexOffset = 1
-    let lastHeaderReferenceHeight = resolveSizeForSupplementaryView(ofKind: .header, at: IndexPath(item: 0, section: numberOfSections)).height
-    let lastFooterReferenceHeight = resolveSizeForSupplementaryView(ofKind: .footer, at: IndexPath(item: numberOfItemsInSection(numberOfSections - indexOffset), section: numberOfSections)).height
+    let lastHeaderReferenceHeight = resolveSizeForSupplementaryView(ofKind: .header, at: IndexPath(item: 0, section: numberOfSections - indexOffset)).height
+    let lastFooterReferenceHeight = resolveSizeForSupplementaryView(ofKind: .footer, at: IndexPath(item: numberOfItemsInSection(numberOfSections - indexOffset), section: numberOfSections - indexOffset)).height
+
     contentSize.height += lastHeaderReferenceHeight + lastFooterReferenceHeight
     contentSize.width = threshold
 

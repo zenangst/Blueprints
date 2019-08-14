@@ -164,14 +164,13 @@ import UIKit
             perRow > perRow - 1,
             perRow - 1 < layoutAttributes[section].count {
             let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cellItem })
+            var minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY < $1.frame.maxY })
+
             if lookupAttributes.count < perRow {
               layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
               layoutAttribute.frame.origin.y = previousItem.frame.minY
-            } else {
-              var minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY < $1.frame.maxY })
-              guard let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first else {
-                fatalError()
-              }
+            } else if !lookupAttributes.isEmpty,
+              let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first {
               layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
               layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
               while minimumYAttributes.contains(where: { $0.frame.minY == layoutAttribute.frame.minY && $0.frame.minX == layoutAttribute.frame.minX }) {

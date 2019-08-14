@@ -1,7 +1,7 @@
 #if os(macOS)
-  import Cocoa
+import Cocoa
 #else
-  import UIKit
+import UIKit
 #endif
 
 @objc open class VerticalBlueprintLayout: BlueprintLayout {
@@ -51,12 +51,12 @@
   ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
   @objc public convenience init(itemSize: CGSize = CGSize(width: 50, height: 50),
-                          minimumInteritemSpacing: CGFloat = 0,
-                          minimumLineSpacing: CGFloat = 10,
-                          sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-                          stickyHeaders: Bool = false,
-                          stickyFooters: Bool = false,
-                          animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(animation: .automatic)) {
+                                minimumInteritemSpacing: CGFloat = 0,
+                                minimumLineSpacing: CGFloat = 10,
+                                sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                                stickyHeaders: Bool = false,
+                                stickyFooters: Bool = false,
+                                animator: BlueprintLayoutAnimator = DefaultLayoutAnimator(animation: .automatic)) {
     self.init(itemsPerRow: 0.0,
               itemSize: itemSize,
               estimatedItemSize: .zero,
@@ -80,13 +80,13 @@
   ///   - stickyFooters: A Boolean value indicating whether footers pin to the top of the collection view bounds during scrolling.
   ///   - animator: The animator that should be used for the layout, defaults to `DefaultLayoutAnimator`.
   @objc public convenience init(itemsPerRow: CGFloat = 0.0,
-                          height: CGFloat = 50,
-                          minimumInteritemSpacing: CGFloat = 0,
-                          minimumLineSpacing: CGFloat = 10,
-                          sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-                          stickyHeaders: Bool = false,
-                          stickyFooters: Bool = false,
-                          animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()) {
+                                height: CGFloat = 50,
+                                minimumInteritemSpacing: CGFloat = 0,
+                                minimumLineSpacing: CGFloat = 10,
+                                sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                                stickyHeaders: Bool = false,
+                                stickyFooters: Bool = false,
+                                animator: BlueprintLayoutAnimator = DefaultLayoutAnimator()) {
     let size = CGSize(width: 50, height: height)
     self.init(itemsPerRow: itemsPerRow,
               itemSize: size,
@@ -105,7 +105,7 @@
 
   override open func prepare() {
     guard prepareAllowed else {
-        return
+      return
     }
     prepareAllowed = false
 
@@ -165,23 +165,23 @@
             perRow - 1 < layoutAttributes[section].count {
             let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cell })
             if lookupAttributes.count < perRow {
-                layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
-                layoutAttribute.frame.origin.y = previousItem.frame.minY
+              layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
+              layoutAttribute.frame.origin.y = previousItem.frame.minY
             } else {
-                var minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY < $1.frame.maxY })
-                guard let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first else {
-                    fatalError()
+              var minimumYAttributes = lookupAttributes.sorted(by: { $0.frame.maxY < $1.frame.maxY })
+              guard let minimumYAttribute = lookupAttributes.filter({ $0.frame.maxY == minimumYAttributes.first!.frame.maxY }).first else {
+                fatalError()
+              }
+              layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
+              layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
+              while minimumYAttributes.contains(where: { $0.frame.minY == layoutAttribute.frame.minY && $0.frame.minX == layoutAttribute.frame.minX }) {
+                guard let minimumYAttribute = minimumYAttributes.first else {
+                  break
                 }
+                minimumYAttributes.removeFirst()
                 layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
                 layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
-                while minimumYAttributes.contains(where: { $0.frame.minY == layoutAttribute.frame.minY && $0.frame.minX == layoutAttribute.frame.minX }) {
-                    guard let minimumYAttribute = minimumYAttributes.first else {
-                        break
-                    }
-                    minimumYAttributes.removeFirst()
-                    layoutAttribute.frame.origin.x = minimumYAttribute.frame.minX
-                    layoutAttribute.frame.origin.y = minimumYAttribute.frame.maxY + sectionsMinimumLineSpacing
-                }
+              }
             }
           } else {
             layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing

@@ -163,7 +163,7 @@ import UIKit
           if perRow > 1,
             perRow > perRow - 1,
             perRow - 1 < layoutAttributes[section].count {
-            let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cell })
+            let lookupAttributes = layoutAttributes[section].filter({ $0.representedElementCategory == .cellItem })
             if lookupAttributes.count < perRow {
               layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
               layoutAttribute.frame.origin.y = previousItem.frame.minY

@@ -302,7 +302,7 @@
     for value in attributes {
       #if os(macOS)
         let sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
-        let items = sorted.filter({ $0.representedElementCategory == .item })
+        let items = sorted.filter({ $0.representedElementCategory == .cellItem })
         let supplementaryLayoutAttributes = sorted
           .filter({ $0.representedElementCategory == .supplementaryView })
           .compactMap({ $0 as? SupplementaryLayoutAttributes })
@@ -310,7 +310,7 @@
         self.cachedItemAttributesBySection.append(items)
       #else
         let sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
-        let items = sorted.filter({ $0.representedElementCategory == .cell })
+        let items = sorted.filter({ $0.representedElementCategory == .cellItem })
         let supplementaryLayoutAttributes = sorted
           .filter({ $0.representedElementCategory == .supplementaryView })
           .compactMap({ $0 as? SupplementaryLayoutAttributes })
@@ -333,11 +333,7 @@
     cachedSupplementaryAttributes = Array(cachedSupplementaryAttributesBySection.joined())
 
     self.cachedItemAttributes = allCachedAttributes.filter({
-      #if os(macOS)
-      return $0.representedElementCategory == .item
-      #else
-      return $0.representedElementCategory == .cell
-      #endif
+      return $0.representedElementCategory == .cellItem
     })
   }
 

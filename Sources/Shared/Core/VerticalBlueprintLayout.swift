@@ -126,10 +126,8 @@
         continue
       }
 
-      var firstItem: LayoutAttributes? = nil
-      var previousItem: LayoutAttributes? = nil
+      var previousAttribute: LayoutAttributes? = nil
       var headerAttribute: SupplementaryLayoutAttributes? = nil
-      var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
       let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
@@ -156,11 +154,11 @@
         let indexPath = IndexPath(item: item, section: section)
         let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
 
-        defer { previousItem = layoutAttribute }
+        defer { previousAttribute = layoutAttribute }
 
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
 
-        if let previousItem = previousItem {
+        if let previousItem = previousAttribute {
           var minY: CGFloat = previousItem.frame.origin.y
           var maxY: CGFloat = previousItem.frame.maxY
 
@@ -171,7 +169,7 @@
             itemsPerRow > 1,
             item > Int(itemsPerRow) - 1,
             Int(itemsPerRow) - 1 < layoutAttributes[section].count {
-            let previousXOffset = item - Int(itemsPerRow - indexOffsetForSectionHeaders())
+            let previousXOffset = item - Int(itemsPerRow - indexOffsetForSectionHeaders(at: sectionIndexPath))
             let lookupAttribute = layoutAttributes[section][previousXOffset]
             maxY = lookupAttribute.frame.maxY
             minY = lookupAttribute.frame.maxY + sectionsMinimumLineSpacing
@@ -187,7 +185,6 @@
 
           sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
         } else {
-          firstItem = layoutAttribute
           layoutAttribute.frame.origin.x = sectionInset.left
           layoutAttribute.frame.origin.y = nextY
           sectionMaxY = layoutAttribute.frame.maxY
@@ -200,41 +197,41 @@
         }
       }
 
-      if let previousItem = previousItem {
+      let sectionsHeaderReferenceSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
+      headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsHeaderReferenceSize.height
+
+      if let previousItem = previousAttribute {
+        let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
         let previousY = nextY
         nextY = previousItem.frame.maxY
-        if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
+        if sectionsFooterReferenceSize.height > 0 {
           let layoutAttribute = SupplementaryLayoutAttributes(
             forSupplementaryViewOfKind: BlueprintSupplementaryKind.footer.collectionViewSupplementaryType,
             with: sectionIndexPath
           )
-          layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
+          layoutAttribute.size = sectionsFooterReferenceSize
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
-          layoutAttribute.min = headerAttribute?.min ?? previousY
+          layoutAttribute.min = headerAttribute?.frame.maxY ?? previousY
           layoutAttribute.max = sectionMaxY + sectionInset.bottom
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
           layoutAttributes[section].append(layoutAttribute)
-          headerAttribute?.max = sectionMaxY + sectionInset.bottom
-          footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         } else {
           nextY = sectionMaxY + sectionInset.bottom
         }
-
-        contentSize.height = sectionMaxY - headerReferenceSize.height + sectionInset.bottom
+        contentSize.height = sectionMaxY - sectionsHeaderReferenceSize.height + sectionInset.bottom
         headerAttribute?.max = contentSize.height
-        footerAttribute?.max = contentSize.height
       }
-
-      previousItem = nil
+      previousAttribute = nil
       headerAttribute = nil
-      footerAttribute = nil
-      firstItem = nil
     }
 
+    let indexOffset = 1
+    let lastHeaderReferenceHeight = resolveSizeForSupplementaryView(ofKind: .header, at: IndexPath(item: 0, section: numberOfSections)).height
+    let lastFooterReferenceHeight = resolveSizeForSupplementaryView(ofKind: .footer, at: IndexPath(item: numberOfItemsInSection(numberOfSections - indexOffset), section: numberOfSections)).height
+    contentSize.height += lastHeaderReferenceHeight + lastFooterReferenceHeight
     contentSize.width = threshold
-    contentSize.height += headerReferenceSize.height + footerReferenceSize.height
 
     self.contentSize = contentSize
     createCache(with: layoutAttributes)

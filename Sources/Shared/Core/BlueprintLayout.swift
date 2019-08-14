@@ -27,6 +27,7 @@
   public var allCachedAttributes = [LayoutAttributes]()
   var binarySearch = BinarySearch()
   var prepareAllowed = true
+  var previousContentOffset: CGFloat = 0
 
   /// The content size of the layout, should be set using the `prepare` method of any subclass.
   public var contentSize: CGSize = .zero
@@ -262,8 +263,8 @@
     return !(indexPath.count > 0 && cache.count > 0 && indexPath.section < cache.count)
   }
 
-  func indexOffsetForSectionHeaders() -> CGFloat {
-    if headerReferenceSize.height > 0 {
+  func indexOffsetForSectionHeaders(at indexPath: IndexPath) -> CGFloat {
+    if resolveSizeForSupplementaryView(ofKind: .header, at: indexPath).height > 0 {
       return 1
     }
     return 0
@@ -452,11 +453,7 @@
     let results = cachedSupplementaryAttributes.filter({
       switch scrollDirection {
       case .vertical:
-        if visibleRect.origin.y < 0 {
-          return $0.frame.intersects(visibleRect)
-        } else {
-          return (visibleRect.origin.y >= $0.min && visibleRect.origin.y <= $0.max)
-        }
+        return ((visibleRect.maxY >= $0.min && visibleRect.origin.y <= $0.max) || visibleRect.intersects($0.frame))
       case .horizontal:
         if visibleRect.origin.x < 0 {
           return $0.frame.intersects(visibleRect)
@@ -476,7 +473,7 @@
           if collectionView.contentOffset.y < 0 {
             header.frame.origin.y = max(0, header.min)
           } else {
-            header.frame.origin.y = min(max(collectionView.contentOffset.y, header.min), header.max)
+            header.frame.origin.y = min(max(visibleRect.minY, header.min), header.max)
           }
         case .horizontal:
           header.frame.origin.x = min(max(collectionView.contentOffset.x, header.min), header.max - header.frame.size.width)
@@ -499,7 +496,7 @@
       for footer in footers {
         switch scrollDirection {
         case .vertical:
-          footer.frame.origin.y = min(visibleRect.maxY - footer.frame.height, footer.max + footer.frame.height)
+          footer.frame.origin.y = min(max(visibleRect.maxY - footer.frame.height, footer.min), footer.max)
         case .horizontal:
           footer.frame.origin.x = min(max(collectionView.contentOffset.x, footer.min), footer.max - footer.frame.size.width)
         @unknown default:

@@ -38,7 +38,7 @@
 
   override public func prepare() {
     guard prepareAllowed else {
-        return
+      return
     }
     prepareAllowed = false
 
@@ -62,7 +62,6 @@
 
       var previousAttribute: MosaicLayoutAttributes?
       var headerAttribute: SupplementaryLayoutAttributes? = nil
-      var footerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
       let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
@@ -141,38 +140,42 @@
         }
       }
 
+      let sectionsHeaderReferenceSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
+      headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsHeaderReferenceSize.height
+
       if let previousAttribute = previousAttribute {
+        let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
         let previousY = nextY
         nextY = previousAttribute.frame.maxY
-        if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
+        if sectionsFooterReferenceSize.height > 0 {
           let layoutAttribute = SupplementaryLayoutAttributes(
             forSupplementaryViewOfKind: BlueprintSupplementaryKind.footer.collectionViewSupplementaryType,
             with: sectionIndexPath
           )
-          layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
+          layoutAttribute.size = sectionsFooterReferenceSize
           layoutAttribute.zIndex = section + numberOfItemsInSection(section)
-          layoutAttribute.min = headerAttribute?.min ?? previousY
+          layoutAttribute.min = headerAttribute?.frame.maxY ?? previousY
           layoutAttribute.max = sectionMaxY + sectionInset.bottom
           layoutAttribute.frame.origin.x = 0
-          layoutAttribute.frame.origin.y = nextY + sectionInset.bottom
+          layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
           layoutAttributes[section].append(layoutAttribute)
-          footerAttribute = layoutAttribute
           nextY = layoutAttribute.frame.maxY
         } else {
-          nextY = nextY + sectionInset.bottom
+          nextY = sectionMaxY + sectionInset.bottom
         }
-
-        headerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
-        footerAttribute?.max = sectionMaxY + sectionInset.bottom - footerReferenceSize.height
-
-        contentSize.height = previousAttribute.frame.maxY + sectionInset.bottom + footerReferenceSize.height
-
+        contentSize.height = sectionMaxY - sectionsHeaderReferenceSize.height + sectionInset.bottom
+        headerAttribute?.max = contentSize.height
       }
+      previousAttribute = nil
       headerAttribute = nil
-      footerAttribute = nil
     }
 
+    let indexOffset = 1
+    let lastHeaderReferenceHeight = resolveSizeForSupplementaryView(ofKind: .header, at: IndexPath(item: 0, section: numberOfSections)).height
+    let lastFooterReferenceHeight = resolveSizeForSupplementaryView(ofKind: .footer, at: IndexPath(item: numberOfItemsInSection(numberOfSections - indexOffset), section: numberOfSections)).height
+    contentSize.height += lastHeaderReferenceHeight + lastFooterReferenceHeight
     contentSize.width = threshold
+
     self.contentSize = contentSize
     createCache(with: layoutAttributes)
     if stickyHeaders || stickyFooters {

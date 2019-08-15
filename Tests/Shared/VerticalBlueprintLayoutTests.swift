@@ -410,6 +410,8 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     #else
     collectionView.register(DynamicSizeVerticalCell.self, forCellWithReuseIdentifier: "dynamic")
     #endif
+
+    layout.itemSize = .zero
     layout.estimatedItemSize = .init(width: 50, height: 50)
     collectionView.layoutIfNeeded()
     collectionView.reloadData()

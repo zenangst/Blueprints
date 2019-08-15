@@ -12,6 +12,7 @@ public typealias LayoutAttributes = NSCollectionViewLayoutAttributes
 public typealias LayoutAttributesForElements = [NSCollectionViewLayoutAttributes]
 public typealias LayoutInvalidationContext = NSCollectionViewLayoutInvalidationContext
 public typealias FlowLayoutInvalidationContext = NSCollectionViewFlowLayoutInvalidationContext
+public typealias CollectionElementCategory = NSCollectionElementCategory
 #else
 import UIKit
 public typealias CollectionView = UICollectionView
@@ -26,4 +27,16 @@ public typealias LayoutAttributes = UICollectionViewLayoutAttributes
 public typealias LayoutAttributesForElements = [UICollectionViewLayoutAttributes]?
 public typealias LayoutInvalidationContext = UICollectionViewLayoutInvalidationContext
 public typealias FlowLayoutInvalidationContext = UICollectionViewFlowLayoutInvalidationContext
+public typealias CollectionElementCategory = UICollectionView.ElementCategory
 #endif
+
+extension CollectionElementCategory {
+
+  static var cellItem: CollectionElementCategory {
+    #if os(macOS)
+    return .item
+    #else
+    return .cell
+    #endif
+  }
+}

@@ -510,6 +510,110 @@
     }
   }
 
+  open override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
+                                            withOriginalAttributes originalAttributes: LayoutAttributes) -> Bool {
+    guard estimatedItemSize.width > 0 || estimatedItemSize.height > 0 else {
+      return false
+    }
+    #if os(macOS)
+    let indexPath = originalAttributes.indexPath!
+    #else
+    let indexPath = originalAttributes.indexPath
+    #endif
+    let currentAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item]
+    let shouldInvalidateLayout = preferredAttributes.size.height.rounded() != currentAttributes.size.height.rounded() ||
+      preferredAttributes.size.width.rounded() != currentAttributes.size.width.rounded()
+    return shouldInvalidateLayout
+  }
+
+  open override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: LayoutAttributes,
+                                         withOriginalAttributes originalAttributes: LayoutAttributes) -> LayoutInvalidationContext {
+    #if os(macOS)
+    let indexPath = originalAttributes.indexPath!
+    #else
+    let indexPath = originalAttributes.indexPath
+    #endif
+
+    let currentAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item]
+    let context = super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes,
+                                            withOriginalAttributes: currentAttributes)
+    let indexOf = cachedItemAttributes.firstIndex(of: currentAttributes) ?? indexPath.item
+    let filteredAttributes = cachedItemAttributes[indexOf...]
+
+    var contentWidthAdjustment: CGFloat = preferredAttributes.frame.size.width - currentAttributes.frame.size.width
+    if preferredAttributes.frame.size.width == -1 {
+      contentWidthAdjustment = 0
+    }
+
+    var contentHeightAdjustment: CGFloat = preferredAttributes.frame.size.height - currentAttributes.frame.size.height
+    if preferredAttributes.frame.size.height == -1 {
+      contentHeightAdjustment = 0
+    }
+
+    for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
+      attributes.frame.origin.x += contentWidthAdjustment
+    }
+
+    for attributes in filteredAttributes.filter({ $0.frame.origin.x == currentAttributes.frame.origin.x && $0 != currentAttributes }) {
+      attributes.frame.origin.y += contentHeightAdjustment
+    }
+
+    // The size of the preferred attributes are constrainted to be larger than -1,
+    // if they are set to negative value the estimated item size will be used.
+    currentAttributes.frame.size.width = preferredAttributes.frame.size.width > -1
+      ? preferredAttributes.frame.size.width
+      : estimatedItemSize.width
+    currentAttributes.frame.size.height = preferredAttributes.frame.size.height > -1
+      ? preferredAttributes.frame.size.height
+      : estimatedItemSize.height
+
+    var newContentSize: CGSize = contentSize
+    var previousSectionSize: CGSize?
+    for (offset, section) in cachedItemAttributesBySection.enumerated() {
+      if let largestY = section.sorted(by: { $0.frame.maxY > $1.frame.maxY }).first?.frame.maxY,
+        let largestX = section.sorted(by: { $0.frame.maxX > $1.frame.maxX }).first?.frame.maxX,
+        let headerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewHeaderType }).first,
+        let footerAttribute = cachedSupplementaryAttributesBySection[offset].filter({ $0.representedElementKind == CollectionView.collectionViewFooterType }).first {
+
+        switch scrollDirection {
+        case .horizontal:
+          newContentSize.width = largestX
+          newContentSize.height = largestX
+          headerAttribute.max = newContentSize.width
+          footerAttribute.max = newContentSize.width
+
+          if let previousSectionSize = previousSectionSize {
+            headerAttribute.frame.origin.x = previousSectionSize.width
+            headerAttribute.min = headerAttribute.frame.origin.x
+            footerAttribute.min = headerAttribute.frame.origin.x
+          }
+        case .vertical:
+          newContentSize.height = largestY
+          headerAttribute.max = newContentSize.height
+          footerAttribute.max = newContentSize.height - footerReferenceSize.height
+
+          if let previousSectionSize = previousSectionSize {
+            headerAttribute.frame.origin.y = previousSectionSize.height + headerReferenceSize.height + sectionInset.bottom
+            headerAttribute.min = headerAttribute.frame.origin.y
+            footerAttribute.min = headerAttribute.frame.origin.y
+          }
+        @unknown default:
+          fatalError("Case not implemented in current implementation")
+        }
+
+        previousSectionSize = newContentSize
+        positionHeadersAndFooters()
+      }
+    }
+
+    if scrollDirection == .vertical {
+      contentSize.height = newContentSize.height + headerReferenceSize.height + sectionInset.bottom
+      context.contentSizeAdjustment = newContentSize
+    }
+
+    return context
+  }
+
   /// Returns the starting layout information for an item being inserted into the collection view.
   ///
   /// - Parameter itemIndexPath: The index path of the item being inserted.

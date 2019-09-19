@@ -10,7 +10,6 @@ public class BinarySearch {
     upperBound += 1
     var lowerBound = 0
 
-
     while lowerBound < upperBound {
       let midIndex = lowerBound + (upperBound - lowerBound) / 2
       let element = collection[midIndex]

@@ -147,13 +147,15 @@
 
       return size
     } else {
-      let size = resolveCollectionView({ collectionView -> CGSize? in
-        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
-                                                                                               layout: self,
-                                                                                               sizeForItemAt: indexPath)
-      }, defaultValue: itemSize)
-
-      return size
+      if let delegate = collectionView?.delegate as? CollectionViewFlowLayoutDelegate {
+        return resolveCollectionView({ collectionView -> CGSize? in
+          return delegate.collectionView?(collectionView,
+                                          layout: self,
+                                          sizeForItemAt: indexPath)
+        }, defaultValue: itemSize)
+      } else {
+        return itemSize
+      }
     }
   }
 

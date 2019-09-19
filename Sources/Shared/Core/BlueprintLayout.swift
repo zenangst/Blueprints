@@ -125,7 +125,7 @@
   /// - Parameter indexPath: The index path of the item.
   /// - Returns: The desired size of the item at the index path.
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
-    if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
+    if let itemsPerRow = itemsPerRow, itemsPerRow > 0, let collectionView = collectionView {
       var containerWidth = collectionView.frame.size.width
 
       #if os(macOS)
@@ -147,13 +147,15 @@
 
       return size
     } else {
-      let size = resolveCollectionView({ collectionView -> CGSize? in
-        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
-                                                                                               layout: self,
-                                                                                               sizeForItemAt: indexPath)
-      }, defaultValue: itemSize)
-
-      return size
+      if let delegate = collectionView?.delegate as? CollectionViewFlowLayoutDelegate {
+        return resolveCollectionView({ collectionView -> CGSize? in
+          return delegate.collectionView?(collectionView,
+                                          layout: self,
+                                          sizeForItemAt: indexPath)
+        }, defaultValue: itemSize)
+      } else {
+        return itemSize
+      }
     }
   }
 

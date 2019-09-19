@@ -299,42 +299,18 @@
       macOSWorkaroundCreateCache()
     #endif
 
+    allCachedAttributes = []
+    cachedSupplementaryAttributes = []
+    cachedItemAttributes = []
     for value in attributes {
-      #if os(macOS)
-        let sorted = value.sorted(by: { $0.indexPath! < $1.indexPath! })
-        let items = sorted.filter({ $0.representedElementCategory == .cellItem })
-        let supplementaryLayoutAttributes = sorted
-          .filter({ $0.representedElementCategory == .supplementaryView })
-          .compactMap({ $0 as? SupplementaryLayoutAttributes })
-        self.cachedSupplementaryAttributesBySection.append(supplementaryLayoutAttributes)
-        self.cachedItemAttributesBySection.append(items)
-      #else
-        let sorted = value.sorted(by: { $0.indexPath < $1.indexPath })
-        let items = sorted.filter({ $0.representedElementCategory == .cellItem })
-        let supplementaryLayoutAttributes = sorted
-          .filter({ $0.representedElementCategory == .supplementaryView })
-          .compactMap({ $0 as? SupplementaryLayoutAttributes })
-        self.cachedSupplementaryAttributesBySection.append(supplementaryLayoutAttributes)
-        self.cachedItemAttributesBySection.append(items)
-      #endif
+      let items = value.filter({ $0.representedElementCategory == .cellItem })
+      let supplementaryLayoutAttributes = value.compactMap({ $0 as? SupplementaryLayoutAttributes })
+      cachedSupplementaryAttributesBySection.append(supplementaryLayoutAttributes)
+      cachedItemAttributesBySection.append(items)
+      cachedSupplementaryAttributes.append(contentsOf: supplementaryLayoutAttributes)
+      cachedItemAttributes.append(contentsOf: items)
+      allCachedAttributes.append(contentsOf: value)
     }
-
-    allCachedAttributes = Array(attributes.joined())
-
-    switch scrollDirection {
-    case .horizontal:
-      allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minX < $1.frame.minX })
-    case .vertical:
-      allCachedAttributes = allCachedAttributes.sorted(by: { $0.frame.minY < $1.frame.minY })
-    @unknown default:
-      fatalError("Case not implemented in current implementation")
-    }
-
-    cachedSupplementaryAttributes = Array(cachedSupplementaryAttributesBySection.joined())
-
-    self.cachedItemAttributes = allCachedAttributes.filter({
-      return $0.representedElementCategory == .cellItem
-    })
   }
 
   /// Returns the layout attributes for the item at the specified index path.

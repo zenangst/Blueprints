@@ -125,7 +125,7 @@
   /// - Parameter indexPath: The index path of the item.
   /// - Returns: The desired size of the item at the index path.
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
-    if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
+    if let itemsPerRow = itemsPerRow, itemsPerRow > 0, let collectionView = collectionView {
       var containerWidth = collectionView.frame.size.width
 
       #if os(macOS)

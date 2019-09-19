@@ -25,6 +25,8 @@
   public var cachedItemAttributes = [LayoutAttributes]()
   public var cachedItemAttributesBySection = [[LayoutAttributes]]()
   public var allCachedAttributes = [LayoutAttributes]()
+
+  var hasDelegate: Bool = false
   var binarySearch = BinarySearch()
   var prepareAllowed = true
   var previousContentOffset: CGFloat = 0
@@ -36,7 +38,9 @@
                                                            defaultValue: 1) }
   /// A layout animator object, defaults to `DefaultLayoutAnimator`.
   var animator: BlueprintLayoutAnimator
-  var supplementaryWidth: CGFloat?
+  var supplementaryWidth: CGFloat = 0
+  var collectionViewWidth: CGFloat = 0
+  var calculatedItemWidth: CGFloat = 0
 
   /// An initialized collection view layout object.
   ///
@@ -125,29 +129,20 @@
   /// - Parameter indexPath: The index path of the item.
   /// - Returns: The desired size of the item at the index path.
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
-    if let collectionView = collectionView, let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
-      var containerWidth = collectionView.frame.size.width
-
-      #if os(macOS)
-      if scrollDirection == .horizontal {
-        containerWidth = (collectionView.enclosingScrollView?.frame.size.width) ?? (collectionView.frame.size.width)
+    if let itemsPerRow = itemsPerRow, itemsPerRow > 0 {
+      let height: CGFloat
+      if hasDelegate {
+        height = resolveCollectionView({ collectionView -> CGSize? in
+          return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                                 layout: self,
+                                                                                                 sizeForItemAt: indexPath)
+        }, defaultValue: itemSize).height
+      } else {
+        height = itemSize.height
       }
-      #endif
-
-      let height = resolveCollectionView({ collectionView -> CGSize? in
-        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
-                                                                                               layout: self,
-                                                                                               sizeForItemAt: indexPath)
-      }, defaultValue: itemSize).height
-
-      let size = CGSize(
-        width: calculateItemWidth(itemsPerRow, containerWidth: containerWidth),
-        height: height
-      )
-
-      return size
+      return CGSize(width: calculatedItemWidth, height: height)
     } else {
-      if let delegate = collectionView?.delegate as? CollectionViewFlowLayoutDelegate {
+      if hasDelegate, let delegate = collectionView?.delegate as? CollectionViewFlowLayoutDelegate {
         return resolveCollectionView({ collectionView -> CGSize? in
           return delegate.collectionView?(collectionView,
                                           layout: self,
@@ -169,17 +164,20 @@
   func resolveSizeForSupplementaryView(ofKind kind: BlueprintSupplementaryKind, at indexPath: IndexPath) -> CGSize {
     switch kind {
     case .header:
-      let height = resolveCollectionView({ collectionView -> CGSize? in
-        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
-                                                                                               layout: self,
-                                                                                               referenceSizeForHeaderInSection: indexPath.section)
-      }, defaultValue: headerReferenceSize).height
+      var height: CGFloat = headerReferenceSize.height
+      if hasDelegate {
+        height = resolveCollectionView({ collectionView -> CGSize? in
+          return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                                 layout: self,
+                                                                                                 referenceSizeForHeaderInSection: indexPath.section)
+        }, defaultValue: headerReferenceSize).height
+      }
 
       let width: CGFloat
       if headerReferenceSize.width > 0 {
         width = headerReferenceSize.width
       } else {
-        width = collectionView?.documentRect.width ?? headerReferenceSize.width
+        width = supplementaryWidth
       }
 
       let size = CGSize(
@@ -189,17 +187,20 @@
 
       return size
     case .footer:
-      let height = resolveCollectionView({ collectionView -> CGSize? in
-        return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
-                                                                                               layout: self,
-                                                                                               referenceSizeForFooterInSection: indexPath.section)
-      }, defaultValue: footerReferenceSize).height
+      var height: CGFloat = footerReferenceSize.height
+      if hasDelegate {
+        height = resolveCollectionView({ collectionView -> CGSize? in
+          return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
+                                                                                                 layout: self,
+                                                                                                 referenceSizeForFooterInSection: indexPath.section)
+        }, defaultValue: footerReferenceSize).height
+      }
 
       let width: CGFloat
       if footerReferenceSize.width > 0 {
         width = footerReferenceSize.width
       } else {
-        width = collectionView?.documentRect.width ?? footerReferenceSize.width
+        width = supplementaryWidth
       }
 
       let size = CGSize(
@@ -219,12 +220,12 @@
   /// - Parameter section: The section of the collection view.
   /// - Returns: The desired lineSpacing of the section.
   func resolveMinimumLineSpacing(forSectionAt section: Int) -> CGFloat {
-    let computedMinimumLineSpacing = resolveCollectionView({ collectionView -> CGFloat? in
+    guard hasDelegate else { return minimumLineSpacing }
+    return resolveCollectionView({ collectionView -> CGFloat? in
       return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
                                                                                              layout: self,
                                                                                              minimumLineSpacingForSectionAt: section)
     }, defaultValue: minimumLineSpacing)
-    return computedMinimumLineSpacing
   }
 
   /// Resolve the minimumInteritemSpacingForSectionAt.
@@ -235,12 +236,12 @@
   /// - Parameter section: The section of the collection view.
   /// - Returns: The desired minimumInteritemSpacing of the section.
   func resolveMinimumInteritemSpacing(forSectionAt section: Int) -> CGFloat {
-    let computedMinimumInteritemSpacing = resolveCollectionView({ collectionView -> CGFloat? in
+    guard hasDelegate else { return minimumInteritemSpacing }
+    return resolveCollectionView({ collectionView -> CGFloat? in
       return (collectionView.delegate as? CollectionViewFlowLayoutDelegate)?.collectionView?(collectionView,
                                                                                              layout: self,
                                                                                              minimumInteritemSpacingForSectionAt: section)
     }, defaultValue: minimumInteritemSpacing)
-    return computedMinimumInteritemSpacing
   }
 
   /// Resolve collection collection view from layout and return
@@ -276,6 +277,7 @@
 
   /// Tells the layout object to update the current layout.
   open override func prepare() {
+    self.hasDelegate = collectionView?.delegate as? CollectionViewFlowLayoutDelegate != nil
     self.animator.collectionViewFlowLayout = self
     self.contentSize = .zero
     self.cachedItemAttributesBySection = []
@@ -288,8 +290,11 @@
         configureSupplementaryWidth(clipView)
       }
     #else
-      supplementaryWidth = collectionView?.frame.size.width
+      supplementaryWidth = collectionView?.frame.size.width ?? 0
     #endif
+
+    collectionViewWidth = collectionView?.documentRect.width ?? 0
+    calculatedItemWidth = calculateItemWidth(itemsPerRow ?? 1, containerWidth: collectionViewWidth)
   }
 
   /// Create caches from the layout attributes produced by the layout algoritm.
@@ -300,10 +305,6 @@
     #if os(macOS)
       macOSWorkaroundCreateCache()
     #endif
-
-    allCachedAttributes = []
-    cachedSupplementaryAttributes = []
-    cachedItemAttributes = []
     for value in attributes {
       let items = value.filter({ $0.representedElementCategory == .cellItem })
       let supplementaryLayoutAttributes = value.compactMap({ $0 as? SupplementaryLayoutAttributes })

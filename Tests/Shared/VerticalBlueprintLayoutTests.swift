@@ -401,4 +401,18 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     verticalLayout.footerReferenceSize = CGSize(width: 100, height: 100)
     verticalLayout.prepare()
   }
+
+  /// Process 1 million items in less than five seconds
+  func testPerformance() {
+    let dataSource = MockDataSource(numberOfItems: 10000, numberOfSections: 100)
+    let (collectionView, layout) = Helper.createVerticalLayout(dataSource: dataSource)
+
+    let startTime = CFAbsoluteTimeGetCurrent()
+    layout.prepare()
+    let diffTime = CFAbsoluteTimeGetCurrent() - startTime
+
+    XCTAssertTrue(diffTime < 5)
+
+    Swift.print("⏱ \(diffTime)")
+  }
 }

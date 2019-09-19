@@ -230,4 +230,18 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.collectionViewContentSize, CGSize(width: 690, height: 270))
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
+
+  /// Process 1 million items in less than five seconds
+  func testPerformance() {
+    let dataSource = MockDataSource(numberOfItems: 10000, numberOfSections: 100)
+    let (collectionView, layout) = Helper.createHorizontalLayout(dataSource: dataSource)
+
+    let startTime = CFAbsoluteTimeGetCurrent()
+    layout.prepare()
+    let diffTime = CFAbsoluteTimeGetCurrent() - startTime
+
+    XCTAssertTrue(diffTime < 5)
+
+    Swift.print("⏱ \(diffTime)")
+  }
 }

@@ -134,6 +134,10 @@
     var widthOfSection: CGFloat = 0
 
     for section in 0..<sections {
+      let numberOfItems = numberOfItemsInSection(section)
+      guard numberOfItems > 0 else {
+        continue
+      }
       widthOfSection = 0
       var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
@@ -142,7 +146,6 @@
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
       let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
-      let numberOfItems = numberOfItemsInSection(section)
       let headerSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
 
       if headerSize.height > 0 {

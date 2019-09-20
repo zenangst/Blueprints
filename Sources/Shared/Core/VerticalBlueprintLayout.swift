@@ -111,38 +111,32 @@ import UIKit
 
     super.prepare()
 
-    var layoutAttributes = [[LayoutAttributes]]()
-    var threshold: CGFloat = 0.0
-
-    if let collectionViewWidth = collectionView?.documentRect.width {
-      threshold = collectionViewWidth
-    }
-
+    let sections = numberOfSections
+    var layoutAttributes = Array<[LayoutAttributes]>.init(repeating: [LayoutAttributes](),
+                                                          count: sections)
+    var threshold: CGFloat = collectionViewWidth
     var nextY: CGFloat = 0
 
-    for section in 0..<numberOfSections {
-      guard numberOfItemsInSection(section) > 0 else {
-        layoutAttributes.append([])
-        continue
-      }
-
+    for section in 0..<sections {
       var previousAttribute: LayoutAttributes? = nil
       var headerAttribute: SupplementaryLayoutAttributes? = nil
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
       let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
+      let numberOfItems = numberOfItemsInSection(section)
+      let headerSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
 
-      if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
+      if headerSize.height > 0 {
         let layoutAttribute = SupplementaryLayoutAttributes(
           forSupplementaryViewOfKind: BlueprintSupplementaryKind.header.collectionViewSupplementaryType,
           with: sectionIndexPath
         )
-        layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
-        layoutAttribute.zIndex = section + numberOfItemsInSection(section)
+        layoutAttribute.size = headerSize
+        layoutAttribute.zIndex = section + numberOfItems
         layoutAttribute.min = nextY
         layoutAttribute.frame.origin.x = 0
         layoutAttribute.frame.origin.y = nextY
-        layoutAttributes.append([layoutAttribute])
+        layoutAttributes[section].append(layoutAttribute)
         headerAttribute = layoutAttribute
         nextY = layoutAttribute.frame.maxY
       }
@@ -151,9 +145,9 @@ import UIKit
       var sectionMaxY: CGFloat = 0
       let perRow = Int(itemsPerRow ?? 1)
 
-      for item in 0..<numberOfItemsInSection(section) {
+      for item in 0..<numberOfItems {
         let indexPath = IndexPath(item: item, section: section)
-        let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
+        let layoutAttribute = LayoutAttributes(forCellWith: indexPath)
 
         defer { previousAttribute = layoutAttribute }
 
@@ -196,15 +190,11 @@ import UIKit
           layoutAttribute.frame.origin.y = nextY
           sectionMaxY = layoutAttribute.frame.maxY
         }
-        if section == layoutAttributes.count {
-          layoutAttributes.append([layoutAttribute])
-        } else {
-          layoutAttributes[section].append(layoutAttribute)
-        }
+
+        layoutAttributes[section].append(layoutAttribute)
       }
 
-      let sectionsHeaderReferenceSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
-      headerAttribute?.max = sectionMaxY + sectionInset.bottom - sectionsHeaderReferenceSize.height
+      headerAttribute?.max = sectionMaxY + sectionInset.bottom - headerSize.height
 
       if let previousItem = previousAttribute {
         let sectionsFooterReferenceSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
@@ -216,7 +206,7 @@ import UIKit
             with: sectionIndexPath
           )
           layoutAttribute.size = sectionsFooterReferenceSize
-          layoutAttribute.zIndex = section + numberOfItemsInSection(section)
+          layoutAttribute.zIndex = section + numberOfItems
           layoutAttribute.min = headerAttribute?.frame.maxY ?? previousY
           layoutAttribute.max = sectionMaxY + sectionInset.bottom
           layoutAttribute.frame.origin.x = 0
@@ -226,7 +216,7 @@ import UIKit
         } else {
           nextY = sectionMaxY + sectionInset.bottom
         }
-        contentSize.height = sectionMaxY - sectionsHeaderReferenceSize.height + sectionInset.bottom
+        contentSize.height = sectionMaxY - headerSize.height + sectionInset.bottom
         headerAttribute?.max = contentSize.height
       }
       previousAttribute = nil

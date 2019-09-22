@@ -288,13 +288,14 @@
     #if os(macOS)
       if let clipView = collectionView?.enclosingScrollView {
         configureSupplementaryWidth(clipView)
+        collectionViewWidth = clipView.frame.size.width
+        calculatedItemWidth = calculateItemWidth(itemsPerRow ?? 1, containerWidth: collectionViewWidth)
       }
     #else
       supplementaryWidth = collectionView?.frame.size.width ?? 0
+      collectionViewWidth = collectionView?.documentRect.width ?? 0
+      calculatedItemWidth = calculateItemWidth(itemsPerRow ?? 1, containerWidth: collectionViewWidth)
     #endif
-
-    collectionViewWidth = collectionView?.documentRect.width ?? 0
-    calculatedItemWidth = calculateItemWidth(itemsPerRow ?? 1, containerWidth: collectionViewWidth)
   }
 
   /// Create caches from the layout attributes produced by the layout algoritm.

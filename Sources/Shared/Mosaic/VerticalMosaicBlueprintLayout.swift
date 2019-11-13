@@ -172,7 +172,12 @@
 
     let indexOffset = 1
     let lastHeaderReferenceHeight = resolveSizeForSupplementaryView(ofKind: .header, at: IndexPath(item: 0, section: numberOfSections - indexOffset)).height
-    let lastFooterReferenceHeight = resolveSizeForSupplementaryView(ofKind: .footer, at: IndexPath(item: numberOfItemsInSection(numberOfSections - indexOffset), section: numberOfSections - indexOffset)).height
+    let lastFooterReferenceHeight: CGFloat
+    if numberOfSections < 0 {
+      lastFooterReferenceHeight = resolveSizeForSupplementaryView(ofKind: .footer, at: IndexPath(item: numberOfItemsInSection(numberOfSections - indexOffset), section: numberOfSections - indexOffset)).height
+    } else {
+      lastFooterReferenceHeight = footerReferenceSize.height
+    }
     contentSize.height += lastHeaderReferenceHeight + lastFooterReferenceHeight
     contentSize.width = threshold
 

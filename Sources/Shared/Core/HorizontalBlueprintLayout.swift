@@ -126,18 +126,19 @@
 
     super.prepare()
 
-    var layoutAttributes = [[LayoutAttributes]]()
+    let sections = numberOfSections
+    var layoutAttributes = Array<[LayoutAttributes]>.init(repeating: [LayoutAttributes](),
+                                                          count: sections)
     var contentSize: CGSize = .zero
     var nextX: CGFloat = 0
     var widthOfSection: CGFloat = 0
 
-    for section in 0..<numberOfSections {
-      widthOfSection = 0
-      guard numberOfItemsInSection(section) > 0 else {
-        layoutAttributes.append([])
+    for section in 0..<sections {
+      let numberOfItems = numberOfItemsInSection(section)
+      guard numberOfItems > 0 else {
         continue
       }
-
+      widthOfSection = 0
       var firstItem: LayoutAttributes? = nil
       var previousItem: LayoutAttributes? = nil
       var headerAttribute: SupplementaryLayoutAttributes? = nil
@@ -145,31 +146,32 @@
       let sectionIndexPath = IndexPath(item: 0, section: section)
       let sectionsMinimumInteritemSpacing = resolveMinimumInteritemSpacing(forSectionAt: section)
       let sectionsMinimumLineSpacing = resolveMinimumLineSpacing(forSectionAt: section)
+      let headerSize = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
 
-      if resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height > 0 {
+      if headerSize.height > 0 {
         let layoutAttribute = SupplementaryLayoutAttributes(
           forSupplementaryViewOfKind: BlueprintSupplementaryKind.header.collectionViewSupplementaryType,
           with: sectionIndexPath
         )
-        layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath)
-        layoutAttribute.zIndex = section + numberOfItemsInSection(section)
+        layoutAttribute.size = headerSize
+        layoutAttribute.zIndex = section + numberOfItems
         layoutAttribute.min = nextX
         layoutAttribute.frame.origin.x = nextX
         layoutAttribute.frame.origin.y = 0
-        layoutAttributes.append([layoutAttribute])
+        layoutAttributes[section].append(layoutAttribute)
         headerAttribute = layoutAttribute
       }
 
       var sectionMaxY: CGFloat = 0
 
-      for item in 0..<numberOfItemsInSection(section) {
+      for item in 0..<numberOfItems {
         let indexPath = IndexPath(item: item, section: section)
-        let layoutAttribute = LayoutAttributes.init(forCellWith: indexPath)
+        let layoutAttribute = LayoutAttributes(forCellWith: indexPath)
 
         defer { previousItem = layoutAttribute }
 
         layoutAttribute.size = resolveSizeForItem(at: indexPath)
-        layoutAttribute.frame.origin.y = sectionInset.top + resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height
+        layoutAttribute.frame.origin.y = sectionInset.top + headerSize.height
 
         if item > 0, let previousItem = previousItem {
           layoutAttribute.frame.origin.x = previousItem.frame.maxX + sectionsMinimumInteritemSpacing
@@ -187,24 +189,20 @@
         }
 
         sectionMaxY = max(sectionMaxY, layoutAttribute.frame.maxY)
-
-        if section == layoutAttributes.count {
-          layoutAttributes.append([layoutAttribute])
-        } else {
-          layoutAttributes[section].append(layoutAttribute)
-        }
+        layoutAttributes[section].append(layoutAttribute)
       }
 
       if let previousItem = previousItem, let firstItem = firstItem {
         contentSize.width = previousItem.frame.maxX + sectionInset.right
 
-        if resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath).height > 0 {
+        let footerSize = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
+        if footerSize.height > 0 {
           let layoutAttribute = SupplementaryLayoutAttributes(
             forSupplementaryViewOfKind: BlueprintSupplementaryKind.footer.collectionViewSupplementaryType,
             with: sectionIndexPath
           )
-          layoutAttribute.size = resolveSizeForSupplementaryView(ofKind: .footer, at: sectionIndexPath)
-          layoutAttribute.zIndex = section + numberOfItemsInSection(section)
+          layoutAttribute.size = footerSize
+          layoutAttribute.zIndex = section + numberOfItems
           layoutAttribute.min = nextX
           layoutAttribute.frame.origin.x = 0
           layoutAttribute.frame.origin.y = sectionMaxY + sectionInset.bottom
@@ -212,7 +210,7 @@
           footerAttribute = layoutAttribute
         }
 
-        if let collectionView = collectionView, let supplementaryWidth = supplementaryWidth {
+        if let collectionView = collectionView {
           let supplementaryX = max(
             min(collectionView.contentOffset.x, previousItem.frame.maxX - supplementaryWidth + sectionInset.left),
             firstItem.frame.origin.x - sectionInset.left
@@ -233,7 +231,7 @@
           }
         }
 
-        contentSize.height = sectionMaxY - resolveSizeForSupplementaryView(ofKind: .header, at: sectionIndexPath).height + sectionInset.bottom
+        contentSize.height = sectionMaxY - headerSize.height + sectionInset.bottom
         nextX += widthOfSection
       }
 

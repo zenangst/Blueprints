@@ -4,21 +4,20 @@ import Cocoa
 import UIKit
 #endif
 
-class BlueprintInvalidationContext: FlowLayoutInvalidationContext {
-  var shouldInvalidateEverything = true
-
-  var headerIndexPaths = [IndexPath]()
-  var footerIndexPaths = [IndexPath]()
+open class BlueprintInvalidationContext: FlowLayoutInvalidationContext {
+  open var shouldInvalidateEverything = true
+  open var headerIndexPaths = [IndexPath]()
+  open var footerIndexPaths = [IndexPath]()
 
   #if os(macOS)
-  override var invalidatedSupplementaryIndexPaths: [CollectionViewElementKind : Set<IndexPath>]? {
+  override open var invalidatedSupplementaryIndexPaths: [CollectionViewElementKind : Set<IndexPath>]? {
     return !headerIndexPaths.isEmpty ? [
       CollectionView.collectionViewHeaderType: Set(headerIndexPaths),
       CollectionView.collectionViewFooterType: Set(footerIndexPaths)
       ] : nil
   }
   #else
-  override var invalidatedSupplementaryIndexPaths: [String : [IndexPath]]? {
+  override open var invalidatedSupplementaryIndexPaths: [String : [IndexPath]]? {
     return !headerIndexPaths.isEmpty ? [
       CollectionView.collectionViewHeaderType: headerIndexPaths,
       CollectionView.collectionViewFooterType: footerIndexPaths
@@ -26,7 +25,7 @@ class BlueprintInvalidationContext: FlowLayoutInvalidationContext {
   }
   #endif
 
-  override var invalidateEverything: Bool {
+  override open var invalidateEverything: Bool {
     return shouldInvalidateEverything
   }
 }

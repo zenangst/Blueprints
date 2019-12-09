@@ -5,9 +5,10 @@ import UIKit
 #endif
 
 open class BlueprintInvalidationContext: FlowLayoutInvalidationContext {
-  open var shouldInvalidateEverything = true
-  open var headerIndexPaths = [IndexPath]()
-  open var footerIndexPaths = [IndexPath]()
+  open var shouldInvalidateEverything: Bool = true
+  open var headerIndexPaths: [IndexPath] = [IndexPath]()
+  open var footerIndexPaths: [IndexPath] = [IndexPath]()
+  open var invalidatePreferredLayoutAttributes: Bool = false
 
   #if os(macOS)
   override open var invalidatedSupplementaryIndexPaths: [CollectionViewElementKind : Set<IndexPath>]? {

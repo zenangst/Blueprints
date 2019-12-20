@@ -517,8 +517,11 @@
                                                              count: numberOfSections)
     }
 
-    if preferredAttributes.size == preferredLayoutAttributesSizes[indexPath.section][indexPath] {
-      return false
+    if indexPath.section < preferredLayoutAttributesSizes.count - 1,
+      indexPath.item < preferredLayoutAttributesSizes[indexPath.section].count - 1 {
+      if preferredAttributes.size == preferredLayoutAttributesSizes[indexPath.section][indexPath] {
+        return false
+      }
     }
 
     return shouldInvalidateLayout

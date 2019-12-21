@@ -509,8 +509,7 @@
     let indexPath = originalAttributes.indexPath
     #endif
     let currentAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item]
-    let shouldInvalidateLayout = preferredAttributes.size.height.rounded() != currentAttributes.size.height.rounded() ||
-      preferredAttributes.size.width.rounded() != currentAttributes.size.width.rounded()
+    let shouldInvalidateLayout = !(sizesAreEqual(preferredAttributes.size, rhs: currentAttributes.size))
 
     if shouldInvalidateLayout && preferredLayoutAttributesSizes.isEmpty {
       preferredLayoutAttributesSizes = Array<[IndexPath: CGSize]>.init(repeating: [IndexPath: CGSize](),
@@ -519,7 +518,7 @@
 
     if indexPath.section < preferredLayoutAttributesSizes.count - 1,
       indexPath.item < preferredLayoutAttributesSizes[indexPath.section].count - 1 {
-      if preferredAttributes.size == preferredLayoutAttributesSizes[indexPath.section][indexPath] {
+      if sizesAreEqual(preferredAttributes.size, rhs: preferredLayoutAttributesSizes[indexPath.section][indexPath]) {
         return false
       }
     }
@@ -660,5 +659,14 @@
   override open func prepare(forCollectionViewUpdates updateItems: [CollectionViewUpdateItem]) {
     super.prepare(forCollectionViewUpdates: updateItems)
     return animator.prepare(forCollectionViewUpdates: updateItems)
+  }
+
+  /// Check if two sizes are equal, it rounds the value before checking `width` and `height`.
+  /// - Parameters:
+  ///   - lhs: Left-hand size
+  ///   - rhs: Right-hand size
+  private func sizesAreEqual(_ lhs: CGSize, rhs: CGSize?) -> Bool {
+    return lhs.width.rounded() == rhs?.width.rounded()
+      && lhs.height.rounded() == rhs?.height.rounded()
   }
 }

@@ -130,12 +130,13 @@
   /// - Parameter indexPath: The index path of the item.
   /// - Returns: The desired size of the item at the index path.
   func resolveSizeForItem(at indexPath: IndexPath) -> CGSize {
-    let defaultValue: CGSize
+    var defaultValue: CGSize = itemSize
 
     if !preferredLayoutAttributesSizes.isEmpty {
       defaultValue = preferredLayoutAttributesSizes[indexPath.section][indexPath] ?? itemSize
     } else {
-      defaultValue = itemSize
+      defaultValue.width = max(itemSize.width, estimatedItemSize.width)
+      defaultValue.height = max(itemSize.height, estimatedItemSize.height)
     }
 
     if let itemsPerRow = itemsPerRow, itemsPerRow > 0 {

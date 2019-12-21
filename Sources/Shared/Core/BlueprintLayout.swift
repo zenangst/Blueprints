@@ -401,7 +401,7 @@
         super.invalidateLayout(with: context)
       }
     } else {
-      super.invalidateLayout(with: context)
+      super.invalidateLayout(with: NSCollectionViewFlowLayoutInvalidationContext())
     }
   }
 

@@ -553,7 +553,6 @@
       contentHeightAdjustment = 0
     }
 
-    var indexPaths = Set<IndexPath>()
     for attributes in filteredAttributes.filter({ $0.frame.origin.y == currentAttributes.frame.origin.y && $0 != currentAttributes }) {
       attributes.frame.origin.x += contentWidthAdjustment
     }

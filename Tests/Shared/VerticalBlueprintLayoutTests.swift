@@ -411,24 +411,33 @@ class VerticalBlueprintLayoutTests: XCTestCase {
     collectionView.register(DynamicSizeVerticalCell.self, forCellWithReuseIdentifier: "dynamic")
     #endif
 
-    layout.itemSize = .zero
+
     layout.estimatedItemSize = .init(width: 50, height: 50)
+    layout.sectionInset = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    layout.minimumInteritemSpacing = 0
+    layout.minimumLineSpacing = 0
+
     collectionView.layoutIfNeeded()
     collectionView.reloadData()
     layout.invalidateLayout()
 
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))!.frame,
-                   CGRect(origin: CGPoint(x: 10, y: 10), size: CGSize(width: 50, height: 100)))
+                   CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 100, height: 100)))
+
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))!.frame,
-                   CGRect(origin: CGPoint(x: 70, y: 10), size: CGSize(width: 50, height: 100)))
+                   CGRect(origin: CGPoint(x: 100, y: 0), size: CGSize(width: 100, height: 100)))
+
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))!.frame,
-                   CGRect(origin: CGPoint(x: 130, y: 10), size: CGSize(width: 50, height: 100)))
+                   CGRect(origin: CGPoint(x: 0, y: 100), size: CGSize(width: 100, height: 100)))
+
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))!.frame,
-                   CGRect(origin: CGPoint(x: 10, y: 120), size: CGSize(width: 50, height: 100)))
+                   CGRect(origin: CGPoint(x: 100, y: 100), size: CGSize(width: 100, height: 100)))
+
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))!.frame,
-                   CGRect(origin: CGPoint(x: 70, y: 120), size: CGSize(width: 50, height: 100)))
+                   CGRect(origin: CGPoint(x: 0, y: 200), size: CGSize(width: 100, height: 100)))
+
     XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))!.frame,
-                   CGRect(origin: CGPoint(x: 130, y: 120), size: CGSize(width: 50, height: 100)))
+                   CGRect(origin: CGPoint(x: 100, y: 200), size: CGSize(width: 100, height: 100)))
   }
 
   /// Process 1 million items in less than five seconds

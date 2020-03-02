@@ -35,7 +35,7 @@
   public var contentSize: CGSize = .zero
   /// The number of sections in the collection view.
   var numberOfSections: Int { return resolveCollectionView({ $0.dataSource?.numberOfSections?(in: $0) },
-                                                           defaultValue: 1) }
+                                                           defaultValue: 0) }
   /// A layout animator object, defaults to `DefaultLayoutAnimator`.
   var animator: BlueprintLayoutAnimator
   var supplementaryWidth: CGFloat = 0

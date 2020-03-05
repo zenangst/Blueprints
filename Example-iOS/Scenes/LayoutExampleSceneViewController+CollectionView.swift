@@ -37,10 +37,11 @@ extension LayoutExampleSceneViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return section % 2 == 1 ?
+      return layoutExampleHeaderCalculatedSize(forItemAt: section)
+        /*return section % 2 == 1 ?
             CGSize(width: collectionView.frame.width, height: 122)
             :
-            CGSize(width: collectionView.frame.width, height: 61)
+            CGSize(width: collectionView.frame.width, height: 61)*/
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -137,4 +138,41 @@ private extension LayoutExampleSceneViewController {
         }
         return floor(cellWidth / itemsPerRow)
     }
+}
+
+// MARK: - Testing dynamic header size dequeue
+private extension LayoutExampleSceneViewController {
+
+
+  func layoutExampleHeaderCalculatedSize(forItemAt section: Int) -> CGSize {
+    let indexPath = IndexPath(item: 0, section: section)
+    let titleCellIdentifier = Constants
+      .CollectionViewCellIdentifiers
+      .titleReusableView
+      .rawValue
+    guard let titleCollectionReusableView = layoutExampleCollectionView.dequeueReusableSupplementaryView(
+      ofKind: UICollectionView.elementKindSectionHeader,
+      withReuseIdentifier: titleCellIdentifier,
+      for: indexPath) as? TitleCollectionReusableView else {
+        fatalError("Failed to dequeue UICollectionReusableView for indexPath: \(indexPath)")
+    }
+    let title = "\((exampleDataSource?[indexPath.section].title) ?? ("Section")) Header"
+    titleCollectionReusableView.configure(withTitle: title)
+    let estimatedWidth = 20
+    let estimatedHeight = 20
+    titleCollectionReusableView.bounds = CGRect(
+      x: 0,
+      y: 0,
+      width: estimatedWidth,
+      height: estimatedHeight
+    )
+    titleCollectionReusableView.setNeedsLayout()
+    titleCollectionReusableView.layoutIfNeeded()
+    let targetSize = CGSize(width: estimatedWidth, height: 0)
+    let cellSize = titleCollectionReusableView.systemLayoutSizeFitting(
+      targetSize, withHorizontalFittingPriority: .required,
+      verticalFittingPriority: .fittingSizeLevel
+    )
+    return cellSize
+  }
 }

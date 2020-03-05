@@ -111,10 +111,11 @@ extension LayoutExampleSceneViewController {
 
     private func configureDynamicHeight() {
         dynamicCellSizeCache = [[]]
-        if useDynamicHeight {
+        layoutExampleCollectionView.delegate = self
+        /*if useDynamicHeight {
             layoutExampleCollectionView.delegate = self
         } else {
             layoutExampleCollectionView.delegate = nil
-        }
+        }*/
     }
 }

@@ -9,8 +9,7 @@ let package = Package(
         .macOS(.v10_11)
     ],
     products: [
-        .library(name: "Blueprints", targets: ["Blueprints"]),
-        .library(name: "BlueprintsMac", targets: ["BlueprintsMac"])
+        .library(name: "Blueprints", targets: ["Blueprints"])
     ],
     targets: [
          .target(
@@ -19,14 +18,6 @@ let package = Package(
             sources: [
                 "Shared",
                 "iOS+tvOS"
-            ]
-         ),
-         .target(
-            name: "BlueprintsMac",
-            path: "Sources",
-            sources: [
-                "Shared",
-                "macOS"
             ]
          )
     ]

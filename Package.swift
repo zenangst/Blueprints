@@ -9,12 +9,22 @@ let package = Package(
         .macOS(.v10_11)
     ],
     products: [
-        .library(name: "Blueprints", targets: ["Blueprints"]),
+        .library(name: "Blueprints", targets: ["Blueprints", "BlueprintsMac"]),
     ],
     targets: [
          .target(
             name: "Blueprints",
-            path: "Sources"
+            path: "Sources",
+            exclude: [
+                "Sources/macOS"
+            ]
+         ),
+         .target(
+            name: "BlueprintsMac",
+            path: "Sources",
+            exclude: [
+                "Sources/iOS+tvOS"
+            ]
          )
     ]
 )

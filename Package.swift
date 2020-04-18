@@ -5,7 +5,7 @@ let package = Package(
     name: "Blueprints",
     platforms: [
         .iOS(.v8),
-        .tvOS(.v9_2),
+        .tvOS(.v9),
         .macOS(.v10_11)
     ],
     products: [

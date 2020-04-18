@@ -9,7 +9,8 @@ let package = Package(
         .macOS(.v10_11)
     ],
     products: [
-        .library(name: "Blueprints", targets: ["Blueprints", "BlueprintsMac"]),
+        .library(name: "Blueprints", targets: ["Blueprints"]),
+        .library(name: "BlueprintsMac", targets: ["BlueprintsMac"])
     ],
     targets: [
          .target(

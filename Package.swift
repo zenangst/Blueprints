@@ -16,15 +16,17 @@ let package = Package(
          .target(
             name: "Blueprints",
             path: "Sources",
-            exclude: [
-                "Sources/macOS"
+            sources: [
+                "Sources/Shared",
+                "Sources/iOS+tvOS"
             ]
          ),
          .target(
             name: "BlueprintsMac",
             path: "Sources",
-            exclude: [
-                "Sources/iOS+tvOS"
+            sources: [
+                "Sources/Shared",
+                "Sources/macOS"
             ]
          )
     ]

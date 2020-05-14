@@ -510,7 +510,9 @@
     let indexPath = originalAttributes.indexPath
     #endif
     let currentAttributes = cachedItemAttributesBySection[indexPath.section][indexPath.item]
-    let shouldInvalidateLayout = !(sizesAreEqual(preferredAttributes.size, rhs: currentAttributes.size))
+    let distanceDiff = distanceBetweenSizes(preferredAttributes.size, rhs: currentAttributes.size)
+    let shouldInvalidateLayout = !(sizesAreEqual(preferredAttributes.size, rhs: currentAttributes.size)) &&
+      (distanceDiff.width > 1 || distanceDiff.height > 1)
 
     if shouldInvalidateLayout && preferredLayoutAttributesSizes.isEmpty {
       preferredLayoutAttributesSizes = Array<[IndexPath: CGSize]>.init(repeating: [IndexPath: CGSize](),
@@ -668,5 +670,17 @@
   private func sizesAreEqual(_ lhs: CGSize, rhs: CGSize?) -> Bool {
     return lhs.width.rounded() == rhs?.width.rounded()
       && lhs.height.rounded() == rhs?.height.rounded()
+  }
+
+  private func distanceBetweenSizes(_ lhs: CGSize, rhs: CGSize) -> CGSize {
+    let width = lhs.width > rhs.width
+      ? lhs.width - rhs.width
+      : rhs.width - lhs.width
+
+    let height = lhs.height > rhs.height
+    ? lhs.height - rhs.height
+    : rhs.height - lhs.height
+
+    return CGSize(width: abs(width), height: abs(height))
   }
 }

@@ -127,6 +127,14 @@ github "zenangst/Blueprints"
 
 **Blueprints** can also be installed manually. Just download and drop `Sources` folders in your project.
 
+## Supporting the project
+You can support the project by checking out our sponsor page. It takes only one click:
+
+<a href="https://tracking.gitads.io/?repo=Blueprints">
+  <img alt="Sponsor banner" src="https://images.gitads.io/Blueprints" />
+</a>
+<br><i>This advert was placed by <a href="https://tracking.gitads.io/?repo=Blueprints">GitAds</a> </i>
+
 ## Author(s)
 
 - Christoffer Winterkvist, [@zenangst](https://github.com/zenangst)

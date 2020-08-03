@@ -35,6 +35,14 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 📺 tvOS support
 - [x] 🦖 Objective-C support
 
+## Supporting the project
+You can support the project by checking out our sponsor page. It takes only one click:
+
+<a href="https://tracking.gitads.io/?repo=Blueprints">
+  <img alt="Sponsor banner" src="https://images.gitads.io/Blueprints" />
+</a>
+<br><i>This advert was placed by <a href="https://tracking.gitads.io/?repo=Blueprints">GitAds</a> </i>
+
 ## Preview
 
 | iOS   | macOS  |
@@ -126,14 +134,6 @@ github "zenangst/Blueprints"
 ```
 
 **Blueprints** can also be installed manually. Just download and drop `Sources` folders in your project.
-
-## Supporting the project
-You can support the project by checking out our sponsor page. It takes only one click:
-
-<a href="https://tracking.gitads.io/?repo=Blueprints">
-  <img alt="Sponsor banner" src="https://images.gitads.io/Blueprints" />
-</a>
-<br><i>This advert was placed by <a href="https://tracking.gitads.io/?repo=Blueprints">GitAds</a> </i>
 
 ## Author(s)
 

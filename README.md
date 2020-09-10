@@ -36,12 +36,8 @@ The framework also provides a good base for your custom implementations. By exte
 - [x] 🦖 Objective-C support
 
 ## Supporting the project
-You can support the project by checking out our sponsor page. It takes only one click:
 
-<a href="https://tracking.gitads.io/?repo=Blueprints">
-  <img alt="Sponsor banner" src="https://images.gitads.io/Blueprints" />
-</a>
-<br><i>This advert was placed by <a href="https://tracking.gitads.io/?repo=Blueprints">GitAds</a> </i>
+If you want to support the development of this framework, you can do so by becoming a [sponsor](https://github.com/sponsors/zenangst). ❤️
 
 ## Preview
 

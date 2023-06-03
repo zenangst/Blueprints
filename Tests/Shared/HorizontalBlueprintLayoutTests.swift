@@ -231,6 +231,39 @@ class HorizontalBlueprintLayoutTests: XCTestCase {
     XCTAssertEqual(horizontalLayout.contentSize, horizontalLayout.collectionViewContentSize)
   }
 
+  func testHorizontalLayoutWithDynamicSizes() {
+    let dataSource = DynamicSizeDataSource()
+    let (collectionView, layout) = Helper.createHorizontalLayout(dataSource: dataSource)
+    #if os(macOS)
+    collectionView.register(DynamicSizeItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init(rawValue: "dynamic"))
+    collectionView.enclosingScrollView?.frame.size.width = 1000 * CGFloat(dataSource.numberOfItems)
+    #else
+    collectionView.register(DynamicSizeHorizontalCell.self, forCellWithReuseIdentifier: "dynamic")
+    collectionView.frame.size.width = 1000 * CGFloat(dataSource.numberOfItems)
+    #endif
+
+    layout.estimatedItemSize = .init(width: 50, height: 50)
+    layout.sectionInset = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    layout.minimumInteritemSpacing = 0
+    layout.minimumLineSpacing = 0
+    collectionView.layoutIfNeeded()
+
+    XCTAssertEqual(layout.cachedItemAttributesBySection[0].count, 10)
+
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 100, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 1, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 100, y: 0), size: CGSize(width: 100, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 200, y: 0), size: CGSize(width: 100, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 3, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 300, y: 0), size: CGSize(width: 100, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 4, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 400, y: 0), size: CGSize(width: 100, height: 100)))
+    XCTAssertEqual(layout.layoutAttributesForItem(at: IndexPath(item: 5, section: 0))!.frame,
+                   CGRect(origin: CGPoint(x: 500, y: 0), size: CGSize(width: 100, height: 100)))
+  }
+
   /// Process 1 million items in less than five seconds
   func testPerformance() {
     let dataSource = MockDataSource(numberOfItems: 10000, numberOfSections: 100)

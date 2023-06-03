@@ -44,7 +44,10 @@ extension BlueprintLayout {
     } else if collectionView?.alphaValue == alphaValue {
       collectionView?.alphaValue = 1.0
     }
-    collectionView?.frame.size.height = contentSize.height
+
+    if collectionView?.frame.size.height.rounded() != contentSize.height.rounded() {
+      collectionView?.frame.size.height = contentSize.height
+    }
   }
 
   /// When transitioning between layouts macOS does not set the
